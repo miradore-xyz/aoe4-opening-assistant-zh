@@ -64,6 +64,21 @@ def default_data_dir():
     return ROOT / "用户数据"
 
 
+def resource_step(order, ids):
+    """同组条件提示只补充已知值，未指定人数不擦掉同一时刻的分配。"""
+    result = copy.deepcopy(order["build_order"][ids[0]])
+    for index in ids[1:]:
+        step = order["build_order"][index]
+        for key in ("food", "wood", "gold", "stone", "builder"):
+            value = step.get("resources", {}).get(key, -1)
+            if value >= 0:
+                result.setdefault("resources", {})[key] = value
+        for key in ("population_count", "villager_count", "age"):
+            if step.get(key, -1) >= 0:
+                result[key] = step[key]
+    return result
+
+
 def label(text, muted=False):
     widget = QLabel(text)
     widget.setWordWrap(True)
@@ -464,11 +479,39 @@ class Overlay(QWidget):
         row.addWidget(self.title, 1)
         self.clock_label = QLabel("00:00")
         self.clock_label.setStyleSheet("font-family:'Segoe UI';font-size:20px;color:#f4f4f5;")
+        self.clock_label.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         row.addWidget(self.clock_label)
         self.voice_dot = QLabel("●")
         self.voice_dot.setToolTip("中文朗读状态")
         self.voice_dot.setStyleSheet("color:#22c55e;font-size:8px;")
         row.addWidget(self.voice_dot)
+        self.close_button = QPushButton()
+        self.close_button.setObjectName("OverlayClose")
+        self.close_button.setFixedSize(24, 24)
+        self.close_button.setFocusPolicy(Qt.StrongFocus)
+        self.close_button.setCursor(Qt.PointingHandCursor)
+        self.close_button.setAccessibleName("关闭悬浮窗并暂停计时")
+        self.close_button.setToolTip("关闭悬浮窗并暂停计时；可从主面板或快捷键恢复。")
+        close_image = QPixmap(32, 32)
+        close_image.fill(Qt.transparent)
+        close_image.setDevicePixelRatio(2)
+        close_painter = QPainter(close_image)
+        close_painter.setRenderHint(QPainter.Antialiasing)
+        close_painter.setPen(QPen(QColor("#d5d5d8"), 1.5, Qt.SolidLine, Qt.RoundCap))
+        close_painter.drawLine(QPointF(4, 4), QPointF(12, 12))
+        close_painter.drawLine(QPointF(12, 4), QPointF(4, 12))
+        close_painter.end()
+        self.close_button.setIcon(QIcon(close_image))
+        self.close_button.setIconSize(QSize(16, 16))
+        self.close_button.setStyleSheet(
+            "QPushButton#OverlayClose {background:transparent;border:1px solid transparent;"
+            "border-radius:5px;padding:0;}"
+            "QPushButton#OverlayClose:hover {background:#35353b;}"
+            "QPushButton#OverlayClose:pressed {background:#45454c;}"
+            "QPushButton#OverlayClose:focus {border-color:#8b8b94;}"
+        )
+        self.close_button.clicked.connect(self.close)
+        row.addWidget(self.close_button)
         layout.addLayout(row)
         timing = QHBoxLayout()
         self.step_count = QLabel("01 / 11")
@@ -609,8 +652,9 @@ class Overlay(QWidget):
         if data is None:
             return
         ids = manager.ids
-        current = data["build_order"][ids[-1]]
-        self.title.setText(self.title.fontMetrics().elidedText(data["name"], Qt.ElideRight, max(60, self.width() - 128)))
+        current = resource_step(data, ids)
+        self.layout().activate()
+        self.title.setText(self.title.fontMetrics().elidedText(data["name"], Qt.ElideRight, max(0, self.title.width())))
         self.title.setToolTip(data["name"] + "\n按住标题可移动悬浮窗。")
         from aoe4.aoe4_civ_icon import aoe4_civilization_icon
         civ = data["civilization"]
@@ -623,7 +667,8 @@ class Overlay(QWidget):
         state = "进行中" if manager.clock.running else "已暂停"
         mode = "自动切步" if manager.settings["auto"] else "手动步骤"
         self.clock_label.setText(timestamp(manager.clock.seconds))
-        self.step_count.setText(f"{ids[0]+1:02d} / {len(data['build_order']):02d}")
+        shown = f"{ids[0]+1:02d}–{ids[-1]+1:02d}" if len(ids) > 1 else f"{ids[0]+1:02d}"
+        self.step_count.setText(f"{shown} / {len(data['build_order']):02d}")
         self.status.setText(f"{state} · {mode}")
         self.voice_dot.setStyleSheet(f"color:{'#4ade80' if manager.settings['speech'] else '#71717a'};font-size:8px;")
         self.voice_dot.setToolTip("中文朗读已开启" if manager.settings["speech"] else "中文朗读已关闭，可在主界面开启")
@@ -637,8 +682,12 @@ class Overlay(QWidget):
         detail_size = max(6, main_size - 1)
         # 仅悬浮正文图标随字号缩放；主界面与编辑器仍用原来的图标尺寸。
         icon_size = max(10, round(main_size * 4 / 3 + 2))
+        has_timeline = bool(timer_steps(data))
         for index in ids:
-            notes = data["build_order"][index]["notes"]
+            step = data["build_order"][index]
+            notes = step["notes"]
+            if has_timeline and not (step.get("time") or "").strip():
+                sections.append(f'<p style="margin:3px 0 2px 0;font-size:{detail_size}pt;color:#a1a1aa;">条件提示</p>')
             # 同时发生的每个步骤都保留首段主字号，其余段落降低一级。
             for paragraph, line in enumerate(notes):
                 size = main_size if paragraph == 0 else detail_size
@@ -661,7 +710,11 @@ class Overlay(QWidget):
 
     def closeEvent(self, event):
         event.ignore()
+        self.drag = None
+        self.manager.clock.pause()
+        self.manager.stop_voice()
         self.hide()
+        self.manager.update_display()
 
 
 class Manager(FramelessWindow):
@@ -1275,7 +1328,7 @@ class Manager(FramelessWindow):
         sections.setSpacing(20)
         paragraphs = [
             ("开始一次演练", "在开局库选择文明与开局，点击播放开始计时。演练区的齿轮可展开朗读、自动切换与鼠标穿透选项。\n按住悬浮窗标题拖动位置，拖动右下角调整大小；也可以在设置中精确输入。"),
-            ("按时间提示，按局势调整", "有完整时间的开局可以自动切换；没有时间的条目手动切换。相同时间的指令会合并显示。\n计时由你控制，不读取游戏时间；游戏暂停或加载时请同步暂停助手。循环检查默认关闭，可在设置中开启。"),
+            ("按时间提示，按局势调整", "已标明时间的节点按时自动推进；夹在其中的无时间内容会随前一时间点显示为条件提示。完全没有时间的开局按条件手动切换。\n计时由你控制，不读取游戏时间；游戏暂停或加载时请同步暂停助手。循环检查默认关闭，可在设置中开启。"),
             ("编辑与导入", "编辑器按时间点安排村民、建筑、科技与提示，选项随文明变化。\n本地导入支持 RTS Overlay（即时战略悬浮工具）的 JSON（结构化数据）开局文件，复制到本地库后编辑，不改动外部原文件。"),
             ("中文朗读", "在设置中选择晓晓、云希、晓伊或本机中文系统声音。在线声音无需登录，准备时将播报文字发送给微软服务；缓存完成后可以断网播放。\n修改文字、音色或语速后需要重新准备；关闭朗读仍可正常查看提示。"),
             ("资料保存与更新", "便携版使用程序旁的“用户数据”；安装版使用个人应用资料目录，升级时保留原位置。\n检查更新和打开数据目录的入口位于设置页底部。战绩分析只查询公开记录，不读取游戏内存，不自动操作游戏。"),
@@ -1370,7 +1423,7 @@ class Manager(FramelessWindow):
             self.auto_check.setChecked(False)
             self.auto_check.blockSignals(False)
             self.settings["auto"] = False
-            self.status_bar.setText("此开局没有完整且递增的时间，已使用手动切换。")
+            self.status_bar.setText("此开局没有可用的顺序时间节点，当前按条件手动切换。")
         else:
             self.settings["auto"] = enabled
             if enabled and self.order:
@@ -1685,6 +1738,8 @@ class Manager(FramelessWindow):
         self.auto_check.setChecked(automatic)
         self.auto_check.blockSignals(False)
         self.settings["auto"] = automatic
+        if automatic:
+            self.ids = timed_ids(self.order, 0, self.settings["timing"] == "starting") or [0]
         language = "内置中文示例" if self.order.get("_zh_language") == "zh-CN" else "正文保留原语言，可在编辑器自行修改"
         title = self.order["name"].replace("龙之骑士团 · ", "")
         self.order_info.setText(
@@ -1729,9 +1784,11 @@ class Manager(FramelessWindow):
                 self.command_scroll.verticalScrollBar().setValue(0)
                 self._command_key = command_key
             total = len(self.order['build_order'])
-            self.session_step.setText(f"{self.ids[0]+1:02d} / {total:02d}")
+            active = (f"{self.ids[0]+1:02d}–{self.ids[-1]+1:02d}" if len(self.ids) > 1
+                      else f"{self.ids[0]+1:02d}")
+            self.session_step.setText(f"{active} / {total:02d}")
             self.timeline_count.setText(f"{total} 步")
-            self.session_resources.set_step(self.order['build_order'][self.ids[-1]])
+            self.session_resources.set_step(resource_step(self.order, self.ids))
             next_index = self.ids[-1] + 1
             if next_index < total:
                 upcoming = self.order['build_order'][next_index]['notes']
@@ -1777,13 +1834,16 @@ class Manager(FramelessWindow):
                 self.prepare_voice()
                 return
             self.clock.start()
+            if self.settings["auto"]:
+                self.ids = timed_ids(self.order, self.clock.seconds, self.settings["timing"] == "starting") or self.ids
             self.speak_step()
         self.update_display()
 
     def reset_clock(self):
         self.clock.pause()
         self.clock.seek(0)
-        self.ids = [0]
+        self.ids = (timed_ids(self.order, 0, self.settings["timing"] == "starting")
+                    if self.order and self.settings["auto"] else []) or [0]
         self.last_reminder = 0
         self.reminder_text = ""
         self.step_alert = ""

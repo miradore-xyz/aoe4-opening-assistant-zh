@@ -68,9 +68,10 @@ class CoreTests(unittest.TestCase):
         self.sample["build_order"][2]["time"] = "0:10"
         self.assertEqual(timed_ids(self.sample, 10, starting=True), [1, 2])
 
-    def test_missing_and_unsorted_times_use_manual(self):
+    def test_missing_time_keeps_known_groups_and_unsorted_times_use_manual(self):
         self.sample["build_order"][1].pop("time")
-        self.assertFalse(timer_steps(self.sample))
+        self.assertTrue(timer_steps(self.sample))
+        self.assertEqual(timed_ids(self.sample, 0, starting=True), [0, 1])
         self.sample["build_order"][1]["time"] = "0:50"
         self.assertFalse(timer_steps(self.sample))
 

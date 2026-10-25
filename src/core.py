@@ -138,12 +138,62 @@ def read_order(path):
 
 
 def timer_steps(order):
-    return get_build_order_timer_steps(order)
+    """保留原节点索引，把无时间的条件说明并入其前一个已知时间组。
+
+    time_sec（内部显示分组秒数）只存在于返回副本；原稿空时间不变，
+    不表示条件已完成。前导条件属于初始显示组；全无时间仍使用手动。
+    已知时间必须使用分:秒且不逆序，完整时间稿继续沿用上游返回结构。
+    """
+    if not isinstance(order, dict) or not isinstance(order.get("build_order"), list):
+        return []
+    entries = order["build_order"]
+    parsed = []
+    last_known = -1
+    known_count = 0
+    for step in entries:
+        if not isinstance(step, dict) or "notes" not in step:
+            return []
+        value = step.get("time", "")
+        if not isinstance(value, str):
+            return []
+        if not value.strip():
+            parsed.append(None)
+            continue
+        match = re.fullmatch(r"([0-9]{1,9}):([0-5][0-9])", value)
+        if not match:
+            return []
+        seconds = int(match[1]) * 60 + int(match[2])
+        if seconds < last_known:
+            return []
+        parsed.append(seconds)
+        last_known = seconds
+        known_count += 1
+    if not known_count:
+        return []
+    if known_count == len(entries):
+        return get_build_order_timer_steps(order)
+    result = []
+    anchor = 0
+    for step, seconds in zip(entries, parsed):
+        inherited = seconds is None
+        if not inherited:
+            anchor = seconds
+        copy_step = step.copy()
+        copy_step["time_sec"] = anchor
+        copy_step["_zh_timer_inherited"] = inherited
+        result.append(copy_step)
+    return result
 
 
 def timed_ids(order, seconds, starting=False):
-    """沿用原版 AoE4 默认规则：时间是步骤结束时刻，也可在设置中改为开始时刻。"""
-    return get_build_order_timer_step_ids(timer_steps(order), int(seconds), starting_flag=starting)
+    """沿用开始/结束时刻语义，返回原始节点索引，混合稿同时显示同组条件。"""
+    steps = timer_steps(order)
+    selected = get_build_order_timer_step_ids(steps, int(seconds), starting_flag=starting)
+    if selected and any(step.get("_zh_timer_inherited") for step in steps):
+        # 上游在结束时刻超出末项后只返回最后一个节点；扩展回来保留其时间组。
+        groups = {steps[index]["time_sec"] for index in selected}
+        return [index for index, step in enumerate(steps) if step["time_sec"] in groups]
+    return selected
 
 
 def timestamp(seconds):
