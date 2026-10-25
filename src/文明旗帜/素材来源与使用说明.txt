@@ -1,0 +1,24 @@
+文明旗帜素材说明
+
+来源：AoE4 Guides 网站的公开源码仓库。
+仓库：https://github.com/jensbuehl/aoe4-guides
+固定提交：611892a9924565c7d525542c3276945031f74f28
+源目录：public/assets/flags/
+下载日期：2026-10-25
+
+本目录的24张图为上游*-large.webp原件，未裁切、重采样、AI放大或重绘。
+全部实际分辨率455×256，覆盖软件当前23个游戏文明，以及通用旗帜。
+这是455像素原图，不能当作4K资源描述。
+
+manifest.json（映射清单）：键为开局数据使用的英文文明名，值为本目录图片文件名。
+any、Any、Generic均表示“通用”，共用any-large.webp。
+sources.json（来源记录）：repository=仓库，commit=固定版本，assets=素材列表；
+其中file=文件名，width/height=实际宽高，bytes=字节数，sha256=文件校验值，source=原始下载地址。
+
+版权与使用：
+Age of Empires IV（帝国时代IV）及相关游戏图像版权归Microsoft Corporation（微软公司）。
+这些游戏视觉素材不因存放于开源仓库而被重新授权为MIT。
+上游README说明视觉素材除外，并声明依据微软Game Content Usage Rules（游戏内容使用规则）创作；项目不受微软认可或关联。
+规则：https://www.xbox.com/en-US/developers/rules
+上游README及代码MIT许可证一并保存，仅供追溯；MIT代码许可证不覆盖微软游戏图像。
+本软件为非官方爱好者工具，不代表微软、World's Edge或AoE4 Guides。

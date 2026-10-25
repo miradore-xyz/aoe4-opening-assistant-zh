@@ -1,0 +1,5 @@
+ChineseSimplified.isl 为 Inno Setup（安装器编译工具）6.7.3 源码附带的社区简体中文翻译。
+保留 Zhenghan Yang 的原始署名及注释，文件未经修改。
+来源：https://github.com/jrsoftware/issrc/blob/is-6_7_3/Files/Languages/Unofficial/ChineseSimplified.isl
+翻译维护者：https://github.com/kira-96/Inno-Setup-Chinese-Simplified-Translation
+Inno Setup 许可全文见同目录 InnoSetup-LICENSE.txt。

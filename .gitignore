@@ -1,0 +1,18 @@
+# 本机个人资料、依赖、构建缓存与发行附件不提交。
+用户数据/
+更新下载/
+语音缓存/
+战绩缓存/
+__pycache__/
+*.py[cod]
+.venv/
+.build-env/
+build/
+dist/
+构建产物/
+构建缓存/
+release-output/
+*.spec
+*.tmp
+.运行锁
+data-location.json

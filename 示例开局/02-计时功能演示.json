@@ -1,0 +1,58 @@
+{
+  "name": "计时功能演示（非攻略）",
+  "civilization": "any",
+  "author": "中文助手本地示例",
+  "source": "仅用于体验计时、图标和资源分配显示；所有数字都是演示数据",
+  "_zh_language": "zh-CN",
+  "_zh_timing": "starting",
+  "build_order": [
+    {
+      "population_count": 10,
+      "villager_count": 5,
+      "age": 1,
+      "time": "0:00",
+      "resources": {
+        "food": 5,
+        "wood": 0,
+        "gold": 0,
+        "stone": 0
+      },
+      "notes": [
+        "第一步：按开始图标。十秒、二十秒时会自动切换并提醒。",
+        "图标兼容示例：@unit_worker/villager.webp@ 村民；@resource/resource_gold.webp@ 黄金。"
+      ]
+    },
+    {
+      "population_count": 11,
+      "villager_count": 6,
+      "age": 1,
+      "time": "0:10",
+      "resources": {
+        "food": 5,
+        "wood": 1,
+        "gold": 0,
+        "stone": 0
+      },
+      "notes": [
+        "第二步：时间已到十秒；可暂停，再继续。",
+        "图标兼容示例：@unit_worker/villager.webp@ 村民；@resource/resource_gold.webp@ 黄金。"
+      ]
+    },
+    {
+      "population_count": 12,
+      "villager_count": 7,
+      "age": 1,
+      "time": "0:20",
+      "resources": {
+        "food": 5,
+        "wood": 2,
+        "gold": 0,
+        "stone": 0
+      },
+      "notes": [
+        "第三步：演示结束。上一步和下一步也可手动使用。",
+        "图标兼容示例：@unit_worker/villager.webp@ 村民；@resource/resource_gold.webp@ 黄金。"
+      ]
+    }
+  ]
+}

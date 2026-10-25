@@ -1,0 +1,19 @@
+edge-tts（在线语音依赖） 7.3.1
+aiohttp（在线语音依赖） 3.14.5
+aiohappyeyeballs（在线语音依赖） 2.7.1
+aiosignal（在线语音依赖） 1.4.0
+attrs（在线语音依赖） 26.1.0
+certifi（在线语音依赖） 2026.10.23
+frozenlist（在线语音依赖） 1.8.0
+idna（在线语音依赖） 3.20
+multidict（在线语音依赖） 7.2.1
+propcache（在线语音依赖） 0.5.4
+tabulate（在线语音依赖） 0.10.0
+typing_extensions（在线语音依赖） 4.16.0
+yarl（在线语音依赖） 1.25.1
+
+edge-tts（在线朗读客户端）源码与许可：
+https://github.com/rany2/edge-tts
+https://pypi.org/project/edge-tts/7.3.1/
+edge-tts 使用 LGPL 第三版；本包保留许可证，完整 Python 源文件由构建脚本 collect-all 随运行包提供。
+aiohttp 及其它依赖各自的随附许可证保存在同名文件夹。未经更改。

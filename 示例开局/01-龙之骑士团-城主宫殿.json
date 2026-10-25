@@ -1,0 +1,174 @@
+{
+  "name": "龙之骑士团 · 城主宫殿 · 操作检查清单",
+  "civilization": "Order of the Dragon",
+  "author": "中文助手本地示例",
+  "source": "操作习惯提示，可按本局修改；不是固定人数或时间攻略",
+  "_zh_language": "zh-CN",
+  "build_order": [
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": -1,
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1
+      },
+      "notes": [
+        "开局先安排城镇中心持续造村民，再让侦察兵找食物。",
+        "这是一份操作检查清单，没有固定升本时间；按局势手动切换步骤。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": -1,
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1
+      },
+      "notes": [
+        "查看食物供应能否支持持续造村民；检查城镇中心生产队列。",
+        "看当前人口和下一批单位需求，提前安排村民补房。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": -1,
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1
+      },
+      "notes": [
+        "侦察对手动向，再决定防守和升级安排。",
+        "让黄金采集持续运转；根据升级和军队需求调整分配。不要照搬普通文明的村民配比。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": -1,
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1
+      },
+      "notes": [
+        "点击升级后继续检查造村民、补房和食物接续。",
+        "升级前后都要观察对手，必要时先补兵保护资源点。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": -1,
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1
+      },
+      "notes": [
+        "准备升城堡时代：选择城主宫殿，安排安全的建造位置。",
+        "城主宫殿与施瓦本宫殿是不同地标；不要把其他文明或地标的加成套用到这里。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": -1,
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1
+      },
+      "notes": [
+        "城主宫殿建成后，按对手兵种安排步兵生产与相应升级。",
+        "每次操作军队后回看生产队列：造村民、补房、补兵。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": -1,
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1
+      },
+      "notes": [
+        "战斗前先补充兵力，再查看金矿余量和矿工安全。",
+        "旧金矿快空时，提前侦察并保护备用金矿，安排矿工转移。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": -1,
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1
+      },
+      "notes": [
+        "中期经济检查：食物是否接续？伐木点是否需要前移？",
+        "检查黄金收入能否支撑当前兵种与升级；不是金矿挖完以后才寻找下一处。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": -1,
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1
+      },
+      "notes": [
+        "避免同时堆太多需要黄金的升级和部队，按当前收入安排支出。",
+        "黄金紧张时减少无计划花费，并根据对手调整兵种组合。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": -1,
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1
+      },
+      "notes": [
+        "后期继续循环：村民生产、人口空间、补充部队、黄金来源。",
+        "保护外矿；有安全路线时再考虑贸易；圣物等长期收入按本局机会争取。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": -1,
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1
+      },
+      "notes": [
+        "复盘本局断村民、卡人口和断金的原因，把最常漏的事项写进循环提醒。",
+        "检查清单到此结束；计时和循环提醒会继续，直到你暂停。"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,198 @@
+{
+  "repository": "https://github.com/jensbuehl/aoe4-guides",
+  "commit": "611892a9924565c7d525542c3276945031f74f28",
+  "assets": [
+    {
+      "file": "abb-large.webp",
+      "width": 455,
+      "height": 256,
+      "bytes": 5758,
+      "sha256": "133ccf9ffeff7c7ab7fcc16617654227b64bb66358e1b6a3a22a9afb65d25b96",
+      "source": "https://raw.githubusercontent.com/jensbuehl/aoe4-guides/611892a9924565c7d525542c3276945031f74f28/public/assets/flags/abb-large.webp"
+    },
+    {
+      "file": "any-large.webp",
+      "width": 455,
+      "height": 256,
+      "bytes": 16596,
+      "sha256": "2e43f339d7cc1e63e69a4e647390a79e3ab08de237a94d00ca15f072acf6350e",
+      "source": "https://raw.githubusercontent.com/jensbuehl/aoe4-guides/611892a9924565c7d525542c3276945031f74f28/public/assets/flags/any-large.webp"
+    },
+    {
+      "file": "ayy-large.webp",
+      "width": 455,
+      "height": 256,
+      "bytes": 22842,
+      "sha256": "afee019e61461837b5c4a4201f327326d8557aa4311ec7cda3fedbeee19a0673",
+      "source": "https://raw.githubusercontent.com/jensbuehl/aoe4-guides/611892a9924565c7d525542c3276945031f74f28/public/assets/flags/ayy-large.webp"
+    },
+    {
+      "file": "byz-large.webp",
+      "width": 455,
+      "height": 256,
+      "bytes": 22458,
+      "sha256": "bafbf35ddee7e2876a99acb9e18fcdb87ed1f9bb4e9fc719b8dc5313f899e8de",
+      "source": "https://raw.githubusercontent.com/jensbuehl/aoe4-guides/611892a9924565c7d525542c3276945031f74f28/public/assets/flags/byz-large.webp"
+    },
+    {
+      "file": "chi-large.webp",
+      "width": 455,
+      "height": 256,
+      "bytes": 11014,
+      "sha256": "e0aeb66a5b1df0366b2485c6484c820d56a37ace9398d4deef59a196a5b879f9",
+      "source": "https://raw.githubusercontent.com/jensbuehl/aoe4-guides/611892a9924565c7d525542c3276945031f74f28/public/assets/flags/chi-large.webp"
+    },
+    {
+      "file": "del-large.webp",
+      "width": 455,
+      "height": 256,
+      "bytes": 7506,
+      "sha256": "3c2027aa0aec34aaed21f3f416db3eeb10a2bd5a815598d2d0966401e4ca1cd3",
+      "source": "https://raw.githubusercontent.com/jensbuehl/aoe4-guides/611892a9924565c7d525542c3276945031f74f28/public/assets/flags/del-large.webp"
+    },
+    {
+      "file": "dra-large.webp",
+      "width": 455,
+      "height": 256,
+      "bytes": 27852,
+      "sha256": "29adeec7aa1e08cdd45bac3c78b9319b92702eb89ffacf5e872e2e0559100047",
+      "source": "https://raw.githubusercontent.com/jensbuehl/aoe4-guides/611892a9924565c7d525542c3276945031f74f28/public/assets/flags/dra-large.webp"
+    },
+    {
+      "file": "eng-large.webp",
+      "width": 455,
+      "height": 256,
+      "bytes": 7262,
+      "sha256": "60726f07afc32ee2cbf3a1766f282efee4057a0b6c53fcefac0c7e137f39508c",
+      "source": "https://raw.githubusercontent.com/jensbuehl/aoe4-guides/611892a9924565c7d525542c3276945031f74f28/public/assets/flags/eng-large.webp"
+    },
+    {
+      "file": "fre-large.webp",
+      "width": 455,
+      "height": 256,
+      "bytes": 11910,
+      "sha256": "90f1491aa6d5d1e8c279c739c1c4ffa8c19baf6491dced1811cae9726a2148a5",
+      "source": "https://raw.githubusercontent.com/jensbuehl/aoe4-guides/611892a9924565c7d525542c3276945031f74f28/public/assets/flags/fre-large.webp"
+    },
+    {
+      "file": "goh-large.webp",
+      "width": 455,
+      "height": 256,
+      "bytes": 9608,
+      "sha256": "b2258584dd5fa9ad1c5f21885c5b5b52e0e2e255f492ef9b0d14eddef739134e",
+      "source": "https://raw.githubusercontent.com/jensbuehl/aoe4-guides/611892a9924565c7d525542c3276945031f74f28/public/assets/flags/goh-large.webp"
+    },
+    {
+      "file": "hol-large.webp",
+      "width": 455,
+      "height": 256,
+      "bytes": 25790,
+      "sha256": "38c649202113fc217da73764e6c1992819eb1c12dfc5a209aeaad21909a7533c",
+      "source": "https://raw.githubusercontent.com/jensbuehl/aoe4-guides/611892a9924565c7d525542c3276945031f74f28/public/assets/flags/hol-large.webp"
+    },
+    {
+      "file": "hre-large.webp",
+      "width": 455,
+      "height": 256,
+      "bytes": 16314,
+      "sha256": "1bce94249a07074fcaf7156f021c16924c99497d64147acc7a0a1c01bb0103a6",
+      "source": "https://raw.githubusercontent.com/jensbuehl/aoe4-guides/611892a9924565c7d525542c3276945031f74f28/public/assets/flags/hre-large.webp"
+    },
+    {
+      "file": "jap-large.webp",
+      "width": 455,
+      "height": 256,
+      "bytes": 22142,
+      "sha256": "c0f6cbeb5fde6e7f1af691cc7202bd99af1dbbc1d6eaa9fa8edca03ffc797675",
+      "source": "https://raw.githubusercontent.com/jensbuehl/aoe4-guides/611892a9924565c7d525542c3276945031f74f28/public/assets/flags/jap-large.webp"
+    },
+    {
+      "file": "jda-large.webp",
+      "width": 455,
+      "height": 256,
+      "bytes": 20000,
+      "sha256": "7223435c5256ff2da0e3aef820aa8c7f7843a726439c5d62bb7a9499997c402a",
+      "source": "https://raw.githubusercontent.com/jensbuehl/aoe4-guides/611892a9924565c7d525542c3276945031f74f28/public/assets/flags/jda-large.webp"
+    },
+    {
+      "file": "jin-large.webp",
+      "width": 455,
+      "height": 256,
+      "bytes": 31296,
+      "sha256": "1c3d814728553b657661c993a44dc3e67a887dd636bade870457744d00b3f4bc",
+      "source": "https://raw.githubusercontent.com/jensbuehl/aoe4-guides/611892a9924565c7d525542c3276945031f74f28/public/assets/flags/jin-large.webp"
+    },
+    {
+      "file": "kte-large.webp",
+      "width": 455,
+      "height": 256,
+      "bytes": 20960,
+      "sha256": "231cd415b5e033fa36f252ff465c8cbea49f25d63c9b57666f2cead84074835a",
+      "source": "https://raw.githubusercontent.com/jensbuehl/aoe4-guides/611892a9924565c7d525542c3276945031f74f28/public/assets/flags/kte-large.webp"
+    },
+    {
+      "file": "mac-large.webp",
+      "width": 455,
+      "height": 256,
+      "bytes": 17702,
+      "sha256": "869d2284115c6ecc3a64085050f8da73af6c017fe6931f2553e17caa6e662976",
+      "source": "https://raw.githubusercontent.com/jensbuehl/aoe4-guides/611892a9924565c7d525542c3276945031f74f28/public/assets/flags/mac-large.webp"
+    },
+    {
+      "file": "mal-large.webp",
+      "width": 455,
+      "height": 256,
+      "bytes": 8906,
+      "sha256": "48a322d0cf7f1474ee226190b317d6c4f8e05f2e06618446e9c4f63ff8e01465",
+      "source": "https://raw.githubusercontent.com/jensbuehl/aoe4-guides/611892a9924565c7d525542c3276945031f74f28/public/assets/flags/mal-large.webp"
+    },
+    {
+      "file": "mon-large.webp",
+      "width": 455,
+      "height": 256,
+      "bytes": 9702,
+      "sha256": "9826d108dbe2f034f7af57afa5a9144b7edad8cbde6bcbee2589829940cfadb9",
+      "source": "https://raw.githubusercontent.com/jensbuehl/aoe4-guides/611892a9924565c7d525542c3276945031f74f28/public/assets/flags/mon-large.webp"
+    },
+    {
+      "file": "ott-large.webp",
+      "width": 455,
+      "height": 256,
+      "bytes": 6348,
+      "sha256": "ecd71f1ed686c72a12e1ce88677381084d89d452ef65573039df55e2b8690959",
+      "source": "https://raw.githubusercontent.com/jensbuehl/aoe4-guides/611892a9924565c7d525542c3276945031f74f28/public/assets/flags/ott-large.webp"
+    },
+    {
+      "file": "rus-large.webp",
+      "width": 455,
+      "height": 256,
+      "bytes": 18972,
+      "sha256": "9f96ce209db50b4de609ec30bcc3c05b7897d320032ea632c711f12fdc1a0997",
+      "source": "https://raw.githubusercontent.com/jensbuehl/aoe4-guides/611892a9924565c7d525542c3276945031f74f28/public/assets/flags/rus-large.webp"
+    },
+    {
+      "file": "sen-large.webp",
+      "width": 455,
+      "height": 256,
+      "bytes": 13746,
+      "sha256": "1940a1709dbca17e78dbd277d846f7ec29816399531797c042e9a02c5d48d21f",
+      "source": "https://raw.githubusercontent.com/jensbuehl/aoe4-guides/611892a9924565c7d525542c3276945031f74f28/public/assets/flags/sen-large.webp"
+    },
+    {
+      "file": "tug-large.webp",
+      "width": 455,
+      "height": 256,
+      "bytes": 13426,
+      "sha256": "802ab224c68227d51eece9bef7192b661cf3e89124b86f93a3e87129376d084a",
+      "source": "https://raw.githubusercontent.com/jensbuehl/aoe4-guides/611892a9924565c7d525542c3276945031f74f28/public/assets/flags/tug-large.webp"
+    },
+    {
+      "file": "zxl-large.webp",
+      "width": 455,
+      "height": 256,
+      "bytes": 27506,
+      "sha256": "558fb4db086b7f9710bc1791a291497e60494a1aba4e141c61fa2dd205cffeaa",
+      "source": "https://raw.githubusercontent.com/jensbuehl/aoe4-guides/611892a9924565c7d525542c3276945031f74f28/public/assets/flags/zxl-large.webp"
+    }
+  ]
+}

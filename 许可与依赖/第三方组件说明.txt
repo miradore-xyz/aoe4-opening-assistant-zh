@@ -1,0 +1,27 @@
+第三方运行组件与源码入口
+
+Python（运行环境）3.11.9：Python Software Foundation（Python 软件基金会）许可。
+完整许可：Python-LICENSE.txt。
+源码：https://www.python.org/downloads/release/python-3119/
+
+PyQt5（图形界面绑定）5.15.11：GPL 第三版。
+许可全文见本程序根目录 LICENSE。源码：https://pypi.org/project/PyQt5/5.15.11/#files
+
+Qt（图形界面库）5.15.2：本包随附动态库采用 LGPL 第三版。
+完整许可：Qt-LGPL3.txt。允许按该许可替换、修改随附动态库。
+源码：https://download.qt.io/archive/qt/5.15/5.15.2/single/
+
+PyQt5-sip（图形绑定支持）12.20.0：BSD 两条款，许可见 SIP-BSD.txt。
+源码：https://pypi.org/project/PyQt5-sip/12.20.0/#files
+
+pywin32（Windows 系统接口）311：许可见 pywin32-LICENSE.txt 与 win32com-LICENSE.txt。
+源码：https://github.com/mhammond/pywin32/tree/b311
+
+PyInstaller（便携打包工具）6.16.0：GPL 加运行引导程序例外，见 PyInstaller-COPYING.txt。
+源码：https://github.com/pyinstaller/pyinstaller/tree/v6.16.0
+
+RTS_Overlay（即时战略悬浮工具）：CraftySalamander，GPL 第三版。
+所用上游源码和资源及本次修改的全部源码随包提供。
+
+帝国时代4游戏名称、文明和图标归相应权利人所有。非官方工具，无官方背书。
+原版来源与图标分发方式被保留。

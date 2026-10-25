@@ -1,0 +1,81 @@
+name: Windows 安装包与发行版
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows-release:
+    runs-on: windows-2022
+    env:
+      PYTHONUTF8: '1'
+      QT_QPA_PLATFORM: offscreen
+    steps:
+      # actions/checkout（读取仓库）v7.0.1，锁定已核对的官方提交。
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      # actions/setup-python（准备运行环境）v7.1.0。
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0
+        with:
+          python-version: '3.11.9'
+          architecture: x64
+          cache: pip
+          cache-dependency-path: src/requirements.txt
+      - name: 安装固定版本依赖
+        run: python -m pip install -r src/requirements.txt
+      - name: 核对版本并运行检查
+        shell: pwsh
+        run: |
+          $taskVersion = python -c "import sys; sys.path.insert(0, 'src'); from version import APP_VERSION; print(APP_VERSION)"
+          if ($env:GITHUB_REF_TYPE -eq 'tag' -and $env:GITHUB_REF_NAME -ne "v$taskVersion") {
+            throw 'Git 标签与程序版本不一致。'
+          }
+          python -m unittest discover -s src -p 'test_*.py'
+          if ($LASTEXITCODE -ne 0) { throw '自动检查未通过。' }
+      - name: 准备官方安装器编译工具
+        shell: pwsh
+        run: |
+          $taskTools = Join-Path $env:RUNNER_TEMP 'AoE4ReleaseTools'
+          New-Item -ItemType Directory -Path $taskTools -Force | Out-Null
+          $taskDownload = Join-Path $taskTools 'innosetup-6.7.3.exe'
+          Invoke-WebRequest -Uri 'https://github.com/jrsoftware/issrc/releases/download/is-6_7_3/innosetup-6.7.3.exe' -OutFile $taskDownload
+          $taskHash = (Get-FileHash -LiteralPath $taskDownload -Algorithm SHA256).Hash
+          if ($taskHash -ne '9C73C3BAE7ED48D44112A0F48E66742C00090BDB5BEF71D9D3C056C66E97B732') {
+            throw 'Inno Setup 编译器校验失败。'
+          }
+          if ((Get-AuthenticodeSignature -LiteralPath $taskDownload).Status -ne 'Valid') {
+            throw 'Inno Setup 官方签名校验失败。'
+          }
+          $taskInstall = Join-Path $taskTools 'InnoSetup'
+          $taskProcess = Start-Process -FilePath $taskDownload -ArgumentList @('/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART', '/SP-', '/NOICONS', '/CURRENTUSER', ('/DIR="' + $taskInstall + '"')) -Wait -PassThru -WindowStyle Hidden
+          if ($taskProcess.ExitCode -ne 0) { throw '编译器准备失败。' }
+          "ISCC_PATH=$taskInstall\ISCC.exe" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+      - name: 构建安装包、便携版、完整源码和校验值
+        run: python src/release_build.py --output-dir release
+      # actions/upload-artifact（保存构建产物）v7.0.2。
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: AoE4OpeningAssistant-Windows
+          path: release/*
+          if-no-files-found: error
+      - name: 将标签版本发布到 GitHub Releases（发行版）
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          @"
+          下载 AoE4OpeningAssistant-Setup.exe 安装；已有版本可在首页下载更新并选择“安装并重启”。
+          安装及卸载均保留开局和设置。完整源码为 AoE4OpeningAssistant-Source.zip，校验值为 SHA256SUMS.txt。
+          本项目沿用 GNU GPL 第三版许可证，原作与第三方声明随包附带。
+          "@ | Set-Content -LiteralPath release-notes.md -Encoding utf8
+          gh release view $env:GITHUB_REF_NAME 2>$null
+          if ($LASTEXITCODE -eq 0) {
+            gh release upload $env:GITHUB_REF_NAME release/AoE4OpeningAssistant-Setup.exe release/AoE4OpeningAssistant-Portable.zip release/AoE4OpeningAssistant-Source.zip release/SHA256SUMS.txt --clobber
+          } else {
+            gh release create $env:GITHUB_REF_NAME release/AoE4OpeningAssistant-Setup.exe release/AoE4OpeningAssistant-Portable.zip release/AoE4OpeningAssistant-Source.zip release/SHA256SUMS.txt --verify-tag --title "帝国开局助手 $env:GITHUB_REF_NAME" --notes-file release-notes.md
+          }
+          if ($LASTEXITCODE -ne 0) { throw 'GitHub 发行版上传失败。' }

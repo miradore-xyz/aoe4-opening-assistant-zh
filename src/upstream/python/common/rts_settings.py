@@ -1,0 +1,135 @@
+from common.settings_subclass import SettingsSubclass
+
+
+class RTSConfigurationLayout(SettingsSubclass):
+    """Settings for the RTS configuration layout"""
+
+    def __init__(self):
+        """Constructor"""
+        self.font_size_limits: list = [6, 25]  # limits for the font size selection choice
+        # list of scaling values [%]
+        self.scaling_list: list = [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 175, 200, 225, 250, 275, 300]
+        self.build_order_search_size: list = [240, 30]  # size of the search bar for the build order
+        self.build_order_selection_vertical_spacing: int = 3  # vertical spacing between two build order suggestions
+        self.selected_build_order_color: list = [230, 159, 0]  # color for selected build order
+        self.hovering_build_order_color: list = [204, 102, 0]  # color for build order hovered by mouse
+        self.bo_list_max_count: int = 10  # maximum count of valid build orders in the selection list
+        self.bo_list_fuzz_search: bool = True  # True to use fuzzy search, False for splitting words search
+        self.bo_list_fuzz_score_cutoff: int = 50  # score cutoff parameter for the fuzzy search
+
+
+class RTSBuildOrderLayout(SettingsSubclass):
+    """Settings for the RTS build order layout"""
+
+    def __init__(self):
+        """Constructor"""
+        self.image_height: int = 30  # height of the build order images
+        self.resource_spacing: int = 3  # space between the build order resources
+        self.bo_next_tab_spacing: int = 30  # horizontal spacing between build order last button and next tab button
+        self.height_line_notes: int = 3  # height of the line before the notes
+        self.color_line_notes: list = [168, 177, 183]  # color of the line before the notes
+
+
+class RTSBuildOrderTimerLayout(RTSBuildOrderLayout):
+    """Settings for the RTS build order layout"""
+
+    def __init__(self):
+        """Constructor"""
+        super().__init__()
+        self.show_time_in_notes: bool = True  # True to show the time indication next to the notes (in timer mode)
+        self.color_row_emphasis: list = [0, 51, 102]  # color to use for the emphasis background rectangle
+        self.extra_emphasis_height: int = 3  # extra pixels height for the color emphasis background rectangle
+
+
+class RTSLayout(SettingsSubclass):
+    """Settings for the RTS layout"""
+
+    def __init__(self):
+        """Constructor"""
+        self.opacity: float = 0.75  # opacity of the window
+        self.overlay_on_right_side = True  # fix the overlay upper left/right side in place
+        self.upper_left_position: list = [65, 65]  # initial position of the upper left corner
+        self.upper_right_position: list = [1870, 65]  # initial position of the upper right corner
+        self.border_size: int = 15  # size of the borders
+        self.vertical_spacing: int = 10  # vertical spacing
+        self.horizontal_spacing: int = 6  # horizontal spacing
+        self.font_police: str = 'Arial'  # font police type
+        self.font_size: int = 11  # font size (selected value for 'font_size_limits')
+        self.scaling: int = 100  # scaling value [%] (selected value for 'scaling_list')
+        self.color_default: list = [255, 255, 255]  # default text RGB color for the font
+        self.color_background: list = [30, 30, 30]  # background RGB color
+        self.action_button_size: int = 22  # size of the action buttons
+        self.action_button_spacing: int = 8  # horizontal spacing between the action buttons
+        self.show_time_resource: bool = True  # True to show the time in the resource panel
+
+
+class RTSHotkeysConfigurationLayout(SettingsSubclass):
+    """Settings for the panel to configure the RTS hotkeys layout"""
+
+    def __init__(self):
+        """Constructor"""
+        self.stay_on_top: bool = False  # True to always stay on top of other windows
+        self.font_police: str = 'Arial'  # font police type
+        self.font_size: int = 11  # font size
+        self.color_font: list = [255, 255, 255]  # color of the font
+        self.color_background: list = [30, 30, 30]  # color of the background
+        self.opacity: float = 0.8  # opacity of the window
+        self.border_size: int = 20  # size of the borders
+        self.edit_width: int = 200  # width for the hotkeys edit fields
+        self.edit_height: int = 30  # height for the hotkeys edit fields
+        self.button_margin: int = 5  # margin from text to button border
+        self.vertical_spacing: int = 10  # vertical spacing between the elements
+        self.section_vertical_spacing: int = 20  # vertical spacing between the sections
+        self.horizontal_spacing: int = 10  # horizontal spacing between the elements
+        self.mouse_height: int = 25  # height for the mouse image
+        self.mouse_spacing: int = 30  # horizontal spacing between the field and the mouse icon
+
+
+class KeyboardMouse(SettingsSubclass):
+    """Fields for keyboard and mouse together"""
+
+    def __init__(self):
+        """Constructor"""
+        self.keyboard: str = ''  # keyboard input, '' for no input
+        self.mouse: str = ''  # mouse input, '' for no input
+
+
+class RTSHotkeys(SettingsSubclass):
+    """Settings for the RTS hotkeys"""
+
+    def __init__(self):
+        """Constructor"""
+        self.mouse_accepted_values: str = '\'left\', \'middle\', \'right\', \'x\', \'x2\', \'\' (unset)'  # mouse manual
+        self.enter: str = 'Return'  # enter selection key
+        self.select_next_build_order: str = 'Tab'  # select the next build order
+        self.next_panel: KeyboardMouse = KeyboardMouse()  # cycle through the next panel
+        self.show_hide: KeyboardMouse = KeyboardMouse()  # show/hide the application
+        self.build_order_previous_step: KeyboardMouse = KeyboardMouse()  # go to the previous build order step
+        self.build_order_next_step: KeyboardMouse = KeyboardMouse()  # go to the next build order step
+        self.mouse_max_time: float = 0.1  # maximum time since last mouse button click (for combined hotkey) [s]
+
+
+class RTSTimerHotkeys(RTSHotkeys):
+    """Settings for the RTS hotkeys (with timer hotkeys)"""
+
+    def __init__(self):
+        """Constructor"""
+        super().__init__()
+        self.switch_timer_manual: KeyboardMouse = KeyboardMouse()  # switch build order between timer/manual
+        self.start_timer: KeyboardMouse = KeyboardMouse()  # start the build order timer
+        self.stop_timer: KeyboardMouse = KeyboardMouse()  # stop the build order timer
+        self.start_stop_timer: KeyboardMouse = KeyboardMouse()  # start/stop the build order timer
+        self.reset_timer: KeyboardMouse = KeyboardMouse()  # reset the build order timer
+
+
+class RTSOverlaySettings(SettingsSubclass):
+    """Settings for the RTS overlay"""
+
+    def __init__(self):
+        """Constructor"""
+        self.timer_available: bool = True  # True if timer feature available
+
+        self.call_ms: int = 20  # interval between 2 calls (e.g. for mouse motion) [ms]
+
+        # panel to configure the hotkeys
+        self.panel_hotkeys: RTSHotkeysConfigurationLayout = RTSHotkeysConfigurationLayout()

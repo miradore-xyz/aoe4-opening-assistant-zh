@@ -1,0 +1,5491 @@
+{
+  "commit": "ce8f375004d62ac23946dcc377199f9aa50eb37d",
+  "patch": "16.2.10604",
+  "icons": [
+    {
+      "path": "icons/abilities/ability-champion-companions-1.png",
+      "source": "images/abilities/ability-champion-companions-1.png",
+      "bytes": 13363,
+      "width": 96,
+      "height": 96,
+      "sha256": "4224d717ad21a42dcb57895d97a74a9834308c885913b696a9e8a2f2f4c36973"
+    },
+    {
+      "path": "icons/abilities/ability-field-commander-1.png",
+      "source": "images/abilities/ability-field-commander-1.png",
+      "bytes": 10237,
+      "width": 96,
+      "height": 96,
+      "sha256": "f00495e3b2bb832884b9a7f482c9a2ed53e393d765a86cec27ec64e8398b7c8f"
+    },
+    {
+      "path": "icons/abilities/ability-gunpowder-monarch-1.png",
+      "source": "images/abilities/ability-gunpowder-monarch-1.png",
+      "bytes": 10299,
+      "width": 96,
+      "height": 96,
+      "sha256": "377a292663d97b55720cfb7939ebe64b3ba11874047604a2d663828ed00627b7"
+    },
+    {
+      "path": "icons/abilities/ability-path-of-the-archer-1.png",
+      "source": "images/abilities/ability-path-of-the-archer-1.png",
+      "bytes": 6531,
+      "width": 96,
+      "height": 96,
+      "sha256": "8156724c4cafc12120cf304452b138a11cd2d984039b68da48305ad870ebbdec"
+    },
+    {
+      "path": "icons/abilities/ability-path-of-the-warrior-1.png",
+      "source": "images/abilities/ability-path-of-the-warrior-1.png",
+      "bytes": 11663,
+      "width": 96,
+      "height": 96,
+      "sha256": "0e7a26520222b0f0cda73c5f51501c999bb89c03744b27145d0ab426fd6b3de1"
+    },
+    {
+      "path": "icons/abilities/ability-rider-companions-1.png",
+      "source": "images/abilities/ability-rider-companions-1.png",
+      "bytes": 12617,
+      "width": 96,
+      "height": 96,
+      "sha256": "4cbecc0193eacd4be671814384934b27a0f8c03193a8ff3ad4b453f739ba29dd"
+    },
+    {
+      "path": "icons/buildings/aachen-chapel-1.png",
+      "source": "images/buildings/aachen-chapel-1.png",
+      "bytes": 8015,
+      "width": 96,
+      "height": 96,
+      "sha256": "d2fd7b389c8bc3d4362cb2b2a9790ad64a69af3f3aff8f9a0bf6bae56cd893d1"
+    },
+    {
+      "path": "icons/buildings/abbey-of-kings-1.png",
+      "source": "images/buildings/abbey-of-kings-1.png",
+      "bytes": 11676,
+      "width": 96,
+      "height": 96,
+      "sha256": "42dc89206e6323d9af6dfae083210ab5b5c8d05b69be784e33e6adeb1d2c0ee7"
+    },
+    {
+      "path": "icons/buildings/abbey-of-the-trinity-2.png",
+      "source": "images/buildings/abbey-of-the-trinity-2.png",
+      "bytes": 6984,
+      "width": 96,
+      "height": 96,
+      "sha256": "7acd24b350f70939c2dab075b01d3c090ce2fdb674c69be97e8ee0da4ae3f110"
+    },
+    {
+      "path": "icons/buildings/aqueduct-1.png",
+      "source": "images/buildings/aqueduct-1.png",
+      "bytes": 8022,
+      "width": 96,
+      "height": 96,
+      "sha256": "11155a5dd19cd96bc438ea6bf6f7e630cd71778e4928effad463a6b6b599cb41"
+    },
+    {
+      "path": "icons/buildings/archery-range-2.png",
+      "source": "images/buildings/archery-range-2.png",
+      "bytes": 9284,
+      "width": 96,
+      "height": 96,
+      "sha256": "20e3918c05df54a7e2895e5789e88f856cda666a9a44bdea50b9d1fcee3b5654"
+    },
+    {
+      "path": "icons/buildings/astronomical-clocktower-2.png",
+      "source": "images/buildings/astronomical-clocktower-2.png",
+      "bytes": 7595,
+      "width": 96,
+      "height": 96,
+      "sha256": "64ce58464da0d239a796489146cf77b801d98141f689e610a3b3685085d6ee2d"
+    },
+    {
+      "path": "icons/buildings/azure-mosque-4.png",
+      "source": "images/buildings/azure-mosque-4.png",
+      "bytes": 9325,
+      "width": 96,
+      "height": 96,
+      "sha256": "834b41032bad9ec2ff4288e5b23dd3174ee21b66d926da2c606e21ea205c8113"
+    },
+    {
+      "path": "icons/buildings/barbican-of-the-sun-1.png",
+      "source": "images/buildings/barbican-of-the-sun-1.png",
+      "bytes": 9902,
+      "width": 96,
+      "height": 96,
+      "sha256": "01f7832969523102d52c0aa4047db2afe23ab44c51c3a508dbcdf839bd9db70f"
+    },
+    {
+      "path": "icons/buildings/barracks-1.png",
+      "source": "images/buildings/barracks-1.png",
+      "bytes": 8741,
+      "width": 96,
+      "height": 96,
+      "sha256": "4aa86361d559525c4020a0b8a40f52f2c6c9e136f12e9bd72913a23a7bc091d0"
+    },
+    {
+      "path": "icons/buildings/berkshire-palace-3.png",
+      "source": "images/buildings/berkshire-palace-3.png",
+      "bytes": 10989,
+      "width": 96,
+      "height": 96,
+      "sha256": "d8da42cf1c43bb95db921085f985ccb6ebb677992900809e1a0072e7b41ac169"
+    },
+    {
+      "path": "icons/buildings/blacksmith-2.png",
+      "source": "images/buildings/blacksmith-2.png",
+      "bytes": 7043,
+      "width": 96,
+      "height": 96,
+      "sha256": "bb2a187bd2c1f439e4a7e53f6e5b575f0ee892f5ac89e4451e1eb8ffbb23ba3e"
+    },
+    {
+      "path": "icons/buildings/buddhist-temple-3.png",
+      "source": "images/buildings/buddhist-temple-3.png",
+      "bytes": 9064,
+      "width": 96,
+      "height": 96,
+      "sha256": "816fc12123d01e627c0bdc17c4b88912e75e4025576cbb6b63ae34ed5e58d6f1"
+    },
+    {
+      "path": "icons/buildings/burgrave-palace-2.png",
+      "source": "images/buildings/burgrave-palace-2.png",
+      "bytes": 8017,
+      "width": 96,
+      "height": 96,
+      "sha256": "18879b1e813da2f9dccabadb062cddfd75a45594cca7e9d9515cfe616ff5e4af"
+    },
+    {
+      "path": "icons/buildings/castle-4.png",
+      "source": "images/buildings/castle-4.png",
+      "bytes": 10059,
+      "width": 96,
+      "height": 96,
+      "sha256": "993b148075bb44870359d45fabb85ecdbdf35478dfb15018909c1442524da455"
+    },
+    {
+      "path": "icons/buildings/castle-of-the-crow-3.png",
+      "source": "images/buildings/castle-of-the-crow-3.png",
+      "bytes": 14173,
+      "width": 96,
+      "height": 96,
+      "sha256": "949c3816df94b0c86313d5376421951e6d83d234f8662da5a132b9bc3fefc2d2"
+    },
+    {
+      "path": "icons/buildings/cathedral-of-divine-wisdom-4.png",
+      "source": "images/buildings/cathedral-of-divine-wisdom-4.png",
+      "bytes": 13976,
+      "width": 96,
+      "height": 96,
+      "sha256": "7eb66bfb5a9d51209ea31d53bb47d0946d913fcebdaa3122c4095ed615ea3310"
+    },
+    {
+      "path": "icons/buildings/cathedral-of-st-thomas-4.png",
+      "source": "images/buildings/cathedral-of-st-thomas-4.png",
+      "bytes": 10367,
+      "width": 96,
+      "height": 96,
+      "sha256": "df2fcdc4a435a3a399d1a80ac75517438a9395339177e3187e210fe69f4fb4b7"
+    },
+    {
+      "path": "icons/buildings/cathedral-of-the-tsar-4.png",
+      "source": "images/buildings/cathedral-of-the-tsar-4.png",
+      "bytes": 9260,
+      "width": 96,
+      "height": 96,
+      "sha256": "1b8c27291daa4eb79ab182178c4847850d9d0864575720455d97d246f79c0430"
+    },
+    {
+      "path": "icons/buildings/cattle-ranch-2.png",
+      "source": "images/buildings/cattle-ranch-2.png",
+      "bytes": 10021,
+      "width": 96,
+      "height": 96,
+      "sha256": "44ac8bd54eb0b293448459c10345be71a5241c11b0f483da8df0d954da45159a"
+    },
+    {
+      "path": "icons/buildings/chamber-of-commerce-1.png",
+      "source": "images/buildings/chamber-of-commerce-1.png",
+      "bytes": 7282,
+      "width": 96,
+      "height": 96,
+      "sha256": "b3c14049bd3e897d0cd06023b2c1781314ffb01619a003d491af2aafeb9c2c8b"
+    },
+    {
+      "path": "icons/buildings/cistern-1.png",
+      "source": "images/buildings/cistern-1.png",
+      "bytes": 11251,
+      "width": 96,
+      "height": 96,
+      "sha256": "f3434758288702112dd0a248ae5128cf4145ad3c4ba46c28b19c77bcb5f2d16e"
+    },
+    {
+      "path": "icons/buildings/cistern-of-the-first-hill-2.png",
+      "source": "images/buildings/cistern-of-the-first-hill-2.png",
+      "bytes": 12970,
+      "width": 96,
+      "height": 96,
+      "sha256": "08ce9674a64441fe2868d67fbe82ba247f7560590c6779b7ff630a697df17179"
+    },
+    {
+      "path": "icons/buildings/college-of-artillery-3.png",
+      "source": "images/buildings/college-of-artillery-3.png",
+      "bytes": 9817,
+      "width": 96,
+      "height": 96,
+      "sha256": "5c0c76ffcc37896bbd68344d3556f5bf0fcc5ef748683ad3d0d666dc62cd5df9"
+    },
+    {
+      "path": "icons/buildings/compound-of-the-defender-2.png",
+      "source": "images/buildings/compound-of-the-defender-2.png",
+      "bytes": 7481,
+      "width": 96,
+      "height": 96,
+      "sha256": "f1dbd5b776ae5a404bda3c0fc34961721a110162eaa7859e80f6de936186bdcd"
+    },
+    {
+      "path": "icons/buildings/council-hall-1.png",
+      "source": "images/buildings/council-hall-1.png",
+      "bytes": 9155,
+      "width": 96,
+      "height": 96,
+      "sha256": "71939305e7008f7e9594ec72e7adf11c52fd1366b3a5c2c81d02070e92bc2384"
+    },
+    {
+      "path": "icons/buildings/deer-stones-1.png",
+      "source": "images/buildings/deer-stones-1.png",
+      "bytes": 11141,
+      "width": 96,
+      "height": 96,
+      "sha256": "bc87cbdee6bfc0c844501902e61d910864e80ed48389d9252709a39328fe9502"
+    },
+    {
+      "path": "icons/buildings/dock-1.png",
+      "source": "images/buildings/dock-1.png",
+      "bytes": 8734,
+      "width": 96,
+      "height": 96,
+      "sha256": "c6ad8bd214649ce0078493dbca926074b1d7adaab95ab7b5c316218b6f7c5509"
+    },
+    {
+      "path": "icons/buildings/dome-of-the-faith-1.png",
+      "source": "images/buildings/dome-of-the-faith-1.png",
+      "bytes": 8977,
+      "width": 96,
+      "height": 96,
+      "sha256": "14e2d569ca04e076597f42c64bbbe91c4139fcc01d7db61ba37786c61f4898e7"
+    },
+    {
+      "path": "icons/buildings/dragon-pavilion-2.png",
+      "source": "images/buildings/dragon-pavilion-2.png",
+      "bytes": 8405,
+      "width": 96,
+      "height": 96,
+      "sha256": "845dcda435d7efac82e111687572bff2e631258cf9b788b56f38b29459cb7e2d"
+    },
+    {
+      "path": "icons/buildings/elzbach-palace-3.png",
+      "source": "images/buildings/elzbach-palace-3.png",
+      "bytes": 9554,
+      "width": 96,
+      "height": 96,
+      "sha256": "9ec275fc6af8b0a9c99e56d663090402bba189535252aa3ce8a7f93f64677b12"
+    },
+    {
+      "path": "icons/buildings/enclave-of-the-emperor-4.png",
+      "source": "images/buildings/enclave-of-the-emperor-4.png",
+      "bytes": 10073,
+      "width": 96,
+      "height": 96,
+      "sha256": "5b371b122e0f02d6aeb652aa3fab668cb5f608ab3a3cb9045c335f36c0be0d90"
+    },
+    {
+      "path": "icons/buildings/farimba-garrison-2.png",
+      "source": "images/buildings/farimba-garrison-2.png",
+      "bytes": 12011,
+      "width": 96,
+      "height": 96,
+      "sha256": "f0ffe7ca64a8e5196a91fc817263f2af3d50a4048625eaf4f7aea76208944938"
+    },
+    {
+      "path": "icons/buildings/farm-1.png",
+      "source": "images/buildings/farm-1.png",
+      "bytes": 7700,
+      "width": 96,
+      "height": 96,
+      "sha256": "8f85388563c976facdc5de891d1ac00259e4287eafc5e8a49d2a5bda369e5129"
+    },
+    {
+      "path": "icons/buildings/farmhouse-1.png",
+      "source": "images/buildings/farmhouse-1.png",
+      "bytes": 8596,
+      "width": 96,
+      "height": 96,
+      "sha256": "d8968cf8dce0fa2d36d796191db801d4c2db5f75c56a53e817fc9af6156a2110"
+    },
+    {
+      "path": "icons/buildings/floating-gate-2.png",
+      "source": "images/buildings/floating-gate-2.png",
+      "bytes": 11018,
+      "width": 96,
+      "height": 96,
+      "sha256": "35d834bf8bb6b0e0cf4bd681b29b2a61f2f9f13a186e9c69b377213c2d8c0b47"
+    },
+    {
+      "path": "icons/buildings/flower-pagoda-1.png",
+      "source": "images/buildings/flower-pagoda-1.png",
+      "bytes": 6751,
+      "width": 96,
+      "height": 96,
+      "sha256": "786707b6bff7b619ed135853d39371a200175451831211ce368134df3547fdfa"
+    },
+    {
+      "path": "icons/buildings/foreign-engineering-company-3.png",
+      "source": "images/buildings/foreign-engineering-company-3.png",
+      "bytes": 13988,
+      "width": 96,
+      "height": 96,
+      "sha256": "502fe76a55e8534e7587ea64a00eb40acad176557522ef0c762453d22672c045"
+    },
+    {
+      "path": "icons/buildings/forge-1.png",
+      "source": "images/buildings/forge-1.png",
+      "bytes": 8947,
+      "width": 96,
+      "height": 96,
+      "sha256": "57e7c6604630038bd9d13d65fe1da1177a6ca4a272c9e8558ee05a226157aad5"
+    },
+    {
+      "path": "icons/buildings/fort-of-the-huntress-3.png",
+      "source": "images/buildings/fort-of-the-huntress-3.png",
+      "bytes": 12751,
+      "width": 96,
+      "height": 96,
+      "sha256": "fca69604a2514a8d66952960907292f1cb8e18c018d858fd7375a14d296a2bbd"
+    },
+    {
+      "path": "icons/buildings/fortified-outpost-1.png",
+      "source": "images/buildings/fortified-outpost-1.png",
+      "bytes": 8461,
+      "width": 96,
+      "height": 96,
+      "sha256": "4c424969a5b3df84d3362e910e4efb1aca3c32390b39442b86a6722e5c04b8c0"
+    },
+    {
+      "path": "icons/buildings/fortified-palisade-gate-1.png",
+      "source": "images/buildings/fortified-palisade-gate-1.png",
+      "bytes": 9192,
+      "width": 96,
+      "height": 96,
+      "sha256": "37bc402db43bcbab72a3eb7650801d6ee8cb83db7dc28d9ba7528f9cdf9f4943"
+    },
+    {
+      "path": "icons/buildings/fortified-palisade-wall-1.png",
+      "source": "images/buildings/fortified-palisade-wall-1.png",
+      "bytes": 6617,
+      "width": 96,
+      "height": 96,
+      "sha256": "de7d7da9b74684743dcb7d11734efd8323a9344bcb94f5879f998586127bacde"
+    },
+    {
+      "path": "icons/buildings/fortress-2.png",
+      "source": "images/buildings/fortress-2.png",
+      "bytes": 10517,
+      "width": 96,
+      "height": 96,
+      "sha256": "e9b5adfccc20ef970501345d8cf8c8c031d2ea53dff9bb9f5aa1b553274b3e55"
+    },
+    {
+      "path": "icons/buildings/ger-1.png",
+      "source": "images/buildings/ger-1.png",
+      "bytes": 7925,
+      "width": 96,
+      "height": 96,
+      "sha256": "933ec2830976b17a0601b505b48c964b54554c0fb92774f27f9b8201c43be257"
+    },
+    {
+      "path": "icons/buildings/golden-horn-tower-2.png",
+      "source": "images/buildings/golden-horn-tower-2.png",
+      "bytes": 12512,
+      "width": 96,
+      "height": 96,
+      "sha256": "4140d2f6e4eacd8374449063a5ea600669dcf25e13308d17704c4230ea3dabee"
+    },
+    {
+      "path": "icons/buildings/golden-tent-2.png",
+      "source": "images/buildings/golden-tent-2.png",
+      "bytes": 9979,
+      "width": 96,
+      "height": 96,
+      "sha256": "1564ab63362f0c0781a34a624f3d59c7dcf8a447330d4518b12a376ac5d9c3cc"
+    },
+    {
+      "path": "icons/buildings/granary-1.png",
+      "source": "images/buildings/granary-1.png",
+      "bytes": 9402,
+      "width": 96,
+      "height": 96,
+      "sha256": "32085cf39f9ab199969f042b15cd54719694e5b7134a0b3c36d3615ed333aa29"
+    },
+    {
+      "path": "icons/buildings/grand-fulani-corral-2.png",
+      "source": "images/buildings/grand-fulani-corral-2.png",
+      "bytes": 11220,
+      "width": 96,
+      "height": 96,
+      "sha256": "2350029ed839ea43bd4c9ceab820d233efb9401fe046c62f9b58b7ebf6b7c0ab"
+    },
+    {
+      "path": "icons/buildings/grand-winery-1.png",
+      "source": "images/buildings/grand-winery-1.png",
+      "bytes": 13361,
+      "width": 96,
+      "height": 96,
+      "sha256": "c7cb148e5d6ac031a097148348a71eb76c2196ee9ea975e766a698e494a7d3c4"
+    },
+    {
+      "path": "icons/buildings/grassland-2.png",
+      "source": "images/buildings/grassland-2.png",
+      "bytes": 14162,
+      "width": 96,
+      "height": 96,
+      "sha256": "65a36f0dccaf4dd1215df5e238a99af9628840992f61c8241693e836f6e58f5b"
+    },
+    {
+      "path": "icons/buildings/great-mosque-4.png",
+      "source": "images/buildings/great-mosque-4.png",
+      "bytes": 12242,
+      "width": 96,
+      "height": 96,
+      "sha256": "8d5503e5b3199f6b1ab37532d5c7747efa4c08784b3f60abbd9f307a793d6e1d"
+    },
+    {
+      "path": "icons/buildings/great-palace-of-agra-4.png",
+      "source": "images/buildings/great-palace-of-agra-4.png",
+      "bytes": 9460,
+      "width": 96,
+      "height": 96,
+      "sha256": "143472f43dab96155c6ed8e75743f574c51e141d48c1e15883cd582612f11bce"
+    },
+    {
+      "path": "icons/buildings/great-palace-of-flensburg-4.png",
+      "source": "images/buildings/great-palace-of-flensburg-4.png",
+      "bytes": 8159,
+      "width": 96,
+      "height": 96,
+      "sha256": "60a05806f19041530dcd320b044556d33852b8f9759410e39e8c9a2c7e1819d9"
+    },
+    {
+      "path": "icons/buildings/great-pasture-1.png",
+      "source": "images/buildings/great-pasture-1.png",
+      "bytes": 7213,
+      "width": 96,
+      "height": 96,
+      "sha256": "37e05f66733a511ae2edbc6d03ab79d72e96340a53922d108c5fc608ecf5f99c"
+    },
+    {
+      "path": "icons/buildings/great-wall-bastion-3.png",
+      "source": "images/buildings/great-wall-bastion-3.png",
+      "bytes": 8794,
+      "width": 96,
+      "height": 96,
+      "sha256": "3c1231e6eaf19b0df45c93e990f622815ca55d025ef072049fd1d84bd761d95a"
+    },
+    {
+      "path": "icons/buildings/great-wall-gatehouse-3.png",
+      "source": "images/buildings/great-wall-gatehouse-3.png",
+      "bytes": 11785,
+      "width": 96,
+      "height": 96,
+      "sha256": "2abec5f3cf171beb67325c837d712b62da844db57aa4d06729013f674b7b4db7"
+    },
+    {
+      "path": "icons/buildings/griot-bara-3.png",
+      "source": "images/buildings/griot-bara-3.png",
+      "bytes": 11577,
+      "width": 96,
+      "height": 96,
+      "sha256": "2dea3e85ba21c8fdd230f07780a03beb52e7e01794cdb08d6e0b35580345c3e7"
+    },
+    {
+      "path": "icons/buildings/guild-hall-2.png",
+      "source": "images/buildings/guild-hall-2.png",
+      "bytes": 11142,
+      "width": 96,
+      "height": 96,
+      "sha256": "5d2137c35d70ebe516d7aead483cdb945df7a5abf6d8abc84ad0d72aceef4bca"
+    },
+    {
+      "path": "icons/buildings/harbor-1.png",
+      "source": "images/buildings/harbor-1.png",
+      "bytes": 8734,
+      "width": 96,
+      "height": 96,
+      "sha256": "c6ad8bd214649ce0078493dbca926074b1d7adaab95ab7b5c316218b6f7c5509"
+    },
+    {
+      "path": "icons/buildings/high-armory-3.png",
+      "source": "images/buildings/high-armory-3.png",
+      "bytes": 9560,
+      "width": 96,
+      "height": 96,
+      "sha256": "adade6cf5f254f6bbfd4a2f347ded977c11bc762aaeb1237027e26a0f5549785"
+    },
+    {
+      "path": "icons/buildings/high-trade-house-2.png",
+      "source": "images/buildings/high-trade-house-2.png",
+      "bytes": 9235,
+      "width": 96,
+      "height": 96,
+      "sha256": "3df4e41c7e78b4cf80a88ed8f0a93892ddf8a4aaf0d9748b0657e38c65d2a259"
+    },
+    {
+      "path": "icons/buildings/hisar-academy-3.png",
+      "source": "images/buildings/hisar-academy-3.png",
+      "bytes": 8341,
+      "width": 96,
+      "height": 96,
+      "sha256": "6e8ab65de66ebee2ca06f44555c28069aae8ef86f183e75f836680a0ca3c5103"
+    },
+    {
+      "path": "icons/buildings/hojo-clan-daimyo-estate-2.png",
+      "source": "images/buildings/hojo-clan-daimyo-estate-2.png",
+      "bytes": 10717,
+      "width": 96,
+      "height": 96,
+      "sha256": "c17384ba144555a5a7b6b342fa9a754f7491ce037bf235cdeae3f1613eb285ad"
+    },
+    {
+      "path": "icons/buildings/house-1.png",
+      "source": "images/buildings/house-1.png",
+      "bytes": 6241,
+      "width": 96,
+      "height": 96,
+      "sha256": "30b3f2297f1ea4aabaabad95d4e2a04c696fc6bb9ddd3d1765acb268a162535d"
+    },
+    {
+      "path": "icons/buildings/house-of-learning-2.png",
+      "source": "images/buildings/house-of-learning-2.png",
+      "bytes": 11741,
+      "width": 96,
+      "height": 96,
+      "sha256": "653fe971cd55b9170b8b7d097bb3ae242a9e6ebe3a05e1e804bb80b6dc3fd65a"
+    },
+    {
+      "path": "icons/buildings/house-of-wisdom-1.png",
+      "source": "images/buildings/house-of-wisdom-1.png",
+      "bytes": 8799,
+      "width": 96,
+      "height": 96,
+      "sha256": "bd7073aee33818f3cae5dd2842f3c3ec6e9f09e0345e8c34fb6f2f049e987a85"
+    },
+    {
+      "path": "icons/buildings/house-of-wisdom-2.png",
+      "source": "images/buildings/house-of-wisdom-2.png",
+      "bytes": 8969,
+      "width": 96,
+      "height": 96,
+      "sha256": "6da38f33a4fe40e7e9add4574dc670a7c64ba11a3747f2b5d6945510b138af41"
+    },
+    {
+      "path": "icons/buildings/hunting-cabin-1.png",
+      "source": "images/buildings/hunting-cabin-1.png",
+      "bytes": 7780,
+      "width": 96,
+      "height": 96,
+      "sha256": "12e98f7f7b8f9e4135f429c6db929c7c477b5c58a93fe6b14760d551efc17719"
+    },
+    {
+      "path": "icons/buildings/imperial-academy-1.png",
+      "source": "images/buildings/imperial-academy-1.png",
+      "bytes": 8688,
+      "width": 96,
+      "height": 96,
+      "sha256": "e7bb381b1315093fab1301d3c03d47570486790a6d03b2104822fb985f1c20a6"
+    },
+    {
+      "path": "icons/buildings/imperial-hippodrome-1.png",
+      "source": "images/buildings/imperial-hippodrome-1.png",
+      "bytes": 13069,
+      "width": 96,
+      "height": 96,
+      "sha256": "1bf2e3b71abdcdd3553d0de9c39c80cb842f1cca2d0fbd369c9918770c2fb503"
+    },
+    {
+      "path": "icons/buildings/imperial-palace-2.png",
+      "source": "images/buildings/imperial-palace-2.png",
+      "bytes": 10600,
+      "width": 96,
+      "height": 96,
+      "sha256": "8e3a41b3dca1c7ad6c5a010971d49bc6348b2c9589b60faff3c50b670b16c062"
+    },
+    {
+      "path": "icons/buildings/istanbul-imperial-palace-2.png",
+      "source": "images/buildings/istanbul-imperial-palace-2.png",
+      "bytes": 7801,
+      "width": 96,
+      "height": 96,
+      "sha256": "2a9e86a4da7db46d942ac2787c97061a5edea2fd0c9f0464c773f330a112f02b"
+    },
+    {
+      "path": "icons/buildings/istanbul-observatory-3.png",
+      "source": "images/buildings/istanbul-observatory-3.png",
+      "bytes": 6148,
+      "width": 96,
+      "height": 96,
+      "sha256": "e3584966859d175931c1cef6e485f9739fb56de350978e04ce008078ef1faeb2"
+    },
+    {
+      "path": "icons/buildings/jiangnan-tower-2.png",
+      "source": "images/buildings/jiangnan-tower-2.png",
+      "bytes": 14391,
+      "width": 96,
+      "height": 96,
+      "sha256": "a2ffc3b95ed9013bdac6d566708736d3b876cc63e2ebf8a083c9436e7de1cc3e"
+    },
+    {
+      "path": "icons/buildings/keep-3.png",
+      "source": "images/buildings/keep-3.png",
+      "bytes": 10311,
+      "width": 96,
+      "height": 96,
+      "sha256": "fd410b50ab43e09f753969af08f5d3e41064e2eac3d7d02244bcddc19bad3cc8"
+    },
+    {
+      "path": "icons/buildings/khaganate-palace-3.png",
+      "source": "images/buildings/khaganate-palace-3.png",
+      "bytes": 8305,
+      "width": 96,
+      "height": 96,
+      "sha256": "1f4666736141831363a807c838484bc923acd00e47da4933acb111638a22571f"
+    },
+    {
+      "path": "icons/buildings/kings-college-2.png",
+      "source": "images/buildings/kings-college-2.png",
+      "bytes": 9511,
+      "width": 96,
+      "height": 96,
+      "sha256": "02fd1922613f408d926c8dcbe24534e41adb135f06ee86ec79ffb9970d0dca75"
+    },
+    {
+      "path": "icons/buildings/kings-palace-2.png",
+      "source": "images/buildings/kings-palace-2.png",
+      "bytes": 11677,
+      "width": 96,
+      "height": 96,
+      "sha256": "681b3f4bb63c8b3db9fb22e38cf6f395a715c6b81c1b25207d67b7f5726b041c"
+    },
+    {
+      "path": "icons/buildings/koka-township-1.png",
+      "source": "images/buildings/koka-township-1.png",
+      "bytes": 10903,
+      "width": 96,
+      "height": 96,
+      "sha256": "70761b5919e5a746828d5b993f35f730813abd3d06a74b12e8a8b7e22e2b0258"
+    },
+    {
+      "path": "icons/buildings/kremlin-1.png",
+      "source": "images/buildings/kremlin-1.png",
+      "bytes": 8886,
+      "width": 96,
+      "height": 96,
+      "sha256": "b3f5da7e6a7b964368cf49f233f4193c36facbc71b36e9b1e2da5aa46cff5df5"
+    },
+    {
+      "path": "icons/buildings/kura-storehouse-1.png",
+      "source": "images/buildings/kura-storehouse-1.png",
+      "bytes": 13488,
+      "width": 96,
+      "height": 96,
+      "sha256": "6d26a8b5ee63e50aaee6fda7cf9b64a160e0235734e9bc7acaf19bdef35719ef"
+    },
+    {
+      "path": "icons/buildings/kurultai-2.png",
+      "source": "images/buildings/kurultai-2.png",
+      "bytes": 10885,
+      "width": 96,
+      "height": 96,
+      "sha256": "b424e6d84a846f06b34c6ee0e68a086dcac69abd764a5a83018b4124c60391e2"
+    },
+    {
+      "path": "icons/buildings/lancaster-castle-1.png",
+      "source": "images/buildings/lancaster-castle-1.png",
+      "bytes": 10675,
+      "width": 96,
+      "height": 96,
+      "sha256": "3a5be2ccdddbd394800a1a1e30dfe44119a08e25eb381673758a662202923693"
+    },
+    {
+      "path": "icons/buildings/lumber-camp-1.png",
+      "source": "images/buildings/lumber-camp-1.png",
+      "bytes": 7727,
+      "width": 96,
+      "height": 96,
+      "sha256": "8c164bc411851bde54f29bf71b3d69a1b0af1dc6cf0aea4571687189a13f7e42"
+    },
+    {
+      "path": "icons/buildings/machine-workshop-2.png",
+      "source": "images/buildings/machine-workshop-2.png",
+      "bytes": 10556,
+      "width": 96,
+      "height": 96,
+      "sha256": "39c5b3d1e9f489abaad968a142224aca57b5ecfb1c07172c743acc9ec09d8595"
+    },
+    {
+      "path": "icons/buildings/madrasa-4.png",
+      "source": "images/buildings/madrasa-4.png",
+      "bytes": 7414,
+      "width": 96,
+      "height": 96,
+      "sha256": "dd1ef91e8503def4c064da5e535d621b0a09a24771bdad24e7407b75308ffd85"
+    },
+    {
+      "path": "icons/buildings/manor-2.png",
+      "source": "images/buildings/manor-2.png",
+      "bytes": 7572,
+      "width": 96,
+      "height": 96,
+      "sha256": "10d4f2add16cae1c95d6c9abe6d3fdc7981a600dc3fe93fb869169fa48cb615e"
+    },
+    {
+      "path": "icons/buildings/mansa-quarry-1.png",
+      "source": "images/buildings/mansa-quarry-1.png",
+      "bytes": 12705,
+      "width": 96,
+      "height": 96,
+      "sha256": "dbcf2976f26ae393618943c5d377646fa3ef0f2b178791ed28b0d76a3a509e9b"
+    },
+    {
+      "path": "icons/buildings/market-2.png",
+      "source": "images/buildings/market-2.png",
+      "bytes": 7249,
+      "width": 96,
+      "height": 96,
+      "sha256": "41e7c75afa11b372683e4e5135394e7bcd2a3968336fcec1797629d473e6f3c9"
+    },
+    {
+      "path": "icons/buildings/matsuri-1.png",
+      "source": "images/buildings/matsuri-1.png",
+      "bytes": 8693,
+      "width": 96,
+      "height": 96,
+      "sha256": "3206e2d875689912f3cef69900f17bcee1e5506c0b216b27f2733819b1bdaf7f"
+    },
+    {
+      "path": "icons/buildings/meditation-gardens-1.png",
+      "source": "images/buildings/meditation-gardens-1.png",
+      "bytes": 13099,
+      "width": 96,
+      "height": 96,
+      "sha256": "5e4ced678cee7a5cd43c164f0baeb4e67f5002acd2d0b8e936e5e993ca81d179"
+    },
+    {
+      "path": "icons/buildings/mehmed-imperial-armory-2.png",
+      "source": "images/buildings/mehmed-imperial-armory-2.png",
+      "bytes": 10656,
+      "width": 96,
+      "height": 96,
+      "sha256": "9667d2a1fa848ddca3b709c9dfe77f87571641cae5f43fb6cb64f1a837a2eede"
+    },
+    {
+      "path": "icons/buildings/meinwerk-palace-1.png",
+      "source": "images/buildings/meinwerk-palace-1.png",
+      "bytes": 8973,
+      "width": 96,
+      "height": 96,
+      "sha256": "ada489fe6a50f23d08419bd70466948c62367841d655b0cfac3667633ef231fd"
+    },
+    {
+      "path": "icons/buildings/mercenary-house-2.png",
+      "source": "images/buildings/mercenary-house-2.png",
+      "bytes": 12400,
+      "width": 96,
+      "height": 96,
+      "sha256": "f22098b1d5f4aec94fc5ccedadcc410411bd81d200bc407dc887a3af72702f7c"
+    },
+    {
+      "path": "icons/buildings/military-school-1.png",
+      "source": "images/buildings/military-school-1.png",
+      "bytes": 12198,
+      "width": 96,
+      "height": 96,
+      "sha256": "3445c8cfb77965cd1b3d6d4c30f2557219e5432eaa4b5360f6a05e81d6bf2d3a"
+    },
+    {
+      "path": "icons/buildings/mill-1.png",
+      "source": "images/buildings/mill-1.png",
+      "bytes": 9884,
+      "width": 96,
+      "height": 96,
+      "sha256": "05e091ac31bce11fe428c7111428e41499d2d381a1d641f5cf94798834a3de1f"
+    },
+    {
+      "path": "icons/buildings/mining-camp-1.png",
+      "source": "images/buildings/mining-camp-1.png",
+      "bytes": 9056,
+      "width": 96,
+      "height": 96,
+      "sha256": "8e4ebe3b35aeca4c9866304348baa9946a7ce291257cad4e0e5d7b45e4250862"
+    },
+    {
+      "path": "icons/buildings/monastery-3.png",
+      "source": "images/buildings/monastery-3.png",
+      "bytes": 7259,
+      "width": 96,
+      "height": 96,
+      "sha256": "52c7b284c182574cda752566ca57d9c50d0aa8ac42499916d4ae53119ae06520"
+    },
+    {
+      "path": "icons/buildings/monument-of-the-great-khan-4.png",
+      "source": "images/buildings/monument-of-the-great-khan-4.png",
+      "bytes": 11597,
+      "width": 96,
+      "height": 96,
+      "sha256": "14c63b3215eb2c1c7a035e2d0acac1ec51c6e75aa4aea415bf857876e642b848"
+    },
+    {
+      "path": "icons/buildings/mosque-1.png",
+      "source": "images/buildings/mosque-1.png",
+      "bytes": 6656,
+      "width": 96,
+      "height": 96,
+      "sha256": "0033453d4ff255b3bbb51c6eacfeb68ba3cefa5e9e3e52f779d2d97d8a1ad0f1"
+    },
+    {
+      "path": "icons/buildings/mosque-3.png",
+      "source": "images/buildings/mosque-3.png",
+      "bytes": 6656,
+      "width": 96,
+      "height": 96,
+      "sha256": "0033453d4ff255b3bbb51c6eacfeb68ba3cefa5e9e3e52f779d2d97d8a1ad0f1"
+    },
+    {
+      "path": "icons/buildings/mount-lu-academy-1.png",
+      "source": "images/buildings/mount-lu-academy-1.png",
+      "bytes": 11597,
+      "width": 96,
+      "height": 96,
+      "sha256": "bdf23e75d327b096640e42f2a50d7358e2994b615264726021b4bb6720ec5c21"
+    },
+    {
+      "path": "icons/buildings/mountain-hall-2.png",
+      "source": "images/buildings/mountain-hall-2.png",
+      "bytes": 8105,
+      "width": 96,
+      "height": 96,
+      "sha256": "2f5c5f2d205435b4a144e0ad6d1e0811b537f78454532416ecf4d20285082123"
+    },
+    {
+      "path": "icons/buildings/notre-dame-4.png",
+      "source": "images/buildings/notre-dame-4.png",
+      "bytes": 9433,
+      "width": 96,
+      "height": 96,
+      "sha256": "9ec1f7141170359ca58ac950fcc434949f6899018fc8421b12ca617d62bab0e6"
+    },
+    {
+      "path": "icons/buildings/oda-clan-daimyo-estate-2.png",
+      "source": "images/buildings/oda-clan-daimyo-estate-2.png",
+      "bytes": 11443,
+      "width": 96,
+      "height": 96,
+      "sha256": "627a27e86bcbbf07b796c390fe9a39ca1fa51cb8b0eb9f0331da2c674f591858"
+    },
+    {
+      "path": "icons/buildings/olive-grove-1.png",
+      "source": "images/buildings/olive-grove-1.png",
+      "bytes": 10588,
+      "width": 96,
+      "height": 96,
+      "sha256": "bdefc82874328883f28704a3c7ea4054016e50f4bad55001e267ca98daf52e52"
+    },
+    {
+      "path": "icons/buildings/outpost-1.png",
+      "source": "images/buildings/outpost-1.png",
+      "bytes": 6415,
+      "width": 96,
+      "height": 96,
+      "sha256": "6a0943e73cfb74b58585e7cad6c2f2731d44d3bf5b1d3eeb0101c1a8ed02f08b"
+    },
+    {
+      "path": "icons/buildings/ovoo-1.png",
+      "source": "images/buildings/ovoo-1.png",
+      "bytes": 8942,
+      "width": 96,
+      "height": 96,
+      "sha256": "4b757c5ae6fd080ed4990e1bcb71e2c31c89739912194e9175c3419cd72ea4e4"
+    },
+    {
+      "path": "icons/buildings/pagoda-1.png",
+      "source": "images/buildings/pagoda-1.png",
+      "bytes": 7967,
+      "width": 96,
+      "height": 96,
+      "sha256": "1f0575dc21f21191d65c319d8f330897f22fa05c56df02b4a6fc073ad2af861f"
+    },
+    {
+      "path": "icons/buildings/pagoda-forest-3.png",
+      "source": "images/buildings/pagoda-forest-3.png",
+      "bytes": 9834,
+      "width": 96,
+      "height": 96,
+      "sha256": "c5043cbcfcd81599ad13eb4f654485cb4cdafadb5f41f431122e87bab6e990e2"
+    },
+    {
+      "path": "icons/buildings/palace-of-swabia-3.png",
+      "source": "images/buildings/palace-of-swabia-3.png",
+      "bytes": 8055,
+      "width": 96,
+      "height": 96,
+      "sha256": "a0267253592fcfb7a923ccb72d562c93ed0c663ab7d8abde313af1a31110d6ef"
+    },
+    {
+      "path": "icons/buildings/palace-of-the-sultan-3.png",
+      "source": "images/buildings/palace-of-the-sultan-3.png",
+      "bytes": 8360,
+      "width": 96,
+      "height": 96,
+      "sha256": "d71c50bdb31efcdc7932e044ffe8b598b163fbc86915f159dd32b9b679e7208e"
+    },
+    {
+      "path": "icons/buildings/palatine-school-3.png",
+      "source": "images/buildings/palatine-school-3.png",
+      "bytes": 12200,
+      "width": 96,
+      "height": 96,
+      "sha256": "8a374b8ee68e7de1a2379ffedf70fe607d406358250669f75a77e1d0b85e8987"
+    },
+    {
+      "path": "icons/buildings/palisade-1.png",
+      "source": "images/buildings/palisade-1.png",
+      "bytes": 6617,
+      "width": 96,
+      "height": 96,
+      "sha256": "de7d7da9b74684743dcb7d11734efd8323a9344bcb94f5879f998586127bacde"
+    },
+    {
+      "path": "icons/buildings/palisade-gate-1.png",
+      "source": "images/buildings/palisade-gate-1.png",
+      "bytes": 9192,
+      "width": 96,
+      "height": 96,
+      "sha256": "37bc402db43bcbab72a3eb7650801d6ee8cb83db7dc28d9ba7528f9cdf9f4943"
+    },
+    {
+      "path": "icons/buildings/pasture-1.png",
+      "source": "images/buildings/pasture-1.png",
+      "bytes": 8614,
+      "width": 96,
+      "height": 96,
+      "sha256": "ae42c3332fadf3853efb7e45c39c1e54b91fd1e4a020bad6cdf0325ff9a77c13"
+    },
+    {
+      "path": "icons/buildings/pit-mine-1.png",
+      "source": "images/buildings/pit-mine-1.png",
+      "bytes": 7761,
+      "width": 96,
+      "height": 96,
+      "sha256": "64bac2e95fe3c323a37466513ec78dfba6a7b4420b48e52f8ccb2a5e6a1d560f"
+    },
+    {
+      "path": "icons/buildings/prayer-hall-of-uqba-4.png",
+      "source": "images/buildings/prayer-hall-of-uqba-4.png",
+      "bytes": 8366,
+      "width": 96,
+      "height": 96,
+      "sha256": "c94da0fe9da72fb5933858ef90474a13855167eed00020daa65c6bb8b76669cb"
+    },
+    {
+      "path": "icons/buildings/prayer-tent-3.png",
+      "source": "images/buildings/prayer-tent-3.png",
+      "bytes": 7259,
+      "width": 96,
+      "height": 96,
+      "sha256": "52c7b284c182574cda752566ca57d9c50d0aa8ac42499916d4ae53119ae06520"
+    },
+    {
+      "path": "icons/buildings/red-palace-3.png",
+      "source": "images/buildings/red-palace-3.png",
+      "bytes": 11053,
+      "width": 96,
+      "height": 96,
+      "sha256": "1558eadc0a76d3ea939b367a5d67ef137507002494349b6ff252461791d39286"
+    },
+    {
+      "path": "icons/buildings/regnitz-cathedral-2.png",
+      "source": "images/buildings/regnitz-cathedral-2.png",
+      "bytes": 8139,
+      "width": 96,
+      "height": 96,
+      "sha256": "96dcc385bcee056b4356aa496884f3f52c64c85c4557e761f554905456f46719"
+    },
+    {
+      "path": "icons/buildings/relic-ovoo-1.png",
+      "source": "images/buildings/relic-ovoo-1.png",
+      "bytes": 8942,
+      "width": 96,
+      "height": 96,
+      "sha256": "4b757c5ae6fd080ed4990e1bcb71e2c31c89739912194e9175c3419cd72ea4e4"
+    },
+    {
+      "path": "icons/buildings/royal-institute-2.png",
+      "source": "images/buildings/royal-institute-2.png",
+      "bytes": 10052,
+      "width": 96,
+      "height": 96,
+      "sha256": "805c9feb49092bbf7cc222b5cbd93be5027c385d26ee16d85d18c4b26fe5c16e"
+    },
+    {
+      "path": "icons/buildings/runestones-1.png",
+      "source": "images/buildings/runestones-1.png",
+      "bytes": 10069,
+      "width": 96,
+      "height": 96,
+      "sha256": "420521477862d7850c9ae4417a300b6d905e94bcfb31890d5ba29dd3d643253a"
+    },
+    {
+      "path": "icons/buildings/ryokan-1.png",
+      "source": "images/buildings/ryokan-1.png",
+      "bytes": 8325,
+      "width": 96,
+      "height": 96,
+      "sha256": "ae4cc67becad05d7c1d0d880edb2a1314bdad31b1bfa9a36c37b3149247a6e13"
+    },
+    {
+      "path": "icons/buildings/saharan-trade-network-1.png",
+      "source": "images/buildings/saharan-trade-network-1.png",
+      "bytes": 11621,
+      "width": 96,
+      "height": 96,
+      "sha256": "e977d86c2479e2f7404b96ef6d40a373d6c4d37b2514ffed6e1fa219ef2e4f14"
+    },
+    {
+      "path": "icons/buildings/sake-brewery-2.png",
+      "source": "images/buildings/sake-brewery-2.png",
+      "bytes": 8936,
+      "width": 96,
+      "height": 96,
+      "sha256": "da729ce8605ff8349b192f41913d88e4812ebe953aa2f398d771592429401a11"
+    },
+    {
+      "path": "icons/buildings/school-of-cavalry-1.png",
+      "source": "images/buildings/school-of-cavalry-1.png",
+      "bytes": 9455,
+      "width": 96,
+      "height": 96,
+      "sha256": "aa76535f21f89d8042fae09ef7009d13cd28d6bca2938fc8d75ea76fa3d6f889"
+    },
+    {
+      "path": "icons/buildings/sea-gate-castle-3.png",
+      "source": "images/buildings/sea-gate-castle-3.png",
+      "bytes": 9474,
+      "width": 96,
+      "height": 96,
+      "sha256": "dd5a27b4660dd8cf03c82512f925b3f5d6fbba45ac7c006e0b69f5dbae17d1c0"
+    },
+    {
+      "path": "icons/buildings/shaolin-monastery-2.png",
+      "source": "images/buildings/shaolin-monastery-2.png",
+      "bytes": 13046,
+      "width": 96,
+      "height": 96,
+      "sha256": "fe2c8e6a373bfe026330da28af582ef6d2dbe1092133c05535a3ead36a13b9ce"
+    },
+    {
+      "path": "icons/buildings/shinto-shrine-3.png",
+      "source": "images/buildings/shinto-shrine-3.png",
+      "bytes": 7821,
+      "width": 96,
+      "height": 96,
+      "sha256": "f453bd0ae05003b2ed754babe0bf0066aae19db7c01e7cab1cbc65dac41d0e79"
+    },
+    {
+      "path": "icons/buildings/siege-workshop-3.png",
+      "source": "images/buildings/siege-workshop-3.png",
+      "bytes": 7137,
+      "width": 96,
+      "height": 96,
+      "sha256": "18a894b7947273ba022a3ddf968ca858fbdf769361e719a5580354e2a7c26216"
+    },
+    {
+      "path": "icons/buildings/spasskaya-tower-3.png",
+      "source": "images/buildings/spasskaya-tower-3.png",
+      "bytes": 6209,
+      "width": 96,
+      "height": 96,
+      "sha256": "7d726e40263814d8edadb7928b600bff483025f4af15e1524907781005678404"
+    },
+    {
+      "path": "icons/buildings/spirit-way-3.png",
+      "source": "images/buildings/spirit-way-3.png",
+      "bytes": 10566,
+      "width": 96,
+      "height": 96,
+      "sha256": "9c2b17ba4d2fa2976fe1bffd1b6056b1e2818b3d2beccc10c59ee8d60ee663d6"
+    },
+    {
+      "path": "icons/buildings/stable-1.png",
+      "source": "images/buildings/stable-1.png",
+      "bytes": 6904,
+      "width": 96,
+      "height": 96,
+      "sha256": "02e9a86718f42ff6947a7faf54b9c1107473ae3815d1b3aa9b1633b17cf04f24"
+    },
+    {
+      "path": "icons/buildings/stable-2.png",
+      "source": "images/buildings/stable-2.png",
+      "bytes": 6904,
+      "width": 96,
+      "height": 96,
+      "sha256": "02e9a86718f42ff6947a7faf54b9c1107473ae3815d1b3aa9b1633b17cf04f24"
+    },
+    {
+      "path": "icons/buildings/steppe-redoubt-2.png",
+      "source": "images/buildings/steppe-redoubt-2.png",
+      "bytes": 10983,
+      "width": 96,
+      "height": 96,
+      "sha256": "637a938d916ae70d0c41f505834eb3b36e454b6375483918c687c634275a8418"
+    },
+    {
+      "path": "icons/buildings/stockyard-1.png",
+      "source": "images/buildings/stockyard-1.png",
+      "bytes": 8312,
+      "width": 96,
+      "height": 96,
+      "sha256": "77669f5cf3956f8be9860bb50472e80f5ab18184c7cfa49f1773d95699570bb9"
+    },
+    {
+      "path": "icons/buildings/stone-wall-1.png",
+      "source": "images/buildings/stone-wall-1.png",
+      "bytes": 10187,
+      "width": 96,
+      "height": 96,
+      "sha256": "00e369821ecaf924be8365ccf51e462c28e588d5c4ce4056aa1bf7573ce4d03c"
+    },
+    {
+      "path": "icons/buildings/stone-wall-2.png",
+      "source": "images/buildings/stone-wall-2.png",
+      "bytes": 10187,
+      "width": 96,
+      "height": 96,
+      "sha256": "00e369821ecaf924be8365ccf51e462c28e588d5c4ce4056aa1bf7573ce4d03c"
+    },
+    {
+      "path": "icons/buildings/stone-wall-gate-1.png",
+      "source": "images/buildings/stone-wall-gate-1.png",
+      "bytes": 9881,
+      "width": 96,
+      "height": 96,
+      "sha256": "ba57a2ffb35dcc45667aa4e3b957e139d7e7a1b2c4b869aba713dc768afd59bb"
+    },
+    {
+      "path": "icons/buildings/stone-wall-gate-2.png",
+      "source": "images/buildings/stone-wall-gate-2.png",
+      "bytes": 9881,
+      "width": 96,
+      "height": 96,
+      "sha256": "ba57a2ffb35dcc45667aa4e3b957e139d7e7a1b2c4b869aba713dc768afd59bb"
+    },
+    {
+      "path": "icons/buildings/stone-wall-tower-1.png",
+      "source": "images/buildings/stone-wall-tower-1.png",
+      "bytes": 7067,
+      "width": 96,
+      "height": 96,
+      "sha256": "5a9ab70312abd72691796364bd329932794b8bfa04355a29e19acdec003504e7"
+    },
+    {
+      "path": "icons/buildings/stone-wall-tower-2.png",
+      "source": "images/buildings/stone-wall-tower-2.png",
+      "bytes": 7067,
+      "width": 96,
+      "height": 96,
+      "sha256": "5a9ab70312abd72691796364bd329932794b8bfa04355a29e19acdec003504e7"
+    },
+    {
+      "path": "icons/buildings/sultanhani-trade-network-1.png",
+      "source": "images/buildings/sultanhani-trade-network-1.png",
+      "bytes": 9596,
+      "width": 96,
+      "height": 96,
+      "sha256": "0ebc93ac75a04723fee8f7b964394b9084787c3b71324a9b2e98a30bd4bbecf4"
+    },
+    {
+      "path": "icons/buildings/sword-hunt-statue-3.png",
+      "source": "images/buildings/sword-hunt-statue-3.png",
+      "bytes": 8150,
+      "width": 96,
+      "height": 96,
+      "sha256": "b86ca73706a27fa0703d82f038799541c127a110bd701f013869b30ce9227ada"
+    },
+    {
+      "path": "icons/buildings/takeda-clan-daimyo-estate-2.png",
+      "source": "images/buildings/takeda-clan-daimyo-estate-2.png",
+      "bytes": 10817,
+      "width": 96,
+      "height": 96,
+      "sha256": "2e04547a886dc5da38b8421e25e7494a2e074a5e00c8a867f9427d234a7a9de6"
+    },
+    {
+      "path": "icons/buildings/tanegashima-gunsmith-3.png",
+      "source": "images/buildings/tanegashima-gunsmith-3.png",
+      "bytes": 12406,
+      "width": 96,
+      "height": 96,
+      "sha256": "dde349f1274974e27ccb5f6fb7f8ea6ce4260e7615b672d46b6958212ed90f40"
+    },
+    {
+      "path": "icons/buildings/temple-of-equality-2.png",
+      "source": "images/buildings/temple-of-equality-2.png",
+      "bytes": 11970,
+      "width": 96,
+      "height": 96,
+      "sha256": "f94e903744f38986cf4b90dbfce8c8a5d7e4a9081bb70afd0958e68038b92b88"
+    },
+    {
+      "path": "icons/buildings/temple-of-the-sun-3.png",
+      "source": "images/buildings/temple-of-the-sun-3.png",
+      "bytes": 12399,
+      "width": 96,
+      "height": 96,
+      "sha256": "355584e18d8b454f4c8b0c51d1b6aec48443522fdd205631698b52d9ea5a72e1"
+    },
+    {
+      "path": "icons/buildings/the-golden-gate-1.png",
+      "source": "images/buildings/the-golden-gate-1.png",
+      "bytes": 8689,
+      "width": 96,
+      "height": 96,
+      "sha256": "d2093a61d1b4e2071feea0c1827c76fb561d9c57e2d96fe5ab94ae70c02a6e38"
+    },
+    {
+      "path": "icons/buildings/the-silver-tree-1.png",
+      "source": "images/buildings/the-silver-tree-1.png",
+      "bytes": 9749,
+      "width": 96,
+      "height": 96,
+      "sha256": "fef9c8bca2ea29db8dcc60d31fd132bae2a0be80b46612ea90d9bf278f2f793a"
+    },
+    {
+      "path": "icons/buildings/the-white-stupa-3.png",
+      "source": "images/buildings/the-white-stupa-3.png",
+      "bytes": 10090,
+      "width": 96,
+      "height": 96,
+      "sha256": "2a6a1d4b5c39431f2cb528975bc3e226b937b29f2495bd9b6d38c34b1562e80b"
+    },
+    {
+      "path": "icons/buildings/the-white-tower-2.png",
+      "source": "images/buildings/the-white-tower-2.png",
+      "bytes": 8964,
+      "width": 96,
+      "height": 96,
+      "sha256": "b5440b46482a2708898fb436c68195b1c0ec553b4a2823d5938e763349e08253"
+    },
+    {
+      "path": "icons/buildings/tokugawa-shrine-4.png",
+      "source": "images/buildings/tokugawa-shrine-4.png",
+      "bytes": 12848,
+      "width": 96,
+      "height": 96,
+      "sha256": "2843c472ed9cbafbc600e0db3c99d998f91369b9f8db94de47ac74155794bf14"
+    },
+    {
+      "path": "icons/buildings/toll-outpost-1.png",
+      "source": "images/buildings/toll-outpost-1.png",
+      "bytes": 9488,
+      "width": 96,
+      "height": 96,
+      "sha256": "3d2ac681056d12f5eda84914079f2fb498d2e64d547fd589b2356f8ec7ce7083"
+    },
+    {
+      "path": "icons/buildings/tower-of-victory-1.png",
+      "source": "images/buildings/tower-of-victory-1.png",
+      "bytes": 7384,
+      "width": 96,
+      "height": 96,
+      "sha256": "b72f4aae3445b1a006fd931be7e41ca7a9534d6f9fc7ebae60434fdafdf03879"
+    },
+    {
+      "path": "icons/buildings/town-center-1.png",
+      "source": "images/buildings/town-center-1.png",
+      "bytes": 8000,
+      "width": 96,
+      "height": 96,
+      "sha256": "befcfd7165d8b1efd80a6e7d31ef54efdc833db729fc25ea17ce4d13607e50b9"
+    },
+    {
+      "path": "icons/buildings/town-center-2.png",
+      "source": "images/buildings/town-center-2.png",
+      "bytes": 8000,
+      "width": 96,
+      "height": 96,
+      "sha256": "befcfd7165d8b1efd80a6e7d31ef54efdc833db729fc25ea17ce4d13607e50b9"
+    },
+    {
+      "path": "icons/buildings/tughlaqabad-fort-2.png",
+      "source": "images/buildings/tughlaqabad-fort-2.png",
+      "bytes": 12271,
+      "width": 96,
+      "height": 96,
+      "sha256": "a9d2c489f6f67dc2f6b02a346ddbc7663cb58ef9cd9b835a12bb472995fd404a"
+    },
+    {
+      "path": "icons/buildings/twin-minaret-medrese-1.png",
+      "source": "images/buildings/twin-minaret-medrese-1.png",
+      "bytes": 8331,
+      "width": 96,
+      "height": 96,
+      "sha256": "f7963678b6b5d571b85bde3ca593d272b5f5b4c479df8111218cd0edceed37fa"
+    },
+    {
+      "path": "icons/buildings/university-4.png",
+      "source": "images/buildings/university-4.png",
+      "bytes": 7414,
+      "width": 96,
+      "height": 96,
+      "sha256": "dd1ef91e8503def4c064da5e535d621b0a09a24771bdad24e7407b75308ffd85"
+    },
+    {
+      "path": "icons/buildings/varangian-arsenal-2.png",
+      "source": "images/buildings/varangian-arsenal-2.png",
+      "bytes": 13020,
+      "width": 96,
+      "height": 96,
+      "sha256": "f96d525a00a4ba438f7f89ccb984b6c1a1bcc5ba868c9275284f2737a3816cb7"
+    },
+    {
+      "path": "icons/buildings/varangian-stronghold-1.png",
+      "source": "images/buildings/varangian-stronghold-1.png",
+      "bytes": 12269,
+      "width": 96,
+      "height": 96,
+      "sha256": "7efa75bc902d042beb4fe5fa40f35a824e6890618f69edf8f9cf2447c8f461d9"
+    },
+    {
+      "path": "icons/buildings/varangian-warcamp-1.png",
+      "source": "images/buildings/varangian-warcamp-1.png",
+      "bytes": 9618,
+      "width": 96,
+      "height": 96,
+      "sha256": "10648b369d5455f0743e5a9ff3354a4834ec1d98a0ee6b55d3eb1b5058f26ed8"
+    },
+    {
+      "path": "icons/buildings/village-1.png",
+      "source": "images/buildings/village-1.png",
+      "bytes": 13212,
+      "width": 96,
+      "height": 96,
+      "sha256": "a99b713e6b39b6a9e4b08b796aa60f5bc32f85fde3b93b73fb26e724ab46651b"
+    },
+    {
+      "path": "icons/buildings/war-stable-2.png",
+      "source": "images/buildings/war-stable-2.png",
+      "bytes": 13747,
+      "width": 96,
+      "height": 96,
+      "sha256": "8fa4043bbf903179bcf7fb1b8ad56d6deeeeab2e2e51cfaa5a73d962e9ca8dfd"
+    },
+    {
+      "path": "icons/buildings/wooden-fortress-1.png",
+      "source": "images/buildings/wooden-fortress-1.png",
+      "bytes": 7870,
+      "width": 96,
+      "height": 96,
+      "sha256": "f3e701f9bfaceaacc497c55822dfd5285d8a8d804d930ea72ffb6d4a082b9e99"
+    },
+    {
+      "path": "icons/buildings/worker-elephant-1.png",
+      "source": "images/buildings/worker-elephant-1.png",
+      "bytes": 10290,
+      "width": 96,
+      "height": 96,
+      "sha256": "e6a535dc9b32b66ce62718517205da5056645f87bfc709cf4add95c76fd119fe"
+    },
+    {
+      "path": "icons/buildings/wynguard-palace-3.png",
+      "source": "images/buildings/wynguard-palace-3.png",
+      "bytes": 10908,
+      "width": 96,
+      "height": 96,
+      "sha256": "c3198af91409d21604490f102ca70687393c1b2e4f9970121cbeb7e0872e9e07"
+    },
+    {
+      "path": "icons/buildings/zhu-xis-library-3.png",
+      "source": "images/buildings/zhu-xis-library-3.png",
+      "bytes": 13101,
+      "width": 96,
+      "height": 96,
+      "sha256": "6e853423680980675cc6b2418be9d9ea36072e12c47a040b93c58beceb9a649d"
+    },
+    {
+      "path": "icons/technologies/10000-bolts-4.png",
+      "source": "images/technologies/10000-bolts-4.png",
+      "bytes": 8469,
+      "width": 96,
+      "height": 96,
+      "sha256": "78dde62cf950365939587b31c0c0f8c9e62a9d89a25b7834886ba9d5bd074002"
+    },
+    {
+      "path": "icons/technologies/adaptable-hulls-3.png",
+      "source": "images/technologies/adaptable-hulls-3.png",
+      "bytes": 9968,
+      "width": 96,
+      "height": 96,
+      "sha256": "9da7b762def95c2d1f00983e2166e0cdb89e28e93cafa0e8f006332be3610f7d"
+    },
+    {
+      "path": "icons/technologies/additional-barrels-4.png",
+      "source": "images/technologies/additional-barrels-4.png",
+      "bytes": 6728,
+      "width": 96,
+      "height": 96,
+      "sha256": "4733305f8547a5005778d165737a2fe1458ab6654fff74b62709bacb8919ecbd"
+    },
+    {
+      "path": "icons/technologies/additional-torches-3.png",
+      "source": "images/technologies/additional-torches-3.png",
+      "bytes": 6589,
+      "width": 96,
+      "height": 96,
+      "sha256": "479baece7936f7868bc2c5a4599cc16679ea25d13fc059f391b08d2490c8745b"
+    },
+    {
+      "path": "icons/technologies/additional-torches-improved-3.png",
+      "source": "images/technologies/additional-torches-improved-3.png",
+      "bytes": 6589,
+      "width": 96,
+      "height": 96,
+      "sha256": "479baece7936f7868bc2c5a4599cc16679ea25d13fc059f391b08d2490c8745b"
+    },
+    {
+      "path": "icons/technologies/adjustable-crossbars-4.png",
+      "source": "images/technologies/adjustable-crossbars-4.png",
+      "bytes": 12230,
+      "width": 96,
+      "height": 96,
+      "sha256": "f2b1ac72a735c9f17951b9088dd143cc52d159375d44707a080fdd4d8486949a"
+    },
+    {
+      "path": "icons/technologies/administration-wing-1.png",
+      "source": "images/technologies/administration-wing-1.png",
+      "bytes": 6626,
+      "width": 96,
+      "height": 96,
+      "sha256": "f361dfd09f9bea267bb9a3f23f70a8e93d8eb5256a10c277e738892a63b580b5"
+    },
+    {
+      "path": "icons/technologies/administration-wing-2.png",
+      "source": "images/technologies/administration-wing-2.png",
+      "bytes": 6626,
+      "width": 96,
+      "height": 96,
+      "sha256": "f361dfd09f9bea267bb9a3f23f70a8e93d8eb5256a10c277e738892a63b580b5"
+    },
+    {
+      "path": "icons/technologies/administration-wing-3.png",
+      "source": "images/technologies/administration-wing-3.png",
+      "bytes": 6626,
+      "width": 96,
+      "height": 96,
+      "sha256": "f361dfd09f9bea267bb9a3f23f70a8e93d8eb5256a10c277e738892a63b580b5"
+    },
+    {
+      "path": "icons/technologies/administration-wing-4.png",
+      "source": "images/technologies/administration-wing-4.png",
+      "bytes": 6626,
+      "width": 96,
+      "height": 96,
+      "sha256": "f361dfd09f9bea267bb9a3f23f70a8e93d8eb5256a10c277e738892a63b580b5"
+    },
+    {
+      "path": "icons/technologies/admiralty-2.png",
+      "source": "images/technologies/admiralty-2.png",
+      "bytes": 9256,
+      "width": 96,
+      "height": 96,
+      "sha256": "583acbcd49dfe5126c2521f836a4881c560280e74fe202703de17204cb07fe3b"
+    },
+    {
+      "path": "icons/technologies/advanced-academy-1.png",
+      "source": "images/technologies/advanced-academy-1.png",
+      "bytes": 12466,
+      "width": 96,
+      "height": 96,
+      "sha256": "3256a71051dcff7d3e0e93d4d408ef791b5cfdb914fb3e7dd630b0b419d5fba1"
+    },
+    {
+      "path": "icons/technologies/advanced-administration-4.png",
+      "source": "images/technologies/advanced-administration-4.png",
+      "bytes": 9924,
+      "width": 96,
+      "height": 96,
+      "sha256": "52608082db4e8aeffe546c41645f747fe23aa9ada5945f43a788eb33de2311c4"
+    },
+    {
+      "path": "icons/technologies/agriculture-3.png",
+      "source": "images/technologies/agriculture-3.png",
+      "bytes": 6076,
+      "width": 96,
+      "height": 96,
+      "sha256": "6a95057c8c6fde480b9689ff2d1b4020f5dde0ca42ecdaed91aae45f1c8c5e51"
+    },
+    {
+      "path": "icons/technologies/algebra-3.png",
+      "source": "images/technologies/algebra-3.png",
+      "bytes": 14359,
+      "width": 96,
+      "height": 96,
+      "sha256": "9f8a90f34a8f7d79e6780606a8cfd763645ef72a106595b600919af981ddd39b"
+    },
+    {
+      "path": "icons/technologies/all-seeing-eye-2.png",
+      "source": "images/technologies/all-seeing-eye-2.png",
+      "bytes": 8297,
+      "width": 96,
+      "height": 96,
+      "sha256": "c86a339fe32ba13c2a7915eebf23da4c534f989cec2174d1f2eb1a26b067a37b"
+    },
+    {
+      "path": "icons/technologies/alliance-conducted-at-sea-4.png",
+      "source": "images/technologies/alliance-conducted-at-sea-4.png",
+      "bytes": 12454,
+      "width": 96,
+      "height": 96,
+      "sha256": "ec25fe7d95d59f169731dadff14c98ed03d661d1fce776fd4d06d810c78a001b"
+    },
+    {
+      "path": "icons/technologies/anatolian-hills-1.png",
+      "source": "images/technologies/anatolian-hills-1.png",
+      "bytes": 11886,
+      "width": 96,
+      "height": 96,
+      "sha256": "b541dcff6532e894228f93ba0cdf21c7920c1927b85cb4963e9462b5e53fdeb1"
+    },
+    {
+      "path": "icons/technologies/ancient-techniques-4.png",
+      "source": "images/technologies/ancient-techniques-4.png",
+      "bytes": 11150,
+      "width": 96,
+      "height": 96,
+      "sha256": "2070ba21af01bd8500e4ea0108ac64c58a859395657d85af1550fe502378a878"
+    },
+    {
+      "path": "icons/technologies/angevin-empire-2.png",
+      "source": "images/technologies/angevin-empire-2.png",
+      "bytes": 15233,
+      "width": 104,
+      "height": 56,
+      "sha256": "081bced8e637e8540d9f2043a6a08337cb27814ef7e48663c0d4e83dfc0af2dd"
+    },
+    {
+      "path": "icons/technologies/angled-surfaces-4.png",
+      "source": "images/technologies/angled-surfaces-4.png",
+      "bytes": 9738,
+      "width": 96,
+      "height": 96,
+      "sha256": "6b4edc6f334106336354e17eb440d4ef347430412791c6072e13ac8e657ea1f8"
+    },
+    {
+      "path": "icons/technologies/archery-range-reinforcements-3.png",
+      "source": "images/technologies/archery-range-reinforcements-3.png",
+      "bytes": 12186,
+      "width": 96,
+      "height": 96,
+      "sha256": "4d54b11cf79362b0d737e84da92388b83148f683ef0ebd1b058e9f61dd15a926"
+    },
+    {
+      "path": "icons/technologies/armor-clad-3.png",
+      "source": "images/technologies/armor-clad-3.png",
+      "bytes": 10010,
+      "width": 96,
+      "height": 96,
+      "sha256": "9aac1ab84d56d382db5f32dd9b4a99dd901f77ea8bd16792ae733bf82496a290"
+    },
+    {
+      "path": "icons/technologies/armored-beasts-4.png",
+      "source": "images/technologies/armored-beasts-4.png",
+      "bytes": 13352,
+      "width": 96,
+      "height": 96,
+      "sha256": "5e4c7773f63d9275a4ed4b2c233e348fabe01f921d6fd0391332960ec6a10a5f"
+    },
+    {
+      "path": "icons/technologies/armored-caravans-2.png",
+      "source": "images/technologies/armored-caravans-2.png",
+      "bytes": 8697,
+      "width": 96,
+      "height": 96,
+      "sha256": "b3eff178c51b48a386dd4fe1143c65b2338e9a53d9f16b5fcd6d939f178acdc1"
+    },
+    {
+      "path": "icons/technologies/armored-hull-3.png",
+      "source": "images/technologies/armored-hull-3.png",
+      "bytes": 9880,
+      "width": 96,
+      "height": 96,
+      "sha256": "32616974cbbca611ef219730847be091dbe36b7ad37d8d243b80b4d011f7b3df"
+    },
+    {
+      "path": "icons/technologies/arrow-volley-4.png",
+      "source": "images/technologies/arrow-volley-4.png",
+      "bytes": 6774,
+      "width": 96,
+      "height": 96,
+      "sha256": "4d30821a703d8fabee70605d515612da929cb6bb03964ec48258c88093d3ce06"
+    },
+    {
+      "path": "icons/technologies/arrowslits-2.png",
+      "source": "images/technologies/arrowslits-2.png",
+      "bytes": 9143,
+      "width": 96,
+      "height": 96,
+      "sha256": "240410f56abe08d518f788d8cfb916d73b5a210983e0eb38760cbc18da5e8109"
+    },
+    {
+      "path": "icons/technologies/awl-pikes-2.png",
+      "source": "images/technologies/awl-pikes-2.png",
+      "bytes": 8571,
+      "width": 96,
+      "height": 96,
+      "sha256": "6a06cc83d5f66244b24aadde45b1df1d9e539c4b4fb398aa3521d247a90b729e"
+    },
+    {
+      "path": "icons/technologies/balanced-projectiles-3.png",
+      "source": "images/technologies/balanced-projectiles-3.png",
+      "bytes": 9082,
+      "width": 96,
+      "height": 96,
+      "sha256": "6ab1fc7e8ced1e007a34b4260d9fc3d934e4e034409613b2e8aedec7c0d6382e"
+    },
+    {
+      "path": "icons/technologies/banco-repairs-2.png",
+      "source": "images/technologies/banco-repairs-2.png",
+      "bytes": 10147,
+      "width": 96,
+      "height": 96,
+      "sha256": "f38a2d772f1068b225185bb54ac37b624dc430f844f83e76fef9621c8cad1b5f"
+    },
+    {
+      "path": "icons/technologies/banded-arms-4.png",
+      "source": "images/technologies/banded-arms-4.png",
+      "bytes": 6957,
+      "width": 96,
+      "height": 96,
+      "sha256": "3d625a4d9d4f19433ce2be854cb45961a91fcc9506dc9a9534317b57950cdfed"
+    },
+    {
+      "path": "icons/technologies/barracks-reinforcements-3.png",
+      "source": "images/technologies/barracks-reinforcements-3.png",
+      "bytes": 11620,
+      "width": 96,
+      "height": 96,
+      "sha256": "e74a507a217fc7c3e93293aeb0e9de7866ad966efdc96baad5f1dff243762e1a"
+    },
+    {
+      "path": "icons/technologies/battle-hardened-4.png",
+      "source": "images/technologies/battle-hardened-4.png",
+      "bytes": 9916,
+      "width": 96,
+      "height": 96,
+      "sha256": "c672ed9a715e47496b859683d66d05226a9acc66d4c2887b5ed296dfd916653d"
+    },
+    {
+      "path": "icons/technologies/battlefield-salvage-3.png",
+      "source": "images/technologies/battlefield-salvage-3.png",
+      "bytes": 13847,
+      "width": 96,
+      "height": 96,
+      "sha256": "057bec551d6347d9708040e84bf05866e03ee50f67d46116927953fcd9f7970d"
+    },
+    {
+      "path": "icons/technologies/beachhead-1.png",
+      "source": "images/technologies/beachhead-1.png",
+      "bytes": 8732,
+      "width": 96,
+      "height": 96,
+      "sha256": "57caeede0ab79ac1c45c0056e4820ed49c7ada06359b76ef76739a9792d21d6b"
+    },
+    {
+      "path": "icons/technologies/bed-crossbow-emplacement-3.png",
+      "source": "images/technologies/bed-crossbow-emplacement-3.png",
+      "bytes": 8100,
+      "width": 96,
+      "height": 96,
+      "sha256": "3dee208e3373fe2baa3e92fdcd16328582f8e362db8f78537ec29e80c4a1c3f4"
+    },
+    {
+      "path": "icons/technologies/billmen-2.png",
+      "source": "images/technologies/billmen-2.png",
+      "bytes": 14518,
+      "width": 96,
+      "height": 96,
+      "sha256": "e0efc63e77d2b30554ce682ee1a56c623417219cd29dbaadb9c83e8eac64cbcb"
+    },
+    {
+      "path": "icons/technologies/biology-4.png",
+      "source": "images/technologies/biology-4.png",
+      "bytes": 9419,
+      "width": 96,
+      "height": 96,
+      "sha256": "bf16278b0ad58199dff7a5eef4c7a90c12f73eaabea2d94212edc689acced25d"
+    },
+    {
+      "path": "icons/technologies/biology-improved-4.png",
+      "source": "images/technologies/biology-improved-4.png",
+      "bytes": 9419,
+      "width": 96,
+      "height": 96,
+      "sha256": "bf16278b0ad58199dff7a5eef4c7a90c12f73eaabea2d94212edc689acced25d"
+    },
+    {
+      "path": "icons/technologies/blade-inlaying-tier1-2.png",
+      "source": "images/technologies/blade-inlaying-tier1-2.png",
+      "bytes": 10775,
+      "width": 96,
+      "height": 96,
+      "sha256": "0bcada6180c9cef1cf2487f0623a3671e76f1dc02e69741b9cef9f163aaa6db5"
+    },
+    {
+      "path": "icons/technologies/blade-inlaying-tier2-2.png",
+      "source": "images/technologies/blade-inlaying-tier2-2.png",
+      "bytes": 10829,
+      "width": 96,
+      "height": 96,
+      "sha256": "234b2dc3ab5af97bdef061f81a50122c85c67ce01fdb26e5c6cce1fd3f68ec72"
+    },
+    {
+      "path": "icons/technologies/blade-inlaying-tier3-3.png",
+      "source": "images/technologies/blade-inlaying-tier3-3.png",
+      "bytes": 10924,
+      "width": 96,
+      "height": 96,
+      "sha256": "a1bc094342649fdeab0f6cbfa5c204e585a127bf8c453b74fd1bb068bb602b82"
+    },
+    {
+      "path": "icons/technologies/blade-inlaying-tier4-3.png",
+      "source": "images/technologies/blade-inlaying-tier4-3.png",
+      "bytes": 10980,
+      "width": 96,
+      "height": 96,
+      "sha256": "38a1cf5fa15fdecca16ad02161b980cd9d0c2ee269fcad9cccddb05d8b3ce5fc"
+    },
+    {
+      "path": "icons/technologies/blade-inlaying-tier5-4.png",
+      "source": "images/technologies/blade-inlaying-tier5-4.png",
+      "bytes": 11020,
+      "width": 96,
+      "height": 96,
+      "sha256": "98f608fcda9140751145bd146bcbd84c0d616b3cc6d168b8afc6736372638f17"
+    },
+    {
+      "path": "icons/technologies/blade-inlaying-tier6-4.png",
+      "source": "images/technologies/blade-inlaying-tier6-4.png",
+      "bytes": 11050,
+      "width": 96,
+      "height": 96,
+      "sha256": "6be74c7ef0dd6c94e80471bfe49a9882e45e949e9e71698ecd5cdc9c82fbf2eb"
+    },
+    {
+      "path": "icons/technologies/bloomery-2.png",
+      "source": "images/technologies/bloomery-2.png",
+      "bytes": 8873,
+      "width": 96,
+      "height": 96,
+      "sha256": "09f2fac1a1a5bad05969a10230b075703a684f5149c724e034a81d77de5a4572"
+    },
+    {
+      "path": "icons/technologies/bodkin-bolts-4.png",
+      "source": "images/technologies/bodkin-bolts-4.png",
+      "bytes": 9457,
+      "width": 96,
+      "height": 96,
+      "sha256": "91a6d5c2cf55dcdff32729fb2bbc469d2a365c2c9ef18e5b63fe127e80d1efee"
+    },
+    {
+      "path": "icons/technologies/boiling-oil-3.png",
+      "source": "images/technologies/boiling-oil-3.png",
+      "bytes": 9281,
+      "width": 96,
+      "height": 96,
+      "sha256": "807754758823255506cf8cf731a0e855e90d8e4f1e8ccdf7e4e0eea4f88eea03"
+    },
+    {
+      "path": "icons/technologies/bolt-magazines-3.png",
+      "source": "images/technologies/bolt-magazines-3.png",
+      "bytes": 5108,
+      "width": 96,
+      "height": 96,
+      "sha256": "3caea3ea29efc0824d09dd04374c3367e91fe6441815c3649a514c06542b1821"
+    },
+    {
+      "path": "icons/technologies/boot-camp-2.png",
+      "source": "images/technologies/boot-camp-2.png",
+      "bytes": 7829,
+      "width": 96,
+      "height": 96,
+      "sha256": "e7c5af527ac205785ac6ab324a0a74ccc822b59ee1ed1b55159d0ce9ef730115"
+    },
+    {
+      "path": "icons/technologies/border-settlements-2.png",
+      "source": "images/technologies/border-settlements-2.png",
+      "bytes": 13761,
+      "width": 96,
+      "height": 96,
+      "sha256": "8e978d10db6fb478de74a587a24ec5f9ed09e56c23ce3de8012830aa4dcf1cc7"
+    },
+    {
+      "path": "icons/technologies/boyars-fortitude-3.png",
+      "source": "images/technologies/boyars-fortitude-3.png",
+      "bytes": 9867,
+      "width": 96,
+      "height": 96,
+      "sha256": "82088e31eea4c643bbfedd458c834f8b272bd0e328c36ee2510a09fe9b0ae53f"
+    },
+    {
+      "path": "icons/technologies/brigandine-4.png",
+      "source": "images/technologies/brigandine-4.png",
+      "bytes": 7633,
+      "width": 96,
+      "height": 96,
+      "sha256": "19f4afd58540fb3e0f5ecc375027b56674d936bdcd97bb57c0a5b0335eeae77f"
+    },
+    {
+      "path": "icons/technologies/building-carts-1.png",
+      "source": "images/technologies/building-carts-1.png",
+      "bytes": 12963,
+      "width": 96,
+      "height": 96,
+      "sha256": "49c46aaab890997374e577896a51989fb31006198278d8f3106cc5dfaa560cd7"
+    },
+    {
+      "path": "icons/technologies/bunrei-4.png",
+      "source": "images/technologies/bunrei-4.png",
+      "bytes": 10618,
+      "width": 96,
+      "height": 96,
+      "sha256": "72206afe2b852f8badf7f16503b7475d836a2c849e2c384cbe05a6dd4f83bc18"
+    },
+    {
+      "path": "icons/technologies/burgundian-imports-3.png",
+      "source": "images/technologies/burgundian-imports-3.png",
+      "bytes": 7880,
+      "width": 96,
+      "height": 96,
+      "sha256": "c62bcc141ebb3af162e282276da6544efe36a2ed484dc9fc4b5e6b08c4f75465"
+    },
+    {
+      "path": "icons/technologies/butted-chainmail-tier1-2.png",
+      "source": "images/technologies/butted-chainmail-tier1-2.png",
+      "bytes": 9795,
+      "width": 96,
+      "height": 96,
+      "sha256": "0df7d9d7eae1657482a37fd5f66ac3e736bbbb1f2e85adbfbce6b882eafb109f"
+    },
+    {
+      "path": "icons/technologies/butted-chainmail-tier2-2.png",
+      "source": "images/technologies/butted-chainmail-tier2-2.png",
+      "bytes": 9857,
+      "width": 96,
+      "height": 96,
+      "sha256": "3b98e93fc4ddff878ef0dc00a9942577c7b27bd1db84ef0f60cfa969e1551c9f"
+    },
+    {
+      "path": "icons/technologies/butted-chainmail-tier3-3.png",
+      "source": "images/technologies/butted-chainmail-tier3-3.png",
+      "bytes": 9940,
+      "width": 96,
+      "height": 96,
+      "sha256": "87671581b102b85328d7c1376a9ac7d34ebda2d6c539d53eca983a18f3caa4c8"
+    },
+    {
+      "path": "icons/technologies/butted-chainmail-tier4-3.png",
+      "source": "images/technologies/butted-chainmail-tier4-3.png",
+      "bytes": 9999,
+      "width": 96,
+      "height": 96,
+      "sha256": "77f28c89c63fad7355627deb6fa28de23a398dddc2398b92ad883eb90df0d225"
+    },
+    {
+      "path": "icons/technologies/butted-chainmail-tier5-4.png",
+      "source": "images/technologies/butted-chainmail-tier5-4.png",
+      "bytes": 10040,
+      "width": 96,
+      "height": 96,
+      "sha256": "481e86c77cea80a52aea8d123813d17079de485e4e61d9341577890e4c32745e"
+    },
+    {
+      "path": "icons/technologies/butted-chainmail-tier6-4.png",
+      "source": "images/technologies/butted-chainmail-tier6-4.png",
+      "bytes": 10074,
+      "width": 96,
+      "height": 96,
+      "sha256": "c7fa7f579481b8ace3f62f7d6f9395b203eb50dd1f95110674b05c21a5f720ae"
+    },
+    {
+      "path": "icons/technologies/camel-handling-3.png",
+      "source": "images/technologies/camel-handling-3.png",
+      "bytes": 8016,
+      "width": 96,
+      "height": 96,
+      "sha256": "b0db18f35472b57832db58028c70fef9e8bfb5bf08e166cfed81126d9259397f"
+    },
+    {
+      "path": "icons/technologies/camel-rider-barding-4.png",
+      "source": "images/technologies/camel-rider-barding-4.png",
+      "bytes": 10292,
+      "width": 96,
+      "height": 96,
+      "sha256": "60d00426629cf19e1b72d72ea92f60aece8225ef59f24fc25015b8686d49998b"
+    },
+    {
+      "path": "icons/technologies/camel-rider-shields-3.png",
+      "source": "images/technologies/camel-rider-shields-3.png",
+      "bytes": 10306,
+      "width": 96,
+      "height": 96,
+      "sha256": "a13769afe7ebe7f1c94bba60a35c3f58bc937fec64a3109f8cd6de0fd82c9f7e"
+    },
+    {
+      "path": "icons/technologies/camel-support-4.png",
+      "source": "images/technologies/camel-support-4.png",
+      "bytes": 8945,
+      "width": 96,
+      "height": 96,
+      "sha256": "dd40b23844963e2d17b9c95b07242a26de9f4eba57f3ac4708e97366e3e4803e"
+    },
+    {
+      "path": "icons/technologies/cannon-emplacement-4.png",
+      "source": "images/technologies/cannon-emplacement-4.png",
+      "bytes": 4706,
+      "width": 96,
+      "height": 96,
+      "sha256": "eeff1dcc83a7402b711499434c83672697df236f4f38b39fcf8555d0e0e2689a"
+    },
+    {
+      "path": "icons/technologies/canoe-tactics-2.png",
+      "source": "images/technologies/canoe-tactics-2.png",
+      "bytes": 11070,
+      "width": 96,
+      "height": 96,
+      "sha256": "7d21bfafab7af0ed65b268c57f2051a0b90440c78814ecc51627b025cef3b13f"
+    },
+    {
+      "path": "icons/technologies/cantled-saddles-3.png",
+      "source": "images/technologies/cantled-saddles-3.png",
+      "bytes": 7006,
+      "width": 96,
+      "height": 96,
+      "sha256": "4fd70d7594183f8ec7ac7a19475d513ca5d62b1db57457491690a84105baaa5c"
+    },
+    {
+      "path": "icons/technologies/castle-turret-1.png",
+      "source": "images/technologies/castle-turret-1.png",
+      "bytes": 5628,
+      "width": 96,
+      "height": 96,
+      "sha256": "0c6b514ee5ef0a5b0535c8e53953b06ebf3f2f542b97fe341f4aa4ed236018e7"
+    },
+    {
+      "path": "icons/technologies/castle-watch-1.png",
+      "source": "images/technologies/castle-watch-1.png",
+      "bytes": 12376,
+      "width": 96,
+      "height": 96,
+      "sha256": "9c9cc766ba3bc7c32ce86e8fdccdfb2495e4559f0b595e1dd63e91c9b210180e"
+    },
+    {
+      "path": "icons/technologies/chemistry-4.png",
+      "source": "images/technologies/chemistry-4.png",
+      "bytes": 6701,
+      "width": 96,
+      "height": 96,
+      "sha256": "3c70f2feeabdb1366caad73b8c89448832f274b85ed21e60da8184cceead6081"
+    },
+    {
+      "path": "icons/technologies/chivalry-2.png",
+      "source": "images/technologies/chivalry-2.png",
+      "bytes": 8017,
+      "width": 96,
+      "height": 96,
+      "sha256": "5ca5f51da68a90078c38e90e804f0ca8f91c9715ea17ba3f6458901b8abe1cb9"
+    },
+    {
+      "path": "icons/technologies/chivalry-3.png",
+      "source": "images/technologies/chivalry-3.png",
+      "bytes": 8017,
+      "width": 96,
+      "height": 96,
+      "sha256": "5ca5f51da68a90078c38e90e804f0ca8f91c9715ea17ba3f6458901b8abe1cb9"
+    },
+    {
+      "path": "icons/technologies/cistercian-abbeys-3.png",
+      "source": "images/technologies/cistercian-abbeys-3.png",
+      "bytes": 14593,
+      "width": 96,
+      "height": 96,
+      "sha256": "66ac8c77f86eb9c252a02b6e62e6f75522d3421f58cc68113926ca12e6123b5b"
+    },
+    {
+      "path": "icons/technologies/city-planning-2.png",
+      "source": "images/technologies/city-planning-2.png",
+      "bytes": 12869,
+      "width": 96,
+      "height": 96,
+      "sha256": "f33a1f4cd37779259e1ae0003c5cdcc4b84e7a1afaddc59e820d4056de4834c3"
+    },
+    {
+      "path": "icons/technologies/cloud-of-terror-4.png",
+      "source": "images/technologies/cloud-of-terror-4.png",
+      "bytes": 10155,
+      "width": 96,
+      "height": 96,
+      "sha256": "d93fc9fa043dd9ba60208b47d1eacdaad8839fe7849a69e5f661af0d723857fb"
+    },
+    {
+      "path": "icons/technologies/collar-of-esses-3.png",
+      "source": "images/technologies/collar-of-esses-3.png",
+      "bytes": 13322,
+      "width": 96,
+      "height": 96,
+      "sha256": "ecc797cc48f3eb84aaa7075223fe11a0b1412e63b503c7ab034b88f9a4831d26"
+    },
+    {
+      "path": "icons/technologies/collateral-damage-3.png",
+      "source": "images/technologies/collateral-damage-3.png",
+      "bytes": 10579,
+      "width": 96,
+      "height": 96,
+      "sha256": "ad15741b20c27248e4f2777876794587b0dcd596c008d63ac7c21929d9967b73"
+    },
+    {
+      "path": "icons/technologies/collective-hunting-1.png",
+      "source": "images/technologies/collective-hunting-1.png",
+      "bytes": 11542,
+      "width": 96,
+      "height": 96,
+      "sha256": "8342243cd9be0d5afd1f90e58420466f108fe230eab304573bb66ee296c6045c"
+    },
+    {
+      "path": "icons/technologies/companion-equipment-3.png",
+      "source": "images/technologies/companion-equipment-3.png",
+      "bytes": 13842,
+      "width": 96,
+      "height": 96,
+      "sha256": "6c03c0d4f0ebae83bf0b4ebe9bb381e5c52e5d3b92815317652f7385e722d246"
+    },
+    {
+      "path": "icons/technologies/composite-bows-3.png",
+      "source": "images/technologies/composite-bows-3.png",
+      "bytes": 6899,
+      "width": 96,
+      "height": 96,
+      "sha256": "4c2e5c27c9af699bc579a18fa8f55c55e514afb45049f7b914112679bf5a3418"
+    },
+    {
+      "path": "icons/technologies/concave-lens-4.png",
+      "source": "images/technologies/concave-lens-4.png",
+      "bytes": 10944,
+      "width": 96,
+      "height": 96,
+      "sha256": "ffea954699a0eead291787910df2dd9c549c7305c4d55c2cc264dd2699053ab3"
+    },
+    {
+      "path": "icons/technologies/condensed-land-practices-2.png",
+      "source": "images/technologies/condensed-land-practices-2.png",
+      "bytes": 11379,
+      "width": 96,
+      "height": 96,
+      "sha256": "bcec1e773e997194e551187f08394581de8d98f15215387a0362b74607e6a38f"
+    },
+    {
+      "path": "icons/technologies/copper-plating-3.png",
+      "source": "images/technologies/copper-plating-3.png",
+      "bytes": 11511,
+      "width": 96,
+      "height": 96,
+      "sha256": "6afb525dc74d51d4b82b8b6cb4f4b70685eae6d7aa99bfb4d143b0a271c5eaf4"
+    },
+    {
+      "path": "icons/technologies/counterweight-defenses-4.png",
+      "source": "images/technologies/counterweight-defenses-4.png",
+      "bytes": 5855,
+      "width": 96,
+      "height": 96,
+      "sha256": "93a362e8596e40c0935074c8e4c00507c9b1ace2efb366c42b861c4dc5416750"
+    },
+    {
+      "path": "icons/technologies/court-architects-3.png",
+      "source": "images/technologies/court-architects-3.png",
+      "bytes": 5234,
+      "width": 96,
+      "height": 96,
+      "sha256": "b2e24f3431bdc368e559640b406c7406ce281d6b847b33fcd1818640577a70d5"
+    },
+    {
+      "path": "icons/technologies/court-architects-4.png",
+      "source": "images/technologies/court-architects-4.png",
+      "bytes": 5234,
+      "width": 96,
+      "height": 96,
+      "sha256": "b2e24f3431bdc368e559640b406c7406ce281d6b847b33fcd1818640577a70d5"
+    },
+    {
+      "path": "icons/technologies/cranequins-4.png",
+      "source": "images/technologies/cranequins-4.png",
+      "bytes": 6624,
+      "width": 96,
+      "height": 96,
+      "sha256": "5cfb2c5686c7ddf744bbae48cb5845420c362a4ec62615ad510574a9905ef139"
+    },
+    {
+      "path": "icons/technologies/cross-folded-armor-1.png",
+      "source": "images/technologies/cross-folded-armor-1.png",
+      "bytes": 9950,
+      "width": 96,
+      "height": 96,
+      "sha256": "4a43527bc5691d1d0c69d168180088503345e9cb682066017a2d4bdb69376c33"
+    },
+    {
+      "path": "icons/technologies/crossbow-stirrups-3.png",
+      "source": "images/technologies/crossbow-stirrups-3.png",
+      "bytes": 5277,
+      "width": 96,
+      "height": 96,
+      "sha256": "499041f758379b25bcede879b46435e2af3a07b3045d65efc3232f865cc652c9"
+    },
+    {
+      "path": "icons/technologies/crossbow-stirrups-4.png",
+      "source": "images/technologies/crossbow-stirrups-4.png",
+      "bytes": 5277,
+      "width": 96,
+      "height": 96,
+      "sha256": "499041f758379b25bcede879b46435e2af3a07b3045d65efc3232f865cc652c9"
+    },
+    {
+      "path": "icons/technologies/crosscut-saw-4.png",
+      "source": "images/technologies/crosscut-saw-4.png",
+      "bytes": 9736,
+      "width": 96,
+      "height": 96,
+      "sha256": "8afa8e1a6ad6c9f142d6a7ae5e1481e10e14358d2fd55437771877517d2a1113"
+    },
+    {
+      "path": "icons/technologies/culture-wing-1.png",
+      "source": "images/technologies/culture-wing-1.png",
+      "bytes": 5739,
+      "width": 96,
+      "height": 96,
+      "sha256": "1ca67bc6679865432ad2f54abd63b6518be6a091a68fa49aff0ae6909f0e58d7"
+    },
+    {
+      "path": "icons/technologies/culture-wing-2.png",
+      "source": "images/technologies/culture-wing-2.png",
+      "bytes": 5739,
+      "width": 96,
+      "height": 96,
+      "sha256": "1ca67bc6679865432ad2f54abd63b6518be6a091a68fa49aff0ae6909f0e58d7"
+    },
+    {
+      "path": "icons/technologies/culture-wing-3.png",
+      "source": "images/technologies/culture-wing-3.png",
+      "bytes": 5739,
+      "width": 96,
+      "height": 96,
+      "sha256": "1ca67bc6679865432ad2f54abd63b6518be6a091a68fa49aff0ae6909f0e58d7"
+    },
+    {
+      "path": "icons/technologies/culture-wing-4.png",
+      "source": "images/technologies/culture-wing-4.png",
+      "bytes": 5739,
+      "width": 96,
+      "height": 96,
+      "sha256": "1ca67bc6679865432ad2f54abd63b6518be6a091a68fa49aff0ae6909f0e58d7"
+    },
+    {
+      "path": "icons/technologies/culture-wing-advancement-1.png",
+      "source": "images/technologies/culture-wing-advancement-1.png",
+      "bytes": 11432,
+      "width": 96,
+      "height": 96,
+      "sha256": "8bbcb2f5f1ce081c3bbd045eb70387e51cd8c8e58e45ba38468e8b3127beff38"
+    },
+    {
+      "path": "icons/technologies/culture-wing-advancement-2.png",
+      "source": "images/technologies/culture-wing-advancement-2.png",
+      "bytes": 11390,
+      "width": 96,
+      "height": 96,
+      "sha256": "c264a31be985bd0440345a5de2e022b165db9b3dfa715882ee2afa640162716e"
+    },
+    {
+      "path": "icons/technologies/culture-wing-advancement-3.png",
+      "source": "images/technologies/culture-wing-advancement-3.png",
+      "bytes": 11390,
+      "width": 96,
+      "height": 96,
+      "sha256": "c264a31be985bd0440345a5de2e022b165db9b3dfa715882ee2afa640162716e"
+    },
+    {
+      "path": "icons/technologies/culture-wing-logistics-1.png",
+      "source": "images/technologies/culture-wing-logistics-1.png",
+      "bytes": 13324,
+      "width": 96,
+      "height": 96,
+      "sha256": "72aae8db822a0f9ae153db51eab17d1071b8e143e87f644837f8dbdcd06b3bbc"
+    },
+    {
+      "path": "icons/technologies/culture-wing-logistics-2.png",
+      "source": "images/technologies/culture-wing-logistics-2.png",
+      "bytes": 13303,
+      "width": 96,
+      "height": 96,
+      "sha256": "0d11e77d2d0e6273d5a234e1ea0761a8b77683453384e1148d1b8e414b86f38c"
+    },
+    {
+      "path": "icons/technologies/culture-wing-logistics-3.png",
+      "source": "images/technologies/culture-wing-logistics-3.png",
+      "bytes": 13303,
+      "width": 96,
+      "height": 96,
+      "sha256": "0d11e77d2d0e6273d5a234e1ea0761a8b77683453384e1148d1b8e414b86f38c"
+    },
+    {
+      "path": "icons/technologies/culture-wing-logistics-4.png",
+      "source": "images/technologies/culture-wing-logistics-4.png",
+      "bytes": 13303,
+      "width": 96,
+      "height": 96,
+      "sha256": "0d11e77d2d0e6273d5a234e1ea0761a8b77683453384e1148d1b8e414b86f38c"
+    },
+    {
+      "path": "icons/technologies/cupellation-4.png",
+      "source": "images/technologies/cupellation-4.png",
+      "bytes": 10830,
+      "width": 96,
+      "height": 96,
+      "sha256": "f4e583f857acb63a69051cbadf238c061a541ff2c467b59ca190f76485097169"
+    },
+    {
+      "path": "icons/technologies/curse-of-auliya-1.png",
+      "source": "images/technologies/curse-of-auliya-1.png",
+      "bytes": 7575,
+      "width": 96,
+      "height": 96,
+      "sha256": "848df0c91695dfe6f16b7d70892feb82401cfdec0c004878e1f51ed699f337df"
+    },
+    {
+      "path": "icons/technologies/daimyo-manor-1.png",
+      "source": "images/technologies/daimyo-manor-1.png",
+      "bytes": 7411,
+      "width": 96,
+      "height": 96,
+      "sha256": "dfab375001a3e3649a18730124a39f1c77c77f5f60efb6969c5210ab0ee87a23"
+    },
+    {
+      "path": "icons/technologies/daimyo-palace-2.png",
+      "source": "images/technologies/daimyo-palace-2.png",
+      "bytes": 9384,
+      "width": 96,
+      "height": 96,
+      "sha256": "e765c9b35448e3d46a9cd51a4bb6df1c0141900a3d734373fe7362d2be2c1994"
+    },
+    {
+      "path": "icons/technologies/dali-horses-2.png",
+      "source": "images/technologies/dali-horses-2.png",
+      "bytes": 10902,
+      "width": 96,
+      "height": 96,
+      "sha256": "56ca2268e1ce5852314014026b4788e998d8716067faee0acc991fabe7e81225"
+    },
+    {
+      "path": "icons/technologies/damascus-steel-4.png",
+      "source": "images/technologies/damascus-steel-4.png",
+      "bytes": 10794,
+      "width": 96,
+      "height": 96,
+      "sha256": "4f910f4ab9f5ec92dcb4de2b45d3a8c4956e210a8f63dfe66a0155e63d4370fb"
+    },
+    {
+      "path": "icons/technologies/decarbonization-3.png",
+      "source": "images/technologies/decarbonization-3.png",
+      "bytes": 9989,
+      "width": 96,
+      "height": 96,
+      "sha256": "7594511a52438f266a7ac38ad2676ee03aedf1a7e4d7966b45e1366a68135376"
+    },
+    {
+      "path": "icons/technologies/desert-citadels-2.png",
+      "source": "images/technologies/desert-citadels-2.png",
+      "bytes": 6629,
+      "width": 96,
+      "height": 96,
+      "sha256": "158ed696dc29a76ecde24881591788b443426333b4289116e8637f2c2e136a79"
+    },
+    {
+      "path": "icons/technologies/devoutness-3.png",
+      "source": "images/technologies/devoutness-3.png",
+      "bytes": 6550,
+      "width": 96,
+      "height": 96,
+      "sha256": "2be05b2ee51617f0b1464ece55b45e25d600a78211c5051ada8488d4a6eb0523"
+    },
+    {
+      "path": "icons/technologies/divine-light-1.png",
+      "source": "images/technologies/divine-light-1.png",
+      "bytes": 8430,
+      "width": 96,
+      "height": 96,
+      "sha256": "5f49044c963a3879df34d523879df2893eae3a69baf174b10120f86e11705956"
+    },
+    {
+      "path": "icons/technologies/do-maru-armor-4.png",
+      "source": "images/technologies/do-maru-armor-4.png",
+      "bytes": 9655,
+      "width": 96,
+      "height": 96,
+      "sha256": "8873fb341170b01ed583b65e6ea70d894e5a0ab60885c4520029847b3e65e8be"
+    },
+    {
+      "path": "icons/technologies/double-broadax-2.png",
+      "source": "images/technologies/double-broadax-2.png",
+      "bytes": 7519,
+      "width": 96,
+      "height": 96,
+      "sha256": "62b6793d2d42e0af115378b5c811b8746a3988d6b08a07aefcfb53ccdbe8df18"
+    },
+    {
+      "path": "icons/technologies/double-broadax-improved-2.png",
+      "source": "images/technologies/double-broadax-improved-2.png",
+      "bytes": 6665,
+      "width": 96,
+      "height": 96,
+      "sha256": "395f383fd16f290c1cf7895cd7f504ea6cf6e0d18dc016a0db2642521ad54fb8"
+    },
+    {
+      "path": "icons/technologies/draft-horses-3.png",
+      "source": "images/technologies/draft-horses-3.png",
+      "bytes": 15071,
+      "width": 96,
+      "height": 96,
+      "sha256": "1007262f43a75a89db355d5a176f0a2bdae96618d50342c3695bb81835748280"
+    },
+    {
+      "path": "icons/technologies/drift-nets-3.png",
+      "source": "images/technologies/drift-nets-3.png",
+      "bytes": 12295,
+      "width": 96,
+      "height": 96,
+      "sha256": "f9115f53bfca877db32fc1c41103a4655287eef1ac7d0ca7af5a08ec2402714a"
+    },
+    {
+      "path": "icons/technologies/dynastic-protectors-4.png",
+      "source": "images/technologies/dynastic-protectors-4.png",
+      "bytes": 7003,
+      "width": 96,
+      "height": 96,
+      "sha256": "a8662ed98d9399d335bc53376c800e29c2859bd941873cef4cdb23363c61a333"
+    },
+    {
+      "path": "icons/technologies/earthen-core-walls-3.png",
+      "source": "images/technologies/earthen-core-walls-3.png",
+      "bytes": 12364,
+      "width": 96,
+      "height": 96,
+      "sha256": "f8c653cd028a5b9175c7b3ee53d5c860699604e61f388e3a4369999a68c63232"
+    },
+    {
+      "path": "icons/technologies/eastern-mercenary-contract-1.png",
+      "source": "images/technologies/eastern-mercenary-contract-1.png",
+      "bytes": 12654,
+      "width": 96,
+      "height": 96,
+      "sha256": "f60119011a295c3f8756276c44d686bdfcd3da428b9f427a04e079d9096dd03b"
+    },
+    {
+      "path": "icons/technologies/economic-wing-1.png",
+      "source": "images/technologies/economic-wing-1.png",
+      "bytes": 4770,
+      "width": 96,
+      "height": 96,
+      "sha256": "5003918351795ff2925a08080624d0386697e3e357338b9cb49b9aac3f5452e5"
+    },
+    {
+      "path": "icons/technologies/economic-wing-2.png",
+      "source": "images/technologies/economic-wing-2.png",
+      "bytes": 4770,
+      "width": 96,
+      "height": 96,
+      "sha256": "5003918351795ff2925a08080624d0386697e3e357338b9cb49b9aac3f5452e5"
+    },
+    {
+      "path": "icons/technologies/economic-wing-3.png",
+      "source": "images/technologies/economic-wing-3.png",
+      "bytes": 4770,
+      "width": 96,
+      "height": 96,
+      "sha256": "5003918351795ff2925a08080624d0386697e3e357338b9cb49b9aac3f5452e5"
+    },
+    {
+      "path": "icons/technologies/economic-wing-4.png",
+      "source": "images/technologies/economic-wing-4.png",
+      "bytes": 4770,
+      "width": 96,
+      "height": 96,
+      "sha256": "5003918351795ff2925a08080624d0386697e3e357338b9cb49b9aac3f5452e5"
+    },
+    {
+      "path": "icons/technologies/economic-wing-growth-1.png",
+      "source": "images/technologies/economic-wing-growth-1.png",
+      "bytes": 15944,
+      "width": 96,
+      "height": 96,
+      "sha256": "d36e2d7bb989f1be67f833c7cac620a8cda1d32c3d3c99ce66a336c3846e40d9"
+    },
+    {
+      "path": "icons/technologies/economic-wing-growth-2.png",
+      "source": "images/technologies/economic-wing-growth-2.png",
+      "bytes": 15828,
+      "width": 96,
+      "height": 96,
+      "sha256": "e17ca25d0f3dd8a8570f423710f1a97455701269e7821dc78f4c6277aeaacf7f"
+    },
+    {
+      "path": "icons/technologies/economic-wing-growth-3.png",
+      "source": "images/technologies/economic-wing-growth-3.png",
+      "bytes": 15828,
+      "width": 96,
+      "height": 96,
+      "sha256": "e17ca25d0f3dd8a8570f423710f1a97455701269e7821dc78f4c6277aeaacf7f"
+    },
+    {
+      "path": "icons/technologies/economic-wing-growth-4.png",
+      "source": "images/technologies/economic-wing-growth-4.png",
+      "bytes": 15828,
+      "width": 96,
+      "height": 96,
+      "sha256": "e17ca25d0f3dd8a8570f423710f1a97455701269e7821dc78f4c6277aeaacf7f"
+    },
+    {
+      "path": "icons/technologies/economic-wing-industry-1.png",
+      "source": "images/technologies/economic-wing-industry-1.png",
+      "bytes": 8922,
+      "width": 96,
+      "height": 96,
+      "sha256": "15b575bb0aa94a4f51af1bcb206c36a543efff9a4490602d86b35add4c643a59"
+    },
+    {
+      "path": "icons/technologies/economic-wing-industry-2.png",
+      "source": "images/technologies/economic-wing-industry-2.png",
+      "bytes": 8928,
+      "width": 96,
+      "height": 96,
+      "sha256": "ba336718a5e0d910685ed2e4fe46945d0976dfb61cc83f5bc3fb89ab57b14df7"
+    },
+    {
+      "path": "icons/technologies/economic-wing-industry-3.png",
+      "source": "images/technologies/economic-wing-industry-3.png",
+      "bytes": 8928,
+      "width": 96,
+      "height": 96,
+      "sha256": "ba336718a5e0d910685ed2e4fe46945d0976dfb61cc83f5bc3fb89ab57b14df7"
+    },
+    {
+      "path": "icons/technologies/economic-wing-industry-4.png",
+      "source": "images/technologies/economic-wing-industry-4.png",
+      "bytes": 8928,
+      "width": 96,
+      "height": 96,
+      "sha256": "ba336718a5e0d910685ed2e4fe46945d0976dfb61cc83f5bc3fb89ab57b14df7"
+    },
+    {
+      "path": "icons/technologies/efficient-production-1.png",
+      "source": "images/technologies/efficient-production-1.png",
+      "bytes": 13035,
+      "width": 96,
+      "height": 96,
+      "sha256": "f9f9347a276a2f16a407187df1ded8a9ded27479fdb2dcdb642c912ec12f72f4"
+    },
+    {
+      "path": "icons/technologies/elephant-caretakers-2.png",
+      "source": "images/technologies/elephant-caretakers-2.png",
+      "bytes": 12459,
+      "width": 96,
+      "height": 96,
+      "sha256": "80adf76e6c176f04277b7ed26d900c7ba168bb18d65e940da5f269002a26aa61"
+    },
+    {
+      "path": "icons/technologies/elite-army-tactics-4.png",
+      "source": "images/technologies/elite-army-tactics-4.png",
+      "bytes": 10312,
+      "width": 96,
+      "height": 96,
+      "sha256": "01901a2a4aa6daaef9db63fdb41734116434329ee44d69c4082e05c5e9b148ac"
+    },
+    {
+      "path": "icons/technologies/elite-army-tactics-improved-4.png",
+      "source": "images/technologies/elite-army-tactics-improved-4.png",
+      "bytes": 10312,
+      "width": 96,
+      "height": 96,
+      "sha256": "01901a2a4aa6daaef9db63fdb41734116434329ee44d69c4082e05c5e9b148ac"
+    },
+    {
+      "path": "icons/technologies/enclosures-4.png",
+      "source": "images/technologies/enclosures-4.png",
+      "bytes": 7783,
+      "width": 96,
+      "height": 96,
+      "sha256": "45674072c32787076efe218fa1d9902e95736fd9d81adbd5b01a2dfae810cafb"
+    },
+    {
+      "path": "icons/technologies/enlistment-incentives-3.png",
+      "source": "images/technologies/enlistment-incentives-3.png",
+      "bytes": 10471,
+      "width": 96,
+      "height": 96,
+      "sha256": "c46749d71c460a8ed3452e52ded44dea58e032db6beeb7335c0ce8d6e545e216"
+    },
+    {
+      "path": "icons/technologies/enlistment-incentives-4.png",
+      "source": "images/technologies/enlistment-incentives-4.png",
+      "bytes": 10471,
+      "width": 96,
+      "height": 96,
+      "sha256": "c46749d71c460a8ed3452e52ded44dea58e032db6beeb7335c0ce8d6e545e216"
+    },
+    {
+      "path": "icons/technologies/exact-militia-program-4.png",
+      "source": "images/technologies/exact-militia-program-4.png",
+      "bytes": 7328,
+      "width": 96,
+      "height": 96,
+      "sha256": "a942fd15430fae26fa60a598dec14c54dae2ade1093b9b197a11c7c4f0449e91"
+    },
+    {
+      "path": "icons/technologies/expilatores-2.png",
+      "source": "images/technologies/expilatores-2.png",
+      "bytes": 11551,
+      "width": 96,
+      "height": 96,
+      "sha256": "e4e517497b23d4c07d40aeecbb25feed2748dde785b9705ae74940aa351cb68b"
+    },
+    {
+      "path": "icons/technologies/explosives-4.png",
+      "source": "images/technologies/explosives-4.png",
+      "bytes": 12885,
+      "width": 96,
+      "height": 96,
+      "sha256": "7ca6f5b9be3ec5d876c6b257b700f7f0de9c3be0eee35cd143fb113dfecb2b17"
+    },
+    {
+      "path": "icons/technologies/extended-lines-2.png",
+      "source": "images/technologies/extended-lines-2.png",
+      "bytes": 13963,
+      "width": 96,
+      "height": 96,
+      "sha256": "0d8b90133886a533e715b15bb217acd42f08067845431d339ea69517139c587a"
+    },
+    {
+      "path": "icons/technologies/extra-hammocks-3.png",
+      "source": "images/technologies/extra-hammocks-3.png",
+      "bytes": 10676,
+      "width": 96,
+      "height": 96,
+      "sha256": "6dc77ecef8e1c3fbc55ec1d10fcc238946e435671e0c23eeced1854852952689"
+    },
+    {
+      "path": "icons/technologies/extra-materials-3.png",
+      "source": "images/technologies/extra-materials-3.png",
+      "bytes": 7252,
+      "width": 96,
+      "height": 96,
+      "sha256": "44f3bc112e478c47484602c32ee18b4f120a7eb1dbcdb13d1693623105fdcb40"
+    },
+    {
+      "path": "icons/technologies/fanaticism-4.png",
+      "source": "images/technologies/fanaticism-4.png",
+      "bytes": 9696,
+      "width": 96,
+      "height": 96,
+      "sha256": "7467f2fac804e4e94daa7dba7837466831b5b9b2700e910a86f18956a0c37fbd"
+    },
+    {
+      "path": "icons/technologies/farima-leadership-4.png",
+      "source": "images/technologies/farima-leadership-4.png",
+      "bytes": 14125,
+      "width": 96,
+      "height": 96,
+      "sha256": "0696873f27dc74b31db9df3403967560189ac0cca3ead35c28c79cb7425df6bf"
+    },
+    {
+      "path": "icons/technologies/ferocious-speed-4.png",
+      "source": "images/technologies/ferocious-speed-4.png",
+      "bytes": 12552,
+      "width": 96,
+      "height": 96,
+      "sha256": "b44964d226d16499b3b9215cde79e3e301926a453de378a07f5f38db4829f633"
+    },
+    {
+      "path": "icons/technologies/fertile-crescent-2.png",
+      "source": "images/technologies/fertile-crescent-2.png",
+      "bytes": 12518,
+      "width": 96,
+      "height": 96,
+      "sha256": "ad7500a9e555dbe449ced061c7e6f7e7fee857f1ee697f1ca793a773e7b5c1b7"
+    },
+    {
+      "path": "icons/technologies/fertilization-3.png",
+      "source": "images/technologies/fertilization-3.png",
+      "bytes": 11877,
+      "width": 96,
+      "height": 96,
+      "sha256": "3345160d0caa8208d85a2e6386375d98a4b0077dd42485098f3954da68e97622"
+    },
+    {
+      "path": "icons/technologies/fervor-3.png",
+      "source": "images/technologies/fervor-3.png",
+      "bytes": 8209,
+      "width": 96,
+      "height": 96,
+      "sha256": "d57c3c640bb5ac0057dbde2464238fd23c25d31d5bb7a4030dad2541b1e41dcb"
+    },
+    {
+      "path": "icons/technologies/field-work-1.png",
+      "source": "images/technologies/field-work-1.png",
+      "bytes": 9212,
+      "width": 96,
+      "height": 96,
+      "sha256": "63551811167e9033ef9da99c57126b5e5bdac3132fb922412c098b300653be04"
+    },
+    {
+      "path": "icons/technologies/fine-tuned-guns-4.png",
+      "source": "images/technologies/fine-tuned-guns-4.png",
+      "bytes": 8762,
+      "width": 96,
+      "height": 96,
+      "sha256": "cf42d7e936598a5e1a2513f039536eff3d3d261624920cc76a3145a7b6b8048b"
+    },
+    {
+      "path": "icons/technologies/fire-stations-2.png",
+      "source": "images/technologies/fire-stations-2.png",
+      "bytes": 12554,
+      "width": 96,
+      "height": 96,
+      "sha256": "4a3bd74b6cc132b6c8c6af74e44fb5f017e9cacbe0cd297323428a0a96090e81"
+    },
+    {
+      "path": "icons/technologies/fitted-leatherwork-2.png",
+      "source": "images/technologies/fitted-leatherwork-2.png",
+      "bytes": 8267,
+      "width": 96,
+      "height": 96,
+      "sha256": "d86aa9c530e4a317ff6bd5252ae66247c8fc232968413735f79bf6dde2a957fe"
+    },
+    {
+      "path": "icons/technologies/five-mountain-ministries-1.png",
+      "source": "images/technologies/five-mountain-ministries-1.png",
+      "bytes": 14321,
+      "width": 96,
+      "height": 96,
+      "sha256": "fecf20954285a961c2c305dbcacf913eeb7a7e9b99fc2a3b6dc05706cea13d0c"
+    },
+    {
+      "path": "icons/technologies/flying-fire-battalions-4.png",
+      "source": "images/technologies/flying-fire-battalions-4.png",
+      "bytes": 12981,
+      "width": 96,
+      "height": 96,
+      "sha256": "f7c7f05d9af6229173f8e1412714aff9f53f959ee17da5c51af7ef816d8d76f2"
+    },
+    {
+      "path": "icons/technologies/forced-march-3.png",
+      "source": "images/technologies/forced-march-3.png",
+      "bytes": 6326,
+      "width": 96,
+      "height": 96,
+      "sha256": "58bf3fa110555b7ff6dfa1def8aa31b7fe10fc03ee968cc58b0ade4a90607db3"
+    },
+    {
+      "path": "icons/technologies/forestry-1.png",
+      "source": "images/technologies/forestry-1.png",
+      "bytes": 8077,
+      "width": 96,
+      "height": 96,
+      "sha256": "50963ea938a9591bb2d93219536f7f025501305ecb3f3fae173c5d4a39410359"
+    },
+    {
+      "path": "icons/technologies/forestry-improved-1.png",
+      "source": "images/technologies/forestry-improved-1.png",
+      "bytes": 8077,
+      "width": 96,
+      "height": 96,
+      "sha256": "50963ea938a9591bb2d93219536f7f025501305ecb3f3fae173c5d4a39410359"
+    },
+    {
+      "path": "icons/technologies/fortifications-tier1-2.png",
+      "source": "images/technologies/fortifications-tier1-2.png",
+      "bytes": 10232,
+      "width": 96,
+      "height": 96,
+      "sha256": "257e40432d5618c700fca83f3cad64ed0b060e7d947337ed6a777e990acf2716"
+    },
+    {
+      "path": "icons/technologies/fortifications-tier2-2.png",
+      "source": "images/technologies/fortifications-tier2-2.png",
+      "bytes": 10296,
+      "width": 96,
+      "height": 96,
+      "sha256": "86d0a8c53876fc967b3e7dc64ece4cabd9323c2bd77a7267d519d377738d1b8d"
+    },
+    {
+      "path": "icons/technologies/fortifications-tier3-3.png",
+      "source": "images/technologies/fortifications-tier3-3.png",
+      "bytes": 10387,
+      "width": 96,
+      "height": 96,
+      "sha256": "23effd3e52a7d582f7531f2e9e6fc4d029f86f34aea1734659b68b6d3eaf0551"
+    },
+    {
+      "path": "icons/technologies/fortifications-tier4-3.png",
+      "source": "images/technologies/fortifications-tier4-3.png",
+      "bytes": 10436,
+      "width": 96,
+      "height": 96,
+      "sha256": "1cc1cf264e67614f0d9d388a459bb1f8362e9f28c8d699b19e5d1d6928ca6ae8"
+    },
+    {
+      "path": "icons/technologies/fortifications-tier5-4.png",
+      "source": "images/technologies/fortifications-tier5-4.png",
+      "bytes": 10481,
+      "width": 96,
+      "height": 96,
+      "sha256": "d9f16df484c3b26413cdb7a99cb5ebc4e2424dfdd9c12a4798381c8662be1463"
+    },
+    {
+      "path": "icons/technologies/fortifications-tier6-4.png",
+      "source": "images/technologies/fortifications-tier6-4.png",
+      "bytes": 10516,
+      "width": 96,
+      "height": 96,
+      "sha256": "80a36b106870080aaa83a3d3a2bfce31a463059aaab53fa6a800745f3f1450eb"
+    },
+    {
+      "path": "icons/technologies/fortify-outpost-2.png",
+      "source": "images/technologies/fortify-outpost-2.png",
+      "bytes": 6980,
+      "width": 96,
+      "height": 96,
+      "sha256": "64ddbbfec79e5b8ad6a19a01163e755472dae95382ab29e616d7d68ab5731933"
+    },
+    {
+      "path": "icons/technologies/fresh-foodstuffs-2.png",
+      "source": "images/technologies/fresh-foodstuffs-2.png",
+      "bytes": 8361,
+      "width": 96,
+      "height": 96,
+      "sha256": "eec8a6d80097a2c0bc6d58864acc6c7781d80b6b8a8ba3e66a07cca8383f6acc"
+    },
+    {
+      "path": "icons/technologies/fudasashi-3.png",
+      "source": "images/technologies/fudasashi-3.png",
+      "bytes": 10488,
+      "width": 96,
+      "height": 96,
+      "sha256": "f9e95cba43b65697cfee3e604621ebdcb695ffd0fee705d8d8a43d50818da9da"
+    },
+    {
+      "path": "icons/technologies/gambesons-3.png",
+      "source": "images/technologies/gambesons-3.png",
+      "bytes": 6853,
+      "width": 96,
+      "height": 96,
+      "sha256": "13bfe624ca170d894d1362932fb80ce7ce8539a525e3235070f7e3eaf743e652"
+    },
+    {
+      "path": "icons/technologies/geometry-4.png",
+      "source": "images/technologies/geometry-4.png",
+      "bytes": 9479,
+      "width": 96,
+      "height": 96,
+      "sha256": "9e95c1e1a2c8881fe0d4aca6642ae8c3ea9c825e2826e04ce119369f4909a0ae"
+    },
+    {
+      "path": "icons/technologies/geometry-improved-4.png",
+      "source": "images/technologies/geometry-improved-4.png",
+      "bytes": 9479,
+      "width": 96,
+      "height": 96,
+      "sha256": "9e95c1e1a2c8881fe0d4aca6642ae8c3ea9c825e2826e04ce119369f4909a0ae"
+    },
+    {
+      "path": "icons/technologies/gion-festival-4.png",
+      "source": "images/technologies/gion-festival-4.png",
+      "bytes": 12642,
+      "width": 96,
+      "height": 96,
+      "sha256": "4f0848128d8ad91f03463b8735ec98d4d9bb30ec23485577cb48be9a7717a5b3"
+    },
+    {
+      "path": "icons/technologies/glorious-charge-3.png",
+      "source": "images/technologies/glorious-charge-3.png",
+      "bytes": 10547,
+      "width": 96,
+      "height": 96,
+      "sha256": "3b6ff6ed240a7dae9c54b5cf22f3c4eeb297d9509042b53284e8ccf0b1fd848b"
+    },
+    {
+      "path": "icons/technologies/golden-cuirass-2.png",
+      "source": "images/technologies/golden-cuirass-2.png",
+      "bytes": 7247,
+      "width": 96,
+      "height": 96,
+      "sha256": "6575e5a64a018ad31fc285c34411663b2a89eed73f5bd01e27c190431ddd4d77"
+    },
+    {
+      "path": "icons/technologies/grand-bazaar-4.png",
+      "source": "images/technologies/grand-bazaar-4.png",
+      "bytes": 6483,
+      "width": 96,
+      "height": 96,
+      "sha256": "adba990028b3dd12f3f0c32831f529f484a01ae4faa1ff18dbabc1641fb051c0"
+    },
+    {
+      "path": "icons/technologies/greased-axles-3.png",
+      "source": "images/technologies/greased-axles-3.png",
+      "bytes": 10979,
+      "width": 96,
+      "height": 96,
+      "sha256": "435047c5b7ff539a567f5786c6bb5385cf553e111f9d915b17ad7db39bf97fb4"
+    },
+    {
+      "path": "icons/technologies/greased-axles-improved-3.png",
+      "source": "images/technologies/greased-axles-improved-3.png",
+      "bytes": 10979,
+      "width": 96,
+      "height": 96,
+      "sha256": "435047c5b7ff539a567f5786c6bb5385cf553e111f9d915b17ad7db39bf97fb4"
+    },
+    {
+      "path": "icons/technologies/great-bombard-emplacement-4.png",
+      "source": "images/technologies/great-bombard-emplacement-4.png",
+      "bytes": 12103,
+      "width": 96,
+      "height": 96,
+      "sha256": "f0aba98c8e2ccfe8a60432b290351efe84eb626cf45ae6177b0859cdf4dfc6d4"
+    },
+    {
+      "path": "icons/technologies/greek-fire-projectiles-4.png",
+      "source": "images/technologies/greek-fire-projectiles-4.png",
+      "bytes": 11389,
+      "width": 96,
+      "height": 96,
+      "sha256": "cf7a7966c1e712657eaed13b8e26b0982238816e6c7d1d5bb33e87b188ec4682"
+    },
+    {
+      "path": "icons/technologies/handcannon-slits-2.png",
+      "source": "images/technologies/handcannon-slits-2.png",
+      "bytes": 8204,
+      "width": 96,
+      "height": 96,
+      "sha256": "a1990d2dbb51de4fbb97ec0573c3dc34d725433c3539a199256602201a6a6632"
+    },
+    {
+      "path": "icons/technologies/hard-cased-bombs-3.png",
+      "source": "images/technologies/hard-cased-bombs-3.png",
+      "bytes": 8897,
+      "width": 96,
+      "height": 96,
+      "sha256": "f6d204234147ef061259225bb954d36757137cdf8ee0c74eef5c0906b142d092"
+    },
+    {
+      "path": "icons/technologies/hearty-rations-3.png",
+      "source": "images/technologies/hearty-rations-3.png",
+      "bytes": 8778,
+      "width": 96,
+      "height": 96,
+      "sha256": "636184d8cee806af972eee8cb4201d6a7bb99b1b5ac598bf01fe015755457bfc"
+    },
+    {
+      "path": "icons/technologies/heated-shot-4.png",
+      "source": "images/technologies/heated-shot-4.png",
+      "bytes": 3710,
+      "width": 96,
+      "height": 96,
+      "sha256": "828789adc029552ee17cffac88d2b11ac1dfa6446184e4633ccef1f120b3c144"
+    },
+    {
+      "path": "icons/technologies/heaven-shaking-thunder-4.png",
+      "source": "images/technologies/heaven-shaking-thunder-4.png",
+      "bytes": 13572,
+      "width": 96,
+      "height": 96,
+      "sha256": "be76c7e500162d50def967b150880c196f96ce61bc50a88682c913e11b51b212"
+    },
+    {
+      "path": "icons/technologies/heavy-dromon-3.png",
+      "source": "images/technologies/heavy-dromon-3.png",
+      "bytes": 15007,
+      "width": 96,
+      "height": 96,
+      "sha256": "167b4c9e78901efa669c2f255b44416a42c35672cc0dd81ab06e0f29f9ba4f2a"
+    },
+    {
+      "path": "icons/technologies/heavy-maces-3.png",
+      "source": "images/technologies/heavy-maces-3.png",
+      "bytes": 4405,
+      "width": 96,
+      "height": 96,
+      "sha256": "31ea1404ed814065a78beb20c70ad03be3d7e80c23744fe2f663be998d2cc276"
+    },
+    {
+      "path": "icons/technologies/heavy-torches-2.png",
+      "source": "images/technologies/heavy-torches-2.png",
+      "bytes": 9610,
+      "width": 96,
+      "height": 96,
+      "sha256": "26839171b10757b2a4c910ceb11c64c06f4cec96f83a4a3d415830e8039fa645"
+    },
+    {
+      "path": "icons/technologies/herbal-medicine-3.png",
+      "source": "images/technologies/herbal-medicine-3.png",
+      "bytes": 8210,
+      "width": 96,
+      "height": 96,
+      "sha256": "36a8f2f93a7a87eab91b8799a667a31761dd77b7a6d48dc01784d40c2dcc2066"
+    },
+    {
+      "path": "icons/technologies/herbal-medicine-improved-3.png",
+      "source": "images/technologies/herbal-medicine-improved-3.png",
+      "bytes": 8210,
+      "width": 96,
+      "height": 96,
+      "sha256": "36a8f2f93a7a87eab91b8799a667a31761dd77b7a6d48dc01784d40c2dcc2066"
+    },
+    {
+      "path": "icons/technologies/higoyumi-1.png",
+      "source": "images/technologies/higoyumi-1.png",
+      "bytes": 8726,
+      "width": 96,
+      "height": 96,
+      "sha256": "da08953277b7a917ba694464e2ff227430c267a756e03bfc15596e60ea328c3e"
+    },
+    {
+      "path": "icons/technologies/hill-training-3.png",
+      "source": "images/technologies/hill-training-3.png",
+      "bytes": 10925,
+      "width": 96,
+      "height": 96,
+      "sha256": "25144a22b7fbed67bd14a89296cbc7af270f75aec5dcc7c2aec8e17eec39d252"
+    },
+    {
+      "path": "icons/technologies/hizukuri-2.png",
+      "source": "images/technologies/hizukuri-2.png",
+      "bytes": 11588,
+      "width": 96,
+      "height": 96,
+      "sha256": "29bf7664d5cfebfd6a1195cd4246a5142706885ea7447c66699b5c1dd46fb469"
+    },
+    {
+      "path": "icons/technologies/honed-blades-3.png",
+      "source": "images/technologies/honed-blades-3.png",
+      "bytes": 8254,
+      "width": 96,
+      "height": 96,
+      "sha256": "d006c32ccb6f81a6785e98c11d6ff7b76a6f1d617c32ad018c5ae71d84b4e586"
+    },
+    {
+      "path": "icons/technologies/horse-training-1.png",
+      "source": "images/technologies/horse-training-1.png",
+      "bytes": 9559,
+      "width": 96,
+      "height": 96,
+      "sha256": "78f5439364ff6d5f3a7b796c2302ddf64fe2e16b0b8efe00df40736cf46b1869"
+    },
+    {
+      "path": "icons/technologies/horticulture-2.png",
+      "source": "images/technologies/horticulture-2.png",
+      "bytes": 5705,
+      "width": 96,
+      "height": 96,
+      "sha256": "1137ad99d658fd2764fd60d49a4cf5a1a942f48ed3547ec159709b32998a4119"
+    },
+    {
+      "path": "icons/technologies/horticulture-improved-2.png",
+      "source": "images/technologies/horticulture-improved-2.png",
+      "bytes": 9248,
+      "width": 96,
+      "height": 96,
+      "sha256": "7c0e5a9e0e40fda652de176f4899f2963fb0a1df26349e37c2b9ed44eb10c80d"
+    },
+    {
+      "path": "icons/technologies/howdahs-4.png",
+      "source": "images/technologies/howdahs-4.png",
+      "bytes": 12856,
+      "width": 96,
+      "height": 96,
+      "sha256": "a6a71facd0ec77ceacc67c0bebac782429889ebb6f2377c6d008628556c899c2"
+    },
+    {
+      "path": "icons/technologies/hunting-tradition-2.png",
+      "source": "images/technologies/hunting-tradition-2.png",
+      "bytes": 12059,
+      "width": 96,
+      "height": 96,
+      "sha256": "cc7c95c7365a524b3b3fc2ca53a622f9a34d9063c43f3996a1428269869c4d96"
+    },
+    {
+      "path": "icons/technologies/imperial-examinations-2.png",
+      "source": "images/technologies/imperial-examinations-2.png",
+      "bytes": 8410,
+      "width": 96,
+      "height": 96,
+      "sha256": "cf17e7236cbd72323ec6656fac9998772dfd3c1976d2ed8b508d590dfa0584c4"
+    },
+    {
+      "path": "icons/technologies/imperial-fleet-4.png",
+      "source": "images/technologies/imperial-fleet-4.png",
+      "bytes": 9429,
+      "width": 96,
+      "height": 96,
+      "sha256": "1e9db1aa10ab1db0eb7ac02aaa8a17e3082e8dc37d161742758b4b0cf5a2f0e2"
+    },
+    {
+      "path": "icons/technologies/imperial-red-seals-3.png",
+      "source": "images/technologies/imperial-red-seals-3.png",
+      "bytes": 13125,
+      "width": 96,
+      "height": 96,
+      "sha256": "7860cd0a5a7fd9369dfd2feef7f3c6223fe99c404754d7d27e686d1ce2982bd7"
+    },
+    {
+      "path": "icons/technologies/imported-armor-3.png",
+      "source": "images/technologies/imported-armor-3.png",
+      "bytes": 13138,
+      "width": 96,
+      "height": 96,
+      "sha256": "9d99f5280ab5c5d8996751c49f974daa555aa60bd8eabe2da3a06d407572032d"
+    },
+    {
+      "path": "icons/technologies/improved-processing-4.png",
+      "source": "images/technologies/improved-processing-4.png",
+      "bytes": 8013,
+      "width": 96,
+      "height": 96,
+      "sha256": "8bff45542ef6ee101d2c512c4f932476bdeb821f3989afac75bc73aac8ee2239"
+    },
+    {
+      "path": "icons/technologies/improved-yari-1.png",
+      "source": "images/technologies/improved-yari-1.png",
+      "bytes": 10284,
+      "width": 96,
+      "height": 96,
+      "sha256": "bde2856be536483ec61676c0d911e295f9d9c245be18744b93514f4efc404c65"
+    },
+    {
+      "path": "icons/technologies/incendiaries-3.png",
+      "source": "images/technologies/incendiaries-3.png",
+      "bytes": 6589,
+      "width": 96,
+      "height": 96,
+      "sha256": "479baece7936f7868bc2c5a4599cc16679ea25d13fc059f391b08d2490c8745b"
+    },
+    {
+      "path": "icons/technologies/incendiary-arrows-4.png",
+      "source": "images/technologies/incendiary-arrows-4.png",
+      "bytes": 7534,
+      "width": 96,
+      "height": 96,
+      "sha256": "e2a83ad376527f1208c70d68aaed110e21a68b8e491bb73d3733b17bb9c8a04f"
+    },
+    {
+      "path": "icons/technologies/increased-supplies-2.png",
+      "source": "images/technologies/increased-supplies-2.png",
+      "bytes": 8925,
+      "width": 96,
+      "height": 96,
+      "sha256": "93cdaafd91b9511bd4cefa165192901daedbc7c54513a54e955b6dc7940e90b6"
+    },
+    {
+      "path": "icons/technologies/infantry-support-4.png",
+      "source": "images/technologies/infantry-support-4.png",
+      "bytes": 12697,
+      "width": 96,
+      "height": 96,
+      "sha256": "79f8ea6afdf4404976c942a631dc1f908c26a950175b5ed549822de8125f0462"
+    },
+    {
+      "path": "icons/technologies/inspired-warriors-3.png",
+      "source": "images/technologies/inspired-warriors-3.png",
+      "bytes": 8986,
+      "width": 96,
+      "height": 96,
+      "sha256": "dbe658e4479ee7ce5a50fad941e242e3fac1a8c402dd8d0040682a7b44e465e5"
+    },
+    {
+      "path": "icons/technologies/insulated-helm-3.png",
+      "source": "images/technologies/insulated-helm-3.png",
+      "bytes": 9763,
+      "width": 96,
+      "height": 96,
+      "sha256": "89f9ab2c2dd7844729f10e9009cbe5cc75529ad569fc6435a0cc3bf19b5a4882"
+    },
+    {
+      "path": "icons/technologies/iron-clamps-4.png",
+      "source": "images/technologies/iron-clamps-4.png",
+      "bytes": 7299,
+      "width": 96,
+      "height": 96,
+      "sha256": "17f65cc0b504b6653d67dc68a2c3bc1a54d4ba8cc25f486c9d060f2dca8a9371"
+    },
+    {
+      "path": "icons/technologies/iron-fittings-tier1-2.png",
+      "source": "images/technologies/iron-fittings-tier1-2.png",
+      "bytes": 9923,
+      "width": 96,
+      "height": 96,
+      "sha256": "7f06134b6ba15c694371b83c8786fcd5e88942ed3574155bc8d654baab09d8c5"
+    },
+    {
+      "path": "icons/technologies/iron-fittings-tier2-2.png",
+      "source": "images/technologies/iron-fittings-tier2-2.png",
+      "bytes": 9985,
+      "width": 96,
+      "height": 96,
+      "sha256": "000ad75e0945b814166ac29e3589c747b2e6fee60cd5020342dd671184f0b431"
+    },
+    {
+      "path": "icons/technologies/iron-fittings-tier3-3.png",
+      "source": "images/technologies/iron-fittings-tier3-3.png",
+      "bytes": 10084,
+      "width": 96,
+      "height": 96,
+      "sha256": "c96a0d57a1d4e44eb9c635f31df189a4671ef9dc7ca55c8fc4d4dc6c708407cb"
+    },
+    {
+      "path": "icons/technologies/iron-fittings-tier4-3.png",
+      "source": "images/technologies/iron-fittings-tier4-3.png",
+      "bytes": 10130,
+      "width": 96,
+      "height": 96,
+      "sha256": "b0e6b647dd895ed8f795cf08f9cd1fea4d1ff2fb6af50388bb9f332144d21784"
+    },
+    {
+      "path": "icons/technologies/iron-fittings-tier5-4.png",
+      "source": "images/technologies/iron-fittings-tier5-4.png",
+      "bytes": 10172,
+      "width": 96,
+      "height": 96,
+      "sha256": "1e739dba056542080effe5a0cb71b5b84bf32c2b49012141c63520b827796491"
+    },
+    {
+      "path": "icons/technologies/iron-fittings-tier6-4.png",
+      "source": "images/technologies/iron-fittings-tier6-4.png",
+      "bytes": 10198,
+      "width": 96,
+      "height": 96,
+      "sha256": "f542e89ebbd831c7cd4d80e49ea91cea716f35130d5e7e603ad31223db4c4a17"
+    },
+    {
+      "path": "icons/technologies/iron-undermesh-2.png",
+      "source": "images/technologies/iron-undermesh-2.png",
+      "bytes": 7177,
+      "width": 96,
+      "height": 96,
+      "sha256": "adde592aa4731c89e2121c8c1e69f6d49f60fa00ead6734c46e6d7c4a8751132"
+    },
+    {
+      "path": "icons/technologies/janissary-company-1.png",
+      "source": "images/technologies/janissary-company-1.png",
+      "bytes": 15023,
+      "width": 96,
+      "height": 96,
+      "sha256": "8990b94eebfd0e697304b911cb63ec5170cde1e1caa3b07258a01f435b1ce994"
+    },
+    {
+      "path": "icons/technologies/janissary-guns-4.png",
+      "source": "images/technologies/janissary-guns-4.png",
+      "bytes": 8869,
+      "width": 96,
+      "height": 96,
+      "sha256": "8d04518d7d4e644ad0fb74ef6ebf1ee74a76f4e2b0225f54bdeb450206efceba"
+    },
+    {
+      "path": "icons/technologies/javelin-emplacement-2.png",
+      "source": "images/technologies/javelin-emplacement-2.png",
+      "bytes": 10702,
+      "width": 96,
+      "height": 96,
+      "sha256": "d0a8c89b5adfd3ebf9519a32516afb97969f49c7e11c8b6c0087b7eae8105b25"
+    },
+    {
+      "path": "icons/technologies/kabura-ya-whistling-arrow-3.png",
+      "source": "images/technologies/kabura-ya-whistling-arrow-3.png",
+      "bytes": 9817,
+      "width": 96,
+      "height": 96,
+      "sha256": "40b8a252e8206cafba40d087be0632fd9b884427706b0c3038a3d1fe46d81940"
+    },
+    {
+      "path": "icons/technologies/kampo-medicine-3.png",
+      "source": "images/technologies/kampo-medicine-3.png",
+      "bytes": 11609,
+      "width": 96,
+      "height": 96,
+      "sha256": "60300d9786426b74d3c735417c8dd4e4aaa255610ee8b32467d4ff28a2f76861"
+    },
+    {
+      "path": "icons/technologies/khan-and-torguuds-1.png",
+      "source": "images/technologies/khan-and-torguuds-1.png",
+      "bytes": 10181,
+      "width": 96,
+      "height": 96,
+      "sha256": "6257a50cae22aa84e156cfe98e7864a3bdc8fa62f0d358f829ec4b10b27e8407"
+    },
+    {
+      "path": "icons/technologies/khan-debuff-arrow-2.png",
+      "source": "images/technologies/khan-debuff-arrow-2.png",
+      "bytes": 6459,
+      "width": 96,
+      "height": 96,
+      "sha256": "d3db3e2a2374ee996013ea2e98cd54090024a3babdf251633485544ab11cfa97"
+    },
+    {
+      "path": "icons/technologies/khanda-drills-3.png",
+      "source": "images/technologies/khanda-drills-3.png",
+      "bytes": 8957,
+      "width": 96,
+      "height": 96,
+      "sha256": "098685b447c895202d13e451eb969b59cc887dd4e2bf6ccc510315a69d7edac2"
+    },
+    {
+      "path": "icons/technologies/kingdom-of-castile-2.png",
+      "source": "images/technologies/kingdom-of-castile-2.png",
+      "bytes": 11194,
+      "width": 104,
+      "height": 56,
+      "sha256": "e50c175c381785f610657da368833b420449520e12c7a30b4014f0a0f8bc830d"
+    },
+    {
+      "path": "icons/technologies/kingdom-of-france-1.png",
+      "source": "images/technologies/kingdom-of-france-1.png",
+      "bytes": 15495,
+      "width": 104,
+      "height": 56,
+      "sha256": "d9794dee966bebd5efdfbaaf0937599a031352ac7d2d30de4cbdb97270257dbf"
+    },
+    {
+      "path": "icons/technologies/kingdom-of-poland-3.png",
+      "source": "images/technologies/kingdom-of-poland-3.png",
+      "bytes": 12648,
+      "width": 104,
+      "height": 56,
+      "sha256": "2fce50fc3402650002a8e0a52b84ce463dcad025900e41edeb787d001a1c243d"
+    },
+    {
+      "path": "icons/technologies/knight-poleaxes-4.png",
+      "source": "images/technologies/knight-poleaxes-4.png",
+      "bytes": 11273,
+      "width": 96,
+      "height": 96,
+      "sha256": "7515de706bdeb6cf8373656ece3ee0dbb2f152362901f74e2e2895c9bd433eaa"
+    },
+    {
+      "path": "icons/technologies/knights-hospitaller-1.png",
+      "source": "images/technologies/knights-hospitaller-1.png",
+      "bytes": 7127,
+      "width": 104,
+      "height": 56,
+      "sha256": "858b636a44f76e413edb478482a2619f5e6bc4e953969ef6b358db59d6204355"
+    },
+    {
+      "path": "icons/technologies/kobuse-gitae-3.png",
+      "source": "images/technologies/kobuse-gitae-3.png",
+      "bytes": 10695,
+      "width": 96,
+      "height": 96,
+      "sha256": "087013d6ca98f071b181e269ed6ac9622de199284f3954db56827da14d390c8c"
+    },
+    {
+      "path": "icons/technologies/lamellar-armor-tier1-2.png",
+      "source": "images/technologies/lamellar-armor-tier1-2.png",
+      "bytes": 10170,
+      "width": 96,
+      "height": 96,
+      "sha256": "4990b2e3c8fe32824d75709d78652afd2d9935b45bf606a17ffda988411dcfd4"
+    },
+    {
+      "path": "icons/technologies/lamellar-armor-tier2-2.png",
+      "source": "images/technologies/lamellar-armor-tier2-2.png",
+      "bytes": 10222,
+      "width": 96,
+      "height": 96,
+      "sha256": "770cc5df899616936c269327631fc621047b1f76e26b05b6d04b88696895be36"
+    },
+    {
+      "path": "icons/technologies/lamellar-armor-tier3-3.png",
+      "source": "images/technologies/lamellar-armor-tier3-3.png",
+      "bytes": 10314,
+      "width": 96,
+      "height": 96,
+      "sha256": "5f70110d36b134afb5f303a45f05468cc64587dd70157b0a2568fee237c4a0e0"
+    },
+    {
+      "path": "icons/technologies/lamellar-armor-tier4-3.png",
+      "source": "images/technologies/lamellar-armor-tier4-3.png",
+      "bytes": 10368,
+      "width": 96,
+      "height": 96,
+      "sha256": "9df4900cdcee962355c5781477251a1aa74eada50b5ddcbc1ccbd3fae4f514bb"
+    },
+    {
+      "path": "icons/technologies/lamellar-armor-tier5-4.png",
+      "source": "images/technologies/lamellar-armor-tier5-4.png",
+      "bytes": 10416,
+      "width": 96,
+      "height": 96,
+      "sha256": "49e011e41746c73863353ca1786d432b674088d21292850d9a2b3ecfadeecdf5"
+    },
+    {
+      "path": "icons/technologies/lamellar-armor-tier6-4.png",
+      "source": "images/technologies/lamellar-armor-tier6-4.png",
+      "bytes": 10444,
+      "width": 96,
+      "height": 96,
+      "sha256": "07c33ce3bacede82e29379e5cec8d18b3c2fe892ba0ac13a082abea03d4b426f"
+    },
+    {
+      "path": "icons/technologies/lettre-de-change-3.png",
+      "source": "images/technologies/lettre-de-change-3.png",
+      "bytes": 8436,
+      "width": 96,
+      "height": 96,
+      "sha256": "62cc353df46aa9d37c44ebc84593ad41514d9b6f93b4fbd417ebfa1855de195f"
+    },
+    {
+      "path": "icons/technologies/lightweight-beams-4.png",
+      "source": "images/technologies/lightweight-beams-4.png",
+      "bytes": 7703,
+      "width": 96,
+      "height": 96,
+      "sha256": "a29bcd6c36298b7e6b0ab4a1a4836cba7e6b113d3f7feefe990de9ad78bddd05"
+    },
+    {
+      "path": "icons/technologies/lightweight-beams-improved-4.png",
+      "source": "images/technologies/lightweight-beams-improved-4.png",
+      "bytes": 7703,
+      "width": 96,
+      "height": 96,
+      "sha256": "a29bcd6c36298b7e6b0ab4a1a4836cba7e6b113d3f7feefe990de9ad78bddd05"
+    },
+    {
+      "path": "icons/technologies/lightweight-blades-1.png",
+      "source": "images/technologies/lightweight-blades-1.png",
+      "bytes": 9142,
+      "width": 96,
+      "height": 96,
+      "sha256": "1b4a26fdaa5d83c42706a46da17b7d9afdd73e1ccc5f81ee56eaba673291069c"
+    },
+    {
+      "path": "icons/technologies/lightweight-frames-2.png",
+      "source": "images/technologies/lightweight-frames-2.png",
+      "bytes": 11337,
+      "width": 96,
+      "height": 96,
+      "sha256": "c2b1668c15935eefd439ebb3f9f52d4b542b375377177a6b87aec83560e77b90"
+    },
+    {
+      "path": "icons/technologies/liquid-explosives-3.png",
+      "source": "images/technologies/liquid-explosives-3.png",
+      "bytes": 12945,
+      "width": 96,
+      "height": 96,
+      "sha256": "070d843ddee52deddf5de77eec7018e3c57d9bb2909ec49f264c56870ed48259"
+    },
+    {
+      "path": "icons/technologies/local-knowledge-2.png",
+      "source": "images/technologies/local-knowledge-2.png",
+      "bytes": 11881,
+      "width": 96,
+      "height": 96,
+      "sha256": "4132a404f6915a0c4babf6945ce14f8b6ab069f837cb4a944f371b9b9c1b870e"
+    },
+    {
+      "path": "icons/technologies/long-guns-4.png",
+      "source": "images/technologies/long-guns-4.png",
+      "bytes": 3678,
+      "width": 96,
+      "height": 96,
+      "sha256": "5d32e8f2627651daa013e7cee1b6c0f612002907e270b3cd8f999f10673e4c5a"
+    },
+    {
+      "path": "icons/technologies/lumber-preservation-3.png",
+      "source": "images/technologies/lumber-preservation-3.png",
+      "bytes": 11804,
+      "width": 96,
+      "height": 96,
+      "sha256": "ffcd54d301961f3b8ad7c090c69af2cb6604060c84936f72dc3690c71a90d8a9"
+    },
+    {
+      "path": "icons/technologies/mahouts-3.png",
+      "source": "images/technologies/mahouts-3.png",
+      "bytes": 22323,
+      "width": 200,
+      "height": 200,
+      "sha256": "017fd37c5f9fc341f205a212983dff4222816154952caa0451be65a6d67048e7"
+    },
+    {
+      "path": "icons/technologies/mangonel-emplacement-3.png",
+      "source": "images/technologies/mangonel-emplacement-3.png",
+      "bytes": 11850,
+      "width": 96,
+      "height": 96,
+      "sha256": "4775b394a8fd3dbac2ed946da8ee6f56a8b2e713a8f3361716a30ad4f863a5aa"
+    },
+    {
+      "path": "icons/technologies/master-smiths-4.png",
+      "source": "images/technologies/master-smiths-4.png",
+      "bytes": 10876,
+      "width": 96,
+      "height": 96,
+      "sha256": "f49cc0959d4d81c28a21f9b400b2b575c6466d1a17f4e97c6bf782d095542e64"
+    },
+    {
+      "path": "icons/technologies/medical-centers-4.png",
+      "source": "images/technologies/medical-centers-4.png",
+      "bytes": 9779,
+      "width": 96,
+      "height": 96,
+      "sha256": "3f70a947d10309a8acda195853f88d002eaad86a09af9a08e66115948b9bcbb9"
+    },
+    {
+      "path": "icons/technologies/mehter-drums-1.png",
+      "source": "images/technologies/mehter-drums-1.png",
+      "bytes": 10993,
+      "width": 96,
+      "height": 96,
+      "sha256": "db01753e370773a9890a399ef76dc9fb2a90139bd35b0a49df2dc16e9d22c05a"
+    },
+    {
+      "path": "icons/technologies/mengan-mouke-emplacement-3.png",
+      "source": "images/technologies/mengan-mouke-emplacement-3.png",
+      "bytes": 11122,
+      "width": 96,
+      "height": 96,
+      "sha256": "cd1df70679f73bc7972a15069bad4b2f3dd75c42ae3484b9c2d18b439f228311"
+    },
+    {
+      "path": "icons/technologies/merchant-guilds-4.png",
+      "source": "images/technologies/merchant-guilds-4.png",
+      "bytes": 10819,
+      "width": 96,
+      "height": 96,
+      "sha256": "09b6cb90846d49e1ee6e9299da41587970faf4e6b8f91a40c215f8ddadfe2b93"
+    },
+    {
+      "path": "icons/technologies/military-academy-3.png",
+      "source": "images/technologies/military-academy-3.png",
+      "bytes": 5540,
+      "width": 96,
+      "height": 96,
+      "sha256": "35248f60090250eb4be79f13a086bb81dda2e7e161f907950b48a8378ab920ca"
+    },
+    {
+      "path": "icons/technologies/military-academy-improved-3.png",
+      "source": "images/technologies/military-academy-improved-3.png",
+      "bytes": 5540,
+      "width": 96,
+      "height": 96,
+      "sha256": "35248f60090250eb4be79f13a086bb81dda2e7e161f907950b48a8378ab920ca"
+    },
+    {
+      "path": "icons/technologies/military-affairs-bureau-1.png",
+      "source": "images/technologies/military-affairs-bureau-1.png",
+      "bytes": 12849,
+      "width": 96,
+      "height": 96,
+      "sha256": "4904859e6e360d36cf76fc55cb0fa91840ad1b00476e218dbf4448687e64671c"
+    },
+    {
+      "path": "icons/technologies/military-campus-1.png",
+      "source": "images/technologies/military-campus-1.png",
+      "bytes": 11457,
+      "width": 96,
+      "height": 96,
+      "sha256": "d1f447475096aad38795554fa0d98a0ad6c2ce6de6985b1809ba99279911c4b6"
+    },
+    {
+      "path": "icons/technologies/military-tactics-training-3.png",
+      "source": "images/technologies/military-tactics-training-3.png",
+      "bytes": 8242,
+      "width": 96,
+      "height": 96,
+      "sha256": "aa650f45dffeae0241ce77e0eb9934114ad13bdcaa3d37643a9a6c819792a112"
+    },
+    {
+      "path": "icons/technologies/military-wing-1.png",
+      "source": "images/technologies/military-wing-1.png",
+      "bytes": 7005,
+      "width": 96,
+      "height": 96,
+      "sha256": "bead398f8e93bdb2ea73b5013be31e29212e5003ed00fe390e8eff27e4d19e84"
+    },
+    {
+      "path": "icons/technologies/military-wing-2.png",
+      "source": "images/technologies/military-wing-2.png",
+      "bytes": 7005,
+      "width": 96,
+      "height": 96,
+      "sha256": "bead398f8e93bdb2ea73b5013be31e29212e5003ed00fe390e8eff27e4d19e84"
+    },
+    {
+      "path": "icons/technologies/military-wing-3.png",
+      "source": "images/technologies/military-wing-3.png",
+      "bytes": 7005,
+      "width": 96,
+      "height": 96,
+      "sha256": "bead398f8e93bdb2ea73b5013be31e29212e5003ed00fe390e8eff27e4d19e84"
+    },
+    {
+      "path": "icons/technologies/military-wing-4.png",
+      "source": "images/technologies/military-wing-4.png",
+      "bytes": 7005,
+      "width": 96,
+      "height": 96,
+      "sha256": "bead398f8e93bdb2ea73b5013be31e29212e5003ed00fe390e8eff27e4d19e84"
+    },
+    {
+      "path": "icons/technologies/military-wing-master-smiths-1.png",
+      "source": "images/technologies/military-wing-master-smiths-1.png",
+      "bytes": 11224,
+      "width": 96,
+      "height": 96,
+      "sha256": "b450535fadfac926618041a2527ae20426dae3feb8610652bfaaa550fa35df2a"
+    },
+    {
+      "path": "icons/technologies/military-wing-master-smiths-2.png",
+      "source": "images/technologies/military-wing-master-smiths-2.png",
+      "bytes": 11208,
+      "width": 96,
+      "height": 96,
+      "sha256": "84aeb29bfd02378142d6d2480ef2f56fa5b97b9ac6cde476f6892e4d3518a9e2"
+    },
+    {
+      "path": "icons/technologies/military-wing-master-smiths-3.png",
+      "source": "images/technologies/military-wing-master-smiths-3.png",
+      "bytes": 11208,
+      "width": 96,
+      "height": 96,
+      "sha256": "84aeb29bfd02378142d6d2480ef2f56fa5b97b9ac6cde476f6892e4d3518a9e2"
+    },
+    {
+      "path": "icons/technologies/military-wing-master-smiths-4.png",
+      "source": "images/technologies/military-wing-master-smiths-4.png",
+      "bytes": 11208,
+      "width": 96,
+      "height": 96,
+      "sha256": "84aeb29bfd02378142d6d2480ef2f56fa5b97b9ac6cde476f6892e4d3518a9e2"
+    },
+    {
+      "path": "icons/technologies/military-wing-reinforcement-1.png",
+      "source": "images/technologies/military-wing-reinforcement-1.png",
+      "bytes": 16646,
+      "width": 96,
+      "height": 96,
+      "sha256": "b7c320be6f2186ddad537135efa58c323ebea0764eadf7bd2e4d4cd38115ee01"
+    },
+    {
+      "path": "icons/technologies/military-wing-reinforcement-2.png",
+      "source": "images/technologies/military-wing-reinforcement-2.png",
+      "bytes": 16321,
+      "width": 96,
+      "height": 96,
+      "sha256": "eeeca441dfb2a26c70f390fb4007199e188a1691b0cd6124b1ad8781c819f044"
+    },
+    {
+      "path": "icons/technologies/military-wing-reinforcement-3.png",
+      "source": "images/technologies/military-wing-reinforcement-3.png",
+      "bytes": 16321,
+      "width": 96,
+      "height": 96,
+      "sha256": "eeeca441dfb2a26c70f390fb4007199e188a1691b0cd6124b1ad8781c819f044"
+    },
+    {
+      "path": "icons/technologies/military-wing-reinforcement-4.png",
+      "source": "images/technologies/military-wing-reinforcement-4.png",
+      "bytes": 16321,
+      "width": 96,
+      "height": 96,
+      "sha256": "eeeca441dfb2a26c70f390fb4007199e188a1691b0cd6124b1ad8781c819f044"
+    },
+    {
+      "path": "icons/technologies/mohe-ancestry-1.png",
+      "source": "images/technologies/mohe-ancestry-1.png",
+      "bytes": 12041,
+      "width": 96,
+      "height": 96,
+      "sha256": "e253f9b86f6cf74f50b3e2d1c742f87f8ab09c658ac4f0af0d839381482d145b"
+    },
+    {
+      "path": "icons/technologies/monastic-shrines-3.png",
+      "source": "images/technologies/monastic-shrines-3.png",
+      "bytes": 12253,
+      "width": 96,
+      "height": 96,
+      "sha256": "1013db0d1debd0b8be8744dbd08f4d466639d96fa3e169beaa6d9dba56c53b51"
+    },
+    {
+      "path": "icons/technologies/mountain-top-training-3.png",
+      "source": "images/technologies/mountain-top-training-3.png",
+      "bytes": 8888,
+      "width": 96,
+      "height": 96,
+      "sha256": "4299125c1511e92240e51667f46c3ee381b7f4d4d6704921cc63c84d0fdf0435"
+    },
+    {
+      "path": "icons/technologies/mounted-guns-4.png",
+      "source": "images/technologies/mounted-guns-4.png",
+      "bytes": 7103,
+      "width": 96,
+      "height": 96,
+      "sha256": "f3e9e56180615a103228ee313821fe9a3308c0f3b5c5656e9fe82edc6ad31d2d"
+    },
+    {
+      "path": "icons/technologies/mounted-samurai-odachi-3.png",
+      "source": "images/technologies/mounted-samurai-odachi-3.png",
+      "bytes": 6374,
+      "width": 96,
+      "height": 96,
+      "sha256": "16b7b1cfdba8b0cd03e95d26c47cf43b46db0da88b9cebccd23f4739a5f205c1"
+    },
+    {
+      "path": "icons/technologies/mounted-training-4.png",
+      "source": "images/technologies/mounted-training-4.png",
+      "bytes": 9152,
+      "width": 96,
+      "height": 96,
+      "sha256": "c025e3c322dd7d9323121e8afc584faf8db3f7a65ebf25a769eb0c1235952c8f"
+    },
+    {
+      "path": "icons/technologies/muscovy-yasak-2.png",
+      "source": "images/technologies/muscovy-yasak-2.png",
+      "bytes": 14831,
+      "width": 96,
+      "height": 96,
+      "sha256": "9a225ae089b7c3573cd125022239689b2fc29a1890ad1d995cee6a2ea599d0e0"
+    },
+    {
+      "path": "icons/technologies/muster-the-nobles-2.png",
+      "source": "images/technologies/muster-the-nobles-2.png",
+      "bytes": 8772,
+      "width": 96,
+      "height": 96,
+      "sha256": "62bc880adf998480dc86222a806deb2e4f8a2e303f805f3578b6224685b8e174"
+    },
+    {
+      "path": "icons/technologies/nagae-yari-4.png",
+      "source": "images/technologies/nagae-yari-4.png",
+      "bytes": 8275,
+      "width": 96,
+      "height": 96,
+      "sha256": "8e38e3f64fe1ee5c60e725274f85e97e7534485eafeda53fda2aba52d5205b1e"
+    },
+    {
+      "path": "icons/technologies/naval-arrowslits-2.png",
+      "source": "images/technologies/naval-arrowslits-2.png",
+      "bytes": 9143,
+      "width": 96,
+      "height": 96,
+      "sha256": "240410f56abe08d518f788d8cfb916d73b5a210983e0eb38760cbc18da5e8109"
+    },
+    {
+      "path": "icons/technologies/naval-crossbows-3.png",
+      "source": "images/technologies/naval-crossbows-3.png",
+      "bytes": 8100,
+      "width": 96,
+      "height": 96,
+      "sha256": "3dee208e3373fe2baa3e92fdcd16328582f8e362db8f78537ec29e80c4a1c3f4"
+    },
+    {
+      "path": "icons/technologies/naval-springald-emplacement-2.png",
+      "source": "images/technologies/naval-springald-emplacement-2.png",
+      "bytes": 6942,
+      "width": 96,
+      "height": 96,
+      "sha256": "02d449d35e89c462ba3e02bea2510a32dfb47a81434441a4c8dc9b3ce6c02bde"
+    },
+    {
+      "path": "icons/technologies/nehan-4.png",
+      "source": "images/technologies/nehan-4.png",
+      "bytes": 13089,
+      "width": 96,
+      "height": 96,
+      "sha256": "0dfcacd359054d8b303c9ceed8e969fafae652f13e36c9088aa24960f248ce1a"
+    },
+    {
+      "path": "icons/technologies/nenbutsu-4.png",
+      "source": "images/technologies/nenbutsu-4.png",
+      "bytes": 9933,
+      "width": 96,
+      "height": 96,
+      "sha256": "e707fda66c06d2cca67a5726f17d0eba5cb8d742c8f52a2400bfe5cca28d0b67"
+    },
+    {
+      "path": "icons/technologies/network-of-citadels-3.png",
+      "source": "images/technologies/network-of-citadels-3.png",
+      "bytes": 9229,
+      "width": 96,
+      "height": 96,
+      "sha256": "61d14995c04b641f7513b398d9e573ecde9f5aaf236742a52d1e43e360710095"
+    },
+    {
+      "path": "icons/technologies/neza-training-3.png",
+      "source": "images/technologies/neza-training-3.png",
+      "bytes": 10856,
+      "width": 96,
+      "height": 96,
+      "sha256": "d81ce8f233659c3ffe0429f373be1150a9c8d9cb6498576beb951fbae10475aa"
+    },
+    {
+      "path": "icons/technologies/numeri-4.png",
+      "source": "images/technologies/numeri-4.png",
+      "bytes": 11481,
+      "width": 96,
+      "height": 96,
+      "sha256": "09250f772b37776a29b3f6631322fcdf77caf6fe8c5ef39a409117793a6a7b5a"
+    },
+    {
+      "path": "icons/technologies/oda-tactics-4.png",
+      "source": "images/technologies/oda-tactics-4.png",
+      "bytes": 12873,
+      "width": 96,
+      "height": 96,
+      "sha256": "b0de683c2cac40cf91f26abf17b579837730efd502f9897966c57351ddabc41c"
+    },
+    {
+      "path": "icons/technologies/odachi-3.png",
+      "source": "images/technologies/odachi-3.png",
+      "bytes": 10787,
+      "width": 96,
+      "height": 96,
+      "sha256": "9a8c997c9ce274431d37d090de8a80cc2e4387a86650f94e098e49367df4ec77"
+    },
+    {
+      "path": "icons/technologies/open-field-system-2.png",
+      "source": "images/technologies/open-field-system-2.png",
+      "bytes": 10503,
+      "width": 96,
+      "height": 96,
+      "sha256": "b55fe31acf73e1b75605f916eb1c3c5f2a46b513998f73f49a465e977512787d"
+    },
+    {
+      "path": "icons/technologies/ordinance-company-3.png",
+      "source": "images/technologies/ordinance-company-3.png",
+      "bytes": 10346,
+      "width": 96,
+      "height": 96,
+      "sha256": "aeb30591d4a566cbeadcff0f8dc23f3ecb6de7ea7fb70127fc8b3d316510fd67"
+    },
+    {
+      "path": "icons/technologies/over-grazing-3.png",
+      "source": "images/technologies/over-grazing-3.png",
+      "bytes": 14108,
+      "width": 96,
+      "height": 96,
+      "sha256": "d7393243274faa5575c9652262c2eaf1680f2ca60166dcad215cf3cd74cd7e42"
+    },
+    {
+      "path": "icons/technologies/ovoo-ceremony-4.png",
+      "source": "images/technologies/ovoo-ceremony-4.png",
+      "bytes": 13466,
+      "width": 96,
+      "height": 96,
+      "sha256": "5d980f9a6b6c623524daf9d690b8666bc8dd91ae6e3b8de76db37b2b234c18c3"
+    },
+    {
+      "path": "icons/technologies/ovoo-offering-3.png",
+      "source": "images/technologies/ovoo-offering-3.png",
+      "bytes": 6721,
+      "width": 96,
+      "height": 96,
+      "sha256": "7897be5fb805fc6306c2878c7e0ee8c9b1c109da9c3ede95ca7bcde9453c5843"
+    },
+    {
+      "path": "icons/technologies/ovoo-tithe-4.png",
+      "source": "images/technologies/ovoo-tithe-4.png",
+      "bytes": 11111,
+      "width": 96,
+      "height": 96,
+      "sha256": "884ab08039c457452831e082132e0d5e613157f3d2696c7309333747b2098c03"
+    },
+    {
+      "path": "icons/technologies/ozutsu-unlock-3.png",
+      "source": "images/technologies/ozutsu-unlock-3.png",
+      "bytes": 9899,
+      "width": 96,
+      "height": 96,
+      "sha256": "285dc03eefa81328762b88e433c67732f43d1f74ab1163572f2474c6a66c0ee4"
+    },
+    {
+      "path": "icons/technologies/padded-armor-3.png",
+      "source": "images/technologies/padded-armor-3.png",
+      "bytes": 12135,
+      "width": 96,
+      "height": 96,
+      "sha256": "ea5ab20c0e7b25fb60f83e85106199ac8bd2a2d04902f4fbd484f7eb9f01669a"
+    },
+    {
+      "path": "icons/technologies/padded-jack-4.png",
+      "source": "images/technologies/padded-jack-4.png",
+      "bytes": 9126,
+      "width": 96,
+      "height": 96,
+      "sha256": "1a62489232a3d0979b21822d3cc0661a963c87ac2c8d8944514feaf0824a15e2"
+    },
+    {
+      "path": "icons/technologies/padded-lamellar-4.png",
+      "source": "images/technologies/padded-lamellar-4.png",
+      "bytes": 14525,
+      "width": 96,
+      "height": 96,
+      "sha256": "d9f1b3a74e5738181edc0ac26d52e80bc676d4421b1f1e7dce74874df34683ea"
+    },
+    {
+      "path": "icons/technologies/paiks-3.png",
+      "source": "images/technologies/paiks-3.png",
+      "bytes": 14186,
+      "width": 200,
+      "height": 200,
+      "sha256": "db060ba875d4e05ef0e29c728ef30e2f2413e0d1688d04fc812020d133d17e09"
+    },
+    {
+      "path": "icons/technologies/pattern-welding-tier1-2.png",
+      "source": "images/technologies/pattern-welding-tier1-2.png",
+      "bytes": 11186,
+      "width": 96,
+      "height": 96,
+      "sha256": "a133175afac9518fbcb4877f7114cac3e86ba83431c15921a508d272bea5d150"
+    },
+    {
+      "path": "icons/technologies/pattern-welding-tier2-2.png",
+      "source": "images/technologies/pattern-welding-tier2-2.png",
+      "bytes": 11244,
+      "width": 96,
+      "height": 96,
+      "sha256": "592051c66e6e9c4853a4a2bf9f2bb315cab1d4ab867e21ec0dfa3538e67d72e9"
+    },
+    {
+      "path": "icons/technologies/pattern-welding-tier3-3.png",
+      "source": "images/technologies/pattern-welding-tier3-3.png",
+      "bytes": 11331,
+      "width": 96,
+      "height": 96,
+      "sha256": "3f0b5d1fc85e26f486e788a3c60bcb46cd229e62d93ab6134f9f850c0a3ca4ff"
+    },
+    {
+      "path": "icons/technologies/pattern-welding-tier4-3.png",
+      "source": "images/technologies/pattern-welding-tier4-3.png",
+      "bytes": 11389,
+      "width": 96,
+      "height": 96,
+      "sha256": "26518182a5fa14a94c2cea66addf20fd7896097cdab818c596deda848ab7b8bd"
+    },
+    {
+      "path": "icons/technologies/pattern-welding-tier5-4.png",
+      "source": "images/technologies/pattern-welding-tier5-4.png",
+      "bytes": 11440,
+      "width": 96,
+      "height": 96,
+      "sha256": "2e0570bfade279bb15e1de42d5941855776c841a077361302ad2d335a47aafdd"
+    },
+    {
+      "path": "icons/technologies/pattern-welding-tier6-4.png",
+      "source": "images/technologies/pattern-welding-tier6-4.png",
+      "bytes": 11470,
+      "width": 96,
+      "height": 96,
+      "sha256": "89d6c7db56947e84d3ab418f1d33360869f02afb00b39285b25fa8b0030f416c"
+    },
+    {
+      "path": "icons/technologies/pax-mongolica-4.png",
+      "source": "images/technologies/pax-mongolica-4.png",
+      "bytes": 12672,
+      "width": 96,
+      "height": 96,
+      "sha256": "0718ff08f7bccd17bab31e048c4fb8a7b44fa028af56e9358fdb99737ed1d90b"
+    },
+    {
+      "path": "icons/technologies/phalanx-2.png",
+      "source": "images/technologies/phalanx-2.png",
+      "bytes": 8332,
+      "width": 96,
+      "height": 96,
+      "sha256": "2c2026433fd52dd20a16a31d8768913bbf393418d7bf90452e8e819f68599529"
+    },
+    {
+      "path": "icons/technologies/piety-2.png",
+      "source": "images/technologies/piety-2.png",
+      "bytes": 6469,
+      "width": 96,
+      "height": 96,
+      "sha256": "f4c19ea2902e19b97bb4c9fa72e284006a937573585a43a01a84bd2a595275aa"
+    },
+    {
+      "path": "icons/technologies/piety-4.png",
+      "source": "images/technologies/piety-4.png",
+      "bytes": 6469,
+      "width": 96,
+      "height": 96,
+      "sha256": "f4c19ea2902e19b97bb4c9fa72e284006a937573585a43a01a84bd2a595275aa"
+    },
+    {
+      "path": "icons/technologies/piety-improved-4.png",
+      "source": "images/technologies/piety-improved-4.png",
+      "bytes": 6469,
+      "width": 96,
+      "height": 96,
+      "sha256": "f4c19ea2902e19b97bb4c9fa72e284006a937573585a43a01a84bd2a595275aa"
+    },
+    {
+      "path": "icons/technologies/pili-pao-4.png",
+      "source": "images/technologies/pili-pao-4.png",
+      "bytes": 8256,
+      "width": 96,
+      "height": 96,
+      "sha256": "0f68227ac11e09f020c6f50bc5d39b32ec099390ecd976dbb2ee3190646276d9"
+    },
+    {
+      "path": "icons/technologies/piracy-2.png",
+      "source": "images/technologies/piracy-2.png",
+      "bytes": 10148,
+      "width": 96,
+      "height": 96,
+      "sha256": "b35ef0aa7cec3fc36ae3afd78460a0a0ca0ede32a461bc2d7aaa4b7830e38bf5"
+    },
+    {
+      "path": "icons/technologies/platecutter-point-4.png",
+      "source": "images/technologies/platecutter-point-4.png",
+      "bytes": 9986,
+      "width": 96,
+      "height": 96,
+      "sha256": "cb9743f336954fc0f15bb623f6e291b2303f4d934726f5ec81bfd1175dc28feb"
+    },
+    {
+      "path": "icons/technologies/poisoned-arrows-3.png",
+      "source": "images/technologies/poisoned-arrows-3.png",
+      "bytes": 12867,
+      "width": 96,
+      "height": 96,
+      "sha256": "da73e54a1f6e0c09a8545a44c3c08eb615dddb4e71f9f7f760aed855e4a1f4e8"
+    },
+    {
+      "path": "icons/technologies/polutasvarf-3.png",
+      "source": "images/technologies/polutasvarf-3.png",
+      "bytes": 10317,
+      "width": 96,
+      "height": 96,
+      "sha256": "30a1358af90d4ee06048fb0c0ed0207abfcfee56aefab039aaba9ca3d4247012"
+    },
+    {
+      "path": "icons/technologies/porcupine-defense-3.png",
+      "source": "images/technologies/porcupine-defense-3.png",
+      "bytes": 12614,
+      "width": 96,
+      "height": 96,
+      "sha256": "53d371e5349af0b868e4ad27bdebfe85b286c706efe458eabb0a1c74570e04bf"
+    },
+    {
+      "path": "icons/technologies/precision-cross-breeding-4.png",
+      "source": "images/technologies/precision-cross-breeding-4.png",
+      "bytes": 7533,
+      "width": 96,
+      "height": 96,
+      "sha256": "a74b486fbe21586fedea20856ea47c690c1d4cf1aebe12f7c1c05bd697c9607c"
+    },
+    {
+      "path": "icons/technologies/precision-training-4.png",
+      "source": "images/technologies/precision-training-4.png",
+      "bytes": 11503,
+      "width": 96,
+      "height": 96,
+      "sha256": "a0b944da7cef038aa20f53f50b389bb75ba67a368d546bd497f7af1f076b956c"
+    },
+    {
+      "path": "icons/technologies/preservation-of-knowledge-2.png",
+      "source": "images/technologies/preservation-of-knowledge-2.png",
+      "bytes": 5813,
+      "width": 96,
+      "height": 96,
+      "sha256": "3267a6ce51765ed3f394d5f6f291ec5ee0298caeeff29c5f86660f49b3e54ea6"
+    },
+    {
+      "path": "icons/technologies/principality-of-antioch-1.png",
+      "source": "images/technologies/principality-of-antioch-1.png",
+      "bytes": 14607,
+      "width": 104,
+      "height": 56,
+      "sha256": "e24bef7661d6d37c989db722b8437938126f235f74685b03c03a784de5d3f7df"
+    },
+    {
+      "path": "icons/technologies/professional-scouts-2.png",
+      "source": "images/technologies/professional-scouts-2.png",
+      "bytes": 10313,
+      "width": 96,
+      "height": 96,
+      "sha256": "5909d9d988f049c661f54a34c02de14d4c199fe9a36fafc5933375504862142e"
+    },
+    {
+      "path": "icons/technologies/prolonged-siege-4.png",
+      "source": "images/technologies/prolonged-siege-4.png",
+      "bytes": 8319,
+      "width": 96,
+      "height": 96,
+      "sha256": "0c862cbd511f2ccafba7d13c3b9efc062d0173550014d89b5da64cf9aaafcadd"
+    },
+    {
+      "path": "icons/technologies/proselytization-4.png",
+      "source": "images/technologies/proselytization-4.png",
+      "bytes": 6159,
+      "width": 96,
+      "height": 96,
+      "sha256": "276d86ce245e2a136e366a96d8142b3ab6c8821caaef4a8bfa532a4f04fc1514"
+    },
+    {
+      "path": "icons/technologies/public-libraries-4.png",
+      "source": "images/technologies/public-libraries-4.png",
+      "bytes": 23111,
+      "width": 200,
+      "height": 200,
+      "sha256": "68fbc533b59260a8ac7d3eac84dfe65994821c0256016c0adf28e67d082050b3"
+    },
+    {
+      "path": "icons/technologies/pyrotechnics-4.png",
+      "source": "images/technologies/pyrotechnics-4.png",
+      "bytes": 7336,
+      "width": 96,
+      "height": 96,
+      "sha256": "e7d42809a0653ed168b85858e677a01dff3900a35e60a5e2db81acf55d412dc9"
+    },
+    {
+      "path": "icons/technologies/quilted-armor-1.png",
+      "source": "images/technologies/quilted-armor-1.png",
+      "bytes": 12596,
+      "width": 96,
+      "height": 96,
+      "sha256": "db4ce89a3b65a03218e47fa340f4443f230eb878f5e3bc5fd67bd639eee0911c"
+    },
+    {
+      "path": "icons/technologies/raid-bounty-2.png",
+      "source": "images/technologies/raid-bounty-2.png",
+      "bytes": 9673,
+      "width": 96,
+      "height": 96,
+      "sha256": "8171c8c21e231bb594210584184baaaa182dfe4cf30890a78136d431374fdd43"
+    },
+    {
+      "path": "icons/technologies/raid-bounty-improved-2.png",
+      "source": "images/technologies/raid-bounty-improved-2.png",
+      "bytes": 9673,
+      "width": 96,
+      "height": 96,
+      "sha256": "8171c8c21e231bb594210584184baaaa182dfe4cf30890a78136d431374fdd43"
+    },
+    {
+      "path": "icons/technologies/rain-of-fire-3.png",
+      "source": "images/technologies/rain-of-fire-3.png",
+      "bytes": 12452,
+      "width": 96,
+      "height": 96,
+      "sha256": "85ea00ff86f30c633be2599f1bc30da9e0af9caa5179df8c325b651e5da5a940"
+    },
+    {
+      "path": "icons/technologies/regional-inspection-1.png",
+      "source": "images/technologies/regional-inspection-1.png",
+      "bytes": 7510,
+      "width": 96,
+      "height": 96,
+      "sha256": "5317f63fe220047930fe4e882c677c8c4fcd74bf4f3e590dbcb1e2ce1f190132"
+    },
+    {
+      "path": "icons/technologies/reinforced-arm-ballista-4.png",
+      "source": "images/technologies/reinforced-arm-ballista-4.png",
+      "bytes": 11092,
+      "width": 96,
+      "height": 96,
+      "sha256": "03e830469430fb2b745fe2855d962af2dfbf11fa4be7ec874d3171e821b0f4de"
+    },
+    {
+      "path": "icons/technologies/reinforced-axles-3.png",
+      "source": "images/technologies/reinforced-axles-3.png",
+      "bytes": 13192,
+      "width": 96,
+      "height": 96,
+      "sha256": "57028b0dfcc08811d8434970d06d6c733ec0a86923d3095289be4f8307277e58"
+    },
+    {
+      "path": "icons/technologies/reinforced-defenses-4.png",
+      "source": "images/technologies/reinforced-defenses-4.png",
+      "bytes": 11746,
+      "width": 96,
+      "height": 96,
+      "sha256": "62c09442641fa0d07b127b5dfd73665dca5a7c51e160f1084bb7947d2b4a256f"
+    },
+    {
+      "path": "icons/technologies/reinforced-foundations-3.png",
+      "source": "images/technologies/reinforced-foundations-3.png",
+      "bytes": 9092,
+      "width": 96,
+      "height": 96,
+      "sha256": "414775a234907d7e244ed1a888c65b7dfadb8ae428269bd972d03c9d1fbb0a6a"
+    },
+    {
+      "path": "icons/technologies/relic-ovoos-2.png",
+      "source": "images/technologies/relic-ovoos-2.png",
+      "bytes": 11167,
+      "width": 96,
+      "height": 96,
+      "sha256": "189074b1d4e4f74f9d397997612cefeab38eaea58fa016d4bf96f7b52d3f24a0"
+    },
+    {
+      "path": "icons/technologies/reload-drills-4.png",
+      "source": "images/technologies/reload-drills-4.png",
+      "bytes": 8209,
+      "width": 96,
+      "height": 96,
+      "sha256": "cc2cba6960602cf1074bbaff702060950a8ffeaa4819b20e9f46c840a31c8297"
+    },
+    {
+      "path": "icons/technologies/republic-of-genoa-2.png",
+      "source": "images/technologies/republic-of-genoa-2.png",
+      "bytes": 11055,
+      "width": 104,
+      "height": 56,
+      "sha256": "ecd4cba0ee00469a3d75f48549dffc1f527597868a7d4dcd21bf947f4547d799"
+    },
+    {
+      "path": "icons/technologies/republic-of-venice-3.png",
+      "source": "images/technologies/republic-of-venice-3.png",
+      "bytes": 15199,
+      "width": 104,
+      "height": 56,
+      "sha256": "a823d9325338806f63e7f9f82e0fbc32764eb3553981bf33ecc230dc06337c2c"
+    },
+    {
+      "path": "icons/technologies/rhomphaia-3.png",
+      "source": "images/technologies/rhomphaia-3.png",
+      "bytes": 4461,
+      "width": 96,
+      "height": 96,
+      "sha256": "11cfdfba574bd56c671c7f468a4eac7bd2108ef8ab3f167547db48bc9cbe4483"
+    },
+    {
+      "path": "icons/technologies/roar-of-the-dragon-4.png",
+      "source": "images/technologies/roar-of-the-dragon-4.png",
+      "bytes": 12428,
+      "width": 96,
+      "height": 96,
+      "sha256": "fc3bc0a3863c8fd6d4f05d0fc041fc772dbd1b3bfd7735070c405d1f6a91bd9d"
+    },
+    {
+      "path": "icons/technologies/roller-shutter-triggers-4.png",
+      "source": "images/technologies/roller-shutter-triggers-4.png",
+      "bytes": 5296,
+      "width": 96,
+      "height": 96,
+      "sha256": "9de99997c436e6451f9c82ce7df54abeb9747f6df4f1fa7e08083962bef4114c"
+    },
+    {
+      "path": "icons/technologies/roller-shutter-triggers-improved-4.png",
+      "source": "images/technologies/roller-shutter-triggers-improved-4.png",
+      "bytes": 5296,
+      "width": 96,
+      "height": 96,
+      "sha256": "9de99997c436e6451f9c82ce7df54abeb9747f6df4f1fa7e08083962bef4114c"
+    },
+    {
+      "path": "icons/technologies/roman-fire-4.png",
+      "source": "images/technologies/roman-fire-4.png",
+      "bytes": 7374,
+      "width": 96,
+      "height": 96,
+      "sha256": "086cb30993af8f5b49885992ad32eab8a8d8a0f59455d4a41d6b72772e268a70"
+    },
+    {
+      "path": "icons/technologies/rotation-grazing-2.png",
+      "source": "images/technologies/rotation-grazing-2.png",
+      "bytes": 12575,
+      "width": 96,
+      "height": 96,
+      "sha256": "6f6f56121f15b2a00c563fc9bf4cd0a0ec02c993c4d56a87551a8f22d39eea26"
+    },
+    {
+      "path": "icons/technologies/royal-bloodlines-3.png",
+      "source": "images/technologies/royal-bloodlines-3.png",
+      "bytes": 7390,
+      "width": 96,
+      "height": 96,
+      "sha256": "968c94c32f62c403337a268c23adb8d7f48cc3e223f14a59818377e5569946ec"
+    },
+    {
+      "path": "icons/technologies/royal-bloodlines-4.png",
+      "source": "images/technologies/royal-bloodlines-4.png",
+      "bytes": 7390,
+      "width": 96,
+      "height": 96,
+      "sha256": "968c94c32f62c403337a268c23adb8d7f48cc3e223f14a59818377e5569946ec"
+    },
+    {
+      "path": "icons/technologies/ruinous-blinding-2.png",
+      "source": "images/technologies/ruinous-blinding-2.png",
+      "bytes": 12442,
+      "width": 96,
+      "height": 96,
+      "sha256": "4f3339a72cda26123e47edcdc5691933e42ea2093933524690789ddba25746b5"
+    },
+    {
+      "path": "icons/technologies/rule-of-templars-3.png",
+      "source": "images/technologies/rule-of-templars-3.png",
+      "bytes": 13001,
+      "width": 96,
+      "height": 96,
+      "sha256": "6378fc24482047c475c9b9fd6a4bf0796b7aa218659a4fe7b5a220706859691c"
+    },
+    {
+      "path": "icons/technologies/safe-passage-2.png",
+      "source": "images/technologies/safe-passage-2.png",
+      "bytes": 12102,
+      "width": 96,
+      "height": 96,
+      "sha256": "145285b3b06cb9916b0f6fa7f61f129096a4fb64eb00c139b2693123c027c723"
+    },
+    {
+      "path": "icons/technologies/saints-veneration-4.png",
+      "source": "images/technologies/saints-veneration-4.png",
+      "bytes": 8475,
+      "width": 96,
+      "height": 96,
+      "sha256": "ef99d5a76e9bc007aed5b91a9606184ffde93967994e31681af4e5a8a41f33b6"
+    },
+    {
+      "path": "icons/technologies/salvaged-materials-3.png",
+      "source": "images/technologies/salvaged-materials-3.png",
+      "bytes": 8902,
+      "width": 96,
+      "height": 96,
+      "sha256": "f5343ff6b412bdb6bebf4bd886899b14351497849b2680bce69c2542cbf068cf"
+    },
+    {
+      "path": "icons/technologies/samurai-bow-1.png",
+      "source": "images/technologies/samurai-bow-1.png",
+      "bytes": 8678,
+      "width": 96,
+      "height": 96,
+      "sha256": "b66b414686282010762bff3dd5486c93e3d9fc77d89895748cbe3901bd99c0a6"
+    },
+    {
+      "path": "icons/technologies/sanctity-2.png",
+      "source": "images/technologies/sanctity-2.png",
+      "bytes": 9261,
+      "width": 96,
+      "height": 96,
+      "sha256": "692f3a58e21c5df6a95109980d9c9878b5b023061d5e7bdc357cc45e0edafcb1"
+    },
+    {
+      "path": "icons/technologies/sanctuary-1.png",
+      "source": "images/technologies/sanctuary-1.png",
+      "bytes": 12885,
+      "width": 96,
+      "height": 96,
+      "sha256": "1415b79b37880a916b5cf294eec7404efcbbe57276f11fbbbf183953ab343b95"
+    },
+    {
+      "path": "icons/technologies/sarai-lancers-3.png",
+      "source": "images/technologies/sarai-lancers-3.png",
+      "bytes": 13629,
+      "width": 96,
+      "height": 96,
+      "sha256": "4cdc7bc68ef3b02b676f751508336ed06d9c6a409840c2b9eaf0b72619a66359"
+    },
+    {
+      "path": "icons/technologies/scale-armor-3.png",
+      "source": "images/technologies/scale-armor-3.png",
+      "bytes": 9131,
+      "width": 96,
+      "height": 96,
+      "sha256": "ebabfdf0b0ddff71fe51ee485f094d317b9135fd93ee010989b1642db4e9a14e"
+    },
+    {
+      "path": "icons/technologies/scale-barding-tier1-2.png",
+      "source": "images/technologies/scale-barding-tier1-2.png",
+      "bytes": 9902,
+      "width": 96,
+      "height": 96,
+      "sha256": "065d73df31383b421a1952f991cdba2ca4a431c5cd0e05e011e6707a534dac1e"
+    },
+    {
+      "path": "icons/technologies/scale-barding-tier2-2.png",
+      "source": "images/technologies/scale-barding-tier2-2.png",
+      "bytes": 9963,
+      "width": 96,
+      "height": 96,
+      "sha256": "8fae7b2dcd2cec5be6c9f4b283d179142c11178eb5d69c9125bda136ff746c40"
+    },
+    {
+      "path": "icons/technologies/scale-barding-tier3-3.png",
+      "source": "images/technologies/scale-barding-tier3-3.png",
+      "bytes": 10050,
+      "width": 96,
+      "height": 96,
+      "sha256": "a03e4c3a011c7c81d1c896484f4148a8024f9ca68655ae7829343bdd3300f19e"
+    },
+    {
+      "path": "icons/technologies/scale-barding-tier4-3.png",
+      "source": "images/technologies/scale-barding-tier4-3.png",
+      "bytes": 10104,
+      "width": 96,
+      "height": 96,
+      "sha256": "ad9d23729e316f59799d69e66604278c9618abf4571dbf43823c2f553da68f50"
+    },
+    {
+      "path": "icons/technologies/scale-barding-tier5-4.png",
+      "source": "images/technologies/scale-barding-tier5-4.png",
+      "bytes": 10139,
+      "width": 96,
+      "height": 96,
+      "sha256": "9668f4b5bd290cd32305e07f0d3fb789c2ac82cc122b09068d795b2213a8d49a"
+    },
+    {
+      "path": "icons/technologies/scale-barding-tier6-4.png",
+      "source": "images/technologies/scale-barding-tier6-4.png",
+      "bytes": 10183,
+      "width": 96,
+      "height": 96,
+      "sha256": "582c1acde6dfd4898b181085cf10abe117a9069a528fa026fffda714de939b16"
+    },
+    {
+      "path": "icons/technologies/scutage-4.png",
+      "source": "images/technologies/scutage-4.png",
+      "bytes": 6618,
+      "width": 96,
+      "height": 96,
+      "sha256": "7f9d461c4a50fed1af68624e77b9727d76ee07831243cd3aaea39df565aa7b51"
+    },
+    {
+      "path": "icons/technologies/serpentine-powder-4.png",
+      "source": "images/technologies/serpentine-powder-4.png",
+      "bytes": 5931,
+      "width": 96,
+      "height": 96,
+      "sha256": "3db69afe5ddf5f06d2b8c38d3e87a58053cc907a5c0e53670ab6b7c26145e441"
+    },
+    {
+      "path": "icons/technologies/shaft-mining-3.png",
+      "source": "images/technologies/shaft-mining-3.png",
+      "bytes": 7919,
+      "width": 96,
+      "height": 96,
+      "sha256": "b51d05bfc854dcb094d29ef70a7d4bf40b2af35623da32ad449b422876846d25"
+    },
+    {
+      "path": "icons/technologies/sharpening-stones-tier1-2.png",
+      "source": "images/technologies/sharpening-stones-tier1-2.png",
+      "bytes": 11410,
+      "width": 96,
+      "height": 96,
+      "sha256": "0ed522ab00eea1616670048bf8307decb08af75af67465028b18b612741e5bec"
+    },
+    {
+      "path": "icons/technologies/sharpening-stones-tier2-2.png",
+      "source": "images/technologies/sharpening-stones-tier2-2.png",
+      "bytes": 11470,
+      "width": 96,
+      "height": 96,
+      "sha256": "30321177e988340f066a95ef35352e84b6878595123d646cf191732b766c1ab4"
+    },
+    {
+      "path": "icons/technologies/sharpening-stones-tier3-3.png",
+      "source": "images/technologies/sharpening-stones-tier3-3.png",
+      "bytes": 11562,
+      "width": 96,
+      "height": 96,
+      "sha256": "4d17f4539c7c8a12b8e5308dc80203e2ba1ccea797e4c2919ce83b4a544640f3"
+    },
+    {
+      "path": "icons/technologies/sharpening-stones-tier4-3.png",
+      "source": "images/technologies/sharpening-stones-tier4-3.png",
+      "bytes": 11621,
+      "width": 96,
+      "height": 96,
+      "sha256": "05ee6127784fa1b662fae0dc73e052603b56c9dac1db2ad7168a94cf737d29c9"
+    },
+    {
+      "path": "icons/technologies/sharpening-stones-tier5-4.png",
+      "source": "images/technologies/sharpening-stones-tier5-4.png",
+      "bytes": 11667,
+      "width": 96,
+      "height": 96,
+      "sha256": "3441ae15126bad6a9098dc550fe16a393b9b63f8b495e6e3db872a1ccc5642a8"
+    },
+    {
+      "path": "icons/technologies/sharpening-stones-tier6-4.png",
+      "source": "images/technologies/sharpening-stones-tier6-4.png",
+      "bytes": 11693,
+      "width": 96,
+      "height": 96,
+      "sha256": "95c47f2a5fc65bbf17c9d0b7f47f1fdc30793e2f8810e49f276e0c509971ea1e"
+    },
+    {
+      "path": "icons/technologies/shattering-projectiles-4.png",
+      "source": "images/technologies/shattering-projectiles-4.png",
+      "bytes": 9994,
+      "width": 96,
+      "height": 96,
+      "sha256": "0a270f40476e3a8f4d6ebb5391e9635564157af3ebd562cba4783ba234dced8e"
+    },
+    {
+      "path": "icons/technologies/shinto-rituals-3.png",
+      "source": "images/technologies/shinto-rituals-3.png",
+      "bytes": 14621,
+      "width": 96,
+      "height": 96,
+      "sha256": "2550765afadad4539dd180f7114a8abe0d374aa693d15f67338d8467c21cc634"
+    },
+    {
+      "path": "icons/technologies/ships-of-the-crown-4.png",
+      "source": "images/technologies/ships-of-the-crown-4.png",
+      "bytes": 10012,
+      "width": 96,
+      "height": 96,
+      "sha256": "3c0e88dfa4d7bd302ce022bd38b5d45efb9bcca6fe93f692d68dd948c5f91e59"
+    },
+    {
+      "path": "icons/technologies/shipwrights-4.png",
+      "source": "images/technologies/shipwrights-4.png",
+      "bytes": 10596,
+      "width": 96,
+      "height": 96,
+      "sha256": "f762a09a124ecc33c1dd7ef709f3537cb14e98b6cc4ff395cb02c5194c0d56e5"
+    },
+    {
+      "path": "icons/technologies/shire-levy-3.png",
+      "source": "images/technologies/shire-levy-3.png",
+      "bytes": 10074,
+      "width": 96,
+      "height": 96,
+      "sha256": "30fbaed622f38dc86300a2dc127037a58797d2c8aa8d91437cf73725d00a2967"
+    },
+    {
+      "path": "icons/technologies/shogunate-castle-3.png",
+      "source": "images/technologies/shogunate-castle-3.png",
+      "bytes": 10713,
+      "width": 96,
+      "height": 96,
+      "sha256": "e746b384971f513acc3a8ebec96dbdc3c0c458d281a06842205a2f4c4f6923d5"
+    },
+    {
+      "path": "icons/technologies/siege-carpentry-3.png",
+      "source": "images/technologies/siege-carpentry-3.png",
+      "bytes": 11847,
+      "width": 96,
+      "height": 96,
+      "sha256": "33678dfcf34315d9fe87a836658ff9d0518bcb546d429a4d6a4ad28d8f54e08c"
+    },
+    {
+      "path": "icons/technologies/siege-crew-training-4.png",
+      "source": "images/technologies/siege-crew-training-4.png",
+      "bytes": 7879,
+      "width": 96,
+      "height": 96,
+      "sha256": "abf08a8ffe16db89454eb3e43d533a1cb9e44daf2e8db28551af0a382519c702"
+    },
+    {
+      "path": "icons/technologies/siege-crews-1.png",
+      "source": "images/technologies/siege-crews-1.png",
+      "bytes": 7965,
+      "width": 96,
+      "height": 96,
+      "sha256": "d314f46e38380d2c9301d3582828708b26be56acc51412ac0ff6b433ff0093e3"
+    },
+    {
+      "path": "icons/technologies/siege-directive-3.png",
+      "source": "images/technologies/siege-directive-3.png",
+      "bytes": 13937,
+      "width": 96,
+      "height": 96,
+      "sha256": "97d72eac5c2b2be26aeba4f4e61e0d12b9efc0779e867381a14934d50a3be5db"
+    },
+    {
+      "path": "icons/technologies/siege-engineering-2.png",
+      "source": "images/technologies/siege-engineering-2.png",
+      "bytes": 8177,
+      "width": 96,
+      "height": 96,
+      "sha256": "67ba4afb81fd0a8dbbbb2cc85d42077b51bb0fb813a8586faa71ba505caa6780"
+    },
+    {
+      "path": "icons/technologies/siege-engineering-improved-2.png",
+      "source": "images/technologies/siege-engineering-improved-2.png",
+      "bytes": 8177,
+      "width": 96,
+      "height": 96,
+      "sha256": "67ba4afb81fd0a8dbbbb2cc85d42077b51bb0fb813a8586faa71ba505caa6780"
+    },
+    {
+      "path": "icons/technologies/siege-works-4.png",
+      "source": "images/technologies/siege-works-4.png",
+      "bytes": 10059,
+      "width": 96,
+      "height": 96,
+      "sha256": "53bb0e3543e09476137754c73e9996fe430a7c7641baec531bd112ef7eb1f656"
+    },
+    {
+      "path": "icons/technologies/siege-works-improved-4.png",
+      "source": "images/technologies/siege-works-improved-4.png",
+      "bytes": 10059,
+      "width": 96,
+      "height": 96,
+      "sha256": "53bb0e3543e09476137754c73e9996fe430a7c7641baec531bd112ef7eb1f656"
+    },
+    {
+      "path": "icons/technologies/siha-bow-limbs-4.png",
+      "source": "images/technologies/siha-bow-limbs-4.png",
+      "bytes": 7541,
+      "width": 96,
+      "height": 96,
+      "sha256": "b6b731dd457b6575b3de38da5ef0276207f795a2749f09930cdab839d5da5704"
+    },
+    {
+      "path": "icons/technologies/siha-bow-limbs-improved-4.png",
+      "source": "images/technologies/siha-bow-limbs-improved-4.png",
+      "bytes": 7541,
+      "width": 96,
+      "height": 96,
+      "sha256": "b6b731dd457b6575b3de38da5ef0276207f795a2749f09930cdab839d5da5704"
+    },
+    {
+      "path": "icons/technologies/silk-bowstrings-4.png",
+      "source": "images/technologies/silk-bowstrings-4.png",
+      "bytes": 7045,
+      "width": 96,
+      "height": 96,
+      "sha256": "aad389fd28abe610cb7b78c755fc50559a452db1ecffde1c884becdee3559a71"
+    },
+    {
+      "path": "icons/technologies/silk-road-mercenary-contract-1.png",
+      "source": "images/technologies/silk-road-mercenary-contract-1.png",
+      "bytes": 10608,
+      "width": 96,
+      "height": 96,
+      "sha256": "015bacd389ee75fb9550615681cb51ad65fbb38054cd0df0a4fb133926f06a64"
+    },
+    {
+      "path": "icons/technologies/single-whip-reform-1.png",
+      "source": "images/technologies/single-whip-reform-1.png",
+      "bytes": 6164,
+      "width": 96,
+      "height": 96,
+      "sha256": "213ff9bf542be55444f3d38ee6cef25794c7c7925533f9fe1f1ca27556bd5c12"
+    },
+    {
+      "path": "icons/technologies/slate-and-stone-construction-3.png",
+      "source": "images/technologies/slate-and-stone-construction-3.png",
+      "bytes": 9020,
+      "width": 96,
+      "height": 96,
+      "sha256": "3cdb7fe27e761c2163f05de7dccce5b0f75936faab1dc05bb4dde159a3469e61"
+    },
+    {
+      "path": "icons/technologies/slow-burning-defenses-3.png",
+      "source": "images/technologies/slow-burning-defenses-3.png",
+      "bytes": 7639,
+      "width": 96,
+      "height": 96,
+      "sha256": "513363e86220ce67b0927d4f87a44da65fe3849813a0d3c0936ee30539868f89"
+    },
+    {
+      "path": "icons/technologies/slow-burning-defenses-4.png",
+      "source": "images/technologies/slow-burning-defenses-4.png",
+      "bytes": 7639,
+      "width": 96,
+      "height": 96,
+      "sha256": "513363e86220ce67b0927d4f87a44da65fe3849813a0d3c0936ee30539868f89"
+    },
+    {
+      "path": "icons/technologies/specialized-pick-2.png",
+      "source": "images/technologies/specialized-pick-2.png",
+      "bytes": 8249,
+      "width": 96,
+      "height": 96,
+      "sha256": "c3ae0a3b88fe27abbc1944966aedd1d9d57b8f78914254e48649c84cfdf04b11"
+    },
+    {
+      "path": "icons/technologies/specialized-pick-improved-2.png",
+      "source": "images/technologies/specialized-pick-improved-2.png",
+      "bytes": 11238,
+      "width": 96,
+      "height": 96,
+      "sha256": "72398cb6210594fd8a2aa8b857dfbb957f1cbbafdd45ea031265ccea3d389f2f"
+    },
+    {
+      "path": "icons/technologies/springald-crews-3.png",
+      "source": "images/technologies/springald-crews-3.png",
+      "bytes": 6942,
+      "width": 96,
+      "height": 96,
+      "sha256": "02d449d35e89c462ba3e02bea2510a32dfb47a81434441a4c8dc9b3ce6c02bde"
+    },
+    {
+      "path": "icons/technologies/springald-emplacement-3.png",
+      "source": "images/technologies/springald-emplacement-3.png",
+      "bytes": 6942,
+      "width": 96,
+      "height": 96,
+      "sha256": "02d449d35e89c462ba3e02bea2510a32dfb47a81434441a4c8dc9b3ce6c02bde"
+    },
+    {
+      "path": "icons/technologies/spyglass-4.png",
+      "source": "images/technologies/spyglass-4.png",
+      "bytes": 10866,
+      "width": 96,
+      "height": 96,
+      "sha256": "72771f1e8f3cd5a2179d9062841cc530948278fc86040f97871ee0047dfe8405"
+    },
+    {
+      "path": "icons/technologies/stables-reinforcements-3.png",
+      "source": "images/technologies/stables-reinforcements-3.png",
+      "bytes": 11681,
+      "width": 96,
+      "height": 96,
+      "sha256": "d385354fdd7ed5ca5a3f21a237dd8ae2b68c1f90bb4005af7c00db631af587bb"
+    },
+    {
+      "path": "icons/technologies/steel-barding-3.png",
+      "source": "images/technologies/steel-barding-3.png",
+      "bytes": 8645,
+      "width": 96,
+      "height": 96,
+      "sha256": "f599167a6b98c4fcd331e969e98ded56a7155a3a0fe891e97d2fe14480dd1acc"
+    },
+    {
+      "path": "icons/technologies/steeled-arrow-2.png",
+      "source": "images/technologies/steeled-arrow-2.png",
+      "bytes": 7531,
+      "width": 96,
+      "height": 96,
+      "sha256": "f26a35eefeea5da49574128870902b39a42e03595ace7f707b8003982c5a8dab"
+    },
+    {
+      "path": "icons/technologies/steppe-lancers-3.png",
+      "source": "images/technologies/steppe-lancers-3.png",
+      "bytes": 13819,
+      "width": 96,
+      "height": 96,
+      "sha256": "6d73772450ed4af319e2678630b8ee496df64f4436da1327d25e1f9037664c7a"
+    },
+    {
+      "path": "icons/technologies/steppe-lancers-improved-4.png",
+      "source": "images/technologies/steppe-lancers-improved-4.png",
+      "bytes": 13629,
+      "width": 96,
+      "height": 96,
+      "sha256": "4cdc7bc68ef3b02b676f751508336ed06d9c6a409840c2b9eaf0b72619a66359"
+    },
+    {
+      "path": "icons/technologies/stone-armies-3.png",
+      "source": "images/technologies/stone-armies-3.png",
+      "bytes": 9909,
+      "width": 96,
+      "height": 96,
+      "sha256": "c10ce50a61ba021e52ba7fc38dd53ba5c76551a1ab5b5efcf89cc73beeef5495"
+    },
+    {
+      "path": "icons/technologies/stone-bounty-4.png",
+      "source": "images/technologies/stone-bounty-4.png",
+      "bytes": 11524,
+      "width": 96,
+      "height": 96,
+      "sha256": "f0ac8a4b8b0ce5d583fbfcd2a35ef4be501da39cd24dc88817067c767b49b6b2"
+    },
+    {
+      "path": "icons/technologies/stone-bounty-improved-4.png",
+      "source": "images/technologies/stone-bounty-improved-4.png",
+      "bytes": 11524,
+      "width": 96,
+      "height": 96,
+      "sha256": "f0ac8a4b8b0ce5d583fbfcd2a35ef4be501da39cd24dc88817067c767b49b6b2"
+    },
+    {
+      "path": "icons/technologies/stone-commerce-4.png",
+      "source": "images/technologies/stone-commerce-4.png",
+      "bytes": 7659,
+      "width": 96,
+      "height": 96,
+      "sha256": "f7b19f8f3d9c40107eb07e8bf463e7a563e40519c7460cfcd3bb54349d430487"
+    },
+    {
+      "path": "icons/technologies/stone-commerce-improved-4.png",
+      "source": "images/technologies/stone-commerce-improved-4.png",
+      "bytes": 7659,
+      "width": 96,
+      "height": 96,
+      "sha256": "f7b19f8f3d9c40107eb07e8bf463e7a563e40519c7460cfcd3bb54349d430487"
+    },
+    {
+      "path": "icons/technologies/storm-lances-3.png",
+      "source": "images/technologies/storm-lances-3.png",
+      "bytes": 12068,
+      "width": 96,
+      "height": 96,
+      "sha256": "2be5d00854a63d025ff6a19883b6bda6bd3e66585a0eb54cad36cb48ab2bea78"
+    },
+    {
+      "path": "icons/technologies/stronghold-defensive-arrowslits-2.png",
+      "source": "images/technologies/stronghold-defensive-arrowslits-2.png",
+      "bytes": 6563,
+      "width": 96,
+      "height": 96,
+      "sha256": "63e87fddb9771967832d79b631d42bcf890fc729c7fc0d955eef0e079aeff5fd"
+    },
+    {
+      "path": "icons/technologies/sultans-mamluks-3.png",
+      "source": "images/technologies/sultans-mamluks-3.png",
+      "bytes": 10825,
+      "width": 96,
+      "height": 96,
+      "sha256": "6176c1e09274262258dcc8d029f810163795cbc48684311b99c55b9b2e4414eb"
+    },
+    {
+      "path": "icons/technologies/superior-mobility-1.png",
+      "source": "images/technologies/superior-mobility-1.png",
+      "bytes": 8439,
+      "width": 96,
+      "height": 96,
+      "sha256": "904cbb8265acd286cdb63a51a9314f0f72bb743424e4ba223edf782bb8430781"
+    },
+    {
+      "path": "icons/technologies/superior-mobility-improved-2.png",
+      "source": "images/technologies/superior-mobility-improved-2.png",
+      "bytes": 8439,
+      "width": 96,
+      "height": 96,
+      "sha256": "904cbb8265acd286cdb63a51a9314f0f72bb743424e4ba223edf782bb8430781"
+    },
+    {
+      "path": "icons/technologies/survival-techniques-1.png",
+      "source": "images/technologies/survival-techniques-1.png",
+      "bytes": 9625,
+      "width": 96,
+      "height": 96,
+      "sha256": "11819c0363e57b592ce73a98b1a91145e5037d2f60066215ad3e10eb4db65cb1"
+    },
+    {
+      "path": "icons/technologies/survival-techniques-improved-1.png",
+      "source": "images/technologies/survival-techniques-improved-1.png",
+      "bytes": 9625,
+      "width": 96,
+      "height": 96,
+      "sha256": "11819c0363e57b592ce73a98b1a91145e5037d2f60066215ad3e10eb4db65cb1"
+    },
+    {
+      "path": "icons/technologies/swiftness-3.png",
+      "source": "images/technologies/swiftness-3.png",
+      "bytes": 9667,
+      "width": 96,
+      "height": 96,
+      "sha256": "82a1a30eedaa99c04d9b8d136e0e9c81c5ddb4718fbd29cf4932862aa1979d6c"
+    },
+    {
+      "path": "icons/technologies/swivel-cannon-4.png",
+      "source": "images/technologies/swivel-cannon-4.png",
+      "bytes": 8837,
+      "width": 96,
+      "height": 96,
+      "sha256": "8392d41306459acacd10839466da0e8c82b793a518335a230fded8c2dd035d6d"
+    },
+    {
+      "path": "icons/technologies/synchronized-shot-3.png",
+      "source": "images/technologies/synchronized-shot-3.png",
+      "bytes": 10070,
+      "width": 96,
+      "height": 96,
+      "sha256": "bcf99da9ea3b1cf5afb5719e31d1b335b932f7b60c102320578353e259064fa5"
+    },
+    {
+      "path": "icons/technologies/takezaiku-2.png",
+      "source": "images/technologies/takezaiku-2.png",
+      "bytes": 11596,
+      "width": 96,
+      "height": 96,
+      "sha256": "ba3c2b0e127f5d0e3d229415d47f10f352e9cd9c6d4b8e825c1a94d3a0c93e91"
+    },
+    {
+      "path": "icons/technologies/tanegashima-tate-3.png",
+      "source": "images/technologies/tanegashima-tate-3.png",
+      "bytes": 8234,
+      "width": 96,
+      "height": 96,
+      "sha256": "2a6d87a55c345e2d58461b3cbbc4017d126a9bba0e3b02eac3c44d095e2dcd1e"
+    },
+    {
+      "path": "icons/technologies/tatara-1.png",
+      "source": "images/technologies/tatara-1.png",
+      "bytes": 14311,
+      "width": 96,
+      "height": 96,
+      "sha256": "bf57e78aa68ec359af531aeaac64ceebb3ad27d0dd89a14a03aab37d17c9819f"
+    },
+    {
+      "path": "icons/technologies/tawara-1.png",
+      "source": "images/technologies/tawara-1.png",
+      "bytes": 9921,
+      "width": 96,
+      "height": 96,
+      "sha256": "1298e51ddada6e7ff035fa25f5f5ed6ddbdbcddb3a7ac3d23a4db5a4b0ce4e88"
+    },
+    {
+      "path": "icons/technologies/teak-masts-2.png",
+      "source": "images/technologies/teak-masts-2.png",
+      "bytes": 10955,
+      "width": 96,
+      "height": 96,
+      "sha256": "bb198e7bccdd976c682092fc57f533b6022169c84bfefe4ad6152833f97404c0"
+    },
+    {
+      "path": "icons/technologies/teardrop-shields-3.png",
+      "source": "images/technologies/teardrop-shields-3.png",
+      "bytes": 11169,
+      "width": 96,
+      "height": 96,
+      "sha256": "f6b78e94707fe21fb4672f5c7beee06ec41cf5a221f84866a78a03e521fb4393"
+    },
+    {
+      "path": "icons/technologies/teutonic-order-3.png",
+      "source": "images/technologies/teutonic-order-3.png",
+      "bytes": 8887,
+      "width": 104,
+      "height": 56,
+      "sha256": "ecdb24a18ae2271ab081d516a3324cbb1f0e325f7512314e2f80c623c14a421e"
+    },
+    {
+      "path": "icons/technologies/textiles-2.png",
+      "source": "images/technologies/textiles-2.png",
+      "bytes": 6237,
+      "width": 96,
+      "height": 96,
+      "sha256": "442379c71769c449c4d75635261f0b6c71123221b7933ed755a70c72289b7ae5"
+    },
+    {
+      "path": "icons/technologies/textiles-improved-3.png",
+      "source": "images/technologies/textiles-improved-3.png",
+      "bytes": 6237,
+      "width": 96,
+      "height": 96,
+      "sha256": "442379c71769c449c4d75635261f0b6c71123221b7933ed755a70c72289b7ae5"
+    },
+    {
+      "path": "icons/technologies/throwing-dagger-drills-4.png",
+      "source": "images/technologies/throwing-dagger-drills-4.png",
+      "bytes": 7718,
+      "width": 96,
+      "height": 96,
+      "sha256": "c8a340c0421ab139b329a6bb830fea8f3ba6c5e2d8f05237f5f151b643a3bf67"
+    },
+    {
+      "path": "icons/technologies/thunderclap-bombs-4.png",
+      "source": "images/technologies/thunderclap-bombs-4.png",
+      "bytes": 13799,
+      "width": 96,
+      "height": 96,
+      "sha256": "48826290be9b477f34a4d54537926139b485fd882e6e556f08032f5e2f0cc8ef"
+    },
+    {
+      "path": "icons/technologies/tithe-barns-4.png",
+      "source": "images/technologies/tithe-barns-4.png",
+      "bytes": 8349,
+      "width": 96,
+      "height": 96,
+      "sha256": "895373306629509433a59161c41e8fc9934ebc032f4369dec21e46e8a5f0d311"
+    },
+    {
+      "path": "icons/technologies/tithe-barns-improved-4.png",
+      "source": "images/technologies/tithe-barns-improved-4.png",
+      "bytes": 8349,
+      "width": 96,
+      "height": 96,
+      "sha256": "895373306629509433a59161c41e8fc9934ebc032f4369dec21e46e8a5f0d311"
+    },
+    {
+      "path": "icons/technologies/tower-shields-4.png",
+      "source": "images/technologies/tower-shields-4.png",
+      "bytes": 7650,
+      "width": 96,
+      "height": 96,
+      "sha256": "13c1f1846c78d0a5fc9153df5c9c21761d461fd314992c864970e32784fe9f4e"
+    },
+    {
+      "path": "icons/technologies/trade-bags-1.png",
+      "source": "images/technologies/trade-bags-1.png",
+      "bytes": 10863,
+      "width": 96,
+      "height": 96,
+      "sha256": "8706fe15120bb405cccd07a7d042cfee4a6157d9f7d21b3ccef603620e285694"
+    },
+    {
+      "path": "icons/technologies/trade-wing-advisors-1.png",
+      "source": "images/technologies/trade-wing-advisors-1.png",
+      "bytes": 11622,
+      "width": 96,
+      "height": 96,
+      "sha256": "1b1b16ffcde3fd1a80ffc462733df0be1e0b6c9e450814915cb6017a337088a2"
+    },
+    {
+      "path": "icons/technologies/trade-wing-advisors-2.png",
+      "source": "images/technologies/trade-wing-advisors-2.png",
+      "bytes": 11513,
+      "width": 96,
+      "height": 96,
+      "sha256": "2218a923ac4bdef65cf0875e9c8d40eae499ecd287bdd0c0e4fdc4ab55fb8342"
+    },
+    {
+      "path": "icons/technologies/trade-wing-advisors-3.png",
+      "source": "images/technologies/trade-wing-advisors-3.png",
+      "bytes": 11513,
+      "width": 96,
+      "height": 96,
+      "sha256": "2218a923ac4bdef65cf0875e9c8d40eae499ecd287bdd0c0e4fdc4ab55fb8342"
+    },
+    {
+      "path": "icons/technologies/trade-wing-advisors-4.png",
+      "source": "images/technologies/trade-wing-advisors-4.png",
+      "bytes": 11513,
+      "width": 96,
+      "height": 96,
+      "sha256": "2218a923ac4bdef65cf0875e9c8d40eae499ecd287bdd0c0e4fdc4ab55fb8342"
+    },
+    {
+      "path": "icons/technologies/trade-wing-bazaar-1.png",
+      "source": "images/technologies/trade-wing-bazaar-1.png",
+      "bytes": 11353,
+      "width": 96,
+      "height": 96,
+      "sha256": "cc60f136ca36d16117a4549c18454b02739d73d69b6ba6eb05943aa3028b077a"
+    },
+    {
+      "path": "icons/technologies/trade-wing-bazaar-2.png",
+      "source": "images/technologies/trade-wing-bazaar-2.png",
+      "bytes": 11346,
+      "width": 96,
+      "height": 96,
+      "sha256": "2ac2e4858e9dfa48898475f46af3376b7fe7c15a74c1291f4aa3073d629e67b8"
+    },
+    {
+      "path": "icons/technologies/trade-wing-bazaar-3.png",
+      "source": "images/technologies/trade-wing-bazaar-3.png",
+      "bytes": 11346,
+      "width": 96,
+      "height": 96,
+      "sha256": "2ac2e4858e9dfa48898475f46af3376b7fe7c15a74c1291f4aa3073d629e67b8"
+    },
+    {
+      "path": "icons/technologies/trade-wing-bazaar-4.png",
+      "source": "images/technologies/trade-wing-bazaar-4.png",
+      "bytes": 11346,
+      "width": 96,
+      "height": 96,
+      "sha256": "2ac2e4858e9dfa48898475f46af3376b7fe7c15a74c1291f4aa3073d629e67b8"
+    },
+    {
+      "path": "icons/technologies/tranquil-venue-3.png",
+      "source": "images/technologies/tranquil-venue-3.png",
+      "bytes": 9804,
+      "width": 96,
+      "height": 96,
+      "sha256": "0f194a75ad9aa886b7f4559858b2ad36aba00c965193db0fb2c63816f76cca4b"
+    },
+    {
+      "path": "icons/technologies/trapezites-2.png",
+      "source": "images/technologies/trapezites-2.png",
+      "bytes": 7596,
+      "width": 96,
+      "height": 96,
+      "sha256": "8dad81d478287ec14b075aac6facac1b7d4aa9d83326301cfb01f82eeef6a626"
+    },
+    {
+      "path": "icons/technologies/treasure-towers-3.png",
+      "source": "images/technologies/treasure-towers-3.png",
+      "bytes": 10147,
+      "width": 96,
+      "height": 96,
+      "sha256": "336989316f563a002316f6c96d015bee8da492d2d85475b9558493cf3993cff7"
+    },
+    {
+      "path": "icons/technologies/trebuchet-emplacement-4.png",
+      "source": "images/technologies/trebuchet-emplacement-4.png",
+      "bytes": 11278,
+      "width": 96,
+      "height": 96,
+      "sha256": "613d631a0d6443a316f15c1c055a5c75e7501ad08b5791ba578c98e89d35bd2f"
+    },
+    {
+      "path": "icons/technologies/triple-shot-3.png",
+      "source": "images/technologies/triple-shot-3.png",
+      "bytes": 8664,
+      "width": 96,
+      "height": 96,
+      "sha256": "f59219aa3c20053c43c5b9583bcc2944cf0b62c9b7f1dd393a5d248acc10efb6"
+    },
+    {
+      "path": "icons/technologies/tughlaqabad-fort-overwatch-2.png",
+      "source": "images/technologies/tughlaqabad-fort-overwatch-2.png",
+      "bytes": 11395,
+      "width": 96,
+      "height": 96,
+      "sha256": "b7836092abaec785a1ee57cc7123d2ba7b020f4cffee8a411251ecf47bb4d2b1"
+    },
+    {
+      "path": "icons/technologies/two-handed-weapons-3.png",
+      "source": "images/technologies/two-handed-weapons-3.png",
+      "bytes": 12327,
+      "width": 96,
+      "height": 96,
+      "sha256": "d57b4ecbb7bca2ea7c1d5039865d3fea08eaa5415d9859b80bdbe46fa2d672e5"
+    },
+    {
+      "path": "icons/technologies/unlock-kharash-edict-1.png",
+      "source": "images/technologies/unlock-kharash-edict-1.png",
+      "bytes": 10105,
+      "width": 96,
+      "height": 96,
+      "sha256": "effc45100311f1acd536495625d17c529831d706e38051e8ba24166c0a10f40b"
+    },
+    {
+      "path": "icons/technologies/unlock-stockyard-edict-1.png",
+      "source": "images/technologies/unlock-stockyard-edict-1.png",
+      "bytes": 10074,
+      "width": 96,
+      "height": 96,
+      "sha256": "6f7647f8b512794c964df788374864b9843a2bafa9525c4aee26f8fb0471d08c"
+    },
+    {
+      "path": "icons/technologies/upgrade-to-elite-4.png",
+      "source": "images/technologies/upgrade-to-elite-4.png",
+      "bytes": 10604,
+      "width": 96,
+      "height": 96,
+      "sha256": "5cbade09af1e078dc963b61c1c6480eb751d40c77a0d2067b212175519e21241"
+    },
+    {
+      "path": "icons/technologies/village-fortresses-3.png",
+      "source": "images/technologies/village-fortresses-3.png",
+      "bytes": 10401,
+      "width": 96,
+      "height": 96,
+      "sha256": "bf3037e4d4d3c2c0b01552c0860dbea3b824e3cef424584a981c96b3006debea"
+    },
+    {
+      "path": "icons/technologies/wandering-town-4.png",
+      "source": "images/technologies/wandering-town-4.png",
+      "bytes": 8307,
+      "width": 96,
+      "height": 96,
+      "sha256": "5f3a940395ef3ea8efe5919cb186f70c01b5cd64d334428dab4f13fdf0691b01"
+    },
+    {
+      "path": "icons/technologies/war-horses-4.png",
+      "source": "images/technologies/war-horses-4.png",
+      "bytes": 10982,
+      "width": 96,
+      "height": 96,
+      "sha256": "10ed95bf8014d9ba8fda18dadb36772a88959a8ed4ff27402923a969e4a33b7d"
+    },
+    {
+      "path": "icons/technologies/warwolf-trebuchet-3.png",
+      "source": "images/technologies/warwolf-trebuchet-3.png",
+      "bytes": 8702,
+      "width": 96,
+      "height": 96,
+      "sha256": "79598347916632096b3fac71aeca94b92faaffff34a236b08de5633d2339a14d"
+    },
+    {
+      "path": "icons/technologies/wedge-rivets-3.png",
+      "source": "images/technologies/wedge-rivets-3.png",
+      "bytes": 8792,
+      "width": 96,
+      "height": 96,
+      "sha256": "affd260b3d4a01597179dce05e93b2cf2a3e1a829914cdf4ab8e290fcd188744"
+    },
+    {
+      "path": "icons/technologies/western-mercenary-contract-1.png",
+      "source": "images/technologies/western-mercenary-contract-1.png",
+      "bytes": 11832,
+      "width": 96,
+      "height": 96,
+      "sha256": "f04b26e332ceb3f5cf333e19001fde7425f624b74c1db20de25b2e4dffb8fd9d"
+    },
+    {
+      "path": "icons/technologies/wheelbarrow-1.png",
+      "source": "images/technologies/wheelbarrow-1.png",
+      "bytes": 7349,
+      "width": 96,
+      "height": 96,
+      "sha256": "5cde6a43b21ee87b3ae35b2310bf4e5353c1bde4d6f7f29c5430dfd5cf56af02"
+    },
+    {
+      "path": "icons/technologies/wheelbarrow-improved-1.png",
+      "source": "images/technologies/wheelbarrow-improved-1.png",
+      "bytes": 7349,
+      "width": 96,
+      "height": 96,
+      "sha256": "5cde6a43b21ee87b3ae35b2310bf4e5353c1bde4d6f7f29c5430dfd5cf56af02"
+    },
+    {
+      "path": "icons/technologies/whistling-arrows-1.png",
+      "source": "images/technologies/whistling-arrows-1.png",
+      "bytes": 8037,
+      "width": 96,
+      "height": 96,
+      "sha256": "310c71d091885a289529df4a32cd42995ceaf55dae88855baea11a295807ffda"
+    },
+    {
+      "path": "icons/technologies/whistling-arrows-improved-2.png",
+      "source": "images/technologies/whistling-arrows-improved-2.png",
+      "bytes": 8037,
+      "width": 96,
+      "height": 96,
+      "sha256": "310c71d091885a289529df4a32cd42995ceaf55dae88855baea11a295807ffda"
+    },
+    {
+      "path": "icons/technologies/yaki-ire-4.png",
+      "source": "images/technologies/yaki-ire-4.png",
+      "bytes": 13409,
+      "width": 96,
+      "height": 96,
+      "sha256": "70133d77f39a7a22aa848cdacdcd2d0b4d1f9b330b746997c9dd87b1372f3711"
+    },
+    {
+      "path": "icons/technologies/yam-network-3.png",
+      "source": "images/technologies/yam-network-3.png",
+      "bytes": 8164,
+      "width": 96,
+      "height": 96,
+      "sha256": "cc2599be0d3c7307853b665adafbb68e4e47f94fc79612c704a8bcdf5c661df0"
+    },
+    {
+      "path": "icons/technologies/yam-network-improved-4.png",
+      "source": "images/technologies/yam-network-improved-4.png",
+      "bytes": 8164,
+      "width": 96,
+      "height": 96,
+      "sha256": "cc2599be0d3c7307853b665adafbb68e4e47f94fc79612c704a8bcdf5c661df0"
+    },
+    {
+      "path": "icons/technologies/yam-network-trade-3.png",
+      "source": "images/technologies/yam-network-trade-3.png",
+      "bytes": 8913,
+      "width": 96,
+      "height": 96,
+      "sha256": "52a5aee0ab6d955652ddf6115326ee50c65ad9cc608aabe46420358ab7cf8e68"
+    },
+    {
+      "path": "icons/technologies/yatai-farm-gather-2.png",
+      "source": "images/technologies/yatai-farm-gather-2.png",
+      "bytes": 11057,
+      "width": 96,
+      "height": 96,
+      "sha256": "65ab98e14c785687730363323fe8d7d3b276da3bfe330a407e1e99cc0a7d1b96"
+    },
+    {
+      "path": "icons/technologies/zeal-4.png",
+      "source": "images/technologies/zeal-4.png",
+      "bytes": 10847,
+      "width": 96,
+      "height": 96,
+      "sha256": "ae075936266944b56e81ea559d010ebb7315f1d9ae77a99c920c810860f7d673"
+    },
+    {
+      "path": "icons/technologies/zen-3.png",
+      "source": "images/technologies/zen-3.png",
+      "bytes": 11651,
+      "width": 96,
+      "height": 96,
+      "sha256": "11d98d80ac7c4276716974fff002161a1e5a85bb77052eb176f7165131138447"
+    },
+    {
+      "path": "icons/technologies/zornhau-3.png",
+      "source": "images/technologies/zornhau-3.png",
+      "bytes": 6360,
+      "width": 96,
+      "height": 96,
+      "sha256": "23fa40237ed0b2d2967a9716f47588fe3d390009d1318db1180ad07512f393d9"
+    },
+    {
+      "path": "icons/upgrades/elite-mercenaries-4.png",
+      "source": "images/upgrades/elite-mercenaries-4.png",
+      "bytes": 12661,
+      "width": 96,
+      "height": 96,
+      "sha256": "efd6ad54e7b09eb88239d4b0f1e8333024e1dc3164be3adae22d2ec0c64fe2b9"
+    },
+    {
+      "path": "icons/upgrades/veteran-mercenaries-3.png",
+      "source": "images/upgrades/veteran-mercenaries-3.png",
+      "bytes": 8422,
+      "width": 96,
+      "height": 96,
+      "sha256": "b58f28365ce0f4a357b80f3b884670398993b15aa15ad60d2835082b76fcf735"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "buildings/all.json",
+      "sha256": "7ea2173b18612f19bc765b892a16e397f8c5438d94b77d1feec555e04c839c11"
+    },
+    {
+      "path": "technologies/all.json",
+      "sha256": "c86d5e1edd37ea49f4580620aebded7ac44b6ca9976cad27f3c31c89bc149905"
+    },
+    {
+      "path": "locales/zh-hans.json",
+      "sha256": "fe5a12fa793ce87c15eeb662e65f8f866c07c74c725d07d56248094491b1d1fb"
+    },
+    {
+      "path": "civilizations/civs-index.json",
+      "sha256": "2c31814d94f8134ba636f2268fcf755ffd965ce8e9134a1d05e7a9811d743494"
+    }
+  ],
+  "unresolved_locations": [],
+  "excluded_non_actions": [
+    {
+      "kind": "building",
+      "id": "capital-town-center-1",
+      "civs": [
+        "ab"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    },
+    {
+      "kind": "building",
+      "id": "capital-town-center-1",
+      "civs": [
+        "ay"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    },
+    {
+      "kind": "building",
+      "id": "capital-town-center-1",
+      "civs": [
+        "by"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    },
+    {
+      "kind": "building",
+      "id": "capital-town-center-1",
+      "civs": [
+        "ch"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    },
+    {
+      "kind": "building",
+      "id": "capital-town-center-1",
+      "civs": [
+        "de"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    },
+    {
+      "kind": "building",
+      "id": "capital-town-center-1",
+      "civs": [
+        "en"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    },
+    {
+      "kind": "building",
+      "id": "capital-town-center-1",
+      "civs": [
+        "fr"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    },
+    {
+      "kind": "building",
+      "id": "capital-town-center-1",
+      "civs": [
+        "gol"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    },
+    {
+      "kind": "building",
+      "id": "capital-town-center-1",
+      "civs": [
+        "hr"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    },
+    {
+      "kind": "building",
+      "id": "capital-town-center-1",
+      "civs": [
+        "hl"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    },
+    {
+      "kind": "building",
+      "id": "capital-town-center-1",
+      "civs": [
+        "ja"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    },
+    {
+      "kind": "building",
+      "id": "capital-town-center-1",
+      "civs": [
+        "je"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    },
+    {
+      "kind": "building",
+      "id": "capital-town-center-1",
+      "civs": [
+        "jin"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    },
+    {
+      "kind": "building",
+      "id": "capital-town-center-1",
+      "civs": [
+        "kt"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    },
+    {
+      "kind": "building",
+      "id": "capital-town-center-1",
+      "civs": [
+        "mac"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    },
+    {
+      "kind": "building",
+      "id": "capital-town-center-1",
+      "civs": [
+        "ma"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    },
+    {
+      "kind": "building",
+      "id": "capital-town-center-1",
+      "civs": [
+        "mo"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    },
+    {
+      "kind": "building",
+      "id": "capital-town-center-1",
+      "civs": [
+        "od"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    },
+    {
+      "kind": "building",
+      "id": "capital-town-center-1",
+      "civs": [
+        "ot"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    },
+    {
+      "kind": "building",
+      "id": "capital-town-center-1",
+      "civs": [
+        "ru"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    },
+    {
+      "kind": "building",
+      "id": "capital-town-center-1",
+      "civs": [
+        "sen"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    },
+    {
+      "kind": "building",
+      "id": "capital-town-center-1",
+      "civs": [
+        "tug"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    },
+    {
+      "kind": "building",
+      "id": "capital-town-center-1",
+      "civs": [
+        "zx"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    },
+    {
+      "kind": "technology",
+      "id": "upgrade-king-3",
+      "civs": [
+        "en"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    },
+    {
+      "kind": "technology",
+      "id": "upgrade-king-4",
+      "civs": [
+        "en"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    },
+    {
+      "kind": "technology",
+      "id": "upgrade-shinobi-3",
+      "civs": [
+        "ja"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    },
+    {
+      "kind": "technology",
+      "id": "upgrade-shinobi-4",
+      "civs": [
+        "ja"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    },
+    {
+      "kind": "technology",
+      "id": "upgrade-militia-3",
+      "civs": [
+        "ru"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    },
+    {
+      "kind": "technology",
+      "id": "upgrade-militia-4",
+      "civs": [
+        "ru"
+      ],
+      "reason_zh": "初始已有建筑或随时代自动生效，不是可点击研究动作"
+    }
+  ]
+}
