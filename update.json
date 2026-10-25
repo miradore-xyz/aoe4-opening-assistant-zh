@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "version": "1.6.0",
-  "notes": "新增主页下载更新入口，支持应用内下载、校验、安装并重启。\nGitHub 为主更新源，码云提供同一安装包的国内备用下载。\n安装升级沿用原开局、设置和搜索记录；附带完整源码及许可。\n悬浮提示可缩小至6磅，收紧图标和行距；移除多余的底部提示与复盘线索。",
-  "page_url": "https://gitee.com/code_liujiaxin/aoe4-opening-assistant-zh/releases/tag/v1.6.0",
+  "version": "1.6.1",
+  "notes": "内置23文明中文默认开局，编辑器与帮助排版收紧。\n数字框、提醒间隔与音量禁用滚轮改值；滑杆和输入边框完整显示。\n彩色底游戏图标、统一按钮圆角与页面留白。\n升级沿用已有开局、设置和搜索记录。",
+  "page_url": "https://gitee.com/code_liujiaxin/aoe4-opening-assistant-zh/releases/tag/v1.6.1",
   "asset": {
     "name": "AoE4OpeningAssistant-Setup.exe",
-    "url": "https://gitee.com/code_liujiaxin/aoe4-opening-assistant-zh/releases/download/v1.6.0/AoE4OpeningAssistant-Setup.exe",
-    "sha256": "ab3ff876f7fb584ba2f52516a4b655786a6d51a7de20f3b820225fccbe205cc5",
-    "size": 74130506
+    "url": "https://gitee.com/code_liujiaxin/aoe4-opening-assistant-zh/releases/download/v1.6.1/AoE4OpeningAssistant-Setup.exe",
+    "sha256": "01a4f6694313b6e69124ffaa4069763ebe1ee1c57682f3e444a3e83fc2a224a1",
+    "size": 74212755
   }
 }
