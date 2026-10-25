@@ -1,0 +1,526 @@
+{
+  "name": "金帐汗国 · 汗与土尔扈特怯薛开局",
+  "civilization": "Golden Horde",
+  "author": "Valdemar1902（原作）；中文练习提要",
+  "source": "https://aoe4guides.com/builds/InVCf1SztRCvgzi1gEFf",
+  "_zh_language": "zh-CN",
+  "_zh_timing": "starting",
+  "_zh_default_id": "aoe4guides-default:Golden Horde",
+  "_zh_source_id": "InVCf1SztRCvgzi1gEFf",
+  "_zh_source_url": "https://aoe4guides.com/builds/InVCf1SztRCvgzi1gEFf",
+  "_zh_reference": {
+    "id": "InVCf1SztRCvgzi1gEFf",
+    "url": "https://aoe4guides.com/builds/InVCf1SztRCvgzi1gEFf",
+    "title": "(2026) Fast Keshik + Torguuds Into Aggro/FC",
+    "author": "Valdemar1902",
+    "season": "Season 12",
+    "source_updated_at": "2026-03-04T14:32:14+00:00",
+    "selected_on": "2026-10-25",
+    "likes_at_selection": 14,
+    "views_at_selection": 5951,
+    "selection_reason_zh": "2026主流单城镇中心进攻稿，14赞；包含双村民生产的分配提醒与后续封建/速城分支，排除团战速帝王稿。",
+    "adaptation_zh": "独立中文短提要，非逐字翻译。保留原稿明确的分秒；缺时间为手动条件点；原稿赛季不等于当前版本实战验证。",
+    "issues_zh": [
+      "金帐每批村民需分别分配，不能简单把整批始终集结在一种资源。",
+      "原稿只写Khan升时代，采用目录中的“汗与土尔扈特”分支标识，不添加不存在的普通蒙古鹿石。",
+      "后续Lumber Shields图标不是明确单项可立即点击的科技，主开局止于骚扰与转型条件，不臆造科技动作。"
+    ]
+  },
+  "build_order": [
+    {
+      "time": "0:00",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 4,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": 1
+      },
+      "_zh_source_rows": [
+        1
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "4人采羊；1人依次建敖包、黄金帐篷、金矿蒙古包，完工后采金。每批成对出现的村民分别分配。",
+        "@catalog/icons/buildings/ovoo-1.png@ 建造敖包",
+        "@catalog/icons/buildings/golden-tent-2.png@ 搭建黄金帐篷",
+        "@catalog/icons/buildings/ger-1.png@ 建造蒙古包"
+      ],
+      "_zh_actions": [
+        {
+          "id": "ovoo-1",
+          "base_id": "ovoo",
+          "kind": "building",
+          "name_zh": "敖包",
+          "name_en": "Ovoo",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "gol"
+          ],
+          "icon": "catalog/icons/buildings/ovoo-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "必须建在石料露头上。\n随着时代提升，每分钟采集 70/100/140/170 石料。可研究独特蒙古科技。\n建造新敖包会摧毁旧有的敖包。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Golden Horde"
+        },
+        {
+          "id": "golden-tent-1",
+          "base_id": "golden-tent",
+          "kind": "building",
+          "name_zh": "黄金帐篷",
+          "name_en": "Golden Tent",
+          "age": 1,
+          "age_label": "升至封建时代（II）",
+          "civs": [
+            "gol"
+          ],
+          "icon": "catalog/icons/buildings/golden-tent-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "包含会随时代推进而提升的升级。可在战场上部署拔都汗及其土尔扈特。\n可激活法令，这能改变强化哨站提供的加成。",
+          "costs": {
+            "food": 0,
+            "wood": 0,
+            "stone": 0,
+            "gold": 50,
+            "total": 50,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "搭建",
+          "target_age": 2,
+          "count": 1,
+          "civilization": "Golden Horde"
+        },
+        {
+          "id": "ger-1",
+          "base_id": "ger",
+          "kind": "building",
+          "name_zh": "蒙古包",
+          "name_en": "Ger",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "gol"
+          ],
+          "icon": "catalog/icons/buildings/ger-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "村民可将食物、木材和黄金存放于此建筑。可研究提升资源采集效率的科技。\n石料可通过敖包来采集。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 20
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Golden Horde"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/ovoo-1.png@ 建造敖包",
+        "@catalog/icons/buildings/golden-tent-2.png@ 搭建黄金帐篷",
+        "@catalog/icons/buildings/ger-1.png@ 建造蒙古包"
+      ]
+    },
+    {
+      "time": "0:37",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 6,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": 1
+      },
+      "_zh_source_rows": [
+        2
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "先逐步补到7人食物。"
+      ]
+    },
+    {
+      "time": "1:16",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 7,
+        "wood": -1,
+        "gold": 2,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        3
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "黄金补到2人，包含蒙古包建造者。"
+      ]
+    },
+    {
+      "time": "1:52",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 9,
+        "wood": -1,
+        "gold": 2,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        4
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "其余新村民继续采羊，准备升封建。"
+      ]
+    },
+    {
+      "time": "2:51",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 11,
+        "wood": -1,
+        "gold": 2,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        5
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "在黄金帐篷选择汗与土尔扈特路线升封建。",
+        "@catalog/icons/technologies/khan-and-torguuds-1.png@ 选择升封建的汗与土尔扈特（黄金帐篷）"
+      ],
+      "_zh_actions": [
+        {
+          "id": "khan-and-torguuds-1",
+          "base_id": "khan-and-torguuds",
+          "kind": "technology",
+          "name_zh": "汗与土尔扈特",
+          "name_en": "Khan and Torguuds",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "gol"
+          ],
+          "icon": "catalog/icons/technologies/khan-and-torguuds-1.png",
+          "location_zh": "黄金帐篷",
+          "produced_by": [
+            "golden-tent"
+          ],
+          "description_zh": "使汗与土尔扈特的成本 -20%，并使其生命值 +30。",
+          "costs": {
+            "food": 400,
+            "wood": 0,
+            "stone": 0,
+            "gold": 200,
+            "total": 600,
+            "popcap": 0,
+            "time": 105
+          },
+          "unique": false,
+          "category_zh": "科技研究",
+          "action_verb_zh": "选择升封建的",
+          "count": 1,
+          "civilization": "Golden Horde"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/technologies/khan-and-torguuds-1.png@ 选择升封建的汗与土尔扈特（黄金帐篷）"
+      ]
+    },
+    {
+      "time": "3:00",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 5,
+        "wood": 8,
+        "gold": 2,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        7
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "升级期间调整为约5食物、8木材、2黄金；新村民继续补食物。"
+      ]
+    },
+    {
+      "time": "4:25",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 9,
+        "wood": 8,
+        "gold": 2,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        8
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "提前把1名伐木村民移到第二处石矿附近，准备补敖包。"
+      ]
+    },
+    {
+      "time": "4:37",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 9,
+        "wood": 7,
+        "gold": 2,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        10
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "封建后立即补敖包与马厩，训练 @unit_golden_horde/khan.webp@ 汗和 @unit_golden_horde/torguud.webp@ 土尔扈特。",
+        "@catalog/icons/buildings/ovoo-1.png@ 建造敖包",
+        "@catalog/icons/buildings/stable-1.png@ 建造马厩"
+      ],
+      "_zh_actions": [
+        {
+          "id": "ovoo-1",
+          "base_id": "ovoo",
+          "kind": "building",
+          "name_zh": "敖包",
+          "name_en": "Ovoo",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "gol"
+          ],
+          "icon": "catalog/icons/buildings/ovoo-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "必须建在石料露头上。\n随着时代提升，每分钟采集 70/100/140/170 石料。可研究独特蒙古科技。\n建造新敖包会摧毁旧有的敖包。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Golden Horde"
+        },
+        {
+          "id": "stable-1",
+          "base_id": "stable",
+          "kind": "building",
+          "name_zh": "马厩",
+          "name_en": "Stable",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "gol"
+          ],
+          "icon": "catalog/icons/buildings/stable-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "生产骑兵军事单位。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Golden Horde"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/ovoo-1.png@ 建造敖包",
+        "@catalog/icons/buildings/stable-1.png@ 建造马厩"
+      ]
+    },
+    {
+      "time": "5:16",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 11,
+        "wood": 8,
+        "gold": 2,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        11
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "持续补 @unit_mongols/keshik-2.webp@ 怯薛，保持食物和黄金供给。"
+      ]
+    },
+    {
+      "time": "",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        12
+      ],
+      "_zh_time_source": "原稿未标时间，按条件手动切换",
+      "notes": [
+        "约2名怯薛、2名土尔扈特与汗齐备后联合骚扰；先压资源，避免单兵送掉。"
+      ]
+    },
+    {
+      "time": "5:35",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 8,
+        "wood": 8,
+        "gold": 2,
+        "stone": -1,
+        "builder": 5
+      },
+      "_zh_source_rows": [
+        13
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "用5名村民转采鹿，建设防哨站保护外置食物。",
+        "@catalog/icons/buildings/fortified-outpost-1.png@ 建造设防哨站"
+      ],
+      "_zh_actions": [
+        {
+          "id": "fortified-outpost-1",
+          "base_id": "fortified-outpost",
+          "kind": "building",
+          "name_zh": "设防哨站",
+          "name_en": "Fortified Outpost",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "gol"
+          ],
+          "icon": "catalog/icons/buildings/fortified-outpost-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "可提供开阔的视野，侦测匿踪或伪装单位。可以升级武器和防御工事。单位驻扎时可进行攻击。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 50,
+            "gold": 0,
+            "total": 200,
+            "popcap": 0,
+            "time": 60
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Golden Horde"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/fortified-outpost-1.png@ 建造设防哨站"
+      ]
+    },
+    {
+      "time": "",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        14
+      ],
+      "_zh_time_source": "原稿未标时间，按条件手动切换",
+      "notes": [
+        "对手留封建且正面可打，就继续补兵；对手升城堡则先压采集，再准备自己的城堡时代。原稿未给后续固定时刻。"
+      ]
+    }
+  ]
+}

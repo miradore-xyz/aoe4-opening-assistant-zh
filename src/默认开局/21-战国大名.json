@@ -1,0 +1,648 @@
+{
+  "name": "战国大名 · 三屋台快速大名",
+  "civilization": "Sengoku Daimyo",
+  "author": "Valdemar1902（原作）；中文提要整理",
+  "source": "AoE4Guides：https://aoe4guides.com/builds/1RhBij4kaJESj1anpCIC；Season 12；中文独立提要，来源时刻仅供练习。",
+  "_zh_language": "zh-CN",
+  "_zh_timing": "starting",
+  "_zh_default_id": "aoe4guides-default:Sengoku Daimyo",
+  "_zh_reference": {
+    "id": "1RhBij4kaJESj1anpCIC",
+    "url": "https://aoe4guides.com/builds/1RhBij4kaJESj1anpCIC",
+    "title": "Sengoku Fast Daimyo (2026)",
+    "title_zh": "战国大名 · 三屋台快速大名",
+    "author": "Valdemar1902",
+    "creator_name": "Valdemar",
+    "season": "Season 12",
+    "likes": 16,
+    "views": 6654,
+    "timeUpdated": {
+      "_seconds": 1770058259,
+      "_nanoseconds": 890000000
+    },
+    "selection_reason_zh": "2026年第12赛季原稿，16个收藏、6654次浏览；选择常规三屋台路线，未采用自称新手困难的最新四屋台极限时间稿。",
+    "issues_zh": [
+      "原稿用单位图标表示武田大名，未错误转换为必建武田氏族大名府邸。驯马沿用本文明目录研究位置，目录没有展开大名单位附属研究机制。"
+    ],
+    "retrieved_at": "2026-10-25",
+    "scope_zh": "陆地常规对局练习参考；非唯一最优，原作者时间并非当前版本实测保证。"
+  },
+  "build_order": [
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "0:00",
+      "resources": {
+        "food": -1,
+        "wood": 6,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 0,
+        "time": "0:00",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "<br>",
+          "food": "<br>",
+          "wood": "6",
+          "gold": "",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "6名村民采木，建祭典作为交资源点。先侦察对手是否黑暗时代前压。",
+        "@catalog/icons/buildings/matsuri-1.png@ 建造祭典"
+      ],
+      "_zh_actions": [
+        {
+          "id": "matsuri-1",
+          "base_id": "matsuri",
+          "kind": "building",
+          "name_zh": "祭典",
+          "name_en": "Matsuri",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "sen"
+          ],
+          "icon": "catalog/icons/buildings/matsuri-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "祭典承担了早期市场和通用存放位置的角色。\n \n生产屋台。屋台可以采集食物，当食物装满时，它会派出一名商人返回祭典，这将使祭典的采集速度光环的效果 +5%。",
+          "costs": {
+            "food": 0,
+            "wood": 100,
+            "stone": 0,
+            "gold": 0,
+            "total": 100,
+            "popcap": 0,
+            "time": 20
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/matsuri-1.png@ 建造祭典"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "0:20",
+      "resources": {
+        "food": 1,
+        "wood": 6,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 1,
+        "time": "0:20",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "1",
+          "wood": "6",
+          "gold": "",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "新村民在浆果旁建农舍，并尽早研究编织袋。",
+        "@catalog/icons/buildings/farmhouse-1.png@ 建造农舍",
+        "@catalog/icons/technologies/tawara-1.png@ 研究编织袋（农舍）"
+      ],
+      "_zh_actions": [
+        {
+          "id": "farmhouse-1",
+          "base_id": "farmhouse",
+          "kind": "building",
+          "name_zh": "农舍",
+          "name_en": "Farmhouse",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "sen"
+          ],
+          "icon": "catalog/icons/buildings/farmhouse-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "提高人口上限而且村民可将食物存放于这座建筑。可研究提升食物采集效率的科技。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造"
+        },
+        {
+          "id": "tawara-1",
+          "base_id": "tawara",
+          "kind": "technology",
+          "name_zh": "编织袋",
+          "name_en": "Tawara",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "sen"
+          ],
+          "icon": "catalog/icons/technologies/tawara-1.png",
+          "location_zh": "农舍",
+          "produced_by": [
+            "farmhouse"
+          ],
+          "description_zh": "村民运载量 +3，移动速度 +7%，浆果采集速率 +25%。",
+          "costs": {
+            "food": 0,
+            "wood": 25,
+            "stone": 0,
+            "gold": 50,
+            "total": 75,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": true,
+          "category_zh": "科技研究",
+          "action_verb_zh": "研究"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/farmhouse-1.png@ 建造农舍",
+        "@catalog/icons/technologies/tawara-1.png@ 研究编织袋（农舍）"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "0:40",
+      "resources": {
+        "food": 2,
+        "wood": 6,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 2,
+        "time": "0:40",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "2",
+          "wood": "6",
+          "gold": "",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "接下来的3名新村民集结到浆果。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "1:08",
+      "resources": {
+        "food": 3,
+        "wood": 6,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 3,
+        "time": "1:08",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "3",
+          "wood": "6",
+          "gold": "",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "生产第一辆屋台，优先送到安全野猪附近发挥采集收益。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "1:40",
+      "resources": {
+        "food": 5,
+        "wood": 6,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 4,
+        "time": "1:40",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "5",
+          "wood": "6",
+          "gold": "",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "后续新村民回基地采羊。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "1:54",
+      "resources": {
+        "food": 5,
+        "wood": 6,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 5,
+        "time": "1:54",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "5",
+          "wood": "6",
+          "gold": "",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "生产第二辆屋台，送到鹿群。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "2:22",
+      "resources": {
+        "food": 6,
+        "wood": 6,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 6,
+        "time": "2:22",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "6",
+          "wood": "6",
+          "gold": "",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "第三辆屋台放在基地羊和浆果之间。若对手黑暗时代前压，停止贪屋台，提前封建出弓兵。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "2:50",
+      "resources": {
+        "food": 8,
+        "wood": -1,
+        "gold": 6,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 7,
+        "time": "2:50",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "8",
+          "wood": "",
+          "gold": "6",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "备好100木材后，把6名伐木村民转去采金。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "3:20",
+      "resources": {
+        "food": 9,
+        "wood": 1,
+        "gold": 6,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 8,
+        "time": "3:20",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "9",
+          "wood": "1",
+          "gold": "6",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "之后的新村民重新集结到木材。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "3:50",
+      "resources": {
+        "food": 4,
+        "wood": 2,
+        "gold": 6,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 9,
+        "time": "3:50",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "4",
+          "wood": "2",
+          "gold": "6",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "抽5名采羊村民建甲贺城镇，开始升封建。",
+        "@catalog/icons/buildings/koka-township-1.png@ 建造甲贺城镇"
+      ],
+      "_zh_actions": [
+        {
+          "id": "koka-township-1",
+          "base_id": "koka-township",
+          "kind": "building",
+          "name_zh": "甲贺城镇",
+          "name_en": "Koka Township",
+          "age": 1,
+          "age_label": "升至封建时代（II）",
+          "civs": [
+            "sen"
+          ],
+          "icon": "catalog/icons/buildings/koka-township-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "甲贺城镇能够在地图上任意位置侦察目标区域，并且能够在你的其中一座建筑附近或浓密森林附近生成忍者埋伏。",
+          "costs": {
+            "food": 400,
+            "wood": 0,
+            "stone": 0,
+            "gold": 200,
+            "total": 600,
+            "popcap": 0,
+            "time": 190
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "target_age": 2
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/koka-township-1.png@ 建造甲贺城镇"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "4:20",
+      "resources": {
+        "food": 4,
+        "wood": 3,
+        "gold": 6,
+        "stone": -1,
+        "builder": 5
+      },
+      "_zh_source_row": {
+        "flat_index": 10,
+        "time": "4:20",
+        "phase": "ageUp",
+        "resources": {
+          "villagers": "",
+          "builders": "5",
+          "food": "4",
+          "wood": "3",
+          "gold": "6",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "升级期间新村民持续补木材。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "5:12",
+      "resources": {
+        "food": 4,
+        "wood": 6,
+        "gold": 6,
+        "stone": -1,
+        "builder": 5
+      },
+      "_zh_source_row": {
+        "flat_index": 11,
+        "time": "5:12",
+        "phase": "ageUp",
+        "resources": {
+          "villagers": "",
+          "builders": "5",
+          "food": "4",
+          "wood": "6",
+          "gold": "6",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "按原稿，用富余黄金分两次购买100木材，为双马厩做准备。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 2,
+      "time": "5:20",
+      "resources": {
+        "food": 7,
+        "wood": 7,
+        "gold": 6,
+        "stone": -1,
+        "builder": 2
+      },
+      "_zh_source_row": {
+        "flat_index": 12,
+        "time": "5:20",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "2",
+          "food": "7",
+          "wood": "7",
+          "gold": "6",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "封建后建两座马厩，先生产1名武田大名，再研究驯马。",
+        "@catalog/icons/buildings/stable-2.png@ 建造马厩 × 2",
+        "@catalog/icons/technologies/horse-training-1.png@ 研究驯马（武田氏族大名府邸）"
+      ],
+      "_zh_actions": [
+        {
+          "id": "stable-2",
+          "base_id": "stable",
+          "kind": "building",
+          "name_zh": "马厩",
+          "name_en": "Stable",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "sen"
+          ],
+          "icon": "catalog/icons/buildings/stable-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "生产骑兵军事单位。\n每次生产一个单位或进行研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 2
+        },
+        {
+          "id": "horse-training-1",
+          "base_id": "horse-training",
+          "kind": "technology",
+          "name_zh": "驯马",
+          "name_en": "Horse Training",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "sen"
+          ],
+          "icon": "catalog/icons/technologies/horse-training-1.png",
+          "location_zh": "武田氏族大名府邸",
+          "produced_by": [
+            "takeda-clan-daimyo-estate"
+          ],
+          "description_zh": "骑兵的移动速度 +5%。",
+          "costs": {
+            "food": 100,
+            "wood": 0,
+            "stone": 0,
+            "gold": 250,
+            "total": 350,
+            "popcap": 0,
+            "time": 60
+          },
+          "unique": true,
+          "category_zh": "科技研究",
+          "action_verb_zh": "研究"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/stable-2.png@ 建造马厩 × 2",
+        "@catalog/icons/technologies/horse-training-1.png@ 研究驯马（武田氏族大名府邸）"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 2,
+      "time": "",
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 13,
+        "time": "",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "",
+          "wood": "",
+          "gold": "",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "用大名骑兵骚扰，需要时补弓足轻；保持经济并按局势转城堡骑兵。"
+      ]
+    }
+  ]
+}

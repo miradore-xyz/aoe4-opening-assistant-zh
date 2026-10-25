@@ -1,0 +1,468 @@
+{
+  "name": "圣殿骑士团 · 单城镇中心封建压制",
+  "civilization": "Knights Templar",
+  "author": "Valdemar1902（原作）；中文提要整理",
+  "source": "AoE4Guides：https://aoe4guides.com/builds/lZ5EiqDVzQmIQDLkrfSr；Season 12；中文独立提要，来源时刻仅供练习。",
+  "_zh_language": "zh-CN",
+  "_zh_timing": "starting",
+  "_zh_default_id": "aoe4guides-default:Knights Templar",
+  "_zh_reference": {
+    "id": "lZ5EiqDVzQmIQDLkrfSr",
+    "url": "https://aoe4guides.com/builds/lZ5EiqDVzQmIQDLkrfSr",
+    "title": "(2026) 1TC Fast 2x Pilgrim Into Aggro",
+    "title_zh": "圣殿骑士团 · 单城镇中心封建压制",
+    "author": "Valdemar1902",
+    "creator_name": "",
+    "season": "Season 12",
+    "likes": 24,
+    "views": 7287,
+    "timeUpdated": {
+      "_seconds": 1773926935,
+      "_nanoseconds": 493000000
+    },
+    "selection_reason_zh": "2026年更新的第12赛季原稿，24个收藏、7287次浏览；单城镇中心路线比早期高收藏的双城镇中心稿更便于入门。",
+    "issues_zh": [
+      "2:20有升时代与重新分配两行，保留同一时刻顺序。原稿12至14分钟为大致转型目标，没有编造成精确时间点。"
+    ],
+    "retrieved_at": "2026-10-25",
+    "scope_zh": "陆地常规对局练习参考；非唯一最优，原作者时间并非当前版本实测保证。"
+  },
+  "build_order": [
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "0:00",
+      "resources": {
+        "food": 6,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 0,
+        "time": "0:00",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "6",
+          "wood": "",
+          "gold": "",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "6名村民采食物，并补1座房屋。",
+        "@catalog/icons/buildings/house-1.png@ 建造房屋"
+      ],
+      "_zh_actions": [
+        {
+          "id": "house-1",
+          "base_id": "house",
+          "kind": "building",
+          "name_zh": "房屋",
+          "name_en": "House",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "kt"
+          ],
+          "icon": "catalog/icons/buildings/house-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "提升您的人口上限。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/house-1.png@ 建造房屋"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "0:20",
+      "resources": {
+        "food": 6,
+        "wood": -1,
+        "gold": 1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 1,
+        "time": "0:20",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "6",
+          "wood": "<br>",
+          "gold": "1",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "接下来的2名新村民去采金。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "1:00",
+      "resources": {
+        "food": 7,
+        "wood": -1,
+        "gold": 2,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 2,
+        "time": "1:00",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "7",
+          "wood": "",
+          "gold": "2",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "城镇中心继续生产，后续村民集结到食物，准备升封建。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "2:20",
+      "resources": {
+        "food": 11,
+        "wood": -1,
+        "gold": 2,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 3,
+        "time": "2:20",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "11",
+          "wood": "",
+          "gold": "2",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "资源满足后升封建，按原作者的默认选择医院骑士团盟约。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "2:20",
+      "resources": {
+        "food": 3,
+        "wood": 10,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 4,
+        "time": "2:20",
+        "phase": "ageUp",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "3",
+          "wood": "10",
+          "gold": "",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "升级期间调为3人采食物、10人伐木，准备军事建筑。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 2,
+      "time": "3:20",
+      "resources": {
+        "food": 3,
+        "wood": 10,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 5,
+        "time": "3:20",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "3",
+          "wood": "10",
+          "gold": "",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "封建后在首都城镇中心依次研究安全通道、生产2名村民、研究庇护所，再开始补军队。",
+        "@catalog/icons/technologies/safe-passage-2.png@ 研究安全通道（首都城镇中心）",
+        "@catalog/icons/technologies/sanctuary-1.png@ 研究庇护所（首都城镇中心）"
+      ],
+      "_zh_actions": [
+        {
+          "id": "safe-passage-2",
+          "base_id": "safe-passage",
+          "kind": "technology",
+          "name_zh": "安全通道",
+          "name_en": "Safe Passage",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "kt"
+          ],
+          "icon": "catalog/icons/technologies/safe-passage-2.png",
+          "location_zh": "首都城镇中心",
+          "produced_by": [
+            "capital-town-center"
+          ],
+          "description_zh": "激活朝圣者。\n朝圣者每 60 秒生成一次。以 1 名朝圣者开局，每拥有一个要塞便可获得 1 名朝圣者 (最多 10 名)。",
+          "costs": {
+            "food": 50,
+            "wood": 200,
+            "stone": 0,
+            "gold": 0,
+            "total": 250,
+            "popcap": 0,
+            "time": 10
+          },
+          "unique": true,
+          "category_zh": "科技研究",
+          "action_verb_zh": "研究"
+        },
+        {
+          "id": "sanctuary-1",
+          "base_id": "sanctuary",
+          "kind": "technology",
+          "name_zh": "庇护所",
+          "name_en": "Sanctuary",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "kt"
+          ],
+          "icon": "catalog/icons/technologies/sanctuary-1.png",
+          "location_zh": "首都城镇中心",
+          "produced_by": [
+            "capital-town-center"
+          ],
+          "description_zh": "庇护所的保证可使朝圣者人数增加 1。",
+          "costs": {
+            "food": 150,
+            "wood": 250,
+            "stone": 0,
+            "gold": 0,
+            "total": 400,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": true,
+          "category_zh": "科技研究",
+          "action_verb_zh": "研究"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/technologies/safe-passage-2.png@ 研究安全通道（首都城镇中心）",
+        "@catalog/icons/technologies/sanctuary-1.png@ 研究庇护所（首都城镇中心）"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 2,
+      "time": "",
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 6,
+        "time": "",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "",
+          "wood": "",
+          "gold": "",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "先建兵营和靶场，随后补铁匠铺；需要骑兵时再补马厩。争取安全鹿群，并用哨站保护采集。",
+        "@catalog/icons/buildings/barracks-1.png@ 建造兵营",
+        "@catalog/icons/buildings/archery-range-2.png@ 建造靶场",
+        "@catalog/icons/buildings/blacksmith-2.png@ 建造铁匠铺"
+      ],
+      "_zh_actions": [
+        {
+          "id": "barracks-1",
+          "base_id": "barracks",
+          "kind": "building",
+          "name_zh": "兵营",
+          "name_en": "Barracks",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "kt"
+          ],
+          "icon": "catalog/icons/buildings/barracks-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "生产近战步兵单位。\n每次生产一个单位或进行研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造"
+        },
+        {
+          "id": "archery-range-2",
+          "base_id": "archery-range",
+          "kind": "building",
+          "name_zh": "靶场",
+          "name_en": "Archery Range",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "kt"
+          ],
+          "icon": "catalog/icons/buildings/archery-range-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "生产远程步兵单位。\n每次生产一个单位或进行研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造"
+        },
+        {
+          "id": "blacksmith-2",
+          "base_id": "blacksmith",
+          "kind": "building",
+          "name_zh": "铁匠铺",
+          "name_en": "Blacksmith",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "kt"
+          ],
+          "icon": "catalog/icons/buildings/blacksmith-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "可研究强化步兵和骑兵的科技。\n每次完成科技研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 25
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/barracks-1.png@ 建造兵营",
+        "@catalog/icons/buildings/archery-range-2.png@ 建造靶场",
+        "@catalog/icons/buildings/blacksmith-2.png@ 建造铁匠铺"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 2,
+      "time": "",
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 7,
+        "time": "",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "",
+          "wood": "",
+          "gold": "",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "若封建战斗没有结束，按局势准备城堡时代。原稿转型目标为约12至14分钟；需要要塞时再调5人采石。"
+      ]
+    }
+  ]
+}

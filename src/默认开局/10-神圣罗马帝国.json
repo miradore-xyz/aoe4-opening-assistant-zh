@@ -1,0 +1,394 @@
+{
+  "name": "神圣罗马帝国 · 迈因维克封建转城堡",
+  "civilization": "Holy Roman Empire",
+  "author": "Valdemar1902（原作）；中文练习提要",
+  "source": "https://aoe4guides.com/builds/PZycr2KliA5cvZCB5gWI",
+  "_zh_language": "zh-CN",
+  "_zh_timing": "starting",
+  "_zh_default_id": "aoe4guides-default:Holy Roman Empire",
+  "_zh_source_id": "PZycr2KliA5cvZCB5gWI",
+  "_zh_source_url": "https://aoe4guides.com/builds/PZycr2KliA5cvZCB5gWI",
+  "_zh_reference": {
+    "id": "PZycr2KliA5cvZCB5gWI",
+    "url": "https://aoe4guides.com/builds/PZycr2KliA5cvZCB5gWI",
+    "title": "HRE Feudal Aggro Into Castle (2026)",
+    "author": "Valdemar1902",
+    "season": "Season 12",
+    "source_updated_at": "2026-03-03T19:57:01+00:00",
+    "selected_on": "2026-10-25",
+    "likes_at_selection": 16,
+    "views_at_selection": 6167,
+    "selection_reason_zh": "2026作者新稿，16赞；学习先造兵、按对手选组合与利用迈因维克科技，避免把速帝王当作无条件默认。",
+    "adaptation_zh": "独立中文短提要，非逐字翻译。保留原稿明确的分秒；缺时间为手动条件点；原稿赛季不等于当前版本实战验证。",
+    "issues_zh": [
+      "近鹿开局是原稿明确的地图与对局条件，不强制每局执行。",
+      "长矛/装甲步兵/骑手分支与锥头枪是按敌军选择，不全部写成必造或必点。",
+      "转城堡无固定时间，保留空白条件节点。"
+    ]
+  },
+  "build_order": [
+    {
+      "time": "0:00",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 3,
+        "wood": -1,
+        "gold": 3,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        1
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "3人食物、3人黄金；保持城镇中心连续生产。"
+      ]
+    },
+    {
+      "time": "0:10",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 3,
+        "wood": -1,
+        "gold": 3,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        2
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "用采金村民先补房屋和采矿场。",
+        "@catalog/icons/buildings/house-1.png@ 建造房屋",
+        "@catalog/icons/buildings/mining-camp-1.png@ 建造采矿场"
+      ],
+      "_zh_actions": [
+        {
+          "id": "house-1",
+          "base_id": "house",
+          "kind": "building",
+          "name_zh": "房屋",
+          "name_en": "House",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "hr"
+          ],
+          "icon": "catalog/icons/buildings/house-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "提升您的人口上限。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Holy Roman Empire"
+        },
+        {
+          "id": "mining-camp-1",
+          "base_id": "mining-camp",
+          "kind": "building",
+          "name_zh": "采矿场",
+          "name_en": "Mining Camp",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "hr"
+          ],
+          "icon": "catalog/icons/buildings/mining-camp-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "村民可将石料和黄金存放于这个建筑。可研究提升采矿效率的科技。\n每次存放资源都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 20
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Holy Roman Empire"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/house-1.png@ 建造房屋",
+        "@catalog/icons/buildings/mining-camp-1.png@ 建造采矿场"
+      ]
+    },
+    {
+      "time": "0:20",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 4,
+        "wood": -1,
+        "gold": 3,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        3
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "新村民全部补食物，攒封建资源。"
+      ]
+    },
+    {
+      "time": "1:00",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 6,
+        "wood": -1,
+        "gold": 3,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        4
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "@unit_hre/prelate.webp@ 教士给采金村民鼓舞一轮，再回食物区维持鼓舞。"
+      ]
+    },
+    {
+      "time": "2:11",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": 3
+      },
+      "_zh_source_rows": [
+        5
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "3名采金村民一起建迈因维克宫殿，开始升封建。",
+        "@catalog/icons/buildings/meinwerk-palace-1.png@ 建造迈因维克宫殿"
+      ],
+      "_zh_actions": [
+        {
+          "id": "meinwerk-palace-1",
+          "base_id": "meinwerk-palace",
+          "kind": "building",
+          "name_zh": "迈因维克宫殿",
+          "name_en": "Meinwerk Palace",
+          "age": 1,
+          "age_label": "升至封建时代（II）",
+          "civs": [
+            "hr"
+          ],
+          "icon": "catalog/icons/buildings/meinwerk-palace-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "可作为铁匠铺使用，在这里，科技研究成本 -50%，研究速度增加 50%。包括这个地标独有的技术",
+          "costs": {
+            "food": 400,
+            "wood": 0,
+            "stone": 0,
+            "gold": 200,
+            "total": 600,
+            "popcap": 0,
+            "time": 190
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "target_age": 2,
+          "count": 1,
+          "civilization": "Holy Roman Empire"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/meinwerk-palace-1.png@ 建造迈因维克宫殿"
+      ]
+    },
+    {
+      "time": "2:20",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 3,
+        "wood": 7,
+        "gold": -1,
+        "stone": -1,
+        "builder": 3
+      },
+      "_zh_source_rows": [
+        7
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "升级期间调整到约3人食物、7人木材，另3人保持地标施工。"
+      ]
+    },
+    {
+      "time": "2:40",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 4,
+        "wood": 7,
+        "gold": -1,
+        "stone": -1,
+        "builder": 3
+      },
+      "_zh_source_rows": [
+        8
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "近处鹿群安全时，可安排5人猎鹿并研究 @catalog/icons/technologies/survival-techniques-1.png@ 生存技术；否则继续采羊。"
+      ]
+    },
+    {
+      "time": "4:05",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 8,
+        "wood": 7,
+        "gold": 3,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        10
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "封建后建造队回黄金，补兵营和靶场。对手速城用枪弓压制；对手枪马弓可用装甲步兵加弓兵；对手骑士加弓兵可用骑手加长矛，并按需研究 @catalog/icons/technologies/awl-pikes-2.png@ 锥头枪。",
+        "@catalog/icons/buildings/barracks-1.png@ 建造兵营",
+        "@catalog/icons/buildings/archery-range-2.png@ 建造靶场"
+      ],
+      "_zh_actions": [
+        {
+          "id": "barracks-1",
+          "base_id": "barracks",
+          "kind": "building",
+          "name_zh": "兵营",
+          "name_en": "Barracks",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "hr"
+          ],
+          "icon": "catalog/icons/buildings/barracks-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "生产近战步兵单位。\n每次生产一个单位或进行研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Holy Roman Empire"
+        },
+        {
+          "id": "archery-range-2",
+          "base_id": "archery-range",
+          "kind": "building",
+          "name_zh": "靶场",
+          "name_en": "Archery Range",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "hr"
+          ],
+          "icon": "catalog/icons/buildings/archery-range-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "生产远程步兵单位。\n每次生产一个单位或进行研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Holy Roman Empire"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/barracks-1.png@ 建造兵营",
+        "@catalog/icons/buildings/archery-range-2.png@ 建造靶场"
+      ]
+    },
+    {
+      "time": "",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        11
+      ],
+      "_zh_time_source": "原稿未标时间，按条件手动切换",
+      "notes": [
+        "有兵力和控图后再补经济科技、开发外置食物。打出伤害且需要跟进时代时再升城堡；封建正面战仍在继续就先保兵。"
+      ]
+    }
+  ]
+}

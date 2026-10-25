@@ -303,7 +303,8 @@ class StepActions(QWidget):
         self._available = set()
         layout = QVBoxLayout(self)
         layout.setContentsMargins(0, 0, 0, 0)
-        layout.setSpacing(7)
+        layout.setSpacing(6)
+        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         header = QHBoxLayout()
         header.setSpacing(8)
         title = QLabel("建筑与科技")
@@ -321,7 +322,8 @@ class StepActions(QWidget):
         self.scroll = QScrollArea()
         self.scroll.setWidgetResizable(True)
         self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.scroll.setMinimumHeight(42)
+        self.scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.scroll.setMinimumHeight(28)
         self.scroll.setMaximumHeight(100)
         self.scroll.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
         self.rows = QWidget()
@@ -384,7 +386,7 @@ class StepActions(QWidget):
         self.changed.emit()
 
     def _render(self):
-        self.scroll.setFixedHeight(42 if not self._actions else min(100, len(self._actions) * 46 + 4))
+        self.scroll.setFixedHeight(28 if not self._actions else min(100, len(self._actions) * 42 + 4))
         while self.row_layout.count():
             item = self.row_layout.takeAt(0)
             if item.widget():
@@ -394,7 +396,7 @@ class StepActions(QWidget):
             empty = QLabel("添加本时刻要建造的建筑或研究的科技")
             empty.setObjectName("Muted")
             empty.setWordWrap(True)
-            empty.setMinimumHeight(36)
+            empty.setMinimumHeight(24)
             self.row_layout.addWidget(empty)
             return
         for index, action in enumerate(self._actions):

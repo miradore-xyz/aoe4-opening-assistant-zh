@@ -1,0 +1,839 @@
+{
+  "name": "德里苏丹国 · 加齐压制转城堡",
+  "civilization": "Delhi Sultanate",
+  "author": "Valdemar1902（原作）；中文练习提要",
+  "source": "https://aoe4guides.com/builds/S3FUuhz7WEB8VYUL5qPb",
+  "_zh_language": "zh-CN",
+  "_zh_timing": "starting",
+  "_zh_default_id": "aoe4guides-default:Delhi Sultanate",
+  "_zh_source_id": "S3FUuhz7WEB8VYUL5qPb",
+  "_zh_source_url": "https://aoe4guides.com/builds/S3FUuhz7WEB8VYUL5qPb",
+  "_zh_reference": {
+    "id": "S3FUuhz7WEB8VYUL5qPb",
+    "url": "https://aoe4guides.com/builds/S3FUuhz7WEB8VYUL5qPb",
+    "title": "Delhi Fast Ghazi into Age 3 (2026)",
+    "author": "Valdemar1902",
+    "season": "Season 12",
+    "source_updated_at": "2026-02-19T15:12:07+00:00",
+    "selected_on": "2026-10-25",
+    "likes_at_selection": 11,
+    "views_at_selection": 7015,
+    "selection_reason_zh": "2026新稿，有完整的清真寺、信仰穹顶、学者驻军与加齐开局流程；单城镇中心先出兵，比直接跳帝王更适合基础练习。",
+    "adaptation_zh": "独立中文短提要，非逐字翻译。保留原稿明确的分秒；缺时间为手动条件点；原稿赛季不等于当前版本实战验证。",
+    "issues_zh": [
+      "升级前资源表与“8人食物”等目标存在过渡计数差异，正文写清目标，不推算村民总数。",
+      "“Queue all feudal upgrades”不转换成所有科技都必点；保留最关键的圣洁与高效生产。",
+      "城堡阶段没有时刻，以控住两片鹿群的条件手动执行；不虚构升城堡时间。"
+    ]
+  },
+  "build_order": [
+    {
+      "time": "0:00",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": -1,
+        "wood": 5,
+        "gold": -1,
+        "stone": -1,
+        "builder": 1
+      },
+      "_zh_source_rows": [
+        1
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "5名村民先砍散树采50木，再到浆果建磨坊；另1人建清真寺。",
+        "@catalog/icons/buildings/mill-1.png@ 建造磨坊",
+        "@catalog/icons/buildings/mosque-1.png@ 建造清真寺"
+      ],
+      "_zh_actions": [
+        {
+          "id": "mill-1",
+          "base_id": "mill",
+          "kind": "building",
+          "name_zh": "磨坊",
+          "name_en": "Mill",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "de"
+          ],
+          "icon": "catalog/icons/buildings/mill-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "村民可将食物存放于这个建筑。可研究提升食物采集效率的科技。\n每次存放资源都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 20
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Delhi Sultanate"
+        },
+        {
+          "id": "mosque-1",
+          "base_id": "mosque",
+          "kind": "building",
+          "name_zh": "清真寺",
+          "name_en": "Mosque",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "de"
+          ],
+          "icon": "catalog/icons/buildings/mosque-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "生产学者。您建造的第一间清真寺附带一位学者。从城堡时代 (第三时代) 开始，学者可将圣物存放在这座建筑来产生黄金。",
+          "costs": {
+            "food": 0,
+            "wood": 100,
+            "stone": 0,
+            "gold": 0,
+            "total": 100,
+            "popcap": 0,
+            "time": 25
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Delhi Sultanate"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/mill-1.png@ 建造磨坊",
+        "@catalog/icons/buildings/mosque-1.png@ 建造清真寺"
+      ]
+    },
+    {
+      "time": "0:20",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": -1,
+        "wood": 5,
+        "gold": -1,
+        "stone": -1,
+        "builder": 2
+      },
+      "_zh_source_rows": [
+        2
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "新村民先房屋，完工后去浆果。清真寺与采集建筑保持影响范围覆盖。",
+        "@catalog/icons/buildings/house-1.png@ 建造房屋"
+      ],
+      "_zh_actions": [
+        {
+          "id": "house-1",
+          "base_id": "house",
+          "kind": "building",
+          "name_zh": "房屋",
+          "name_en": "House",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "de"
+          ],
+          "icon": "catalog/icons/buildings/house-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "提升您的人口上限。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Delhi Sultanate"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/house-1.png@ 建造房屋"
+      ]
+    },
+    {
+      "time": "0:40",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 7,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": 1
+      },
+      "_zh_source_rows": [
+        3
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "再补食物村民，目标8人食物；及时排独轮推车和高效生产等研究。",
+        "@catalog/icons/technologies/wheelbarrow-1.png@ 研究独轮推车（磨坊）",
+        "@catalog/icons/technologies/efficient-production-1.png@ 研究高效生产（信仰穹顶建筑、清真寺）"
+      ],
+      "_zh_actions": [
+        {
+          "id": "wheelbarrow-1",
+          "base_id": "wheelbarrow",
+          "kind": "technology",
+          "name_zh": "独轮推车",
+          "name_en": "Wheelbarrow",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "de"
+          ],
+          "icon": "catalog/icons/technologies/wheelbarrow-1.png",
+          "location_zh": "磨坊",
+          "produced_by": [
+            "mill"
+          ],
+          "description_zh": "村民的运载量 +5，移动速度 +15%。",
+          "costs": {
+            "food": 0,
+            "wood": 0,
+            "stone": 0,
+            "gold": 0,
+            "total": 0,
+            "popcap": 0,
+            "time": 270
+          },
+          "unique": false,
+          "category_zh": "科技研究",
+          "action_verb_zh": "研究",
+          "count": 1,
+          "civilization": "Delhi Sultanate"
+        },
+        {
+          "id": "efficient-production-1",
+          "base_id": "efficient-production",
+          "kind": "technology",
+          "name_zh": "高效生产",
+          "name_en": "Efficient Production",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "de"
+          ],
+          "icon": "catalog/icons/technologies/efficient-production-1.png",
+          "location_zh": "信仰穹顶建筑、清真寺",
+          "produced_by": [
+            "dome-of-the-faith",
+            "mosque"
+          ],
+          "description_zh": "允许学者驻扎在军事建筑中，使生产速度提升 100%。",
+          "costs": {
+            "food": 0,
+            "wood": 0,
+            "stone": 0,
+            "gold": 0,
+            "total": 0,
+            "popcap": 0,
+            "time": 135
+          },
+          "unique": true,
+          "category_zh": "科技研究",
+          "action_verb_zh": "研究",
+          "count": 1,
+          "civilization": "Delhi Sultanate"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/technologies/wheelbarrow-1.png@ 研究独轮推车（磨坊）",
+        "@catalog/icons/technologies/efficient-production-1.png@ 研究高效生产（信仰穹顶建筑、清真寺）"
+      ]
+    },
+    {
+      "time": "1:00",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 8,
+        "wood": -1,
+        "gold": 1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        4
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "接下来的3名新村民去黄金并建采矿场。",
+        "@catalog/icons/buildings/mining-camp-1.png@ 建造采矿场"
+      ],
+      "_zh_actions": [
+        {
+          "id": "mining-camp-1",
+          "base_id": "mining-camp",
+          "kind": "building",
+          "name_zh": "采矿场",
+          "name_en": "Mining Camp",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "de"
+          ],
+          "icon": "catalog/icons/buildings/mining-camp-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "村民可将石料和黄金存放于这个建筑。可研究提升采矿效率的科技。\n每次存放资源都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 20
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Delhi Sultanate"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/mining-camp-1.png@ 建造采矿场"
+      ]
+    },
+    {
+      "time": "2:00",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 8,
+        "wood": 1,
+        "gold": 3,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        5
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "补伐木村民，在木线建伐木场；散树采够50木后并入木线，逐步到5人伐木。",
+        "@catalog/icons/buildings/lumber-camp-1.png@ 建造伐木场"
+      ],
+      "_zh_actions": [
+        {
+          "id": "lumber-camp-1",
+          "base_id": "lumber-camp",
+          "kind": "building",
+          "name_zh": "伐木场",
+          "name_en": "Lumber Camp",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "de"
+          ],
+          "icon": "catalog/icons/buildings/lumber-camp-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "村民可将木材存放于这个建筑。可研究提升木材采集效率的科技。\n每次存放资源都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 20
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Delhi Sultanate"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/lumber-camp-1.png@ 建造伐木场"
+      ]
+    },
+    {
+      "time": "2:30",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 4,
+        "wood": 2,
+        "gold": 3,
+        "stone": -1,
+        "builder": 4
+      },
+      "_zh_source_rows": [
+        6
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "抽4名浆果村民建信仰穹顶，位置照顾食物区，开始升封建。",
+        "@catalog/icons/buildings/dome-of-the-faith-1.png@ 建造信仰穹顶建筑"
+      ],
+      "_zh_actions": [
+        {
+          "id": "dome-of-the-faith-1",
+          "base_id": "dome-of-the-faith",
+          "kind": "building",
+          "name_zh": "信仰穹顶建筑",
+          "name_en": "Dome of the Faith",
+          "age": 1,
+          "age_label": "升至封建时代（II）",
+          "civs": [
+            "de"
+          ],
+          "icon": "catalog/icons/buildings/dome-of-the-faith-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "可作为清真寺使用，并在早期让玩家使用治疗者大象。生产伊玛目和治疗者大象的黄金成本 -65。",
+          "costs": {
+            "food": 400,
+            "wood": 0,
+            "stone": 0,
+            "gold": 200,
+            "total": 600,
+            "popcap": 0,
+            "time": 190
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "target_age": 2,
+          "count": 1,
+          "civilization": "Delhi Sultanate"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/dome-of-the-faith-1.png@ 建造信仰穹顶建筑"
+      ]
+    },
+    {
+      "time": "",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 10,
+        "wood": 5,
+        "gold": 3,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        8
+      ],
+      "_zh_time_source": "原稿未标时间，按条件手动切换",
+      "notes": [
+        "先维持5人木材；新村民把食物补到12人，再回木材逐步到12人。"
+      ]
+    },
+    {
+      "time": "4:15",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 11,
+        "wood": 5,
+        "gold": 3,
+        "stone": -1,
+        "builder": 2
+      },
+      "_zh_source_rows": [
+        10
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "封建后优先排圣洁。用2名伐木村民建马厩，驻1名学者提高生产速度，持续出 @unit_delhi/ghazi-raider-2.webp@ 加齐突袭者。",
+        "@catalog/icons/technologies/sanctity-2.png@ 研究圣洁（信仰穹顶建筑、清真寺）",
+        "@catalog/icons/buildings/stable-2.png@ 建造马厩"
+      ],
+      "_zh_actions": [
+        {
+          "id": "sanctity-2",
+          "base_id": "sanctity",
+          "kind": "technology",
+          "name_zh": "圣洁",
+          "name_en": "Sanctity",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "de"
+          ],
+          "icon": "catalog/icons/technologies/sanctity-2.png",
+          "location_zh": "信仰穹顶建筑、清真寺",
+          "produced_by": [
+            "dome-of-the-faith",
+            "mosque"
+          ],
+          "description_zh": "可让学者在城堡时代 (第三时代) 之前占领圣地。圣地会额外产生 +25% 黄金。",
+          "costs": {
+            "food": 0,
+            "wood": 0,
+            "stone": 0,
+            "gold": 0,
+            "total": 0,
+            "popcap": 0,
+            "time": 210
+          },
+          "unique": true,
+          "category_zh": "科技研究",
+          "action_verb_zh": "研究",
+          "count": 1,
+          "civilization": "Delhi Sultanate"
+        },
+        {
+          "id": "stable-2",
+          "base_id": "stable",
+          "kind": "building",
+          "name_zh": "马厩",
+          "name_en": "Stable",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "de"
+          ],
+          "icon": "catalog/icons/buildings/stable-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "生产骑兵军事单位。\n每次生产一个单位或进行研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Delhi Sultanate"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/technologies/sanctity-2.png@ 研究圣洁（信仰穹顶建筑、清真寺）",
+        "@catalog/icons/buildings/stable-2.png@ 建造马厩"
+      ]
+    },
+    {
+      "time": "6:25",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 12,
+        "wood": 9,
+        "gold": 3,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        11
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "按敌军先补靶场或兵营，生产建筑优先；兵力稳定后补铁匠铺，研究保持运转。",
+        "@catalog/icons/buildings/archery-range-2.png@ 按需补建靶场",
+        "@catalog/icons/buildings/barracks-1.png@ 按需补建兵营",
+        "@catalog/icons/buildings/blacksmith-2.png@ 随后补建铁匠铺"
+      ],
+      "_zh_actions": [
+        {
+          "id": "archery-range-2",
+          "base_id": "archery-range",
+          "kind": "building",
+          "name_zh": "靶场",
+          "name_en": "Archery Range",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "de"
+          ],
+          "icon": "catalog/icons/buildings/archery-range-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "生产远程步兵单位。\n每次生产一个单位或进行研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "按需补建",
+          "count": 1,
+          "civilization": "Delhi Sultanate"
+        },
+        {
+          "id": "barracks-1",
+          "base_id": "barracks",
+          "kind": "building",
+          "name_zh": "兵营",
+          "name_en": "Barracks",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "de"
+          ],
+          "icon": "catalog/icons/buildings/barracks-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "生产近战步兵单位。\n每次生产一个单位或进行研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "按需补建",
+          "count": 1,
+          "civilization": "Delhi Sultanate"
+        },
+        {
+          "id": "blacksmith-2",
+          "base_id": "blacksmith",
+          "kind": "building",
+          "name_zh": "铁匠铺",
+          "name_en": "Blacksmith",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "de"
+          ],
+          "icon": "catalog/icons/buildings/blacksmith-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "可研究强化步兵和骑兵的科技。\n每次完成科技研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 25
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "随后补建",
+          "count": 1,
+          "civilization": "Delhi Sultanate"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/archery-range-2.png@ 按需补建靶场",
+        "@catalog/icons/buildings/barracks-1.png@ 按需补建兵营",
+        "@catalog/icons/buildings/blacksmith-2.png@ 随后补建铁匠铺"
+      ]
+    },
+    {
+      "time": "",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        13
+      ],
+      "_zh_time_source": "原稿未标时间，按条件手动切换",
+      "notes": [
+        "先用专业侦察兵取得两片鹿群的供给，再考虑升城堡；兵力不足时不要强行裸升。",
+        "@catalog/icons/technologies/professional-scouts-2.png@ 为搬鹿研究专业侦察兵（磨坊）"
+      ],
+      "_zh_actions": [
+        {
+          "id": "professional-scouts-2",
+          "base_id": "professional-scouts",
+          "kind": "technology",
+          "name_zh": "专业侦察兵",
+          "name_en": "Professional Scouts",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "de"
+          ],
+          "icon": "catalog/icons/technologies/professional-scouts-2.png",
+          "location_zh": "磨坊",
+          "produced_by": [
+            "mill"
+          ],
+          "description_zh": "侦察兵获得携带动物尸骸的能力，且对野生动物造成的伤害 +100%。\n侦察兵在携带动物尸骸时移动速度 -55%，且无法拾取野猪尸骸。若携带的是鹿尸骸，则会缓慢腐烂。",
+          "costs": {
+            "food": 0,
+            "wood": 0,
+            "stone": 0,
+            "gold": 0,
+            "total": 0,
+            "popcap": 0,
+            "time": 350
+          },
+          "unique": false,
+          "category_zh": "科技研究",
+          "action_verb_zh": "为搬鹿研究",
+          "count": 1,
+          "civilization": "Delhi Sultanate"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/technologies/professional-scouts-2.png@ 为搬鹿研究专业侦察兵（磨坊）"
+      ]
+    },
+    {
+      "time": "",
+      "age": 3,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        15
+      ],
+      "_zh_time_source": "原稿未标时间，按条件手动切换",
+      "notes": [
+        "城堡后按局势补战象、弩手与靶场；需要城堡控图时再采石。村庄要塞在城堡或守护者大院研究。",
+        "@catalog/icons/buildings/archery-range-2.png@ 按需增建靶场 × 2",
+        "@catalog/icons/technologies/village-fortresses-3.png@ 条件满足后研究村庄要塞（守护者大院、城堡）"
+      ],
+      "_zh_actions": [
+        {
+          "id": "archery-range-2",
+          "base_id": "archery-range",
+          "kind": "building",
+          "name_zh": "靶场",
+          "name_en": "Archery Range",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "de"
+          ],
+          "icon": "catalog/icons/buildings/archery-range-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "生产远程步兵单位。\n每次生产一个单位或进行研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "按需增建",
+          "count": 2,
+          "civilization": "Delhi Sultanate"
+        },
+        {
+          "id": "village-fortresses-3",
+          "base_id": "village-fortresses",
+          "kind": "technology",
+          "name_zh": "村庄要塞",
+          "name_en": "Village Fortresses",
+          "age": 3,
+          "age_label": "城堡时代（III）",
+          "civs": [
+            "de"
+          ],
+          "icon": "catalog/icons/technologies/village-fortresses-3.png",
+          "location_zh": "守护者大院、城堡",
+          "produced_by": [
+            "compound-of-the-defender",
+            "keep"
+          ],
+          "description_zh": "城堡的作用如同城镇中心，包括单位生产、人口容量及科技。",
+          "costs": {
+            "food": 0,
+            "wood": 0,
+            "stone": 0,
+            "gold": 0,
+            "total": 0,
+            "popcap": 0,
+            "time": 360
+          },
+          "unique": true,
+          "category_zh": "科技研究",
+          "action_verb_zh": "条件满足后研究",
+          "count": 1,
+          "civilization": "Delhi Sultanate"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/archery-range-2.png@ 按需增建靶场 × 2",
+        "@catalog/icons/technologies/village-fortresses-3.png@ 条件满足后研究村庄要塞（守护者大院、城堡）"
+      ]
+    }
+  ]
+}

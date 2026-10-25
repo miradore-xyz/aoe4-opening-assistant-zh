@@ -55,7 +55,7 @@ class TapestryAction(QPushButton):
         primary = self.objectName() in ('Primary', 'StartButton') or bool(self.property('primaryAction'))
         quiet = self.objectName() == 'Quiet'
         compact = not self.text() or rect.width() < 86
-        radius = min(18.0 if primary else 8.0, rect.height() / 2)
+        radius = min(8.0, rect.height() / 2)  # 主次按钮保持相同圆角，只用明暗区分操作层级。
 
         if not enabled:
             background, border, foreground = '#19191c', '#29292e', '#62626c'
@@ -122,7 +122,7 @@ class TapestryAction(QPushButton):
                         else Qt.TextHideMnemonic)
             painter.drawText(label_rect, Qt.AlignVCenter | Qt.AlignLeft | Qt.TextSingleLine | mnemonic, label)
         if enabled and self.hasFocus() and self._keyboard_focus_visible:
-            # 键盘导航保留清晰的实线焦点环；圆角跟随胶囊外形，不再画矩形虚线。
+            # 键盘导航保留清晰的实线焦点环，圆角跟随按钮外形。
             # 焦点环只绘制在按钮内部，不改变尺寸，避免聚焦后布局或文字跳动。
             focus_rect = rect.adjusted(3, 3, -3, -3)
             painter.setBrush(Qt.NoBrush)

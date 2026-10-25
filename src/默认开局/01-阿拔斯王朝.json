@@ -1,0 +1,779 @@
+{
+  "name": "阿拔斯王朝 · 军事偏殿双城镇中心",
+  "civilization": "Abbasid Dynasty",
+  "author": "Valdemar1902（原作）；中文练习提要",
+  "source": "https://aoe4guides.com/builds/7NhTCEH8cuzlYchz9g7O",
+  "_zh_language": "zh-CN",
+  "_zh_timing": "starting",
+  "_zh_default_id": "aoe4guides-default:Abbasid Dynasty",
+  "_zh_source_id": "7NhTCEH8cuzlYchz9g7O",
+  "_zh_source_url": "https://aoe4guides.com/builds/7NhTCEH8cuzlYchz9g7O",
+  "_zh_reference": {
+    "id": "7NhTCEH8cuzlYchz9g7O",
+    "url": "https://aoe4guides.com/builds/7NhTCEH8cuzlYchz9g7O",
+    "title": "Miliwing Stable 2TC (2026)",
+    "author": "Valdemar1902",
+    "season": "Season 12",
+    "source_updated_at": "2025-12-30T11:41:03+00:00",
+    "selected_on": "2026-10-25",
+    "likes_at_selection": 10,
+    "views_at_selection": 1271,
+    "selection_reason_zh": "同作者2026新稿，军事偏殿与骑手提供早期防守，再练双城镇中心经济；比旧赛季高赞速扩张稿更新，也比四城镇中心稿容易控制。",
+    "adaptation_zh": "独立中文短提要，非逐字翻译。保留原稿明确的分秒；缺时间为手动条件点；原稿赛季不等于当前版本实战验证。",
+    "issues_zh": [
+      "最高赞经济偏殿2026稿起手重复智慧宫图标，改选军事偏殿2026稿。",
+      "智慧宫在本机目录被归到house-of-wisdom-2，原稿明确在黑暗时代建造；保留文字和离线图标，但不生成错误时代的结构化动作。",
+      "资源栏+3、all、横杠不是确定人数，均留-1；没有推算村民总数。"
+    ]
+  },
+  "build_order": [
+    {
+      "time": "0:00",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 6,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        1
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "起手采浆果；先用2人建磨坊，其余人采集，接着补房屋。",
+        "@catalog/icons/buildings/mill-1.png@ 建造磨坊",
+        "@catalog/icons/buildings/house-1.png@ 建造房屋"
+      ],
+      "_zh_actions": [
+        {
+          "id": "mill-1",
+          "base_id": "mill",
+          "kind": "building",
+          "name_zh": "磨坊",
+          "name_en": "Mill",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ab"
+          ],
+          "icon": "catalog/icons/buildings/mill-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "村民可将食物存放于这个建筑。可研究提升食物采集效率的科技。\n每次存放资源都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 20
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Abbasid Dynasty"
+        },
+        {
+          "id": "house-1",
+          "base_id": "house",
+          "kind": "building",
+          "name_zh": "房屋",
+          "name_en": "House",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ab"
+          ],
+          "icon": "catalog/icons/buildings/house-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "提升您的人口上限。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Abbasid Dynasty"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/mill-1.png@ 建造磨坊",
+        "@catalog/icons/buildings/house-1.png@ 建造房屋"
+      ]
+    },
+    {
+      "time": "0:20",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 7,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        2
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "新村民先建 @catalog/icons/buildings/house-of-wisdom-2.png@ 智慧宫，完工后采羊。"
+      ]
+    },
+    {
+      "time": "0:40",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 7,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        3
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "接下来的3名新村民去金矿，建立采矿场。",
+        "@catalog/icons/buildings/mining-camp-1.png@ 建造采矿场"
+      ],
+      "_zh_actions": [
+        {
+          "id": "mining-camp-1",
+          "base_id": "mining-camp",
+          "kind": "building",
+          "name_zh": "采矿场",
+          "name_en": "Mining Camp",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ab"
+          ],
+          "icon": "catalog/icons/buildings/mining-camp-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "村民可将石料和黄金存放于这个建筑。可研究提升采矿效率的科技。\n每次存放资源都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 20
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Abbasid Dynasty"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/mining-camp-1.png@ 建造采矿场"
+      ]
+    },
+    {
+      "time": "1:40",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 8,
+        "wood": -1,
+        "gold": 3,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        4
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "新村民继续采羊，保持食物与3人采金，攒升时代资源。"
+      ]
+    },
+    {
+      "time": "2:15",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 9,
+        "wood": -1,
+        "gold": 3,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        5
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "资源足够后选择军事偏殿，开始升封建。",
+        "@catalog/icons/technologies/military-wing-1.png@ 选择升封建的军事偏殿（智慧宫）"
+      ],
+      "_zh_actions": [
+        {
+          "id": "military-wing-1",
+          "base_id": "military-wing",
+          "kind": "technology",
+          "name_zh": "军事偏殿",
+          "name_en": "Military Wing",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ab"
+          ],
+          "icon": "catalog/icons/technologies/military-wing-1.png",
+          "location_zh": "智慧宫",
+          "produced_by": [
+            "house-of-wisdom"
+          ],
+          "description_zh": "建造军事偏殿。完成后可获得 2 名长矛兵和 2 名步弓手 (第二时代)、2 名骆驼骑兵 (第三时代) 或 3 名火枪兵 (第四时代)。\n解锁：\n•新兵训练营 (第二时代) \n•复合弓 (第三时代) \n•骆驼支援 (第四时代)",
+          "costs": {
+            "food": 400,
+            "wood": 0,
+            "stone": 0,
+            "gold": 200,
+            "total": 600,
+            "popcap": 0,
+            "time": 100
+          },
+          "unique": false,
+          "category_zh": "科技研究",
+          "action_verb_zh": "选择升封建的",
+          "count": 1,
+          "civilization": "Abbasid Dynasty"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/technologies/military-wing-1.png@ 选择升封建的军事偏殿（智慧宫）"
+      ]
+    },
+    {
+      "time": "2:20",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 6,
+        "wood": 4,
+        "gold": 3,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        7
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "保留浆果采集，采羊村民转伐木；先砍城镇中心旁散树，再转木线。新村民集结木材。"
+      ]
+    },
+    {
+      "time": "2:50",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 6,
+        "wood": 5,
+        "gold": -1,
+        "stone": 3,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        8
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "把3名采金村民转去石矿，建采矿场，开始准备第二座城镇中心。",
+        "@catalog/icons/buildings/mining-camp-1.png@ 建造采矿场"
+      ],
+      "_zh_actions": [
+        {
+          "id": "mining-camp-1",
+          "base_id": "mining-camp",
+          "kind": "building",
+          "name_zh": "采矿场",
+          "name_en": "Mining Camp",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ab"
+          ],
+          "icon": "catalog/icons/buildings/mining-camp-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "村民可将石料和黄金存放于这个建筑。可研究提升采矿效率的科技。\n每次存放资源都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 20
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Abbasid Dynasty"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/mining-camp-1.png@ 建造采矿场"
+      ]
+    },
+    {
+      "time": "3:20",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 5,
+        "wood": 6,
+        "gold": -1,
+        "stone": 3,
+        "builder": 1
+      },
+      "_zh_source_rows": [
+        9
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "补房屋，提前留出人口。",
+        "@catalog/icons/buildings/house-1.png@ 建造房屋"
+      ],
+      "_zh_actions": [
+        {
+          "id": "house-1",
+          "base_id": "house",
+          "kind": "building",
+          "name_zh": "房屋",
+          "name_en": "House",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ab"
+          ],
+          "icon": "catalog/icons/buildings/house-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "提升您的人口上限。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Abbasid Dynasty"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/house-1.png@ 建造房屋"
+      ]
+    },
+    {
+      "time": "4:00",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 6,
+        "wood": 7,
+        "gold": -1,
+        "stone": 3,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        11
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "封建后建马厩，补2座房屋与伐木场，连接建筑触发黄金时代一级。研究新鲜食品。",
+        "@catalog/icons/buildings/stable-2.png@ 建造马厩",
+        "@catalog/icons/buildings/house-1.png@ 建造房屋 × 2",
+        "@catalog/icons/buildings/lumber-camp-1.png@ 建造伐木场",
+        "@catalog/icons/technologies/fresh-foodstuffs-2.png@ 研究新鲜食品（磨坊）"
+      ],
+      "_zh_actions": [
+        {
+          "id": "stable-2",
+          "base_id": "stable",
+          "kind": "building",
+          "name_zh": "马厩",
+          "name_en": "Stable",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "ab"
+          ],
+          "icon": "catalog/icons/buildings/stable-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "生产骑兵军事单位。\n每次生产一个单位或进行研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Abbasid Dynasty"
+        },
+        {
+          "id": "house-1",
+          "base_id": "house",
+          "kind": "building",
+          "name_zh": "房屋",
+          "name_en": "House",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ab"
+          ],
+          "icon": "catalog/icons/buildings/house-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "提升您的人口上限。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 2,
+          "civilization": "Abbasid Dynasty"
+        },
+        {
+          "id": "lumber-camp-1",
+          "base_id": "lumber-camp",
+          "kind": "building",
+          "name_zh": "伐木场",
+          "name_en": "Lumber Camp",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ab"
+          ],
+          "icon": "catalog/icons/buildings/lumber-camp-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "村民可将木材存放于这个建筑。可研究提升木材采集效率的科技。\n每次存放资源都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 20
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Abbasid Dynasty"
+        },
+        {
+          "id": "fresh-foodstuffs-2",
+          "base_id": "fresh-foodstuffs",
+          "kind": "technology",
+          "name_zh": "新鲜食品",
+          "name_en": "Fresh Foodstuffs",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "ab"
+          ],
+          "icon": "catalog/icons/technologies/fresh-foodstuffs-2.png",
+          "location_zh": "磨坊",
+          "produced_by": [
+            "mill"
+          ],
+          "description_zh": "生产村民成本 -40%。",
+          "costs": {
+            "food": 50,
+            "wood": 0,
+            "stone": 0,
+            "gold": 75,
+            "total": 125,
+            "popcap": 0,
+            "time": 20
+          },
+          "unique": true,
+          "category_zh": "科技研究",
+          "action_verb_zh": "研究",
+          "count": 1,
+          "civilization": "Abbasid Dynasty"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/stable-2.png@ 建造马厩",
+        "@catalog/icons/buildings/house-1.png@ 建造房屋 × 2",
+        "@catalog/icons/buildings/lumber-camp-1.png@ 建造伐木场",
+        "@catalog/icons/technologies/fresh-foodstuffs-2.png@ 研究新鲜食品（磨坊）"
+      ]
+    },
+    {
+      "time": "4:30",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 6,
+        "wood": 11,
+        "gold": -1,
+        "stone": 3,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        12
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "持续训练骑手，保护采集和扩张位置；新村民继续伐木。"
+      ]
+    },
+    {
+      "time": "6:05",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 6,
+        "wood": 15,
+        "gold": -1,
+        "stone": 3,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        13
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "原稿以石矿剩850/1200为交货点；交齐350石料并攒够木材后建第二座城镇中心，选能保护资源的位置。",
+        "@catalog/icons/buildings/town-center-1.png@ 资源足够后补建城镇中心"
+      ],
+      "_zh_actions": [
+        {
+          "id": "town-center-1",
+          "base_id": "town-center",
+          "kind": "building",
+          "name_zh": "城镇中心",
+          "name_en": "Town Center",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ab"
+          ],
+          "icon": "catalog/icons/buildings/town-center-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "可在此存放所有资源。可生产村民、侦察兵和命官，并提高人口上限。单位驻扎时可增加额外的攻击次数。\n非首都城镇中心无法侦测匿踪或伪装。",
+          "costs": {
+            "food": 0,
+            "wood": 400,
+            "stone": 300,
+            "gold": 0,
+            "total": 700,
+            "popcap": 0,
+            "time": 150
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "资源足够后补建",
+          "count": 1,
+          "civilization": "Abbasid Dynasty"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/town-center-1.png@ 资源足够后补建城镇中心"
+      ]
+    },
+    {
+      "time": "",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        14
+      ],
+      "_zh_time_source": "原稿未标时间，按条件手动切换",
+      "notes": [
+        "双城镇中心持续造村民；按敌军补兵营、靶场，再建铁匠铺。先稳住兵力，再继续扩经济。",
+        "@catalog/icons/buildings/barracks-1.png@ 按需补建兵营",
+        "@catalog/icons/buildings/archery-range-2.png@ 按需补建靶场",
+        "@catalog/icons/buildings/blacksmith-2.png@ 后续补建铁匠铺"
+      ],
+      "_zh_actions": [
+        {
+          "id": "barracks-1",
+          "base_id": "barracks",
+          "kind": "building",
+          "name_zh": "兵营",
+          "name_en": "Barracks",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ab"
+          ],
+          "icon": "catalog/icons/buildings/barracks-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "生产近战步兵单位。\n每次生产一个单位或进行研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "按需补建",
+          "count": 1,
+          "civilization": "Abbasid Dynasty"
+        },
+        {
+          "id": "archery-range-2",
+          "base_id": "archery-range",
+          "kind": "building",
+          "name_zh": "靶场",
+          "name_en": "Archery Range",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "ab"
+          ],
+          "icon": "catalog/icons/buildings/archery-range-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "生产远程步兵单位。\n每次生产一个单位或进行研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "按需补建",
+          "count": 1,
+          "civilization": "Abbasid Dynasty"
+        },
+        {
+          "id": "blacksmith-2",
+          "base_id": "blacksmith",
+          "kind": "building",
+          "name_zh": "铁匠铺",
+          "name_en": "Blacksmith",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "ab"
+          ],
+          "icon": "catalog/icons/buildings/blacksmith-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "可研究强化步兵和骑兵的科技。\n每次完成科技研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 25
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "后续补建",
+          "count": 1,
+          "civilization": "Abbasid Dynasty"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/barracks-1.png@ 按需补建兵营",
+        "@catalog/icons/buildings/archery-range-2.png@ 按需补建靶场",
+        "@catalog/icons/buildings/blacksmith-2.png@ 后续补建铁匠铺"
+      ]
+    }
+  ]
+}

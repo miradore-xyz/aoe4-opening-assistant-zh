@@ -104,9 +104,8 @@ def game_pixmap(path, size):
         source = _asset_root / 'aoe4' / path
     screen = QApplication.primaryScreen()
     ratio = screen.devicePixelRatio() if screen else 1.0
-    image = QPixmap(str(source)).scaled(round(size * ratio), round(size * ratio), Qt.KeepAspectRatio, Qt.SmoothTransformation)
-    image.setDevicePixelRatio(ratio)
-    return image
+    from game_icons import tile_pixmap
+    return tile_pixmap(source, path, size, ratio)
 STYLE += 'QComboBox::down-arrow { image:url("' + (_asset_root / 'common/icon/down_arrow.webp').as_posix() + '"); width:9px; height:7px; }'
 _design_root = _asset_root / 'design' if getattr(sys, 'frozen', False) else Path(__file__).resolve().parent / '界面素材'
 _tapestries = {}

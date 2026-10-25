@@ -1,0 +1,574 @@
+{
+  "name": "金朝 · 大牧场铁浮屠开局",
+  "civilization": "Jin Dynasty",
+  "author": "murtuk（原作）；中文提要整理",
+  "source": "AoE4Guides：https://aoe4guides.com/builds/tu8Z6S1y6myRbMBsEfWO；Season 13；中文独立提要，来源时刻仅供练习。",
+  "_zh_language": "zh-CN",
+  "_zh_timing": "starting",
+  "_zh_default_id": "aoe4guides-default:Jin Dynasty",
+  "_zh_reference": {
+    "id": "tu8Z6S1y6myRbMBsEfWO",
+    "url": "https://aoe4guides.com/builds/tu8Z6S1y6myRbMBsEfWO",
+    "title": "Swaggy's Jin Starter- Copy for me to understand series",
+    "title_zh": "金朝 · 大牧场铁浮屠开局",
+    "author": "murtuk",
+    "creator_name": "Swaggy Professor",
+    "season": "Season 13",
+    "likes": 6,
+    "views": 5106,
+    "timeUpdated": {
+      "_seconds": 1778190836,
+      "_nanoseconds": 113000000
+    },
+    "selection_reason_zh": "第13赛季入门整理，有5106次浏览和6个收藏；较最高收藏稿更简短，避开团战专用与多城镇中心路线。",
+    "issues_zh": [
+      "原稿2:45的建造后分配文字存在歧义，保留明确的3人建地标与3人转金，不推算其余人数。"
+    ],
+    "retrieved_at": "2026-10-25",
+    "scope_zh": "陆地常规对局练习参考；非唯一最优，原作者时间并非当前版本实测保证。"
+  },
+  "build_order": [
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "0:00",
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": 3,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 0,
+        "time": "0:00",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "",
+          "wood": "",
+          "gold": "3",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "3名乡骑在金矿建采矿场采金；新乡骑集结到鹿群。",
+        "@catalog/icons/buildings/mining-camp-1.png@ 建造采矿场"
+      ],
+      "_zh_actions": [
+        {
+          "id": "mining-camp-1",
+          "base_id": "mining-camp",
+          "kind": "building",
+          "name_zh": "采矿场",
+          "name_en": "Mining Camp",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "jin"
+          ],
+          "icon": "catalog/icons/buildings/mining-camp-1.png",
+          "location_zh": "乡骑、村民",
+          "produced_by": [
+            "mounted-villager",
+            "villager"
+          ],
+          "description_zh": "村民可将石料和黄金存放于这个建筑。可研究提升采矿效率的科技。\n每次存放资源都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 20
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/mining-camp-1.png@ 建造采矿场"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "0:35",
+      "resources": {
+        "food": 1,
+        "wood": -1,
+        "gold": 3,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 1,
+        "time": "0:35",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "1",
+          "wood": "",
+          "gold": "3",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "保持乡骑连续生产，避免城镇中心空转。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "2:00",
+      "resources": {
+        "food": 6,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 2,
+        "time": "2:00",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "6",
+          "wood": "",
+          "gold": "",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "累计采到原稿要求的400黄金后，采金乡骑转去狩猎，并补第一座房屋。以采集条件为准。",
+        "@catalog/icons/buildings/house-1.png@ 建造房屋"
+      ],
+      "_zh_actions": [
+        {
+          "id": "house-1",
+          "base_id": "house",
+          "kind": "building",
+          "name_zh": "房屋",
+          "name_en": "House",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "jin"
+          ],
+          "icon": "catalog/icons/buildings/house-1.png",
+          "location_zh": "乡骑、村民",
+          "produced_by": [
+            "mounted-villager",
+            "villager"
+          ],
+          "description_zh": "提升您的人口上限。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/house-1.png@ 建造房屋"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "2:45",
+      "resources": {
+        "food": 1,
+        "wood": -1,
+        "gold": 2,
+        "stone": -1,
+        "builder": 3
+      },
+      "_zh_source_row": {
+        "flat_index": 3,
+        "time": "2:45",
+        "phase": "ageUp",
+        "resources": {
+          "villagers": "",
+          "builders": "3",
+          "food": "1",
+          "wood": "",
+          "gold": "2",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "抽3名采食物乡骑建大牧场升封建。随后按原稿调3名猎人去采金，保持食物和黄金收入。",
+        "@catalog/icons/buildings/great-pasture-1.png@ 建造大牧场"
+      ],
+      "_zh_actions": [
+        {
+          "id": "great-pasture-1",
+          "base_id": "great-pasture",
+          "kind": "building",
+          "name_zh": "大牧场",
+          "name_en": "Great Pasture",
+          "age": 1,
+          "age_label": "升至封建时代（II）",
+          "civs": [
+            "jin"
+          ],
+          "icon": "catalog/icons/buildings/great-pasture-1.png",
+          "location_zh": "乡骑、村民",
+          "produced_by": [
+            "mounted-villager",
+            "villager"
+          ],
+          "description_zh": "可作为战争马厩和草原使用。\n生成 3 个草原标杆。在这些草原标杆上只能建造一片草原。",
+          "costs": {
+            "food": 400,
+            "wood": 0,
+            "stone": 0,
+            "gold": 200,
+            "total": 600,
+            "popcap": 0,
+            "time": 190
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "target_age": 2
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/great-pasture-1.png@ 建造大牧场"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 2,
+      "time": "3:55",
+      "resources": {
+        "food": 3,
+        "wood": 2,
+        "gold": 4,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 4,
+        "time": "3:55",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "3",
+          "wood": "2",
+          "gold": "4",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "大牧场完工后尽快生产铁浮屠，用骑兵侦察并骚扰。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 2,
+      "time": "4:30",
+      "resources": {
+        "food": 4,
+        "wood": 2,
+        "gold": 4,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 5,
+        "time": "4:30",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "4",
+          "wood": "2",
+          "gold": "4",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "抽1名伐木乡骑建草原；再从食物转1人到黄金。",
+        "@catalog/icons/buildings/grassland-2.png@ 建造草原"
+      ],
+      "_zh_actions": [
+        {
+          "id": "grassland-2",
+          "base_id": "grassland",
+          "kind": "building",
+          "name_zh": "草原",
+          "name_en": "Grassland",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "jin"
+          ],
+          "icon": "catalog/icons/buildings/grassland-2.png",
+          "location_zh": "乡骑、村民",
+          "produced_by": [
+            "mounted-villager",
+            "villager"
+          ],
+          "description_zh": "必须建造在草原标杆上。\n在封建/城堡/帝王时代，每 75/60/45 秒生成一匹马，最多生成 5 匹。草原上的每匹马可让所有近战骑兵的最大生命值 +2，让所有远程骑兵的最大生命值 +1。\n影响范围内的战争马厩可以使用马匹立即训练骑兵，享受 25 资源折扣。",
+          "costs": {
+            "food": 0,
+            "wood": 100,
+            "stone": 0,
+            "gold": 0,
+            "total": 100,
+            "popcap": 0,
+            "time": 45
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/grassland-2.png@ 建造草原"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 2,
+      "time": "5:00",
+      "resources": {
+        "food": 5,
+        "wood": 1,
+        "gold": 5,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 6,
+        "time": "5:00",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "5",
+          "wood": "1",
+          "gold": "5",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "草原建好后建造者回金矿。对手补长矛兵时，转出靺鞨部落兵配合。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 2,
+      "time": "6:30",
+      "resources": {
+        "food": 8,
+        "wood": 1,
+        "gold": 5,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 7,
+        "time": "6:30",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "8",
+          "wood": "1",
+          "gold": "5",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "食物已有8人时，向安全的鹿或野猪转移；在磨坊研究靺鞨世系。",
+        "@catalog/icons/technologies/mohe-ancestry-1.png@ 研究靺鞨世系（磨坊）"
+      ],
+      "_zh_actions": [
+        {
+          "id": "mohe-ancestry-1",
+          "base_id": "mohe-ancestry",
+          "kind": "technology",
+          "name_zh": "靺鞨世系",
+          "name_en": "Mohe Ancestry",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "jin"
+          ],
+          "icon": "catalog/icons/technologies/mohe-ancestry-1.png",
+          "location_zh": "磨坊",
+          "produced_by": [
+            "mill"
+          ],
+          "description_zh": "村民狩猎肉类采集速率 +20%。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 75,
+            "total": 125,
+            "popcap": 0,
+            "time": 20
+          },
+          "unique": true,
+          "category_zh": "科技研究",
+          "action_verb_zh": "研究"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/technologies/mohe-ancestry-1.png@ 研究靺鞨世系（磨坊）"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 2,
+      "time": "7:00",
+      "resources": {
+        "food": 8,
+        "wood": 1,
+        "gold": 6,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 8,
+        "time": "7:00",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "8",
+          "wood": "1",
+          "gold": "6",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "后续乡骑集结到黄金，维持前线生产并准备升时代。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 2,
+      "time": "10:10",
+      "resources": {
+        "food": 8,
+        "wood": 1,
+        "gold": 4,
+        "stone": -1,
+        "builder": 7
+      },
+      "_zh_source_row": {
+        "flat_index": 9,
+        "time": "10:10",
+        "phase": "ageUp",
+        "resources": {
+          "villagers": "",
+          "builders": "7",
+          "food": "8",
+          "wood": "1",
+          "gold": "4",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "满足升城堡资源后，抽7名采金乡骑建龙亭；完工后再回采金。",
+        "@catalog/icons/buildings/dragon-pavilion-2.png@ 建造龙亭"
+      ],
+      "_zh_actions": [
+        {
+          "id": "dragon-pavilion-2",
+          "base_id": "dragon-pavilion",
+          "kind": "building",
+          "name_zh": "龙亭",
+          "name_en": "Dragon Pavilion",
+          "age": 2,
+          "age_label": "升至城堡时代（III）",
+          "civs": [
+            "jin"
+          ],
+          "icon": "catalog/icons/buildings/dragon-pavilion-2.png",
+          "location_zh": "乡骑、村民",
+          "produced_by": [
+            "mounted-villager",
+            "villager"
+          ],
+          "description_zh": "为所有城镇中心免费提供一座猛安谋克据点，同时城镇中心自身附带一座猛安谋克据点。\n训练使者可享 33% 折扣，完成时会免费生成 1 个使者。\n生成 3 个草原标杆。在这些草原标杆上只能建造一片草原。",
+          "costs": {
+            "food": 1200,
+            "wood": 0,
+            "stone": 0,
+            "gold": 600,
+            "total": 1800,
+            "popcap": 0,
+            "time": 220
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "target_age": 3
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/dragon-pavilion-2.png@ 建造龙亭"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 3,
+      "time": "11:10",
+      "resources": {
+        "food": 8,
+        "wood": 7,
+        "gold": 7,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 10,
+        "time": "11:10",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "8",
+          "wood": "7",
+          "gold": "7",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "龙亭完工进入城堡时代。使者前往中立市场使用能力，再按战局补经济与军队升级。"
+      ]
+    }
+  ]
+}

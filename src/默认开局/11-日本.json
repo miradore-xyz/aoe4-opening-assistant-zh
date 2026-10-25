@@ -1,0 +1,610 @@
+{
+  "name": "日本 · 藏造仓库防守速城",
+  "civilization": "Japanese",
+  "author": "Valdemar1902（原作）；中文练习提要",
+  "source": "https://aoe4guides.com/builds/yeDbJIwrrgHzUdJJb7gi",
+  "_zh_language": "zh-CN",
+  "_zh_timing": "starting",
+  "_zh_default_id": "aoe4guides-default:Japanese",
+  "_zh_source_id": "yeDbJIwrrgHzUdJJb7gi",
+  "_zh_source_url": "https://aoe4guides.com/builds/yeDbJIwrrgHzUdJJb7gi",
+  "_zh_reference": {
+    "id": "yeDbJIwrrgHzUdJJb7gi",
+    "url": "https://aoe4guides.com/builds/yeDbJIwrrgHzUdJJb7gi",
+    "title": "Fast Castle (2026)",
+    "author": "Valdemar1902",
+    "season": "Season 12",
+    "source_updated_at": "2025-12-28T22:12:16+00:00",
+    "selected_on": "2026-10-25",
+    "likes_at_selection": 34,
+    "views_at_selection": 18697,
+    "selection_reason_zh": "2026标准速城稿，34赞与约1.9万浏览；比最新但人数重复的非标准新手改稿更完整，训练经济分配、金矿防守与水上鸟居转型。",
+    "adaptation_zh": "独立中文短提要，非逐字翻译。保留原稿明确的分秒；缺时间为手动条件点；原稿赛季不等于当前版本实战验证。",
+    "issues_zh": [
+      "弃选的S13新手改稿起手文字少写1人，6:40建造与伐木人数重复，改用本稿。",
+      "起手资源表food6包含即将建农舍者，中文明确为5人采羊、1人先建造，不推算总人数。",
+      "3:55尚在黑暗时代，哨站射箭槽/强化只能到封建后研究，已移到5:41阶段。",
+      "补充日本锻造厂作为黄金交货点，属于操作衔接说明，原稿该行只写新增采金人手。",
+      "5—8木材属于范围，资源栏留-1，正文保留范围。"
+    ]
+  },
+  "build_order": [
+    {
+      "time": "0:00",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        1
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "5人采羊，1人先建农舍；农舍完工后研究编织袋。",
+        "@catalog/icons/buildings/farmhouse-1.png@ 建造农舍",
+        "@catalog/icons/technologies/tawara-1.png@ 研究编织袋（农舍、藏造仓库）"
+      ],
+      "_zh_actions": [
+        {
+          "id": "farmhouse-1",
+          "base_id": "farmhouse",
+          "kind": "building",
+          "name_zh": "农舍",
+          "name_en": "Farmhouse",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ja"
+          ],
+          "icon": "catalog/icons/buildings/farmhouse-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "提高人口上限而且村民可将食物存放于这座建筑。可研究提升食物采集效率的科技。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Japanese"
+        },
+        {
+          "id": "tawara-1",
+          "base_id": "tawara",
+          "kind": "technology",
+          "name_zh": "编织袋",
+          "name_en": "Tawara",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ja"
+          ],
+          "icon": "catalog/icons/technologies/tawara-1.png",
+          "location_zh": "农舍、藏造仓库",
+          "produced_by": [
+            "farmhouse",
+            "kura-storehouse"
+          ],
+          "description_zh": "村民运载量 +3，移动速度 +7%，浆果采集速率 +25%。",
+          "costs": {
+            "food": 0,
+            "wood": 25,
+            "stone": 0,
+            "gold": 50,
+            "total": 75,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": true,
+          "category_zh": "科技研究",
+          "action_verb_zh": "研究",
+          "count": 1,
+          "civilization": "Japanese"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/farmhouse-1.png@ 建造农舍",
+        "@catalog/icons/technologies/tawara-1.png@ 研究编织袋（农舍、藏造仓库）"
+      ]
+    },
+    {
+      "time": "0:20",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 6,
+        "wood": -1,
+        "gold": 1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        2
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "连续3名新村民补黄金；金矿旁布置锻造厂交货。",
+        "@catalog/icons/buildings/forge-1.png@ 建造锻造厂"
+      ],
+      "_zh_actions": [
+        {
+          "id": "forge-1",
+          "base_id": "forge",
+          "kind": "building",
+          "name_zh": "锻造厂",
+          "name_en": "Forge",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ja"
+          ],
+          "icon": "catalog/icons/buildings/forge-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "村民可将石料和黄金存放于这座建筑。可研究提升采矿和军事单位的科技。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 20
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Japanese"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/forge-1.png@ 建造锻造厂"
+      ]
+    },
+    {
+      "time": "1:02",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 6,
+        "wood": -1,
+        "gold": 3,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        3
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "编织袋完成后，原采羊村民转浆果，利用浆果效率。"
+      ]
+    },
+    {
+      "time": "1:20",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 7,
+        "wood": -1,
+        "gold": 3,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        4
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "新村民继续补羊，攒升封建资源。"
+      ]
+    },
+    {
+      "time": "2:20",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 9,
+        "wood": -1,
+        "gold": 3,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        5
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "抽1名采羊村民建藏造仓库，开始升封建。",
+        "@catalog/icons/buildings/kura-storehouse-1.png@ 建造藏造仓库"
+      ],
+      "_zh_actions": [
+        {
+          "id": "kura-storehouse-1",
+          "base_id": "kura-storehouse",
+          "kind": "building",
+          "name_zh": "藏造仓库",
+          "name_en": "Kura Storehouse",
+          "age": 1,
+          "age_label": "升至封建时代（II）",
+          "civs": [
+            "ja"
+          ],
+          "icon": "catalog/icons/buildings/kura-storehouse-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "通用存放地点，每 50 秒在地标周围会创建一座农田，农田满时，会生成木材。",
+          "costs": {
+            "food": 400,
+            "wood": 0,
+            "stone": 0,
+            "gold": 200,
+            "total": 600,
+            "popcap": 0,
+            "time": 190
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "target_age": 2,
+          "count": 1,
+          "civilization": "Japanese"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/kura-storehouse-1.png@ 建造藏造仓库"
+      ]
+    },
+    {
+      "time": "2:34",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 6,
+        "wood": 3,
+        "gold": 4,
+        "stone": -1,
+        "builder": 1
+      },
+      "_zh_source_rows": [
+        7
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "调整约3人木材，准备金矿防守哨站。"
+      ]
+    },
+    {
+      "time": "3:55",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 9,
+        "wood": 3,
+        "gold": 4,
+        "stone": -1,
+        "builder": 1
+      },
+      "_zh_source_rows": [
+        8
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "在金矿建哨站；射箭槽与强化升级等到封建完成。",
+        "@catalog/icons/buildings/outpost-1.png@ 建造哨站"
+      ],
+      "_zh_actions": [
+        {
+          "id": "outpost-1",
+          "base_id": "outpost",
+          "kind": "building",
+          "name_zh": "哨站",
+          "name_en": "Outpost",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ja"
+          ],
+          "icon": "catalog/icons/buildings/outpost-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "可提供开阔的视野，侦测匿踪或伪装单位。可以升级武器和防御工事。单位驻扎时可进行攻击。",
+          "costs": {
+            "food": 0,
+            "wood": 100,
+            "stone": 0,
+            "gold": 0,
+            "total": 100,
+            "popcap": 0,
+            "time": 60
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Japanese"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/outpost-1.png@ 建造哨站"
+      ]
+    },
+    {
+      "time": "",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        9
+      ],
+      "_zh_time_source": "原稿未标时间，按条件手动切换",
+      "notes": [
+        "继续补食物，再加1人黄金；这一条件段原稿没有时间。"
+      ]
+    },
+    {
+      "time": "5:41",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 18,
+        "wood": -1,
+        "gold": 5,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        11
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "封建完成后稳定食物、5人采金；需要防守时补哨站射箭槽与强化。",
+        "@catalog/icons/technologies/arrowslits-2.png@ 需要防守时研究射箭槽（哨站）",
+        "@catalog/icons/technologies/fortify-outpost-2.png@ 需要防守时研究强化哨站（哨站）"
+      ],
+      "_zh_actions": [
+        {
+          "id": "arrowslits-2",
+          "base_id": "arrowslits",
+          "kind": "technology",
+          "name_zh": "射箭槽",
+          "name_en": "Arrowslits",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "ja"
+          ],
+          "icon": "catalog/icons/technologies/arrowslits-2.png",
+          "location_zh": "哨站",
+          "produced_by": [
+            "outpost"
+          ],
+          "description_zh": "为此建筑添加防御型射箭槽并使驻扎单位的弓箭攻击范围 +1。只能添加一座武器炮台。",
+          "costs": {
+            "food": 0,
+            "wood": 0,
+            "stone": 50,
+            "gold": 25,
+            "total": 75,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "科技研究",
+          "action_verb_zh": "需要防守时研究",
+          "count": 1,
+          "civilization": "Japanese"
+        },
+        {
+          "id": "fortify-outpost-2",
+          "base_id": "fortify-outpost",
+          "kind": "technology",
+          "name_zh": "强化哨站",
+          "name_en": "Fortify Outpost",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "ja"
+          ],
+          "icon": "catalog/icons/technologies/fortify-outpost-2.png",
+          "location_zh": "哨站",
+          "produced_by": [
+            "outpost"
+          ],
+          "description_zh": "此哨站的生命值 +1000，火焰护甲 +5。",
+          "costs": {
+            "food": 0,
+            "wood": 0,
+            "stone": 100,
+            "gold": 0,
+            "total": 100,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "科技研究",
+          "action_verb_zh": "需要防守时研究",
+          "count": 1,
+          "civilization": "Japanese"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/technologies/arrowslits-2.png@ 需要防守时研究射箭槽（哨站）",
+        "@catalog/icons/technologies/fortify-outpost-2.png@ 需要防守时研究强化哨站（哨站）"
+      ]
+    },
+    {
+      "time": "6:34",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 12,
+        "wood": -1,
+        "gold": 5,
+        "stone": -1,
+        "builder": 8
+      },
+      "_zh_source_rows": [
+        12
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "攒齐城堡时代资源后，8名食物村民建水上鸟居。",
+        "@catalog/icons/buildings/floating-gate-2.png@ 建造水上鸟居"
+      ],
+      "_zh_actions": [
+        {
+          "id": "floating-gate-2",
+          "base_id": "floating-gate",
+          "kind": "building",
+          "name_zh": "水上鸟居",
+          "name_en": "Floating Gate",
+          "age": 2,
+          "age_label": "升至城堡时代（III）",
+          "civs": [
+            "ja"
+          ],
+          "icon": "catalog/icons/buildings/floating-gate-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "每 2 分钟生产一次携带依代的神道教神主。第一位神官会立即生成。最多可以在建筑中存放 4 个依代，以提供独特的加成。\n解锁神道教神社，其中拥有独特的神道教科技并生产神道教神主。",
+          "costs": {
+            "food": 1200,
+            "wood": 0,
+            "stone": 0,
+            "gold": 600,
+            "total": 1800,
+            "popcap": 0,
+            "time": 220
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "target_age": 3,
+          "count": 1,
+          "civilization": "Japanese"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/floating-gate-2.png@ 建造水上鸟居"
+      ]
+    },
+    {
+      "time": "6:40",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 7,
+        "wood": -1,
+        "gold": 8,
+        "stone": -1,
+        "builder": 8
+      },
+      "_zh_source_rows": [
+        14
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "升级期间安排5—8人木材，保黄金。被大量木材兵种压制时优先兵营；对手骑士或压力较小可准备马厩。"
+      ]
+    },
+    {
+      "time": "7:40",
+      "age": 3,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        16
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "城堡后建马厩，放入御神体生产 @unit_japanese/mounted-samurai-3.webp@ 骑马武士，并取圣物；后续搭配 @unit_japanese/yumi-ashigaru-2.webp@ 足轻弓兵，按战局调整资源。",
+        "@catalog/icons/buildings/stable-2.png@ 建造马厩"
+      ],
+      "_zh_actions": [
+        {
+          "id": "stable-2",
+          "base_id": "stable",
+          "kind": "building",
+          "name_zh": "马厩",
+          "name_en": "Stable",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "ja"
+          ],
+          "icon": "catalog/icons/buildings/stable-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "生产骑兵军事单位。\n每次生产一个单位或进行研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Japanese"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/stable-2.png@ 建造马厩"
+      ]
+    }
+  ]
+}

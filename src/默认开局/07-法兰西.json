@@ -1,0 +1,917 @@
+{
+  "name": "法兰西 · 猎鹿皇家骑士封建压制",
+  "civilization": "French",
+  "author": "daco（原作）；中文练习提要",
+  "source": "https://aoe4guides.com/builds/2HnUrY6kfm2D3v5JfAa6",
+  "_zh_language": "zh-CN",
+  "_zh_timing": "starting",
+  "_zh_default_id": "aoe4guides-default:French",
+  "_zh_source_id": "2HnUrY6kfm2D3v5JfAa6",
+  "_zh_source_url": "https://aoe4guides.com/builds/2HnUrY6kfm2D3v5JfAa6",
+  "_zh_reference": {
+    "id": "2HnUrY6kfm2D3v5JfAa6",
+    "url": "https://aoe4guides.com/builds/2HnUrY6kfm2D3v5JfAa6",
+    "title": "beginner or experienced feudal rush top ladder build",
+    "author": "daco",
+    "season": "Season 13",
+    "source_updated_at": "2026-09-17T21:23:56+00:00",
+    "selected_on": "2026-10-25",
+    "likes_at_selection": 4,
+    "views_at_selection": 1627,
+    "selection_reason_zh": "2026年9月实战录像整理，季节13且明确适合初学/进阶练习；选单城镇中心骑士加弓兵，不用旧版本极限升本秒数。",
+    "adaptation_zh": "独立中文短提要，非逐字翻译。保留原稿明确的分秒；缺时间为手动条件点；原稿赛季不等于当前版本实战验证。",
+    "issues_zh": [
+      "原文在升本施工行就写开始骑士生产，译为封建完成后再生产，避免暗黑时代非法出皇家骑士。",
+      "施工阶段部分建造人数包含追加村民、原表不能反推总人数；相关建造栏留-1。",
+      "接近新鹿群、野猪须已有控图条件，提要不要求无条件外出采集。"
+    ]
+  },
+  "build_order": [
+    {
+      "time": "0:00",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": 6
+      },
+      "_zh_source_rows": [
+        1
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "发现近处鹿群后，6人先建磨坊再猎鹿，侦察兵协助把鹿赶近交货点；新村民准备去黄金。",
+        "@catalog/icons/buildings/mill-1.png@ 建造磨坊"
+      ],
+      "_zh_actions": [
+        {
+          "id": "mill-1",
+          "base_id": "mill",
+          "kind": "building",
+          "name_zh": "磨坊",
+          "name_en": "Mill",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "fr"
+          ],
+          "icon": "catalog/icons/buildings/mill-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "村民可将食物存放于这个建筑。可研究提升食物采集效率的科技。\n每次存放资源都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 25,
+            "stone": 0,
+            "gold": 0,
+            "total": 25,
+            "popcap": 0,
+            "time": 20
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "French"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/mill-1.png@ 建造磨坊"
+      ]
+    },
+    {
+      "time": "0:18",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 6,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": 1
+      },
+      "_zh_source_rows": [
+        3
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "首名新村民建房屋和黄金采矿场，下一名帮忙完工。磨坊完成后研究生存技术。",
+        "@catalog/icons/buildings/house-1.png@ 建造房屋",
+        "@catalog/icons/buildings/mining-camp-1.png@ 建造采矿场",
+        "@catalog/icons/technologies/survival-techniques-1.png@ 研究生存技术（磨坊）"
+      ],
+      "_zh_actions": [
+        {
+          "id": "house-1",
+          "base_id": "house",
+          "kind": "building",
+          "name_zh": "房屋",
+          "name_en": "House",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "fr"
+          ],
+          "icon": "catalog/icons/buildings/house-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "提升您的人口上限。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "French"
+        },
+        {
+          "id": "mining-camp-1",
+          "base_id": "mining-camp",
+          "kind": "building",
+          "name_zh": "采矿场",
+          "name_en": "Mining Camp",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "fr"
+          ],
+          "icon": "catalog/icons/buildings/mining-camp-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "村民可将石料和黄金存放于这个建筑。可研究提升采矿效率的科技。\n每次存放资源都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 25,
+            "stone": 0,
+            "gold": 0,
+            "total": 25,
+            "popcap": 0,
+            "time": 20
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "French"
+        },
+        {
+          "id": "survival-techniques-1",
+          "base_id": "survival-techniques",
+          "kind": "technology",
+          "name_zh": "生存技术",
+          "name_en": "Survival Techniques",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "fr"
+          ],
+          "icon": "catalog/icons/technologies/survival-techniques-1.png",
+          "location_zh": "磨坊",
+          "produced_by": [
+            "mill"
+          ],
+          "description_zh": "村民狩猎肉类采集速率 +15%。",
+          "costs": {
+            "food": 0,
+            "wood": 18,
+            "stone": 0,
+            "gold": 53,
+            "total": 71,
+            "popcap": 0,
+            "time": 25
+          },
+          "unique": false,
+          "category_zh": "科技研究",
+          "action_verb_zh": "研究",
+          "count": 1,
+          "civilization": "French"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/house-1.png@ 建造房屋",
+        "@catalog/icons/buildings/mining-camp-1.png@ 建造采矿场",
+        "@catalog/icons/technologies/survival-techniques-1.png@ 研究生存技术（磨坊）"
+      ]
+    },
+    {
+      "time": "0:55",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 6,
+        "wood": -1,
+        "gold": 2,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        4
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "第三、第四名新村民继续补黄金，先凑4人采金。"
+      ]
+    },
+    {
+      "time": "1:30",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 6,
+        "wood": -1,
+        "gold": 4,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        5
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "新村民转采羊，攒升封建资源。"
+      ]
+    },
+    {
+      "time": "2:30",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 6,
+        "wood": -1,
+        "gold": 4,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        7
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "抽4名采羊村民建骑兵学校；后续按施工进度追加少量建造人手。骑士要等封建完成再生产。",
+        "@catalog/icons/buildings/school-of-cavalry-1.png@ 建造骑兵学校"
+      ],
+      "_zh_actions": [
+        {
+          "id": "school-of-cavalry-1",
+          "base_id": "school-of-cavalry",
+          "kind": "building",
+          "name_zh": "骑兵学校",
+          "name_en": "School of Cavalry",
+          "age": 1,
+          "age_label": "升至封建时代（II）",
+          "civs": [
+            "fr"
+          ],
+          "icon": "catalog/icons/buildings/school-of-cavalry-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "可作为马厩使用。你所有马厩的单位生产速度 +20%。",
+          "costs": {
+            "food": 400,
+            "wood": 0,
+            "stone": 0,
+            "gold": 200,
+            "total": 600,
+            "popcap": 0,
+            "time": 190
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "target_age": 2,
+          "count": 1,
+          "civilization": "French"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/school-of-cavalry-1.png@ 建造骑兵学校"
+      ]
+    },
+    {
+      "time": "2:50",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 6,
+        "wood": 1,
+        "gold": 3,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        9
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "新村民转城镇中心旁的散树，准备后续木材。"
+      ]
+    },
+    {
+      "time": "3:10",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 6,
+        "wood": 1,
+        "gold": 3,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        10
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "用伐木村民补房屋，预留骑士人口。",
+        "@catalog/icons/buildings/house-1.png@ 建造房屋"
+      ],
+      "_zh_actions": [
+        {
+          "id": "house-1",
+          "base_id": "house",
+          "kind": "building",
+          "name_zh": "房屋",
+          "name_en": "House",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "fr"
+          ],
+          "icon": "catalog/icons/buildings/house-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "提升您的人口上限。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "French"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/house-1.png@ 建造房屋"
+      ]
+    },
+    {
+      "time": "3:47",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 10,
+        "wood": 3,
+        "gold": 5,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        12
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "封建后持续出 @unit_french/royal-knight-2.webp@ 皇家骑士，先侦查再骚扰金矿；建造队4人回羊、2人回黄金。"
+      ]
+    },
+    {
+      "time": "4:07",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 10,
+        "wood": 3,
+        "gold": 5,
+        "stone": -1,
+        "builder": 1
+      },
+      "_zh_source_rows": [
+        13
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "建伐木场，新村民补到6人伐木。",
+        "@catalog/icons/buildings/lumber-camp-1.png@ 建造伐木场"
+      ],
+      "_zh_actions": [
+        {
+          "id": "lumber-camp-1",
+          "base_id": "lumber-camp",
+          "kind": "building",
+          "name_zh": "伐木场",
+          "name_en": "Lumber Camp",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "fr"
+          ],
+          "icon": "catalog/icons/buildings/lumber-camp-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "村民可将木材存放于这个建筑。可研究提升木材采集效率的科技。\n每次存放资源都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 25,
+            "stone": 0,
+            "gold": 0,
+            "total": 25,
+            "popcap": 0,
+            "time": 20
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "French"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/lumber-camp-1.png@ 建造伐木场"
+      ]
+    },
+    {
+      "time": "4:40",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 10,
+        "wood": 6,
+        "gold": 5,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        14
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "研究特制矿锄与独轮推车，新村民再补食物；优先保住连续出骑士的资源。",
+        "@catalog/icons/technologies/specialized-pick-2.png@ 研究特制矿锄（采矿场）",
+        "@catalog/icons/technologies/wheelbarrow-1.png@ 研究独轮推车（磨坊）"
+      ],
+      "_zh_actions": [
+        {
+          "id": "specialized-pick-2",
+          "base_id": "specialized-pick",
+          "kind": "technology",
+          "name_zh": "特制矿锄",
+          "name_en": "Specialized Pick",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "fr"
+          ],
+          "icon": "catalog/icons/technologies/specialized-pick-2.png",
+          "location_zh": "采矿场",
+          "produced_by": [
+            "mining-camp"
+          ],
+          "description_zh": "村民的黄金和石料采集速率 +15%。",
+          "costs": {
+            "food": 0,
+            "wood": 35,
+            "stone": 0,
+            "gold": 70,
+            "total": 105,
+            "popcap": 0,
+            "time": 45
+          },
+          "unique": false,
+          "category_zh": "科技研究",
+          "action_verb_zh": "研究",
+          "count": 1,
+          "civilization": "French"
+        },
+        {
+          "id": "wheelbarrow-1",
+          "base_id": "wheelbarrow",
+          "kind": "technology",
+          "name_zh": "独轮推车",
+          "name_en": "Wheelbarrow",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "fr"
+          ],
+          "icon": "catalog/icons/technologies/wheelbarrow-1.png",
+          "location_zh": "磨坊",
+          "produced_by": [
+            "mill"
+          ],
+          "description_zh": "村民的运载量 +5，移动速度 +15%。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 150,
+            "total": 200,
+            "popcap": 0,
+            "time": 90
+          },
+          "unique": false,
+          "category_zh": "科技研究",
+          "action_verb_zh": "研究",
+          "count": 1,
+          "civilization": "French"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/technologies/specialized-pick-2.png@ 研究特制矿锄（采矿场）",
+        "@catalog/icons/technologies/wheelbarrow-1.png@ 研究独轮推车（磨坊）"
+      ]
+    },
+    {
+      "time": "5:40",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 13,
+        "wood": 5,
+        "gold": 5,
+        "stone": -1,
+        "builder": 2
+      },
+      "_zh_source_rows": [
+        16
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "1名伐木村民补房屋，1名食物村民补马厩，扩大骑士生产。",
+        "@catalog/icons/buildings/house-1.png@ 建造房屋",
+        "@catalog/icons/buildings/stable-2.png@ 建造马厩"
+      ],
+      "_zh_actions": [
+        {
+          "id": "house-1",
+          "base_id": "house",
+          "kind": "building",
+          "name_zh": "房屋",
+          "name_en": "House",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "fr"
+          ],
+          "icon": "catalog/icons/buildings/house-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "提升您的人口上限。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "French"
+        },
+        {
+          "id": "stable-2",
+          "base_id": "stable",
+          "kind": "building",
+          "name_zh": "马厩",
+          "name_en": "Stable",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "fr"
+          ],
+          "icon": "catalog/icons/buildings/stable-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "生产骑兵军事单位。\n每次生产一个单位或进行研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "French"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/house-1.png@ 建造房屋",
+        "@catalog/icons/buildings/stable-2.png@ 建造马厩"
+      ]
+    },
+    {
+      "time": "6:15",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 12,
+        "wood": 6,
+        "gold": 8,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        17
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "食物达到15人左右后，抽3人去黄金；外出猎鹿要用骑士护送。"
+      ]
+    },
+    {
+      "time": "6:40",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 14,
+        "wood": 6,
+        "gold": 7,
+        "stone": -1,
+        "builder": 1
+      },
+      "_zh_source_rows": [
+        18
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "抽1名采金村民建靶场，补弓箭手处理长矛兵。",
+        "@catalog/icons/buildings/archery-range-2.png@ 建造靶场"
+      ],
+      "_zh_actions": [
+        {
+          "id": "archery-range-2",
+          "base_id": "archery-range",
+          "kind": "building",
+          "name_zh": "靶场",
+          "name_en": "Archery Range",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "fr"
+          ],
+          "icon": "catalog/icons/buildings/archery-range-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "生产远程步兵单位。\n每次生产一个单位或进行研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "French"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/archery-range-2.png@ 建造靶场"
+      ]
+    },
+    {
+      "time": "7:30",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 14,
+        "wood": 8,
+        "gold": 8,
+        "stone": -1,
+        "builder": 1
+      },
+      "_zh_source_rows": [
+        19
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "新村民转木材，按需要补第二座靶场。",
+        "@catalog/icons/buildings/archery-range-2.png@ 按需补建第二座靶场"
+      ],
+      "_zh_actions": [
+        {
+          "id": "archery-range-2",
+          "base_id": "archery-range",
+          "kind": "building",
+          "name_zh": "靶场",
+          "name_en": "Archery Range",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "fr"
+          ],
+          "icon": "catalog/icons/buildings/archery-range-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "生产远程步兵单位。\n每次生产一个单位或进行研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "按需补建第二座",
+          "count": 1,
+          "civilization": "French"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/archery-range-2.png@ 按需补建第二座靶场"
+      ]
+    },
+    {
+      "time": "8:00",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 14,
+        "wood": 9,
+        "gold": 8,
+        "stone": -1,
+        "builder": 1
+      },
+      "_zh_source_rows": [
+        20
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "建铁匠铺并研究钢制箭头；有余量时补骑士精神，骑士轮换回血后再进攻。",
+        "@catalog/icons/buildings/blacksmith-2.png@ 建造铁匠铺",
+        "@catalog/icons/technologies/steeled-arrow-2.png@ 研究钢制箭头（铁匠铺）",
+        "@catalog/icons/technologies/chivalry-2.png@ 资源允许时研究骑士精神（骑兵学校、马厩）"
+      ],
+      "_zh_actions": [
+        {
+          "id": "blacksmith-2",
+          "base_id": "blacksmith",
+          "kind": "building",
+          "name_zh": "铁匠铺",
+          "name_en": "Blacksmith",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "fr"
+          ],
+          "icon": "catalog/icons/buildings/blacksmith-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "可研究强化步兵和骑兵的科技。\n每次完成科技研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 25
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "French"
+        },
+        {
+          "id": "steeled-arrow-2",
+          "base_id": "steeled-arrow",
+          "kind": "technology",
+          "name_zh": "钢制箭头",
+          "name_en": "Steeled Arrow",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "fr"
+          ],
+          "icon": "catalog/icons/technologies/steeled-arrow-2.png",
+          "location_zh": "铁匠铺",
+          "produced_by": [
+            "blacksmith"
+          ],
+          "description_zh": "所有弓箭、弩箭和炮台的远程伤害 +1。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 125,
+            "total": 175,
+            "popcap": 0,
+            "time": 60
+          },
+          "unique": false,
+          "category_zh": "科技研究",
+          "action_verb_zh": "研究",
+          "count": 1,
+          "civilization": "French"
+        },
+        {
+          "id": "chivalry-2",
+          "base_id": "chivalry",
+          "kind": "technology",
+          "name_zh": "骑士精神",
+          "name_en": "Chivalry",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "fr"
+          ],
+          "icon": "catalog/icons/technologies/chivalry-2.png",
+          "location_zh": "骑兵学校、马厩",
+          "produced_by": [
+            "school-of-cavalry",
+            "stable"
+          ],
+          "description_zh": "皇家骑士在脱离战斗后每 1 秒可恢复 1 生命值。",
+          "costs": {
+            "food": 0,
+            "wood": 100,
+            "stone": 0,
+            "gold": 200,
+            "total": 300,
+            "popcap": 0,
+            "time": 60
+          },
+          "unique": true,
+          "category_zh": "科技研究",
+          "action_verb_zh": "资源允许时研究",
+          "count": 1,
+          "civilization": "French"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/blacksmith-2.png@ 建造铁匠铺",
+        "@catalog/icons/technologies/steeled-arrow-2.png@ 研究钢制箭头（铁匠铺）",
+        "@catalog/icons/technologies/chivalry-2.png@ 资源允许时研究骑士精神（骑兵学校、马厩）"
+      ]
+    }
+  ]
+}

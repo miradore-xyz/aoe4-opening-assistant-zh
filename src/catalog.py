@@ -142,7 +142,8 @@ def resolve_icon(item):
 def catalog_icon(item):
     """延迟引入 Qt，允许资料检查脚本在没有界面环境时加载目录。"""
     from PyQt5.QtGui import QIcon
-    return QIcon(str(resolve_icon(item)))
+    from game_icons import tile_pixmap
+    return QIcon(tile_pixmap(resolve_icon(item), item.get('icon', ''), 96, kind=item.get('kind')))
 
 
 def catalog_metadata():

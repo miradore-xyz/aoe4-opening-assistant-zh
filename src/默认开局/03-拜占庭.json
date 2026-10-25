@@ -1,0 +1,994 @@
+{
+  "name": "拜占庭 · 大酒庄封建时机进攻",
+  "civilization": "Byzantines",
+  "author": "Valdemar1902（原作）；中文练习提要",
+  "source": "https://aoe4guides.com/builds/fnCZRz1f0MP7YeECIdro",
+  "_zh_language": "zh-CN",
+  "_zh_timing": "starting",
+  "_zh_default_id": "aoe4guides-default:Byzantines",
+  "_zh_source_id": "fnCZRz1f0MP7YeECIdro",
+  "_zh_source_url": "https://aoe4guides.com/builds/fnCZRz1f0MP7YeECIdro",
+  "_zh_reference": {
+    "id": "fnCZRz1f0MP7YeECIdro",
+    "url": "https://aoe4guides.com/builds/fnCZRz1f0MP7YeECIdro",
+    "title": "Grand Winery Timing Attack (2026)",
+    "author": "Valdemar1902",
+    "season": "Season 12",
+    "source_updated_at": "2026-01-06T22:59:02+00:00",
+    "selected_on": "2026-10-25",
+    "likes_at_selection": 12,
+    "views_at_selection": 5660,
+    "selection_reason_zh": "2026新稿，12赞且超过5600浏览；练水池连接、大酒庄食物经济、边防军与雇佣兵的通用封建路线。",
+    "adaptation_zh": "独立中文短提要，非逐字翻译。保留原稿明确的分秒；缺时间为手动条件点；原稿赛季不等于当前版本实战验证。",
+    "issues_zh": [
+      "5:00文字要求第四水池后停采石，后续资源表却仍写2石料；后续石料栏留-1，不照抄冲突人数。",
+      "补齐掷枪兵所需的丝绸之路雇佣兵合同，原稿指定了单位但未写合同名；依据本机固定资料目录的解锁关系。",
+      "原稿最后只有8—10分钟范围与条件，没有精确时刻，保留无时间的手动进攻节点。"
+    ]
+  },
+  "build_order": [
+    {
+      "time": "0:00",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 3,
+        "wood": -1,
+        "gold": 1,
+        "stone": 2,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        1
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "3人采羊；1人建黄金采矿场；1人建石料采矿场；另1人先房屋再水池，完工后采石。水池与后续建筑保持连通。",
+        "@catalog/icons/buildings/mining-camp-1.png@ 建造采矿场 × 2",
+        "@catalog/icons/buildings/house-1.png@ 建造房屋",
+        "@catalog/icons/buildings/cistern-1.png@ 建造水池"
+      ],
+      "_zh_actions": [
+        {
+          "id": "mining-camp-1",
+          "base_id": "mining-camp",
+          "kind": "building",
+          "name_zh": "采矿场",
+          "name_en": "Mining Camp",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "by"
+          ],
+          "icon": "catalog/icons/buildings/mining-camp-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "村民可将石料和黄金存放于这个建筑。可研究提升采矿效率的科技。\n每次存放资源都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "oliveoil": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 20
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 2,
+          "civilization": "Byzantines"
+        },
+        {
+          "id": "house-1",
+          "base_id": "house",
+          "kind": "building",
+          "name_zh": "房屋",
+          "name_en": "House",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "by"
+          ],
+          "icon": "catalog/icons/buildings/house-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "提升您的人口上限。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "oliveoil": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Byzantines"
+        },
+        {
+          "id": "cistern-1",
+          "base_id": "cistern",
+          "kind": "building",
+          "name_zh": "水池",
+          "name_en": "Cistern",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "by"
+          ],
+          "icon": "catalog/icons/buildings/cistern-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "根据网络等级，附近村民的采集速率 +10/14/18/22/26%。产生影响力，提升生产、研究或防御。可激活阿克里人防御，使附近村民快速武装起来。\n将蓄水池连接到水渠，可强化它们的影响力和村民采集速率光环。",
+          "costs": {
+            "food": 0,
+            "wood": 0,
+            "stone": 100,
+            "gold": 0,
+            "oliveoil": 0,
+            "total": 100,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Byzantines"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/mining-camp-1.png@ 建造采矿场 × 2",
+        "@catalog/icons/buildings/house-1.png@ 建造房屋",
+        "@catalog/icons/buildings/cistern-1.png@ 建造水池"
+      ]
+    },
+    {
+      "time": "0:20",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 4,
+        "wood": -1,
+        "gold": 1,
+        "stone": 2,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        2
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "新村民补食物，先达到7人采食物。"
+      ]
+    },
+    {
+      "time": "1:40",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 7,
+        "wood": -1,
+        "gold": 2,
+        "stone": 2,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        3
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "再添1人采金，随后新村民返回食物。"
+      ]
+    },
+    {
+      "time": "2:20",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 9,
+        "wood": -1,
+        "gold": 2,
+        "stone": 2,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        4
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "用采石村民建第二座水池，连接已有水池。",
+        "@catalog/icons/buildings/cistern-1.png@ 补建第二座水池"
+      ],
+      "_zh_actions": [
+        {
+          "id": "cistern-1",
+          "base_id": "cistern",
+          "kind": "building",
+          "name_zh": "水池",
+          "name_en": "Cistern",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "by"
+          ],
+          "icon": "catalog/icons/buildings/cistern-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "根据网络等级，附近村民的采集速率 +10/14/18/22/26%。产生影响力，提升生产、研究或防御。可激活阿克里人防御，使附近村民快速武装起来。\n将蓄水池连接到水渠，可强化它们的影响力和村民采集速率光环。",
+          "costs": {
+            "food": 0,
+            "wood": 0,
+            "stone": 100,
+            "gold": 0,
+            "oliveoil": 0,
+            "total": 100,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "补建第二座",
+          "count": 1,
+          "civilization": "Byzantines"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/cistern-1.png@ 补建第二座水池"
+      ]
+    },
+    {
+      "time": "2:30",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 5,
+        "wood": -1,
+        "gold": 2,
+        "stone": 2,
+        "builder": 4
+      },
+      "_zh_source_rows": [
+        5
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "抽4名采羊村民建大酒庄，开始升封建。",
+        "@catalog/icons/buildings/grand-winery-1.png@ 建造大酒庄"
+      ],
+      "_zh_actions": [
+        {
+          "id": "grand-winery-1",
+          "base_id": "grand-winery",
+          "kind": "building",
+          "name_zh": "大酒庄",
+          "name_en": "Grand Winery",
+          "age": 1,
+          "age_label": "升至封建时代（II）",
+          "civs": [
+            "by"
+          ],
+          "icon": "catalog/icons/buildings/grand-winery-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "可兼作磨坊和修道院使用。在受其光环影响时，村民采集食物速度 +30%。驻守的圣物可产生白银而不是黄金。",
+          "costs": {
+            "food": 400,
+            "wood": 0,
+            "stone": 0,
+            "gold": 200,
+            "oliveoil": 0,
+            "total": 600,
+            "popcap": 0,
+            "time": 190
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "target_age": 2,
+          "count": 1,
+          "civilization": "Byzantines"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/grand-winery-1.png@ 建造大酒庄"
+      ]
+    },
+    {
+      "time": "2:40",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 4,
+        "wood": 2,
+        "gold": 2,
+        "stone": 2,
+        "builder": 4
+      },
+      "_zh_source_rows": [
+        7
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "升级期间新村民集结木材，逐步补到8名伐木村民。"
+      ]
+    },
+    {
+      "time": "3:30",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 4,
+        "wood": 4,
+        "gold": 2,
+        "stone": 2,
+        "builder": 4
+      },
+      "_zh_source_rows": [
+        8
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "在木线建伐木场。",
+        "@catalog/icons/buildings/lumber-camp-1.png@ 建造伐木场"
+      ],
+      "_zh_actions": [
+        {
+          "id": "lumber-camp-1",
+          "base_id": "lumber-camp",
+          "kind": "building",
+          "name_zh": "伐木场",
+          "name_en": "Lumber Camp",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "by"
+          ],
+          "icon": "catalog/icons/buildings/lumber-camp-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "村民可将木材存放于这个建筑。可研究提升木材采集效率的科技。\n每次存放资源都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "oliveoil": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 20
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Byzantines"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/lumber-camp-1.png@ 建造伐木场"
+      ]
+    },
+    {
+      "time": "4:00",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 4,
+        "wood": 6,
+        "gold": 2,
+        "stone": 2,
+        "builder": 4
+      },
+      "_zh_source_rows": [
+        9
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "抽采金村民补第三座水池与房屋。",
+        "@catalog/icons/buildings/cistern-1.png@ 补建第三座水池",
+        "@catalog/icons/buildings/house-1.png@ 建造房屋"
+      ],
+      "_zh_actions": [
+        {
+          "id": "cistern-1",
+          "base_id": "cistern",
+          "kind": "building",
+          "name_zh": "水池",
+          "name_en": "Cistern",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "by"
+          ],
+          "icon": "catalog/icons/buildings/cistern-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "根据网络等级，附近村民的采集速率 +10/14/18/22/26%。产生影响力，提升生产、研究或防御。可激活阿克里人防御，使附近村民快速武装起来。\n将蓄水池连接到水渠，可强化它们的影响力和村民采集速率光环。",
+          "costs": {
+            "food": 0,
+            "wood": 0,
+            "stone": 100,
+            "gold": 0,
+            "oliveoil": 0,
+            "total": 100,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "补建第三座",
+          "count": 1,
+          "civilization": "Byzantines"
+        },
+        {
+          "id": "house-1",
+          "base_id": "house",
+          "kind": "building",
+          "name_zh": "房屋",
+          "name_en": "House",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "by"
+          ],
+          "icon": "catalog/icons/buildings/house-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "提升您的人口上限。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "oliveoil": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Byzantines"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/cistern-1.png@ 补建第三座水池",
+        "@catalog/icons/buildings/house-1.png@ 建造房屋"
+      ]
+    },
+    {
+      "time": "4:14",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 8,
+        "wood": 6,
+        "gold": 2,
+        "stone": 2,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        11
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "封建完成后研究园艺学、独轮推车，食物村民转到浆果，利用大酒庄经济。",
+        "@catalog/icons/technologies/horticulture-2.png@ 研究园艺学（大酒庄）",
+        "@catalog/icons/technologies/wheelbarrow-1.png@ 研究独轮推车（大酒庄）"
+      ],
+      "_zh_actions": [
+        {
+          "id": "horticulture-2",
+          "base_id": "horticulture",
+          "kind": "technology",
+          "name_zh": "园艺学",
+          "name_en": "Horticulture",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "by"
+          ],
+          "icon": "catalog/icons/technologies/horticulture-2.png",
+          "location_zh": "大酒庄",
+          "produced_by": [
+            "grand-winery"
+          ],
+          "description_zh": "村民的食物采集速率 +10%，不包括狩猎肉类。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 100,
+            "oliveoil": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 45
+          },
+          "unique": false,
+          "category_zh": "科技研究",
+          "action_verb_zh": "研究",
+          "count": 1,
+          "civilization": "Byzantines"
+        },
+        {
+          "id": "wheelbarrow-1",
+          "base_id": "wheelbarrow",
+          "kind": "technology",
+          "name_zh": "独轮推车",
+          "name_en": "Wheelbarrow",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "by"
+          ],
+          "icon": "catalog/icons/technologies/wheelbarrow-1.png",
+          "location_zh": "大酒庄",
+          "produced_by": [
+            "grand-winery"
+          ],
+          "description_zh": "村民的运载量 +5，移动速度 +15%。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 150,
+            "oliveoil": 0,
+            "total": 200,
+            "popcap": 0,
+            "time": 90
+          },
+          "unique": false,
+          "category_zh": "科技研究",
+          "action_verb_zh": "研究",
+          "count": 1,
+          "civilization": "Byzantines"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/technologies/horticulture-2.png@ 研究园艺学（大酒庄）",
+        "@catalog/icons/technologies/wheelbarrow-1.png@ 研究独轮推车（大酒庄）"
+      ]
+    },
+    {
+      "time": "5:00",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 9,
+        "wood": 8,
+        "gold": 2,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        12
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "建兵营与第四座水池；第四水池后按原文停止主动采石，保留食物与木材供兵。",
+        "@catalog/icons/buildings/barracks-1.png@ 建造兵营",
+        "@catalog/icons/buildings/cistern-1.png@ 补建第四座水池"
+      ],
+      "_zh_actions": [
+        {
+          "id": "barracks-1",
+          "base_id": "barracks",
+          "kind": "building",
+          "name_zh": "兵营",
+          "name_en": "Barracks",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "by"
+          ],
+          "icon": "catalog/icons/buildings/barracks-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "生产近战步兵单位。\n每次生产一个单位或进行研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "oliveoil": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Byzantines"
+        },
+        {
+          "id": "cistern-1",
+          "base_id": "cistern",
+          "kind": "building",
+          "name_zh": "水池",
+          "name_en": "Cistern",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "by"
+          ],
+          "icon": "catalog/icons/buildings/cistern-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "根据网络等级，附近村民的采集速率 +10/14/18/22/26%。产生影响力，提升生产、研究或防御。可激活阿克里人防御，使附近村民快速武装起来。\n将蓄水池连接到水渠，可强化它们的影响力和村民采集速率光环。",
+          "costs": {
+            "food": 0,
+            "wood": 0,
+            "stone": 100,
+            "gold": 0,
+            "oliveoil": 0,
+            "total": 100,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "补建第四座",
+          "count": 1,
+          "civilization": "Byzantines"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/barracks-1.png@ 建造兵营",
+        "@catalog/icons/buildings/cistern-1.png@ 补建第四座水池"
+      ]
+    },
+    {
+      "time": "5:30",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 10,
+        "wood": 8,
+        "gold": 2,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        13
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "建雇佣兵之家，选择丝绸之路合同；搭配 @unit_byzantines/limitanei-1.webp@ 边防军与 @unit_byzantines/javelin-thrower-2.webp@ 掷枪兵，持续补兵。",
+        "@catalog/icons/buildings/mercenary-house-2.png@ 建造雇佣兵之家",
+        "@catalog/icons/technologies/silk-road-mercenary-contract-1.png@ 选择丝绸之路雇佣兵合同（金角湾塔、雇佣兵之家）"
+      ],
+      "_zh_actions": [
+        {
+          "id": "mercenary-house-2",
+          "base_id": "mercenary-house",
+          "kind": "building",
+          "name_zh": "雇佣兵之家",
+          "name_en": "Mercenary House",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "by"
+          ],
+          "icon": "catalog/icons/buildings/mercenary-house-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "购买了雇佣合同后，可生产采集橄榄油的雇佣兵单位。每个玩家只能购买一份合同。\n此外，将该建筑物放置在贸易站附近，还可以解锁另一组雇佣兵，使其生产速度提高 +50%。",
+          "costs": {
+            "food": 0,
+            "wood": 100,
+            "stone": 0,
+            "gold": 0,
+            "oliveoil": 0,
+            "total": 100,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Byzantines"
+        },
+        {
+          "id": "silk-road-mercenary-contract-1",
+          "base_id": "silk-road-mercenary-contract",
+          "kind": "technology",
+          "name_zh": "丝绸之路雇佣兵合同",
+          "name_en": "Silk Road Mercenary Contract",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "by"
+          ],
+          "icon": "catalog/icons/technologies/silk-road-mercenary-contract-1.png",
+          "location_zh": "金角湾塔、雇佣兵之家",
+          "produced_by": [
+            "golden-horn-tower",
+            "mercenary-house"
+          ],
+          "description_zh": "解锁掷枪兵、骆驼骑兵和掷弹兵雇佣兵的生产。\n掷枪兵：封建时代\n骆驼骑兵：老练合同\n掷弹兵：精锐合同",
+          "costs": {
+            "food": 0,
+            "wood": 0,
+            "stone": 0,
+            "gold": 0,
+            "oliveoil": 0,
+            "total": 0,
+            "popcap": 0,
+            "time": 10
+          },
+          "unique": true,
+          "category_zh": "科技研究",
+          "action_verb_zh": "选择",
+          "count": 1,
+          "civilization": "Byzantines"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/mercenary-house-2.png@ 建造雇佣兵之家",
+        "@catalog/icons/technologies/silk-road-mercenary-contract-1.png@ 选择丝绸之路雇佣兵合同（金角湾塔、雇佣兵之家）"
+      ]
+    },
+    {
+      "time": "6:30",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 13,
+        "wood": 8,
+        "gold": 2,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        14
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "补第五座水池与铁匠铺，研究钢制箭头、铁制底网和攻城工程学，为冲车进攻准备。",
+        "@catalog/icons/buildings/cistern-1.png@ 补建第五座水池",
+        "@catalog/icons/buildings/blacksmith-2.png@ 建造铁匠铺",
+        "@catalog/icons/technologies/steeled-arrow-2.png@ 研究钢制箭头（铁匠铺）",
+        "@catalog/icons/technologies/iron-undermesh-2.png@ 研究铁制底网（铁匠铺）",
+        "@catalog/icons/technologies/siege-engineering-2.png@ 研究攻城工程学（铁匠铺）"
+      ],
+      "_zh_actions": [
+        {
+          "id": "cistern-1",
+          "base_id": "cistern",
+          "kind": "building",
+          "name_zh": "水池",
+          "name_en": "Cistern",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "by"
+          ],
+          "icon": "catalog/icons/buildings/cistern-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "根据网络等级，附近村民的采集速率 +10/14/18/22/26%。产生影响力，提升生产、研究或防御。可激活阿克里人防御，使附近村民快速武装起来。\n将蓄水池连接到水渠，可强化它们的影响力和村民采集速率光环。",
+          "costs": {
+            "food": 0,
+            "wood": 0,
+            "stone": 100,
+            "gold": 0,
+            "oliveoil": 0,
+            "total": 100,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "补建第五座",
+          "count": 1,
+          "civilization": "Byzantines"
+        },
+        {
+          "id": "blacksmith-2",
+          "base_id": "blacksmith",
+          "kind": "building",
+          "name_zh": "铁匠铺",
+          "name_en": "Blacksmith",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "by"
+          ],
+          "icon": "catalog/icons/buildings/blacksmith-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "可研究强化步兵和骑兵的科技。\n每次完成科技研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "oliveoil": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 25
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Byzantines"
+        },
+        {
+          "id": "steeled-arrow-2",
+          "base_id": "steeled-arrow",
+          "kind": "technology",
+          "name_zh": "钢制箭头",
+          "name_en": "Steeled Arrow",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "by"
+          ],
+          "icon": "catalog/icons/technologies/steeled-arrow-2.png",
+          "location_zh": "铁匠铺",
+          "produced_by": [
+            "blacksmith"
+          ],
+          "description_zh": "所有弓箭、弩箭和炮台的远程伤害 +1。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 125,
+            "oliveoil": 0,
+            "total": 175,
+            "popcap": 0,
+            "time": 60
+          },
+          "unique": false,
+          "category_zh": "科技研究",
+          "action_verb_zh": "研究",
+          "count": 1,
+          "civilization": "Byzantines"
+        },
+        {
+          "id": "iron-undermesh-2",
+          "base_id": "iron-undermesh",
+          "kind": "technology",
+          "name_zh": "铁制底网",
+          "name_en": "Iron Undermesh",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "by"
+          ],
+          "icon": "catalog/icons/technologies/iron-undermesh-2.png",
+          "location_zh": "铁匠铺",
+          "produced_by": [
+            "blacksmith"
+          ],
+          "description_zh": "所有非攻城单位的远程护甲 +1。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 125,
+            "oliveoil": 0,
+            "total": 175,
+            "popcap": 0,
+            "time": 60
+          },
+          "unique": false,
+          "category_zh": "科技研究",
+          "action_verb_zh": "研究",
+          "count": 1,
+          "civilization": "Byzantines"
+        },
+        {
+          "id": "siege-engineering-2",
+          "base_id": "siege-engineering",
+          "kind": "technology",
+          "name_zh": "攻城工程学",
+          "name_en": "Siege Engineering",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "by"
+          ],
+          "icon": "catalog/icons/technologies/siege-engineering-2.png",
+          "location_zh": "铁匠铺",
+          "produced_by": [
+            "blacksmith"
+          ],
+          "description_zh": "近战和远程步兵可以在战场中建造攻城塔和攻城锤。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 125,
+            "oliveoil": 0,
+            "total": 175,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "科技研究",
+          "action_verb_zh": "研究",
+          "count": 1,
+          "civilization": "Byzantines"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/cistern-1.png@ 补建第五座水池",
+        "@catalog/icons/buildings/blacksmith-2.png@ 建造铁匠铺",
+        "@catalog/icons/technologies/steeled-arrow-2.png@ 研究钢制箭头（铁匠铺）",
+        "@catalog/icons/technologies/iron-undermesh-2.png@ 研究铁制底网（铁匠铺）",
+        "@catalog/icons/technologies/siege-engineering-2.png@ 研究攻城工程学（铁匠铺）"
+      ]
+    },
+    {
+      "time": "",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        15
+      ],
+      "_zh_time_source": "原稿未标时间，按条件手动切换",
+      "notes": [
+        "约8—10分钟，兵力和冲车齐备后推进；若正面不适合交战，保兵并考虑金角湾塔转城堡。原稿未给精确触发时间。"
+      ]
+    }
+  ]
+}

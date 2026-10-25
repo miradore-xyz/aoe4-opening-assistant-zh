@@ -11,6 +11,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import sys
@@ -23,7 +24,7 @@ PROJECT = SOURCE.parent
 SETUP_NAME = "AoE4OpeningAssistant-Setup.exe"
 PORTABLE_NAME = "AoE4OpeningAssistant-Portable.zip"
 SOURCE_NAME = "AoE4OpeningAssistant-Source.zip"
-ASSET_DIRECTORIES = ("upstream", "高清图标", "界面素材", "文明旗帜", "文明资料", "installer_resources")
+ASSET_DIRECTORIES = ("upstream", "高清图标", "界面素材", "文明旗帜", "文明资料", "默认开局", "installer_resources")
 SOURCE_FILES = {"requirements.txt", "qt_zh_CN.qm", "build.ps1", "installer.iss", "update_config.json", "RELEASE.md"}
 FORBIDDEN_NAMES = {"用户数据", "离线语音包", "战绩缓存", "__pycache__", ".git", ".build-env", ".venv"}
 
@@ -79,7 +80,8 @@ def freeze_program(directory: Path) -> Path:
                "--name", "启动中文助手", "--paths", str(SOURCE / "upstream/python"), "--icon", str(SOURCE / "界面素材/龙序.ico")]
     for source, target in (("upstream/docs/assets", "assets"), ("高清图标", "assets/hd"),
                            ("界面素材", "assets/design"), ("文明旗帜", "assets/flags"),
-                           ("文明资料", "assets/catalog"), ("qt_zh_CN.qm", "."), ("update_config.json", "assets")):
+                           ("文明资料", "assets/catalog"), ("默认开局", "assets/default_openings"),
+                           ("qt_zh_CN.qm", "."), ("update_config.json", "assets")):
         command.extend(("--add-data", f"{SOURCE / source};{target}"))
     command.extend(("--hidden-import", "win32com.client", "--hidden-import", "pythoncom", "--hidden-import", "pywintypes",
                     "--collect-all", "edge_tts", "--collect-data", "certifi", "--exclude-module", "sherpa_onnx",
@@ -100,7 +102,6 @@ def stage_payload(distribution: Path, destination: Path, version: str) -> None:
     copy_tree(runtime, destination / "_internal")
     copy_source(destination / "源码")
     shutil.copy2(project_resource("LICENSE"), destination / "LICENSE")
-    copy_tree(project_resource("示例开局"), destination / "示例开局")
     copy_tree(project_resource("许可与依赖"), destination / "许可与依赖")
     (destination / "版本与来源说明.txt").write_text(
         f"帝国开局助手 {version}\n\n"
@@ -143,6 +144,41 @@ def find_compiler(explicit: str | None) -> str:
     raise FileNotFoundError("未找到 Inno Setup 6 编译器；请用 --iscc 指定 ISCC.exe。")
 
 
+def write_release_metadata(output: Path, version: str) -> None:
+    """生成同版本更新清单与校验表，保证以后打标签发版无需手工补清单。"""
+    if not re.fullmatch(r"\d+\.\d+\.\d+(?:\.\d+)?", version):
+        raise ValueError("正式发行版本必须是数字版本号，例如1.6.1。")
+    configuration = json.loads((SOURCE / "update_config.json").read_text(encoding="utf-8-sig"))
+    repository = configuration.get("github_repository", "")
+    if not isinstance(repository, str) or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9-]{0,38}/[A-Za-z0-9_.-]{1,100}", repository):
+        raise ValueError("更新配置中的GitHub仓库无效，不能生成发行清单。")
+    if configuration.get("asset_name", SETUP_NAME) != SETUP_NAME:
+        raise ValueError("更新配置中的安装包名称与构建输出不一致。")
+    setup = output / SETUP_NAME
+    with setup.open("rb") as stream:
+        checksum = hashlib.file_digest(stream, "sha256").hexdigest()
+    page = f"https://github.com/{repository}/releases/tag/v{version}"
+    manifest = {
+        "schema_version": 1,
+        "version": version,
+        "notes": f"帝国开局助手 {version}。本次更新内容见发行说明；安装会保留已有开局与设置。",
+        "page_url": page,
+        "asset": {"name": SETUP_NAME,
+                  "url": f"https://github.com/{repository}/releases/download/v{version}/{SETUP_NAME}",
+                  "sha256": checksum, "size": setup.stat().st_size},
+    }
+    (output / "update.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    assets = [output / name for name in (SETUP_NAME, PORTABLE_NAME, SOURCE_NAME, "update.json")]
+    hashes = []
+    for path in assets:
+        with path.open("rb") as stream:
+            hashes.append(f"{hashlib.file_digest(stream, 'sha256').hexdigest()}  {path.name}\n")
+    (output / "SHA256SUMS.txt").write_text("".join(hashes), encoding="ascii")
+    (output / "release-build.json").write_text(
+        json.dumps({"version": version, "assets": [path.name for path in assets] + ["SHA256SUMS.txt"]},
+                   ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--version", default=version_from_source(), help="产品版本，例如1.6.0")
@@ -150,6 +186,8 @@ def main() -> int:
     parser.add_argument("--output-dir", type=Path, default=PROJECT / "发行产物", help="发行文件保存目录")
     parser.add_argument("--iscc", help="Inno Setup（安装包编译工具）的ISCC.exe绝对路径")
     arguments = parser.parse_args()
+    from default_openings import validate_default_bundle
+    validate_default_bundle()
     output = arguments.output_dir.resolve()
     output.mkdir(parents=True, exist_ok=True)
     compiler = find_compiler(arguments.iscc)
@@ -164,7 +202,7 @@ def main() -> int:
         copy_tree(payload / "源码", source_tree / "src")
         for name in ("LICENSE", "版本与来源说明.txt"):
             shutil.copy2(payload / name, source_tree / name)
-        for name in ("示例开局", "许可与依赖"):
+        for name in ("许可与依赖",):
             copy_tree(payload / name, source_tree / name)
         workflow = PROJECT / ".github"
         if workflow.is_dir():
@@ -175,14 +213,7 @@ def main() -> int:
         assert_clean_payload(source_tree)
         make_zip(source_tree, output / SOURCE_NAME)
         run([compiler, f"/DPayloadDir={payload}", f"/DAppVersion={arguments.version}", f"/O{output}", str(SOURCE / "installer.iss")])
-    assets = [output / name for name in (SETUP_NAME, PORTABLE_NAME, SOURCE_NAME)]
-    hashes = ""
-    for path in assets:
-        with path.open("rb") as stream:
-            hashes += f"{hashlib.file_digest(stream, 'sha256').hexdigest()}  {path.name}\n"
-    (output / "SHA256SUMS.txt").write_text(hashes, encoding="ascii")
-    (output / "release-build.json").write_text(json.dumps({"version": arguments.version, "assets": [path.name for path in assets]},
-                                                         ensure_ascii=False, indent=2), encoding="utf-8")
+    write_release_metadata(output, arguments.version)
     print(f"发布文件已完成：{output}")
     return 0
 

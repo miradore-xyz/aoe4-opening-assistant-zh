@@ -1,0 +1,813 @@
+{
+  "name": "阿尤布王朝 · 后勤开局转工业速城",
+  "civilization": "Ayyubids",
+  "author": "Valdemar1902（原作）；中文练习提要",
+  "source": "https://aoe4guides.com/builds/8MtH2BAnxcC4isz3GqK3",
+  "_zh_language": "zh-CN",
+  "_zh_timing": "starting",
+  "_zh_default_id": "aoe4guides-default:Ayyubids",
+  "_zh_source_id": "8MtH2BAnxcC4isz3GqK3",
+  "_zh_source_url": "https://aoe4guides.com/builds/8MtH2BAnxcC4isz3GqK3",
+  "_zh_reference": {
+    "id": "8MtH2BAnxcC4isz3GqK3",
+    "url": "https://aoe4guides.com/builds/8MtH2BAnxcC4isz3GqK3",
+    "title": "Fast Castle Industry Tempo (2026)",
+    "author": "Valdemar1902",
+    "season": "Season 12",
+    "source_updated_at": "2025-12-26T12:16:22+00:00",
+    "selected_on": "2026-10-25",
+    "likes_at_selection": 13,
+    "views_at_selection": 6841,
+    "selection_reason_zh": "2026新稿，封建后勤学转城堡工业的完整流程，含哨站防守和明确升时代节点；保留常规陆地图转型。",
+    "adaptation_zh": "独立中文短提要，非逐字翻译。保留原稿明确的分秒；缺时间为手动条件点；原稿赛季不等于当前版本实战验证。",
+    "issues_zh": [
+      "3:00哨站升级没有写科技名，且尚在黑暗时代；只保留哨站建设，升级待封建再按游戏界面选择。",
+      "8:25原文把3名弓箭手与建筑混写在Construct之后；不把它误译成3座靶场，只保留明确的马厩与清真寺。",
+      "13+等区间/下限资源值未改成单个人数。"
+    ]
+  },
+  "build_order": [
+    {
+      "time": "0:00",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 6,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        1
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "起手采浆果，用其中2人先建磨坊。",
+        "@catalog/icons/buildings/mill-1.png@ 建造磨坊"
+      ],
+      "_zh_actions": [
+        {
+          "id": "mill-1",
+          "base_id": "mill",
+          "kind": "building",
+          "name_zh": "磨坊",
+          "name_en": "Mill",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ay"
+          ],
+          "icon": "catalog/icons/buildings/mill-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "村民可将食物存放于这个建筑。可研究提升食物采集效率的科技。\n每次存放资源都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 20
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Ayyubids"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/mill-1.png@ 建造磨坊"
+      ]
+    },
+    {
+      "time": "0:20",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 7,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        2
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "新村民补房屋，把磨坊与城镇中心连接，完工后采羊。",
+        "@catalog/icons/buildings/house-1.png@ 建造房屋"
+      ],
+      "_zh_actions": [
+        {
+          "id": "house-1",
+          "base_id": "house",
+          "kind": "building",
+          "name_zh": "房屋",
+          "name_en": "House",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ay"
+          ],
+          "icon": "catalog/icons/buildings/house-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "提升您的人口上限。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Ayyubids"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/house-1.png@ 建造房屋"
+      ]
+    },
+    {
+      "time": "0:40",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 7,
+        "wood": -1,
+        "gold": 1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        3
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "连续4名新村民去黄金：先建采矿场，再把智慧宫放在金矿附近。",
+        "@catalog/icons/buildings/mining-camp-1.png@ 建造采矿场",
+        "@catalog/icons/buildings/house-of-wisdom-1.png@ 建造智慧宫"
+      ],
+      "_zh_actions": [
+        {
+          "id": "mining-camp-1",
+          "base_id": "mining-camp",
+          "kind": "building",
+          "name_zh": "采矿场",
+          "name_en": "Mining Camp",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ay"
+          ],
+          "icon": "catalog/icons/buildings/mining-camp-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "村民可将石料和黄金存放于这个建筑。可研究提升采矿效率的科技。\n每次存放资源都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 20
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Ayyubids"
+        },
+        {
+          "id": "house-of-wisdom-1",
+          "base_id": "house-of-wisdom",
+          "kind": "building",
+          "name_zh": "智慧宫",
+          "name_en": "House of Wisdom",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ay"
+          ],
+          "icon": "catalog/icons/buildings/house-of-wisdom-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "包含阿尤布王朝的文明科技。\n阿尤布通过智慧宫来发展到下一个时代。建造各座偏殿以发展到下一个时代并获得额外的科技。\n偏殿奖励基于其建造的时代而提高。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Ayyubids"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/mining-camp-1.png@ 建造采矿场",
+        "@catalog/icons/buildings/house-of-wisdom-1.png@ 建造智慧宫"
+      ]
+    },
+    {
+      "time": "2:00",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 8,
+        "wood": -1,
+        "gold": 4,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        4
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "新增1人采羊，目标约8人食物、4人黄金。"
+      ]
+    },
+    {
+      "time": "2:15",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 8,
+        "wood": -1,
+        "gold": 4,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        5
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "选择文化偏殿的后勤学分支，开始升封建。",
+        "@catalog/icons/technologies/culture-wing-logistics-1.png@ 选择后勤学\n(文化偏殿, 封建时代)（智慧宫）"
+      ],
+      "_zh_actions": [
+        {
+          "id": "feudal-culture-wing-logistics-1",
+          "base_id": "feudal-culture-wing-logistics",
+          "kind": "technology",
+          "name_zh": "后勤学\n(文化偏殿, 封建时代)",
+          "name_en": "Logistics\n(Feudal Culture Wing)",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ay"
+          ],
+          "icon": "catalog/icons/technologies/culture-wing-logistics-1.png",
+          "location_zh": "智慧宫",
+          "produced_by": [
+            "house-of-wisdom"
+          ],
+          "description_zh": "建造文化偏殿。\n完成后，可获得 2 名德尔维希，并永久启用其治疗光环。",
+          "costs": {
+            "food": 400,
+            "wood": 0,
+            "stone": 0,
+            "gold": 200,
+            "total": 600,
+            "popcap": 0,
+            "time": 120
+          },
+          "unique": false,
+          "category_zh": "科技研究",
+          "action_verb_zh": "选择",
+          "count": 1,
+          "civilization": "Ayyubids"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/technologies/culture-wing-logistics-1.png@ 选择后勤学\n(文化偏殿, 封建时代)（智慧宫）"
+      ]
+    },
+    {
+      "time": "2:20",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 4,
+        "wood": 5,
+        "gold": 4,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        7
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "抽4名食物村民加1名新村民伐木，采满150木后改采50石料；这段不另建石矿采矿场。新村民继续补食物。"
+      ]
+    },
+    {
+      "time": "3:00",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 5,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        8
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "抽1名采金村民建哨站保护资源；升级等进入封建且条件满足后再进行。",
+        "@catalog/icons/buildings/outpost-1.png@ 建造哨站"
+      ],
+      "_zh_actions": [
+        {
+          "id": "outpost-1",
+          "base_id": "outpost",
+          "kind": "building",
+          "name_zh": "哨站",
+          "name_en": "Outpost",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ay"
+          ],
+          "icon": "catalog/icons/buildings/outpost-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "可提供开阔的视野，侦测匿踪或伪装单位。可以升级武器和防御工事。单位驻扎时可进行攻击。",
+          "costs": {
+            "food": 0,
+            "wood": 100,
+            "stone": 0,
+            "gold": 0,
+            "total": 100,
+            "popcap": 0,
+            "time": 60
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Ayyubids"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/outpost-1.png@ 建造哨站"
+      ]
+    },
+    {
+      "time": "3:20",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 6,
+        "wood": -1,
+        "gold": 4,
+        "stone": 5,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        9
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "补房屋，保持采石小队完成50石料目标。",
+        "@catalog/icons/buildings/house-1.png@ 建造房屋"
+      ],
+      "_zh_actions": [
+        {
+          "id": "house-1",
+          "base_id": "house",
+          "kind": "building",
+          "name_zh": "房屋",
+          "name_en": "House",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ay"
+          ],
+          "icon": "catalog/icons/buildings/house-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "提升您的人口上限。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Ayyubids"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/house-1.png@ 建造房屋"
+      ]
+    },
+    {
+      "time": "3:50",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        10
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "5名采石村民返回食物。"
+      ]
+    },
+    {
+      "time": "4:15",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": 5,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        12
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "封建后调整到5人黄金，其余主要补食物，攒城堡时代资源。"
+      ]
+    },
+    {
+      "time": "6:12",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        13
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "交齐资源，选择经济偏殿的工业分支，开始升城堡。",
+        "@catalog/icons/technologies/economic-wing-industry-2.png@ 选择工业\n(经济偏殿, 城堡时代)（智慧宫）"
+      ],
+      "_zh_actions": [
+        {
+          "id": "castle-economic-wing-industry-2",
+          "base_id": "castle-economic-wing-industry",
+          "kind": "technology",
+          "name_zh": "工业\n(经济偏殿, 城堡时代)",
+          "name_en": "Industry\n(Castle Economic Wing)",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "ay"
+          ],
+          "icon": "catalog/icons/technologies/economic-wing-industry-2.png",
+          "location_zh": "智慧宫",
+          "produced_by": [
+            "house-of-wisdom"
+          ],
+          "description_zh": "建造经济偏殿。\n完成后，获得 900 木材和 400 石料。村民建造建筑的速度 +40%。",
+          "costs": {
+            "food": 1200,
+            "wood": 0,
+            "stone": 0,
+            "gold": 600,
+            "total": 1800,
+            "popcap": 0,
+            "time": 120
+          },
+          "unique": false,
+          "category_zh": "科技研究",
+          "action_verb_zh": "选择",
+          "count": 1,
+          "civilization": "Ayyubids"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/technologies/economic-wing-industry-2.png@ 选择工业\n(经济偏殿, 城堡时代)（智慧宫）"
+      ]
+    },
+    {
+      "time": "6:25",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 8,
+        "wood": 8,
+        "gold": 10,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        15
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "升级期间按原稿调整为8食物、8木材、10黄金；后续黄金逐步补到12人。"
+      ]
+    },
+    {
+      "time": "7:30",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 11,
+        "wood": 8,
+        "gold": 10,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        16
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "有余量时在磨坊研究独轮推车。",
+        "@catalog/icons/technologies/wheelbarrow-1.png@ 资源允许时研究独轮推车（磨坊）"
+      ],
+      "_zh_actions": [
+        {
+          "id": "wheelbarrow-1",
+          "base_id": "wheelbarrow",
+          "kind": "technology",
+          "name_zh": "独轮推车",
+          "name_en": "Wheelbarrow",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ay"
+          ],
+          "icon": "catalog/icons/technologies/wheelbarrow-1.png",
+          "location_zh": "磨坊",
+          "produced_by": [
+            "mill"
+          ],
+          "description_zh": "村民的运载量 +5，移动速度 +15%。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 150,
+            "total": 200,
+            "popcap": 0,
+            "time": 90
+          },
+          "unique": false,
+          "category_zh": "科技研究",
+          "action_verb_zh": "资源允许时研究",
+          "count": 1,
+          "civilization": "Ayyubids"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/technologies/wheelbarrow-1.png@ 资源允许时研究独轮推车（磨坊）"
+      ]
+    },
+    {
+      "time": "8:25",
+      "age": 3,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 12,
+        "wood": 8,
+        "gold": 10,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        18
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "城堡后陆续补2—3座马厩与清真寺，搭配弓兵；有余量时点园艺学，保持部队与经济衔接。",
+        "@catalog/icons/buildings/stable-2.png@ 先补建马厩 × 2",
+        "@catalog/icons/buildings/mosque-3.png@ 建造清真寺",
+        "@catalog/icons/technologies/horticulture-2.png@ 资源允许时研究园艺学（磨坊）"
+      ],
+      "_zh_actions": [
+        {
+          "id": "stable-2",
+          "base_id": "stable",
+          "kind": "building",
+          "name_zh": "马厩",
+          "name_en": "Stable",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "ay"
+          ],
+          "icon": "catalog/icons/buildings/stable-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "生产骑兵军事单位。\n每次生产一个单位或进行研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "先补建",
+          "count": 2,
+          "civilization": "Ayyubids"
+        },
+        {
+          "id": "mosque-3",
+          "base_id": "mosque",
+          "kind": "building",
+          "name_zh": "清真寺",
+          "name_en": "Mosque",
+          "age": 3,
+          "age_label": "城堡时代（III）",
+          "civs": [
+            "ay"
+          ],
+          "icon": "catalog/icons/buildings/mosque-3.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "生产宗教单位并可研究宗教科技。从城堡时代 (第三时代) 开始，宗教单位可拾取圣物并将其放置在此建筑中以产生黄金。",
+          "costs": {
+            "food": 0,
+            "wood": 200,
+            "stone": 0,
+            "gold": 0,
+            "total": 200,
+            "popcap": 0,
+            "time": 25
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Ayyubids"
+        },
+        {
+          "id": "horticulture-2",
+          "base_id": "horticulture",
+          "kind": "technology",
+          "name_zh": "园艺学",
+          "name_en": "Horticulture",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "ay"
+          ],
+          "icon": "catalog/icons/technologies/horticulture-2.png",
+          "location_zh": "磨坊",
+          "produced_by": [
+            "mill"
+          ],
+          "description_zh": "村民的食物采集速率 +10%，不包括狩猎肉类。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 100,
+            "total": 150,
+            "popcap": 0,
+            "time": 45
+          },
+          "unique": false,
+          "category_zh": "科技研究",
+          "action_verb_zh": "资源允许时研究",
+          "count": 1,
+          "civilization": "Ayyubids"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/stable-2.png@ 先补建马厩 × 2",
+        "@catalog/icons/buildings/mosque-3.png@ 建造清真寺",
+        "@catalog/icons/technologies/horticulture-2.png@ 资源允许时研究园艺学（磨坊）"
+      ]
+    },
+    {
+      "time": "10:00",
+      "age": 3,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 15,
+        "wood": 8,
+        "gold": 10,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        19
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "建铁匠铺，优先按敌军伤害类型补护甲，再补远程攻击；不要为了全点科技停造兵。",
+        "@catalog/icons/buildings/blacksmith-2.png@ 建造铁匠铺"
+      ],
+      "_zh_actions": [
+        {
+          "id": "blacksmith-2",
+          "base_id": "blacksmith",
+          "kind": "building",
+          "name_zh": "铁匠铺",
+          "name_en": "Blacksmith",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "ay"
+          ],
+          "icon": "catalog/icons/buildings/blacksmith-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "可研究强化步兵和骑兵的科技。\n每次完成科技研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 25
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Ayyubids"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/blacksmith-2.png@ 建造铁匠铺"
+      ]
+    }
+  ]
+}

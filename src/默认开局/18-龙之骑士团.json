@@ -1,0 +1,571 @@
+{
+  "name": "龙之骑士团 · 亚琛速城主宫殿",
+  "civilization": "Order of the Dragon",
+  "author": "taktaktab（原作）；中文提要整理",
+  "source": "AoE4Guides：https://aoe4guides.com/builds/ARrUu1WyUPpYkpgSViXT；Season 13；中文独立提要，来源时刻仅供练习。",
+  "_zh_language": "zh-CN",
+  "_zh_timing": "starting",
+  "_zh_default_id": "aoe4guides-default:Order of the Dragon",
+  "_zh_reference": {
+    "id": "ARrUu1WyUPpYkpgSViXT",
+    "url": "https://aoe4guides.com/builds/ARrUu1WyUPpYkpgSViXT",
+    "title": "OOTD Fast castle - Vortix's Burg Build",
+    "title_zh": "龙之骑士团 · 亚琛速城主宫殿",
+    "author": "taktaktab",
+    "creator_name": "VortiX",
+    "season": "Season 13",
+    "likes": 3,
+    "views": 1065,
+    "timeUpdated": {
+      "_seconds": 1787638318,
+      "_nanoseconds": 484000000
+    },
+    "selection_reason_zh": "第13赛季2026年8月整理，3个收藏、1065次浏览；采用Vortix城主宫殿路线，避免默认库继续只提供没有具体流程的习惯清单。",
+    "issues_zh": [
+      "升封建开始行无精确时间，保留手动条件点。原稿的人数可能含移动或建造者，不把资源栏求和冒充村民总数。地标建造前的狩猎前提在正文标为条件。"
+    ],
+    "retrieved_at": "2026-10-25",
+    "scope_zh": "陆地常规对局练习参考；非唯一最优，原作者时间并非当前版本实测保证。"
+  },
+  "build_order": [
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "0:00",
+      "resources": {
+        "food": 5,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 0,
+        "time": "0:00",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "5",
+          "wood": "",
+          "gold": "",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "5名镀金村民先采羊，找到安全鹿群后转鹿；建磨坊并研究生存技术。新村民先补到3人采金。",
+        "@catalog/icons/buildings/mill-1.png@ 建造磨坊",
+        "@catalog/icons/technologies/survival-techniques-1.png@ 研究生存技术（磨坊）"
+      ],
+      "_zh_actions": [
+        {
+          "id": "mill-1",
+          "base_id": "mill",
+          "kind": "building",
+          "name_zh": "磨坊",
+          "name_en": "Mill",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "od"
+          ],
+          "icon": "catalog/icons/buildings/mill-1.png",
+          "location_zh": "镀金村民",
+          "produced_by": [
+            "gilded-villager"
+          ],
+          "description_zh": "村民可将食物存放于这个建筑。可研究提升食物采集效率的科技。\n每次存放资源都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 16
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造"
+        },
+        {
+          "id": "survival-techniques-1",
+          "base_id": "survival-techniques",
+          "kind": "technology",
+          "name_zh": "生存技术",
+          "name_en": "Survival Techniques",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "od"
+          ],
+          "icon": "catalog/icons/technologies/survival-techniques-1.png",
+          "location_zh": "磨坊",
+          "produced_by": [
+            "mill"
+          ],
+          "description_zh": "村民狩猎肉类采集速率 +15%。",
+          "costs": {
+            "food": 0,
+            "wood": 25,
+            "stone": 0,
+            "gold": 75,
+            "total": 100,
+            "popcap": 0,
+            "time": 25
+          },
+          "unique": false,
+          "category_zh": "科技研究",
+          "action_verb_zh": "研究"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/mill-1.png@ 建造磨坊",
+        "@catalog/icons/technologies/survival-techniques-1.png@ 研究生存技术（磨坊）"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "0:23",
+      "resources": {
+        "food": 5,
+        "wood": -1,
+        "gold": 1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 1,
+        "time": "00:23",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "5",
+          "wood": "",
+          "gold": "1",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "第一名去金矿的镀金村民先建房屋和采矿场。",
+        "@catalog/icons/buildings/house-1.png@ 建造房屋",
+        "@catalog/icons/buildings/mining-camp-1.png@ 建造采矿场"
+      ],
+      "_zh_actions": [
+        {
+          "id": "house-1",
+          "base_id": "house",
+          "kind": "building",
+          "name_zh": "房屋",
+          "name_en": "House",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "od"
+          ],
+          "icon": "catalog/icons/buildings/house-1.png",
+          "location_zh": "镀金村民",
+          "produced_by": [
+            "gilded-villager"
+          ],
+          "description_zh": "提升您的人口上限。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 12
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造"
+        },
+        {
+          "id": "mining-camp-1",
+          "base_id": "mining-camp",
+          "kind": "building",
+          "name_zh": "采矿场",
+          "name_en": "Mining Camp",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "od"
+          ],
+          "icon": "catalog/icons/buildings/mining-camp-1.png",
+          "location_zh": "镀金村民",
+          "produced_by": [
+            "gilded-villager"
+          ],
+          "description_zh": "村民可将石料和黄金存放于这个建筑。可研究提升采矿效率的科技。\n每次存放资源都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 16
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/house-1.png@ 建造房屋",
+        "@catalog/icons/buildings/mining-camp-1.png@ 建造采矿场"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "1:09",
+      "resources": {
+        "food": 5,
+        "wood": -1,
+        "gold": 3,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 2,
+        "time": "1:09",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "5",
+          "wood": "",
+          "gold": "3",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "采金已有3人后，新村民转去采羊，攒升封建资源。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "",
+      "resources": {
+        "food": 5,
+        "wood": -1,
+        "gold": 3,
+        "stone": -1,
+        "builder": 3
+      },
+      "_zh_source_row": {
+        "flat_index": 3,
+        "time": "",
+        "phase": "ageUp",
+        "resources": {
+          "villagers": "",
+          "builders": "3",
+          "food": "5",
+          "wood": "",
+          "gold": "3",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "资源满足后抽2至3名采羊村民建亚琛教堂，新村民暂时集结到零散树。",
+        "@catalog/icons/buildings/aachen-chapel-1.png@ 建造亚琛教堂"
+      ],
+      "_zh_actions": [
+        {
+          "id": "aachen-chapel-1",
+          "base_id": "aachen-chapel",
+          "kind": "building",
+          "name_zh": "亚琛教堂",
+          "name_en": "Aachen Chapel",
+          "age": 1,
+          "age_label": "升至封建时代（II）",
+          "civs": [
+            "od"
+          ],
+          "icon": "catalog/icons/buildings/aachen-chapel-1.png",
+          "location_zh": "镀金村民",
+          "produced_by": [
+            "gilded-villager"
+          ],
+          "description_zh": "鼓舞大范围内所有村民，使他们的采集速率 +15%。\n可作为所有资源类型的存放点使用。",
+          "costs": {
+            "food": 400,
+            "wood": 0,
+            "stone": 0,
+            "gold": 200,
+            "total": 600,
+            "popcap": 0,
+            "time": 152
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "target_age": 2
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/aachen-chapel-1.png@ 建造亚琛教堂"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "3:29",
+      "resources": {
+        "food": 5,
+        "wood": 3,
+        "gold": 3,
+        "stone": -1,
+        "builder": 3
+      },
+      "_zh_source_row": {
+        "flat_index": 5,
+        "time": "3:29",
+        "phase": "ageUp",
+        "resources": {
+          "villagers": "",
+          "builders": "3",
+          "food": "5",
+          "wood": "3",
+          "gold": "3",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "已有3人伐木后，新村民重新集结到羊。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 2,
+      "time": "4:22",
+      "resources": {
+        "food": 8,
+        "wood": 3,
+        "gold": 5,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 7,
+        "time": "4:22",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "8",
+          "wood": "3",
+          "gold": "5",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "封建完成后，地标建造者中2人去金矿、1人回采羊。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 2,
+      "time": "6:22",
+      "resources": {
+        "food": 5,
+        "wood": 3,
+        "gold": 5,
+        "stone": -1,
+        "builder": 8
+      },
+      "_zh_source_row": {
+        "flat_index": 8,
+        "time": "6:22",
+        "phase": "ageUp",
+        "resources": {
+          "villagers": "",
+          "builders": "8",
+          "food": "5",
+          "wood": "3",
+          "gold": "5",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "满足升城堡资源后，抽8名采羊村民建城主宫殿。",
+        "@catalog/icons/buildings/burgrave-palace-2.png@ 建造城主宫殿"
+      ],
+      "_zh_actions": [
+        {
+          "id": "burgrave-palace-2",
+          "base_id": "burgrave-palace",
+          "kind": "building",
+          "name_zh": "城主宫殿",
+          "name_en": "Burgrave Palace",
+          "age": 2,
+          "age_label": "升至城堡时代（III）",
+          "civs": [
+            "od"
+          ],
+          "icon": "catalog/icons/buildings/burgrave-palace-2.png",
+          "location_zh": "镀金村民",
+          "produced_by": [
+            "gilded-villager"
+          ],
+          "description_zh": "可作为兵营使用，产生单位的工作效率增加 35%，生产成本减少 35%。研究科技速度加快 35%。",
+          "costs": {
+            "food": 1200,
+            "wood": 0,
+            "stone": 0,
+            "gold": 600,
+            "total": 1800,
+            "popcap": 0,
+            "time": 176
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "target_age": 3
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/burgrave-palace-2.png@ 建造城主宫殿"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 2,
+      "time": "7:09",
+      "resources": {
+        "food": 7,
+        "wood": 3,
+        "gold": 5,
+        "stone": -1,
+        "builder": 8
+      },
+      "_zh_source_row": {
+        "flat_index": 10,
+        "time": "7:09",
+        "phase": "ageUp",
+        "resources": {
+          "villagers": "",
+          "builders": "8",
+          "food": "7",
+          "wood": "3",
+          "gold": "5",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "升城堡期间补2名新村民采羊，随后集结到木材。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 3,
+      "time": "7:38",
+      "resources": {
+        "food": 10,
+        "wood": 4,
+        "gold": 8,
+        "stone": -1,
+        "builder": 1
+      },
+      "_zh_source_row": {
+        "flat_index": 11,
+        "time": "7:38",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "1",
+          "food": "10",
+          "wood": "4",
+          "gold": "8",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "城堡完成后建修道院收圣物；城主宫殿出镀金长矛兵和武士，按敌方阵容再补靶场出弓兵或弩手。",
+        "@catalog/icons/buildings/monastery-3.png@ 建造修道院",
+        "@catalog/icons/buildings/archery-range-2.png@ 需要远程兵时补建靶场"
+      ],
+      "_zh_actions": [
+        {
+          "id": "monastery-3",
+          "base_id": "monastery",
+          "kind": "building",
+          "name_zh": "修道院",
+          "name_en": "Monastery",
+          "age": 3,
+          "age_label": "城堡时代（III）",
+          "civs": [
+            "od"
+          ],
+          "icon": "catalog/icons/buildings/monastery-3.png",
+          "location_zh": "镀金村民",
+          "produced_by": [
+            "gilded-villager"
+          ],
+          "description_zh": "生产宗教单位。\n每次生产一个单位或进行研究都会产生税。\n在城堡时代 (第三时代)，宗教单位可拾取圣物并将其放置在此建筑中以产生黄金。",
+          "costs": {
+            "food": 0,
+            "wood": 200,
+            "stone": 0,
+            "gold": 0,
+            "total": 200,
+            "popcap": 0,
+            "time": 20
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造"
+        },
+        {
+          "id": "archery-range-2",
+          "base_id": "archery-range",
+          "kind": "building",
+          "name_zh": "靶场",
+          "name_en": "Archery Range",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "od"
+          ],
+          "icon": "catalog/icons/buildings/archery-range-2.png",
+          "location_zh": "镀金村民",
+          "produced_by": [
+            "gilded-villager"
+          ],
+          "description_zh": "生产远程步兵单位。\n每次生产一个单位或进行研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 24
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "需要远程兵时补建"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/monastery-3.png@ 建造修道院",
+        "@catalog/icons/buildings/archery-range-2.png@ 需要远程兵时补建靶场"
+      ]
+    }
+  ]
+}

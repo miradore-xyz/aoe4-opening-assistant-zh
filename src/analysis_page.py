@@ -82,7 +82,6 @@ class AnalysisPage(QWidget):
         heading = QHBoxLayout()
         heading.addWidget(_text("战绩分析", "PageTitle"))
         heading.addStretch()
-        heading.addWidget(_text("公开战绩 · 无需登录", "Muted"))
         layout.addLayout(heading)
         query_row = QHBoxLayout()
         query_row.setSpacing(8)
@@ -117,7 +116,7 @@ class AnalysisPage(QWidget):
         recent.addWidget(self.delete_history)
         self.history_row.hide()
         layout.addWidget(self.history_row)
-        self.notice = _text("无需登录。每次最多读取最近 50 场公开对局。", "Muted")
+        self.notice = _text("", "Muted")
         self.notice.setTextInteractionFlags(Qt.TextSelectableByMouse)
         layout.addWidget(self.notice)
 
@@ -136,6 +135,7 @@ class AnalysisPage(QWidget):
 
         self.scroll = QScrollArea()
         self.scroll.setWidgetResizable(True)
+        self.scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.scroll.setFrameShape(QFrame.NoFrame)
         self.body = QWidget()

@@ -1,0 +1,862 @@
+{
+  "name": "罗斯 · 克里姆林单城镇中心速城堡",
+  "civilization": "Rus",
+  "author": "Ehounds（原作）；中文提要整理",
+  "source": "AoE4Guides：https://aoe4guides.com/builds/gDccAtaDw2l9hOfTD7Xd；Season 13；中文独立提要，来源时刻仅供练习。",
+  "_zh_language": "zh-CN",
+  "_zh_timing": "starting",
+  "_zh_default_id": "aoe4guides-default:Rus",
+  "_zh_reference": {
+    "id": "gDccAtaDw2l9hOfTD7Xd",
+    "url": "https://aoe4guides.com/builds/gDccAtaDw2l9hOfTD7Xd",
+    "title": "1TC FC Kremlin",
+    "title_zh": "罗斯 · 克里姆林单城镇中心速城堡",
+    "author": "Ehounds",
+    "creator_name": "Swaggy Professor",
+    "season": "Season 13",
+    "likes": 10,
+    "views": 2676,
+    "timeUpdated": {
+      "_seconds": 1784413632,
+      "_nanoseconds": 961000000
+    },
+    "selection_reason_zh": "2026年第13赛季原稿，10个收藏、2676次浏览；比早期高收藏双城镇中心与专业侦察兵稿更新，单城镇中心路线较集中。",
+    "issues_zh": [
+      "原稿:45规范为0:45。省略15分钟后依赖圣物控制和地图条件的全军推进，不作为必达目标。未将未填村民数的资源分配合计为村民总数。"
+    ],
+    "retrieved_at": "2026-10-25",
+    "scope_zh": "陆地常规对局练习参考；非唯一最优，原作者时间并非当前版本实测保证。"
+  },
+  "build_order": [
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "0:00",
+      "resources": {
+        "food": 6,
+        "wood": 0,
+        "gold": 0,
+        "stone": 0,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 0,
+        "time": "0:00",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "6",
+          "wood": "0",
+          "gold": "0",
+          "stone": "0"
+        }
+      },
+      "notes": [
+        "6名村民采羊，新村民继续集结到食物。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "0:30",
+      "resources": {
+        "food": 3,
+        "wood": 0,
+        "gold": 0,
+        "stone": 0,
+        "builder": 3
+      },
+      "_zh_source_row": {
+        "flat_index": 1,
+        "time": "0:30",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "3",
+          "food": "3",
+          "wood": "0",
+          "gold": "0",
+          "stone": "0"
+        }
+      },
+      "notes": [
+        "调2名村民各建1座狩猎小屋，另1名村民建房屋。",
+        "@catalog/icons/buildings/hunting-cabin-1.png@ 建造狩猎小屋 × 2",
+        "@catalog/icons/buildings/house-1.png@ 建造房屋"
+      ],
+      "_zh_actions": [
+        {
+          "id": "hunting-cabin-1",
+          "base_id": "hunting-cabin",
+          "kind": "building",
+          "name_zh": "狩猎小屋",
+          "name_en": "Hunting Cabin",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ru"
+          ],
+          "icon": "catalog/icons/buildings/hunting-cabin-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "村民可将食物存放于这座建筑。可研究增加食物采集效率和生产侦察兵的科技。\n根据附近的树木数量生产黄金。位于重合区域的树木只计算一次。",
+          "costs": {
+            "food": 0,
+            "wood": 75,
+            "stone": 0,
+            "gold": 0,
+            "total": 75,
+            "popcap": 0,
+            "time": 35
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 2
+        },
+        {
+          "id": "house-1",
+          "base_id": "house",
+          "kind": "building",
+          "name_zh": "房屋",
+          "name_en": "House",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ru"
+          ],
+          "icon": "catalog/icons/buildings/house-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "提升您的人口上限。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/hunting-cabin-1.png@ 建造狩猎小屋 × 2",
+        "@catalog/icons/buildings/house-1.png@ 建造房屋"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "0:45",
+      "resources": {
+        "food": 7,
+        "wood": 0,
+        "gold": 0,
+        "stone": 0,
+        "builder": 0
+      },
+      "_zh_source_row": {
+        "flat_index": 2,
+        "time": ":45",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "0",
+          "food": "7",
+          "wood": "0",
+          "gold": "0",
+          "stone": "0"
+        }
+      },
+      "notes": [
+        "需要更多视野时从狩猎小屋补第二名斥候，并侦察鹿群以确定克里姆林位置。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "2:20",
+      "resources": {
+        "food": 7,
+        "wood": 0,
+        "gold": 0,
+        "stone": 0,
+        "builder": 5
+      },
+      "_zh_source_row": {
+        "flat_index": 3,
+        "time": "2:20",
+        "phase": "ageUp",
+        "resources": {
+          "villagers": "",
+          "builders": "5",
+          "food": "7",
+          "wood": "0",
+          "gold": "0",
+          "stone": "0"
+        }
+      },
+      "notes": [
+        "用5名村民建克里姆林升封建，地标尽量保护鹿群采集。",
+        "@catalog/icons/buildings/kremlin-1.png@ 建造克里姆林"
+      ],
+      "_zh_actions": [
+        {
+          "id": "kremlin-1",
+          "base_id": "kremlin",
+          "kind": "building",
+          "name_zh": "克里姆林",
+          "name_en": "Kremlin",
+          "age": 1,
+          "age_label": "升至封建时代（II）",
+          "civs": [
+            "ru"
+          ],
+          "icon": "catalog/icons/buildings/kremlin-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "可作为木制要塞使用，自带射箭槽、城堡炮塔和城堡瞭望台科技。\n每 80 秒可以征用民兵前往首都城镇中心。进入城堡时代后，征用的民兵数量增加。",
+          "costs": {
+            "food": 400,
+            "wood": 0,
+            "stone": 0,
+            "gold": 200,
+            "total": 600,
+            "popcap": 0,
+            "time": 190
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "target_age": 2
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/kremlin-1.png@ 建造克里姆林"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "",
+      "resources": {
+        "food": 4,
+        "wood": 3,
+        "gold": 0,
+        "stone": 0,
+        "builder": 5
+      },
+      "_zh_source_row": {
+        "flat_index": 4,
+        "time": "",
+        "phase": "ageUp",
+        "resources": {
+          "villagers": "",
+          "builders": "5",
+          "food": "4",
+          "wood": "3",
+          "gold": "0",
+          "stone": "0"
+        }
+      },
+      "notes": [
+        "升级期间保留4人食物，其他闲置村民转零散树，新村民逐步补到8人伐木。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 2,
+      "time": "4:05",
+      "resources": {
+        "food": 4,
+        "wood": 8,
+        "gold": 0,
+        "stone": 0,
+        "builder": 5
+      },
+      "_zh_source_row": {
+        "flat_index": 5,
+        "time": "4:05",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "5",
+          "food": "4",
+          "wood": "8",
+          "gold": "0",
+          "stone": "0"
+        }
+      },
+      "notes": [
+        "封建完成后地标建造者先建马厩，再去鹿群；已有8人伐木后，新村民回采羊。",
+        "@catalog/icons/buildings/stable-2.png@ 建造马厩"
+      ],
+      "_zh_actions": [
+        {
+          "id": "stable-2",
+          "base_id": "stable",
+          "kind": "building",
+          "name_zh": "马厩",
+          "name_en": "Stable",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "ru"
+          ],
+          "icon": "catalog/icons/buildings/stable-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "生产骑兵军事单位。\n每次生产一个单位或进行研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/stable-2.png@ 建造马厩"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 2,
+      "time": "5:00",
+      "resources": {
+        "food": 12,
+        "wood": 1,
+        "gold": 7,
+        "stone": 0,
+        "builder": 0
+      },
+      "_zh_source_row": {
+        "flat_index": 6,
+        "time": "5:00",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "0",
+          "food": "12",
+          "wood": "1",
+          "gold": "7",
+          "stone": "0"
+        }
+      },
+      "notes": [
+        "零散树采完后，8名伐木村民中7人转黄金，另1人在克里姆林影响范围内建伐木场。",
+        "@catalog/icons/buildings/lumber-camp-1.png@ 建造伐木场"
+      ],
+      "_zh_actions": [
+        {
+          "id": "lumber-camp-1",
+          "base_id": "lumber-camp",
+          "kind": "building",
+          "name_zh": "伐木场",
+          "name_en": "Lumber Camp",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ru"
+          ],
+          "icon": "catalog/icons/buildings/lumber-camp-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "村民可将木材存放于这个建筑。可研究提升木材采集效率的科技。\n每次存放资源都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 20
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/lumber-camp-1.png@ 建造伐木场"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 2,
+      "time": "5:30",
+      "resources": {
+        "food": 14,
+        "wood": 1,
+        "gold": 7,
+        "stone": 0,
+        "builder": 0
+      },
+      "_zh_source_row": {
+        "flat_index": 7,
+        "time": "5:30",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "0",
+          "food": "14",
+          "wood": "1",
+          "gold": "7",
+          "stone": "0"
+        }
+      },
+      "notes": [
+        "按对局需要生产1至4名骑士，资源允许时研究生存技术；骑士用于骚扰，避免无谓损失。",
+        "@catalog/icons/technologies/survival-techniques-1.png@ 研究生存技术（狩猎小屋）"
+      ],
+      "_zh_actions": [
+        {
+          "id": "survival-techniques-1",
+          "base_id": "survival-techniques",
+          "kind": "technology",
+          "name_zh": "生存技术",
+          "name_en": "Survival Techniques",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ru"
+          ],
+          "icon": "catalog/icons/technologies/survival-techniques-1.png",
+          "location_zh": "狩猎小屋",
+          "produced_by": [
+            "hunting-cabin"
+          ],
+          "description_zh": "村民狩猎肉类采集速率 +15%。",
+          "costs": {
+            "food": 0,
+            "wood": 25,
+            "stone": 0,
+            "gold": 75,
+            "total": 100,
+            "popcap": 0,
+            "time": 25
+          },
+          "unique": false,
+          "category_zh": "科技研究",
+          "action_verb_zh": "研究"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/technologies/survival-techniques-1.png@ 研究生存技术（狩猎小屋）"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 2,
+      "time": "7:45",
+      "resources": {
+        "food": 10,
+        "wood": 1,
+        "gold": 7,
+        "stone": 0,
+        "builder": 10
+      },
+      "_zh_source_row": {
+        "flat_index": 9,
+        "time": "7:45",
+        "phase": "ageUp",
+        "resources": {
+          "villagers": "",
+          "builders": "10",
+          "food": "10",
+          "wood": "1",
+          "gold": "7",
+          "stone": "0"
+        }
+      },
+      "notes": [
+        "准备升城堡时，用8至12名食物村民建圣三一修道院；完工后转木材。",
+        "@catalog/icons/buildings/abbey-of-the-trinity-2.png@ 建造圣三一修道院"
+      ],
+      "_zh_actions": [
+        {
+          "id": "abbey-of-the-trinity-2",
+          "base_id": "abbey-of-the-trinity",
+          "kind": "building",
+          "name_zh": "圣三一修道院",
+          "name_en": "Abbey of the Trinity",
+          "age": 2,
+          "age_label": "升至城堡时代（III）",
+          "civs": [
+            "ru"
+          ],
+          "icon": "catalog/icons/buildings/abbey-of-the-trinity-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "可作为修道院使用。僧侣战士的成本 -50%，并包含独特宗教科技。",
+          "costs": {
+            "food": 1200,
+            "wood": 0,
+            "stone": 0,
+            "gold": 600,
+            "total": 1800,
+            "popcap": 0,
+            "time": 220
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "target_age": 3
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/abbey-of-the-trinity-2.png@ 建造圣三一修道院"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 2,
+      "time": "",
+      "resources": {
+        "food": 6,
+        "wood": 6,
+        "gold": 7,
+        "stone": 0,
+        "builder": 10
+      },
+      "_zh_source_row": {
+        "flat_index": 10,
+        "time": "",
+        "phase": "ageUp",
+        "resources": {
+          "villagers": "",
+          "builders": "10",
+          "food": "6",
+          "wood": "6",
+          "gold": "7",
+          "stone": "0"
+        }
+      },
+      "notes": [
+        "升级期间再调5名食物村民去伐木，后续村民集结到木材。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 2,
+      "time": "",
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 11,
+        "time": "",
+        "phase": "ageUp",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "",
+          "wood": "",
+          "gold": "",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "资源允许时研究双阔斧和独轮推车；修道院集结点准备指向圣物。",
+        "@catalog/icons/technologies/double-broadax-2.png@ 研究双阔斧（伐木场）",
+        "@catalog/icons/technologies/wheelbarrow-1.png@ 研究独轮推车（狩猎小屋）"
+      ],
+      "_zh_actions": [
+        {
+          "id": "double-broadax-2",
+          "base_id": "double-broadax",
+          "kind": "technology",
+          "name_zh": "双阔斧",
+          "name_en": "Double Broadax",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "ru"
+          ],
+          "icon": "catalog/icons/technologies/double-broadax-2.png",
+          "location_zh": "伐木场",
+          "produced_by": [
+            "lumber-camp"
+          ],
+          "description_zh": "村民的木材采集速率 +15%。",
+          "costs": {
+            "food": 50,
+            "wood": 0,
+            "stone": 0,
+            "gold": 100,
+            "total": 150,
+            "popcap": 0,
+            "time": 45
+          },
+          "unique": false,
+          "category_zh": "科技研究",
+          "action_verb_zh": "研究"
+        },
+        {
+          "id": "wheelbarrow-1",
+          "base_id": "wheelbarrow",
+          "kind": "technology",
+          "name_zh": "独轮推车",
+          "name_en": "Wheelbarrow",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ru"
+          ],
+          "icon": "catalog/icons/technologies/wheelbarrow-1.png",
+          "location_zh": "狩猎小屋",
+          "produced_by": [
+            "hunting-cabin"
+          ],
+          "description_zh": "村民的运载量 +5，移动速度 +15%。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 150,
+            "total": 200,
+            "popcap": 0,
+            "time": 90
+          },
+          "unique": false,
+          "category_zh": "科技研究",
+          "action_verb_zh": "研究"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/technologies/double-broadax-2.png@ 研究双阔斧（伐木场）",
+        "@catalog/icons/technologies/wheelbarrow-1.png@ 研究独轮推车（狩猎小屋）"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 3,
+      "time": "8:50",
+      "resources": {
+        "food": 6,
+        "wood": 19,
+        "gold": 6,
+        "stone": 0,
+        "builder": 0
+      },
+      "_zh_source_row": {
+        "flat_index": 12,
+        "time": "8:50",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "0",
+          "food": "6",
+          "wood": "19",
+          "gold": "6",
+          "stone": "0"
+        }
+      },
+      "notes": [
+        "进入城堡后立即生产战斗僧侣收圣物，并持续补骑士。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 3,
+      "time": "",
+      "resources": {
+        "food": 6,
+        "wood": 18,
+        "gold": 6,
+        "stone": 0,
+        "builder": 1
+      },
+      "_zh_source_row": {
+        "flat_index": 13,
+        "time": "",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "1",
+          "food": "6",
+          "wood": "18",
+          "gold": "6",
+          "stone": "0"
+        }
+      },
+      "notes": [
+        "补铁匠铺和靶场。对手长矛兵多时配弓兵，重甲多时配弩手，按资源逐步补产能。",
+        "@catalog/icons/buildings/blacksmith-2.png@ 建造铁匠铺",
+        "@catalog/icons/buildings/archery-range-2.png@ 逐步补建靶场 × 3"
+      ],
+      "_zh_actions": [
+        {
+          "id": "blacksmith-2",
+          "base_id": "blacksmith",
+          "kind": "building",
+          "name_zh": "铁匠铺",
+          "name_en": "Blacksmith",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "ru"
+          ],
+          "icon": "catalog/icons/buildings/blacksmith-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "可研究强化步兵和骑兵的科技。\n每次完成科技研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 25
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造"
+        },
+        {
+          "id": "archery-range-2",
+          "base_id": "archery-range",
+          "kind": "building",
+          "name_zh": "靶场",
+          "name_en": "Archery Range",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "ru"
+          ],
+          "icon": "catalog/icons/buildings/archery-range-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "生产远程步兵单位。\n每次生产一个单位或进行研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "逐步补建",
+          "count": 3
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/blacksmith-2.png@ 建造铁匠铺",
+        "@catalog/icons/buildings/archery-range-2.png@ 逐步补建靶场 × 3"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 3,
+      "time": "",
+      "resources": {
+        "food": 14,
+        "wood": 12,
+        "gold": 6,
+        "stone": 0,
+        "builder": 0
+      },
+      "_zh_source_row": {
+        "flat_index": 14,
+        "time": "",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "0",
+          "food": "14",
+          "wood": "12",
+          "gold": "6",
+          "stone": "0"
+        }
+      },
+      "notes": [
+        "从木材调8人到安全食物处，并建木制要塞保护采集。",
+        "@catalog/icons/buildings/wooden-fortress-1.png@ 建造木制要塞"
+      ],
+      "_zh_actions": [
+        {
+          "id": "wooden-fortress-1",
+          "base_id": "wooden-fortress",
+          "kind": "building",
+          "name_zh": "木制要塞",
+          "name_en": "Wooden Fortress",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ru"
+          ],
+          "icon": "catalog/icons/buildings/wooden-fortress-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "视野开阔的坚固木制堡垒，可侦测匿踪或伪装单位。可升级武器。单位驻扎时可进行攻击。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 60
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/wooden-fortress-1.png@ 建造木制要塞"
+      ]
+    }
+  ]
+}

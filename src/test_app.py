@@ -19,14 +19,45 @@ from app import Manager, Editor, ROOT, STYLE, VOICE_TEST
 from native import GlobalHotkeys
 
 
+def timed_example():
+    """只用于离线回归的独立夹具，不依赖或安装出厂默认开局。"""
+    return {
+        "name": "计时回归夹具", "civilization": "any", "author": "隔离测试",
+        "source": "仅供测试", "_zh_language": "zh-CN", "_zh_timing": "starting",
+        "build_order": [
+            {"population_count": 10 + index, "villager_count": 5 + index, "age": 1,
+             "time": f"0:{index * 10:02d}",
+             "resources": {"food": 5, "wood": index, "gold": 0, "stone": 0},
+             "notes": [caption, "@unit_worker/villager.webp@ 村民；@resource/resource_gold.webp@ 黄金。"]}
+            for index, caption in enumerate(("第一步：开始验证。", "第二步：十秒验证。", "第三步：验证完成。"))
+        ],
+    }
+
+
+def manual_example():
+    data = timed_example()
+    data.update(name="龙之骑士团 · 手动回归夹具", civilization="Order of the Dragon")
+    for step in data["build_order"]:
+        step.pop("time")
+    return data
+
+
+def seed_test_examples(manager):
+    """界面测试显式安装两份夹具，不受23文明默认库的内容和顺序影响。"""
+    for name, data in (("01-手动夹具.json", manual_example()), ("02-计时功能演示.json", timed_example())):
+        path = manager.orders_dir / name
+        if not path.exists():
+            atomic_json(path, data)
+
+
 class CoreTests(unittest.TestCase):
     def setUp(self):
-        self.sample = read_order(ROOT / "示例开局" / "02-计时功能演示.json")
+        self.sample = timed_example()
 
     def test_original_validator_accepts_both_examples(self):
         from aoe4.aoe4_build_order import check_valid_aoe4_build_order
-        for path in (ROOT / "示例开局").glob("*.json"):
-            self.assertTrue(check_valid_aoe4_build_order(read_order(path))[0])
+        for data in (manual_example(), timed_example()):
+            self.assertTrue(check_valid_aoe4_build_order(data)[0])
 
     def test_original_timer_semantics_and_grouping(self):
         self.assertEqual(timed_ids(self.sample, 9, starting=True), [0])
@@ -76,6 +107,11 @@ class InterfaceTests(unittest.TestCase):
         cls.application = QApplication.instance() or QApplication([])
         cls.application.setStyleSheet(STYLE)
 
+    def setUp(self):
+        replacement = patch.object(Manager, "seed", seed_test_examples)
+        replacement.start()
+        self.addCleanup(replacement.stop)
+
     def test_complete_local_workflow(self):
         with tempfile.TemporaryDirectory(prefix="aoe4-zh-", dir=os.environ.get("AOE4_TEST_WORK")) as folder:
             folder = Path(folder)
@@ -111,7 +147,7 @@ class InterfaceTests(unittest.TestCase):
             self.assertTrue(all(not b.text() and not b.icon().isNull() for b in [manager.overlay.previous, manager.overlay.pause, manager.overlay.next]))
             self.assertEqual((settings["x"], settings["y"]), (120, 80))
             self.assertFalse(warning)
-            demo = read_order(ROOT / "示例开局" / "02-计时功能演示.json")
+            demo = timed_example()
             # 模拟现有英文原版开局，保留作者扩展字段与原文。
             demo["name"] = "English compatibility fixture"
             demo["author"] = "Original author"
@@ -261,7 +297,7 @@ class InterfaceTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix="aoe4-scroll-") as folder:
             folder = Path(folder)
             atomic_json(folder / "设置.json", {"hotkeys": {key: "" for key in ["previous", "next", "pause", "visible", "passthrough", "reset"]}})
-            extra = read_order(ROOT / "示例开局/02-计时功能演示.json")
+            extra = timed_example()
             # 两张内置开局加四张测试开局，紧凑卡片在窄窗也会真实产生滚动范围。
             for number in range(1, 5):
                 extra['name'] = '滚动验证开局 ' + str(number)

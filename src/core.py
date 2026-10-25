@@ -202,7 +202,9 @@ class NoteRenderer:
         for token in split_multi_label_line(line):
             path = self.image_path(token)
             if path:
-                parts.append(f'<img src="{Path(path).as_uri()}" height="{size}" width="{size}" />')
+                from game_icons import icon_data_url
+                image = icon_data_url(path, token)
+                parts.append(f'<img src="{image}" height="{size}" width="{size}" />')
             else:
                 parts.append(html.escape(token).replace("\n", "<br>"))
         return "".join(parts)

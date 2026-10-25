@@ -1,0 +1,513 @@
+{
+  "name": "兰开斯特家族 · 单庄园领主封建进攻",
+  "civilization": "House of Lancaster",
+  "author": "Valdemar1902（原作）；中文练习提要",
+  "source": "https://aoe4guides.com/builds/Eo8W4KQJxYpLph1M1Ygx",
+  "_zh_language": "zh-CN",
+  "_zh_timing": "starting",
+  "_zh_default_id": "aoe4guides-default:House of Lancaster",
+  "_zh_source_id": "Eo8W4KQJxYpLph1M1Ygx",
+  "_zh_source_url": "https://aoe4guides.com/builds/Eo8W4KQJxYpLph1M1Ygx",
+  "_zh_reference": {
+    "id": "Eo8W4KQJxYpLph1M1Ygx",
+    "url": "https://aoe4guides.com/builds/Eo8W4KQJxYpLph1M1Ygx",
+    "title": "1 Manor Lords Timing (2026)",
+    "author": "Valdemar1902",
+    "season": "Season 12",
+    "source_updated_at": "2026-01-18T04:08:54+00:00",
+    "selected_on": "2026-10-25",
+    "likes_at_selection": 8,
+    "views_at_selection": 4295,
+    "selection_reason_zh": "2026单庄园路线，目标集中，较九庄园经济爆发稿更容易作为基础练习；保留领主与骑兵的恢复再进攻循环。",
+    "adaptation_zh": "独立中文短提要，非逐字翻译。保留原稿明确的分秒；缺时间为手动条件点；原稿赛季不等于当前版本实战验证。",
+    "issues_zh": [
+      "原稿8:00资源栏是阶段参考，进攻仍依赖铁制底网与实际兵力，不能按秒无条件冲入城镇中心。",
+      "第二马厩或其他生产建筑为局势选择，只把第二马厩标成按需补建。"
+    ]
+  },
+  "build_order": [
+    {
+      "time": "0:00",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 6,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        1
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "6名村民采羊，城镇中心持续造村民。"
+      ]
+    },
+    {
+      "time": "0:20",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 6,
+        "wood": -1,
+        "gold": 1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        2
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "连续3名新村民去金矿，建采矿场。",
+        "@catalog/icons/buildings/mining-camp-1.png@ 建造采矿场"
+      ],
+      "_zh_actions": [
+        {
+          "id": "mining-camp-1",
+          "base_id": "mining-camp",
+          "kind": "building",
+          "name_zh": "采矿场",
+          "name_en": "Mining Camp",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "hl"
+          ],
+          "icon": "catalog/icons/buildings/mining-camp-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "村民可将石料和黄金存放于这个建筑。可研究提升采矿效率的科技。\n每次存放资源都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 20
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "House of Lancaster"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/mining-camp-1.png@ 建造采矿场"
+      ]
+    },
+    {
+      "time": "1:20",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 7,
+        "wood": -1,
+        "gold": 3,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        3
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "新村民返回食物，准备升封建。"
+      ]
+    },
+    {
+      "time": "1:55",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 8,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": 3
+      },
+      "_zh_source_rows": [
+        4
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "用3名采金村民建列王修道院，开始升封建。",
+        "@catalog/icons/buildings/abbey-of-kings-1.png@ 建造列王修道院"
+      ],
+      "_zh_actions": [
+        {
+          "id": "abbey-of-kings-1",
+          "base_id": "abbey-of-kings",
+          "kind": "building",
+          "name_zh": "列王修道院",
+          "name_en": "Abbey of Kings",
+          "age": 1,
+          "age_label": "升至封建时代（II）",
+          "civs": [
+            "hl"
+          ],
+          "icon": "catalog/icons/buildings/abbey-of-kings-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "治疗附近所有脱离战斗的友方单位，每 1 秒生命值 +6。\n最多任命 4 个兰开斯特领主，兰开斯特领主是强大的近战领袖，可以使附近所有军事单位的最大生命值 +5%。建造完成后为生产队列中添加一名免费的兰开斯特领主。",
+          "costs": {
+            "food": 400,
+            "wood": 0,
+            "stone": 0,
+            "gold": 200,
+            "total": 600,
+            "popcap": 0,
+            "time": 190
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "target_age": 2,
+          "count": 1,
+          "civilization": "House of Lancaster"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/abbey-of-kings-1.png@ 建造列王修道院"
+      ]
+    },
+    {
+      "time": "2:00",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 4,
+        "wood": 2,
+        "gold": -1,
+        "stone": 3,
+        "builder": 3
+      },
+      "_zh_source_rows": [
+        6
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "调整3人采石，其余新村民先砍散树，准备木线庄园。"
+      ]
+    },
+    {
+      "time": "3:20",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 4,
+        "wood": 8,
+        "gold": -1,
+        "stone": -1,
+        "builder": 3
+      },
+      "_zh_source_rows": [
+        7
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "累计采够100石料后停止采石，把村民转到更需要的资源。"
+      ]
+    },
+    {
+      "time": "3:55",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 4,
+        "wood": 8,
+        "gold": 3,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        9
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "封建后用2人把第一座庄园放在木线上，覆盖伐木经济。",
+        "@catalog/icons/buildings/manor-2.png@ 建造庄园"
+      ],
+      "_zh_actions": [
+        {
+          "id": "manor-2",
+          "base_id": "manor",
+          "kind": "building",
+          "name_zh": "庄园",
+          "name_en": "Manor",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "hl"
+          ],
+          "icon": "catalog/icons/buildings/manor-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "可作为所有资源类型的存放建筑。每分钟可被动生产 10 木材和 30 食物。可为附近的每个村民额外生产 3 食物和 2 木材。\n村民一次只影响一座庄园。\n人口上限 +10。",
+          "costs": {
+            "food": 0,
+            "wood": 175,
+            "stone": 100,
+            "gold": 0,
+            "total": 275,
+            "popcap": 0,
+            "time": 45
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "House of Lancaster"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/manor-2.png@ 建造庄园"
+      ]
+    },
+    {
+      "time": "4:20",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 5,
+        "wood": 8,
+        "gold": 3,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        10
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "建马厩，持续补 @unit_lancaster/lord_lancaster.webp@ 兰开斯特领主，先到4名左右。",
+        "@catalog/icons/buildings/stable-2.png@ 建造马厩"
+      ],
+      "_zh_actions": [
+        {
+          "id": "stable-2",
+          "base_id": "stable",
+          "kind": "building",
+          "name_zh": "马厩",
+          "name_en": "Stable",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "hl"
+          ],
+          "icon": "catalog/icons/buildings/stable-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "生产骑兵军事单位。\n每次生产一个单位或进行研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "House of Lancaster"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/stable-2.png@ 建造马厩"
+      ]
+    },
+    {
+      "time": "5:00",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 11,
+        "wood": 6,
+        "gold": 3,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        11
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "根据兵种需要补第二座马厩或其他生产；8分钟前安排铁匠铺。",
+        "@catalog/icons/buildings/stable-2.png@ 按需补建第二座马厩",
+        "@catalog/icons/buildings/blacksmith-2.png@ 随后补建铁匠铺"
+      ],
+      "_zh_actions": [
+        {
+          "id": "stable-2",
+          "base_id": "stable",
+          "kind": "building",
+          "name_zh": "马厩",
+          "name_en": "Stable",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "hl"
+          ],
+          "icon": "catalog/icons/buildings/stable-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "生产骑兵军事单位。\n每次生产一个单位或进行研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "按需补建第二座",
+          "count": 1,
+          "civilization": "House of Lancaster"
+        },
+        {
+          "id": "blacksmith-2",
+          "base_id": "blacksmith",
+          "kind": "building",
+          "name_zh": "铁匠铺",
+          "name_en": "Blacksmith",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "hl"
+          ],
+          "icon": "catalog/icons/buildings/blacksmith-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "可研究强化步兵和骑兵的科技。\n每次完成科技研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 25
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "随后补建",
+          "count": 1,
+          "civilization": "House of Lancaster"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/stable-2.png@ 按需补建第二座马厩",
+        "@catalog/icons/buildings/blacksmith-2.png@ 随后补建铁匠铺"
+      ]
+    },
+    {
+      "time": "8:00",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 15,
+        "wood": 8,
+        "gold": 6,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        12
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "研究铁制底网，完成后用 @unit_lancaster/hobelar_age2.webp@ 轻装骑兵、领主与少量枪弓配合进攻；先看敌军阵形与防御。",
+        "@catalog/icons/technologies/iron-undermesh-2.png@ 研究铁制底网（铁匠铺）"
+      ],
+      "_zh_actions": [
+        {
+          "id": "iron-undermesh-2",
+          "base_id": "iron-undermesh",
+          "kind": "technology",
+          "name_zh": "铁制底网",
+          "name_en": "Iron Undermesh",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "hl"
+          ],
+          "icon": "catalog/icons/technologies/iron-undermesh-2.png",
+          "location_zh": "铁匠铺",
+          "produced_by": [
+            "blacksmith"
+          ],
+          "description_zh": "所有非攻城单位的远程护甲 +1。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 125,
+            "total": 175,
+            "popcap": 0,
+            "time": 60
+          },
+          "unique": false,
+          "category_zh": "科技研究",
+          "action_verb_zh": "研究",
+          "count": 1,
+          "civilization": "House of Lancaster"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/technologies/iron-undermesh-2.png@ 研究铁制底网（铁匠铺）"
+      ]
+    },
+    {
+      "time": "",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        13
+      ],
+      "_zh_time_source": "原稿未标时间，按条件手动切换",
+      "notes": [
+        "打出伤害后退回列王修道院治疗，再组织下一轮进攻，视局势攒城堡时代。"
+      ]
+    }
+  ]
+}

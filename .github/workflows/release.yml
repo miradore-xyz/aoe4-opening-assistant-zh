@@ -53,7 +53,7 @@ jobs:
           $taskProcess = Start-Process -FilePath $taskDownload -ArgumentList @('/VERYSILENT', '/SUPPRESSMSGBOXES', '/NORESTART', '/SP-', '/NOICONS', '/CURRENTUSER', ('/DIR="' + $taskInstall + '"')) -Wait -PassThru -WindowStyle Hidden
           if ($taskProcess.ExitCode -ne 0) { throw '编译器准备失败。' }
           "ISCC_PATH=$taskInstall\ISCC.exe" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-      - name: 构建安装包、便携版、完整源码和校验值
+      - name: 构建安装包、便携版、完整源码、更新清单和校验值
         run: python src/release_build.py --output-dir release
       # actions/upload-artifact（保存构建产物）v7.0.2。
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
@@ -69,13 +69,13 @@ jobs:
         run: |
           @"
           下载 AoE4OpeningAssistant-Setup.exe 安装；已有版本可在首页下载更新并选择“安装并重启”。
-          安装及卸载均保留开局和设置。完整源码为 AoE4OpeningAssistant-Source.zip，校验值为 SHA256SUMS.txt。
+          安装及卸载均保留开局和设置。完整源码为 AoE4OpeningAssistant-Source.zip，更新清单为 update.json，校验值为 SHA256SUMS.txt。
           本项目沿用 GNU GPL 第三版许可证，原作与第三方声明随包附带。
           "@ | Set-Content -LiteralPath release-notes.md -Encoding utf8
-          gh release view $env:GITHUB_REF_NAME 2>$null
+          gh release view $env:GITHUB_REF_NAME --repo $env:GITHUB_REPOSITORY 2>$null
           if ($LASTEXITCODE -eq 0) {
-            gh release upload $env:GITHUB_REF_NAME release/AoE4OpeningAssistant-Setup.exe release/AoE4OpeningAssistant-Portable.zip release/AoE4OpeningAssistant-Source.zip release/SHA256SUMS.txt --clobber
-          } else {
-            gh release create $env:GITHUB_REF_NAME release/AoE4OpeningAssistant-Setup.exe release/AoE4OpeningAssistant-Portable.zip release/AoE4OpeningAssistant-Source.zip release/SHA256SUMS.txt --verify-tag --title "帝国开局助手 $env:GITHUB_REF_NAME" --notes-file release-notes.md
+            throw '同标签发行版已经存在，禁止覆盖安装包或更新清单。请提升程序版本并创建新标签。'
           }
+          # gh release create（新建发行版）在同名发行版已出现时也会失败，不替换既有附件。
+          gh release create $env:GITHUB_REF_NAME release/AoE4OpeningAssistant-Setup.exe release/AoE4OpeningAssistant-Portable.zip release/AoE4OpeningAssistant-Source.zip release/update.json release/SHA256SUMS.txt --repo $env:GITHUB_REPOSITORY --verify-tag --title "帝国开局助手 $env:GITHUB_REF_NAME" --notes-file release-notes.md
           if ($LASTEXITCODE -ne 0) { throw 'GitHub 发行版上传失败。' }

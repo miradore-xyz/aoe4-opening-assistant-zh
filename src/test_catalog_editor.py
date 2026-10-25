@@ -210,7 +210,9 @@ class CatalogEditorTests(unittest.TestCase):
                 try:
                     manager.open_session()
                     for action in actions:
-                        uri = resolve_icon(action).as_uri()
+                        from game_icons import icon_data_url
+                        uri = icon_data_url(str(resolve_icon(action)), action['icon'])
+                        self.assertTrue(uri.startswith('data:image/png;base64,'))
                         self.assertIn(uri, manager.preview.text())
                         self.assertIn(uri, manager.overlay.notes.text())
                     spoken = "。".join(manager.voice_texts())

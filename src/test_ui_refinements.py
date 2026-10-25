@@ -253,8 +253,11 @@ class InterfaceRefinementTests(unittest.TestCase):
                 editor.show()
                 self.application.processEvents()
                 boxes = [editor.numbers[key] for key in keys]
-                self.assertEqual({box.width() for box in boxes}, {96})
-                self.assertTrue(all(box.height() >= 32 for box in boxes))
+                self.assertEqual(len({box.width() for box in boxes}), 1)
+                self.assertTrue(all(box.width() <= 96 for box in boxes))
+                # 紧凑输入仍必须给文字和底边留足高度，不能靠裁切内容缩小。
+                self.assertTrue(all(box.height() >= box.fontMetrics().height() + 8 for box in boxes))
+                self.assertTrue(all(box.lineEdit().height() >= box.fontMetrics().height() for box in boxes))
                 positions = [box.mapTo(editor, QPoint(0, 0)) for box in boxes]
                 self.assertEqual(len({position.x() for position in positions[::2]}), 1)
                 self.assertEqual(len({position.x() for position in positions[1::2]}), 1)

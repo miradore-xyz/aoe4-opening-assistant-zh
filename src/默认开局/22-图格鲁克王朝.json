@@ -1,0 +1,431 @@
+{
+  "name": "图格鲁克王朝 · 堡垒双城镇中心",
+  "civilization": "Tughlaq Dynasty",
+  "author": "Valdemar1902（原作）；中文提要整理",
+  "source": "AoE4Guides：https://aoe4guides.com/builds/xpvxxr73hj7CwnbqB5AK；Season 12；中文独立提要，来源时刻仅供练习。",
+  "_zh_language": "zh-CN",
+  "_zh_timing": "starting",
+  "_zh_default_id": "aoe4guides-default:Tughlaq Dynasty",
+  "_zh_reference": {
+    "id": "xpvxxr73hj7CwnbqB5AK",
+    "url": "https://aoe4guides.com/builds/xpvxxr73hj7CwnbqB5AK",
+    "title": "Fast 2TC + Tughlaq Fort Build (2026)",
+    "title_zh": "图格鲁克王朝 · 堡垒双城镇中心",
+    "author": "Valdemar1902",
+    "creator_name": "",
+    "season": "Season 12",
+    "likes": 5,
+    "views": 1512,
+    "timeUpdated": {
+      "_seconds": 1774818634,
+      "_nanoseconds": 822000000
+    },
+    "selection_reason_zh": "2026年第12赛季原稿，5个收藏、1512次浏览；作者流程比较新的无分钟条件稿更清楚，保留石料阈值和对局分支。",
+    "issues_zh": [
+      "原稿同刻2:05的两行保留顺序。采石阈值原文为1200石矿剩470，依赖矿点容量；正文改为核对实际资源条件，原阈值保留在来源行元数据。未承诺无防守也可安全扩张。"
+    ],
+    "retrieved_at": "2026-10-25",
+    "scope_zh": "陆地常规对局练习参考；非唯一最优，原作者时间并非当前版本实测保证。"
+  },
+  "build_order": [
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "0:00",
+      "resources": {
+        "food": 6,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 0,
+        "time": "0:00",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "6",
+          "wood": "",
+          "gold": "",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "4名村民配工作大象采浆果，2人采羊。再生产1头工作大象，先收基地周围羊，之后去金矿。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "0:20",
+      "resources": {
+        "food": 6,
+        "wood": -1,
+        "gold": 1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 1,
+        "time": "0:20",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "6",
+          "wood": "",
+          "gold": "1",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "接下来的2名新村民去采金。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "1:00",
+      "resources": {
+        "food": 7,
+        "wood": -1,
+        "gold": 2,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 2,
+        "time": "1:00",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "7",
+          "wood": "",
+          "gold": "2",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "之后的新村民集结到羊，准备升封建。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "2:05",
+      "resources": {
+        "food": 10,
+        "wood": -1,
+        "gold": 2,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 3,
+        "time": "2:05",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "10",
+          "wood": "",
+          "gold": "2",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "抽2名采羊村民建信仰穹顶建筑，开始升封建。",
+        "@catalog/icons/buildings/dome-of-the-faith-1.png@ 建造信仰穹顶建筑"
+      ],
+      "_zh_actions": [
+        {
+          "id": "dome-of-the-faith-1",
+          "base_id": "dome-of-the-faith",
+          "kind": "building",
+          "name_zh": "信仰穹顶建筑",
+          "name_en": "Dome of the Faith",
+          "age": 1,
+          "age_label": "升至封建时代（II）",
+          "civs": [
+            "tug"
+          ],
+          "icon": "catalog/icons/buildings/dome-of-the-faith-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "可作为清真寺使用，并在早期让玩家使用治疗者大象。生产伊玛目和治疗者大象的黄金成本 -65。",
+          "costs": {
+            "food": 400,
+            "wood": 0,
+            "stone": 0,
+            "gold": 200,
+            "total": 600,
+            "popcap": 0,
+            "time": 190
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "target_age": 2
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/dome-of-the-faith-1.png@ 建造信仰穹顶建筑"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "2:05",
+      "resources": {
+        "food": 4,
+        "wood": -1,
+        "gold": -1,
+        "stone": 2,
+        "builder": 2
+      },
+      "_zh_source_row": {
+        "flat_index": 4,
+        "time": "2:05",
+        "phase": "ageUp",
+        "resources": {
+          "villagers": "",
+          "builders": "2",
+          "food": "4",
+          "wood": "<br>",
+          "gold": "<br>",
+          "stone": "2"
+        }
+      },
+      "notes": [
+        "升级期间把采金村民和工作大象调到石矿。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "2:10",
+      "resources": {
+        "food": 4,
+        "wood": 4,
+        "gold": -1,
+        "stone": 2,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 5,
+        "time": "2:10",
+        "phase": "ageUp",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "4",
+          "wood": "4",
+          "gold": "",
+          "stone": "2"
+        }
+      },
+      "notes": [
+        "另抽4名采羊村民砍零散树，逐步攒建筑木材。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "",
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 6,
+        "time": "",
+        "phase": "ageUp",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "",
+          "wood": "",
+          "gold": "",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "新村民继续补石料，目标是腾格拉卡巴德堡垒加第二座城镇中心的资源。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 2,
+      "time": "4:32",
+      "resources": {
+        "food": 4,
+        "wood": 4,
+        "gold": -1,
+        "stone": 9,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 7,
+        "time": "4:32",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "4",
+          "wood": "4",
+          "gold": "",
+          "stone": "9"
+        }
+      },
+      "notes": [
+        "封建完成后，用2名地标建造者在主城与第二城镇中心预定位置之间建腾格拉卡巴德堡垒，留出建筑空间。",
+        "@catalog/icons/buildings/tughlaqabad-fort-2.png@ 建造腾格拉卡巴德堡垒"
+      ],
+      "_zh_actions": [
+        {
+          "id": "tughlaqabad-fort-2",
+          "base_id": "tughlaqabad-fort",
+          "kind": "building",
+          "name_zh": "腾格拉卡巴德堡垒",
+          "name_en": "Tughlaqabad Fort",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "tug"
+          ],
+          "icon": "catalog/icons/buildings/tughlaqabad-fort-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "重型驻军及防御地点，可选择总督加成。可进行武器升级。单位驻扎时可增加额外的攻击。",
+          "costs": {
+            "food": 0,
+            "wood": 0,
+            "stone": 400,
+            "gold": 0,
+            "total": 400,
+            "popcap": 0,
+            "time": 135
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/tughlaqabad-fort-2.png@ 建造腾格拉卡巴德堡垒"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 2,
+      "time": "5:15",
+      "resources": {
+        "food": 4,
+        "wood": 4,
+        "gold": -1,
+        "stone": 11,
+        "builder": 2
+      },
+      "_zh_source_row": {
+        "flat_index": 8,
+        "time": "5:15",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "2",
+          "food": "4",
+          "wood": "4",
+          "gold": "",
+          "stone": "11"
+        }
+      },
+      "notes": [
+        "达到原稿采石阈值后，所有采石村民转到金矿方向，建第二座城镇中心。以已攒够实际建造费用为准。",
+        "@catalog/icons/buildings/town-center-1.png@ 补建城镇中心"
+      ],
+      "_zh_actions": [
+        {
+          "id": "town-center-1",
+          "base_id": "town-center",
+          "kind": "building",
+          "name_zh": "城镇中心",
+          "name_en": "Town Center",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "tug"
+          ],
+          "icon": "catalog/icons/buildings/town-center-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "可在此存放所有资源。可生产村民、侦察兵和命官，并提高人口上限。单位驻扎时可增加额外的攻击次数。\n非首都城镇中心无法侦测匿踪或伪装。",
+          "costs": {
+            "food": 0,
+            "wood": 400,
+            "stone": 300,
+            "gold": 0,
+            "total": 700,
+            "popcap": 0,
+            "time": 150
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "补建"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/town-center-1.png@ 补建城镇中心"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 2,
+      "time": "",
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_row": {
+        "flat_index": 9,
+        "time": "",
+        "phase": "age",
+        "resources": {
+          "villagers": "",
+          "builders": "",
+          "food": "",
+          "wood": "",
+          "gold": "",
+          "stone": ""
+        }
+      },
+      "notes": [
+        "之后根据侦察补兵防守；对手也扩张经济且压力低时，再准备升城堡。"
+      ]
+    }
+  ]
+}

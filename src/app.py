@@ -11,7 +11,6 @@ import copy
 import html
 import json
 import os
-import shutil
 import sys
 import traceback
 import winsound
@@ -35,12 +34,13 @@ from online_voice import OnlineSpeech, CHINESE_VOICES
 from windowing import FramelessWindow, WindowBar, FramelessDialog, DialogBar
 from branding import brand_mark
 from themed_buttons import TapestryAction
-from choice_controls import ClickComboBox
+from choice_controls import ClickComboBox, ClickSlider, ClickSpinBox
 from editor_actions import StepActions
 from order_actions import time_caption, manual_notes, save_actions
 from analysis_page import AnalysisPage
 from edit_menus import install_chinese_edit_menus
 from version import APP_VERSION
+from default_openings import seed_default_openings
 from visual import (STYLE as DESIGN_STYLE, card, text as ui_text, crest, Switch, StepDelegate, LibraryDelegate,
                     Grip, Resources, CoverDelegate, dark_titlebar, line_icon, game_pixmap, paint_game_surface,
                     paint_tapestry, TapestryButton)
@@ -93,7 +93,17 @@ def slider_field(widget, low, high):
     row = QHBoxLayout(frame)
     row.setContentsMargins(0, 0, 0, 0)
     row.setSpacing(16)
-    slider = QSlider(Qt.Horizontal)
+    slider = ClickSlider(Qt.Horizontal)
+    # 给圆形把手完整的垂直空间；默认滑杆的矮尺寸会裁掉边框。
+    slider.setFixedHeight(32)
+    slider.setStyleSheet(
+        "QSlider {background:transparent;}"
+        "QSlider::groove:horizontal {height:4px;background:#39393f;border:0;border-radius:2px;}"
+        "QSlider::sub-page:horizontal {background:#39b875;border-radius:2px;}"
+        "QSlider::handle:horizontal {width:14px;height:14px;background:#f4f4f5;"
+        "border:2px solid #72ca97;border-radius:9px;margin:-7px 0;}"
+        "QSlider::handle:horizontal:hover {background:#ffffff;border-color:#9bdfb6;}"
+    )
     slider.setRange(low, high)
     slider.setValue(widget.value())
     slider.valueChanged.connect(widget.setValue)
@@ -105,7 +115,7 @@ def slider_field(widget, low, high):
 
 
 def spin(low, high, value, suffix=""):
-    widget = QSpinBox()
+    widget = ClickSpinBox()
     widget.setRange(low, high)
     widget.setValue(value)
     widget.setSuffix(suffix)
@@ -197,11 +207,25 @@ class Editor(FramelessDialog):
         self.dialog_bar = DialogBar(self, '编辑开局')
         shell.addWidget(self.dialog_bar)
         content = QWidget()
+        content.setObjectName("OpeningEditorContent")
+        # 编辑区使用独立紧凑比例；数值框不沿用全局大内边距，避免固定高度裁掉底边。
+        content.setStyleSheet("""
+            QWidget#OpeningEditorContent QWidget {font-size:12px;}
+            QWidget#OpeningEditorContent QLineEdit,
+            QWidget#OpeningEditorContent QComboBox {padding:5px 8px;min-height:0;border-radius:6px;}
+            QWidget#OpeningEditorContent QSpinBox {padding:3px 6px;min-height:0;border-radius:6px;}
+            QWidget#OpeningEditorContent QPushButton {padding:5px 10px;min-height:0;border-radius:8px;}
+            QWidget#OpeningEditorContent QTextEdit {padding:6px 8px;border-radius:6px;}
+        """)
         shell.addWidget(content, 1)
         layout = QVBoxLayout(content)
-        layout.setContentsMargins(20, 14, 20, 18)
-        layout.setSpacing(12)
-        form = QFormLayout()
+        layout.setContentsMargins(16, 12, 16, 14)
+        layout.setSpacing(9)
+        form = QGridLayout()
+        form.setHorizontalSpacing(10)
+        form.setVerticalSpacing(8)
+        form.setColumnStretch(1, 1)
+        form.setColumnStretch(3, 1)
         self.name = QLineEdit(self.data["name"])
         self.civ = ClickComboBox()
         for key, text in CIVS.items():
@@ -215,25 +239,37 @@ class Editor(FramelessDialog):
         self.civ.setCurrentIndex(max(0, self.civ.findData('any' if civ in ('Any', 'Generic') else civ)))
         self.author = QLineEdit(str(self.data.get("author", "")))
         self.source = QLineEdit(str(self.data.get("source", "")))
-        form.addRow("开局名称", self.name)
-        form.addRow("适用文明", self.civ)
-        form.addRow("作者署名", self.author)
-        form.addRow("来源说明", self.source)
+        for row, left_name, left, right_name, right_widget in [
+                (0, "开局名称", self.name, "适用文明", self.civ),
+                (1, "作者署名", self.author, "来源说明", self.source)]:
+            for column, caption, field in [(0, left_name, left), (2, right_name, right_widget)]:
+                title = label(caption)
+                title.setWordWrap(False)
+                form.addWidget(title, row, column)
+                field.setMinimumWidth(0)
+                field.setFixedHeight(32)
+                field.setAccessibleName(caption)
+                form.addWidget(field, row, column + 1)
         layout.addLayout(form)
-        layout.addWidget(label("时间可留空。资源栏填写村民人数，-1 表示不指定。提示每行一条；原有 @图标路径@ 标记可保留。", True))
         split = QSplitter()
         self.steps = QListWidget()
         self.steps.setObjectName("EditorSteps")
         self.steps.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.steps.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.steps.setMinimumWidth(120)
+        self.steps.setMaximumWidth(210)
         split.addWidget(self.steps)
         body = QWidget()
         right = QVBoxLayout(body)
+        right.setContentsMargins(0, 0, 0, 0)
+        right.setSpacing(8)
         fields = QGridLayout()
-        fields.setHorizontalSpacing(20)
-        fields.setVerticalSpacing(8)
+        fields.setHorizontalSpacing(16)
+        fields.setVerticalSpacing(6)
         fields.setColumnStretch(0, 1)
         fields.setColumnStretch(1, 1)
         self.time = QLineEdit()
+        self.time.setFixedHeight(32)
         self.time.setPlaceholderText("例如 3:20（3分20秒），也可留空")
         time_row = QHBoxLayout()
         time_row.addWidget(label("时间"))
@@ -246,8 +282,9 @@ class Editor(FramelessDialog):
         for i, (key, text) in enumerate(FIELDS.items()):
             w = spin(-1, 9999 if key != "age" else 4, -1)
             w.setSpecialValueText("不指定")
-            w.setFixedWidth(96)
-            w.setFixedHeight(max(32, w.fontMetrics().height() + 12))
+            w.setFixedWidth(88)
+            w.setFixedHeight(30)
+            w.setToolTip(text + "；不指定时留为 -1")
             self.numbers[key] = w
             pair = QWidget()
             pair_layout = QHBoxLayout(pair)
@@ -255,7 +292,7 @@ class Editor(FramelessDialog):
             pair_layout.setSpacing(8)
             caption = label(text)
             caption.setWordWrap(False)
-            caption.setFixedWidth(76)
+            caption.setFixedWidth(62)
             pair_layout.addWidget(caption)
             pair_layout.addWidget(w)
             fields.addWidget(pair, i // 2, i % 2, Qt.AlignLeft | Qt.AlignVCenter)
@@ -263,12 +300,16 @@ class Editor(FramelessDialog):
         right.addWidget(label("补充提示（每行一条）"))
         self.notes = QTextEdit()
         self.notes.setAcceptRichText(False)
-        right.addWidget(self.notes)
+        self.notes.setMinimumHeight(80)
+        right.addWidget(self.notes, 1)
         body_scroll = QScrollArea()
         body_scroll.setWidgetResizable(True)
+        body_scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        body_scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         body_scroll.setWidget(body)
         split.addWidget(body_scroll)
         split.setStretchFactor(1, 3)
+        split.setSizes([170, 650])
         layout.addWidget(split, 1)
         actions = QHBoxLayout()
         for caption, fn in [("添加时间点", self.add), ("复制时间点", self.duplicate), ("移除时间点", self.remove),
@@ -277,9 +318,15 @@ class Editor(FramelessDialog):
         layout.addLayout(actions)
         bottom = QHBoxLayout()
         bottom.addStretch()
-        bottom.addWidget(button("取消", self.reject))
+        cancel = button("取消", self.reject)
+        cancel.setFixedHeight(36)
+        bottom.addWidget(cancel)
         save = TapestryAction("保存到本地开局库", self.save, "castle")
         save.setObjectName("Primary")
+        save.setFixedHeight(36)
+        compact_font = QFont("Microsoft YaHei UI")
+        compact_font.setPixelSize(12)
+        save.setFont(compact_font)
         bottom.addWidget(save)
         layout.addLayout(bottom)
         self.steps.currentRowChanged.connect(self.select)
@@ -666,7 +713,8 @@ class Manager(FramelessWindow):
         shell.addWidget(workspace, 1)
         self.page_heading = QWidget()
         heading = QVBoxLayout(self.page_heading)
-        heading.setContentsMargins(24, 18, 24, 12)
+        self.page_heading_layout = heading
+        heading.setContentsMargins(32, 22, 32, 12)
         heading.setSpacing(4)
         self.page_title = ui_text("开局工作台", "PageTitle")
         self.page_subtitle = ui_text("", "Muted")
@@ -681,7 +729,8 @@ class Manager(FramelessWindow):
         self.make_help()
         analysis_container = QWidget()
         analysis_layout = QVBoxLayout(analysis_container)
-        analysis_layout.setContentsMargins(24, 0, 24, 12)
+        self.analysis_layout = analysis_layout
+        analysis_layout.setContentsMargins(32, 22, 32, 12)
         self.analysis_page = AnalysisPage(self.data_dir)
         analysis_layout.addWidget(self.analysis_page)
         self.tabs.addTab(analysis_container, '战绩分析')
@@ -769,6 +818,10 @@ class Manager(FramelessWindow):
         short = self.height() < 610
         margin = 20 if compact else 32
         self.home_layout.setContentsMargins(margin, 22, margin, 12)
+        self.page_heading_layout.setContentsMargins(margin, 22, margin, 12)
+        self.analysis_layout.setContentsMargins(margin, 22, margin, 12)
+        self.settings_outer_layout.setContentsMargins(margin, 0, margin, 12)
+        self.help_outer_layout.setContentsMargins(margin, 0, margin, 12)
         self.work_layout.setContentsMargins(margin, 16, margin, 12)
         self.work_layout.setSpacing(14 if short else 20)
         self.step_rail.setFixedWidth(220 if compact else 280)
@@ -809,13 +862,7 @@ class Manager(FramelessWindow):
         self.layout_library()
 
     def seed(self):
-        marker = self.data_dir / ".已初始化"
-        if not marker.exists():
-            for path in (ROOT / "示例开局").glob("*.json"):
-                destination = self.orders_dir / path.name
-                if not destination.exists():
-                    shutil.copyfile(path, destination)
-            marker.write_text("中文助手独立数据目录，不读取英文原版设置。", encoding="utf-8")
+        seed_default_openings(self.data_dir, self.orders_dir)
 
     def make_orders(self):
         self.work_views = QStackedWidget()
@@ -1062,9 +1109,13 @@ class Manager(FramelessWindow):
     def make_settings(self):
         page = QWidget()
         outer = QVBoxLayout(page)
-        outer.setContentsMargins(24, 0, 24, 8)
+        self.settings_outer_layout = outer
+        outer.setContentsMargins(32, 0, 32, 12)
         scroll = QScrollArea()
+        self.settings_scroll = scroll
         scroll.setWidgetResizable(True)
+        scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         content = QWidget()
         layout = QVBoxLayout(content)
         layout.setContentsMargins(0, 0, 9, 0)
@@ -1190,6 +1241,12 @@ class Manager(FramelessWindow):
             form.addRow(caption, widget)
         form.addRow(button("恢复默认快捷键", self.default_keys))
         layout.addWidget(hotkeys)
+        utilities = QHBoxLayout()
+        utilities.setSpacing(8)
+        utilities.addWidget(button("检查软件更新", lambda: self.updates.check(manual=True)))
+        utilities.addWidget(button("打开助手数据目录", lambda: os.startfile(str(self.data_dir))))
+        utilities.addStretch(1)
+        layout.addLayout(utilities)
         scroll.setWidget(content)
         outer.addWidget(scroll)
         self.hotkey_status = label("", True)
@@ -1205,50 +1262,42 @@ class Manager(FramelessWindow):
     def make_help(self):
         page = QWidget()
         layout = QVBoxLayout(page)
-        layout.setContentsMargins(24, 0, 24, 12)
-        help_text = QTextEdit()
-        help_text.setReadOnly(True)
-        help_text.setPlainText(
-            f"帝国开局助手 {APP_VERSION}\n\n"
-            "使用方法\n\n1. 在「开局库」点击开局封面进入演练；标题行的「悬浮窗」可显示或隐藏置顶提示。\n"
-            "2. 游戏开始后点击指令下方的播放图标。城主宫殿清单默认手动切换，不规定升本时刻。\n"
-            "点击演练区齿轮可展开朗读、鼠标穿透与自动切步选项；左上返回按钮回到开局库。\n"
-            "3. 按住悬浮窗标题拖动位置；拖动悬浮窗右下角调整宽度和高度，也可在设置页输入尺寸。\n"
-            "4. 鼠标穿透开启后，可在本面板关闭，或使用对应全局快捷键恢复。\n"
-            "5. 导入原版 RTS Overlay（即时战略悬浮工具）的帝国时代4开局 JSON（结构化数据）文件。\n"
-            "6. 使用编辑器修改提示和资源村民分配；导出后仍可由原版读取。\n\n"
-            "计时与暂停\n\n计时从手动开始时刻计算，不读取游戏时间。游戏暂停或加载时，请同时暂停本助手。\n"
-            "原版帝国时代4开局默认把时间视为步骤的结束时刻；也可在设置改为开始时刻。\n"
-            "含完整、递增时间的开局默认自动切换并提醒；没有完整时间的开局使用手动步骤。\n"
-            "相同时间的多条步骤会合并显示。到点会显示步骤提醒，提示音可在设置中关闭。\n"
-            "手动点击步骤会关闭自动切换；按上一步／下一步在本版始终切换步骤。\n"
-            "到达最后一步后计时与循环提醒继续，便于中后期检查经济。\n\n"
-            "功能边界\n\n本助手不分析屏幕、不读取游戏内存、不检测村民或人口、不自动操作游戏。\n"
-            "所有数字是开局作者填写的目标；循环提醒按时间触发，不知道你是否已经完成。\n"
-            "建议使用游戏的无边框窗口模式。独占全屏下能否置顶、游戏内全局热键是否有效，需要实际检查。\n"
-            "本版支持可设置的键盘全局组合键；原版的鼠标侧键组合没有移植。\n\n"
-            "中文与示例\n\n菜单、帮助、设置和内置提示已中文化。外部开局的名称、作者和正文保留原文，不自动翻译。\n"
-            "龙之骑士团示例是可编辑的操作检查清单，不是经实战验证的固定人数开局。\n"
-            "城主宫殿对应 Burgrave Palace（城主宫殿），不要与施瓦本宫殿混淆。\n"
-            "该文明的镀金村民更贵、采集更高效；不要机械套用普通文明的村民配比。\n"
-            "没有写死村民生产周期、经济加成百分比或地标折扣；具体数据以已安装游戏为准。\n"
-            "版本与资料核对见随包「版本与来源说明」。\n\n"
-            "中文朗读\n\n在「设置」选择晓晓、云希、晓伊在线声音，或本机已安装的中文系统声音。\n"
-            "在线声音免登录；准备时将播报文字发送至微软服务，缓存完成后即可断网播放。\n"
-            "开启朗读后，先准备本局语音再开始计时；修改文字、音色或语速需要重新准备。\n"
-            "若在线准备失败，可关闭朗读继续使用文字提示，或改用系统声音。\n\n"
-            "保存位置\n\n便携版资料位于程序旁的「用户数据」；安装版使用个人应用资料目录，升级时沿用原位置。\n"
-            "导入只复制到本地库；不会覆盖外部原文件。网络入口打开 AoE4 Guides（帝国时代4开局指南），\n"
-            "下载 RTS Overlay（即时战略悬浮工具）格式的开局后导入；社区上传与点赞尚未接入。\n\n"
-            "原作与许可\n\n基于 CraftySalamander 的 RTS_Overlay：\nhttps://github.com/CraftySalamander/RTS_Overlay\n"
-            "上游提交：aaee02c95e47e4aadb7c3269fd07fb12b5871620\n"
-            "沿用开局校验、计时步骤选择、图标标记解析和图标资源；中文窗口、编辑器、保存和朗读为本次修改。\n"
-            "按 GNU GPL 第三版（通用公共许可证）分发，完整对应源码与许可证随包提供。\n"
-            "游戏名称和图标归相应权利人所有；此助手是非官方工具。"
-        )
-        layout.addWidget(help_text)
-        layout.addWidget(button("检查软件更新", lambda: self.updates.check(manual=True)))
-        layout.addWidget(button("打开本助手数据目录", lambda: os.startfile(str(self.data_dir))))
+        self.help_outer_layout = layout
+        layout.setContentsMargins(32, 0, 32, 12)
+        self.help_scroll = QScrollArea()
+        self.help_scroll.setWidgetResizable(True)
+        self.help_scroll.setFrameShape(QFrame.NoFrame)
+        self.help_scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.help_scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        content = QWidget()
+        sections = QVBoxLayout(content)
+        sections.setContentsMargins(0, 2, 0, 14)
+        sections.setSpacing(20)
+        paragraphs = [
+            ("开始一次演练", "在开局库选择文明与开局，点击播放开始计时。演练区的齿轮可展开朗读、自动切换与鼠标穿透选项。\n按住悬浮窗标题拖动位置，拖动右下角调整大小；也可以在设置中精确输入。"),
+            ("按时间提示，按局势调整", "有完整时间的开局可以自动切换；没有时间的条目手动切换。相同时间的指令会合并显示。\n计时由你控制，不读取游戏时间；游戏暂停或加载时请同步暂停助手。循环检查默认关闭，可在设置中开启。"),
+            ("编辑与导入", "编辑器按时间点安排村民、建筑、科技与提示，选项随文明变化。\n本地导入支持 RTS Overlay（即时战略悬浮工具）的 JSON（结构化数据）开局文件，复制到本地库后编辑，不改动外部原文件。"),
+            ("中文朗读", "在设置中选择晓晓、云希、晓伊或本机中文系统声音。在线声音无需登录，准备时将播报文字发送给微软服务；缓存完成后可以断网播放。\n修改文字、音色或语速后需要重新准备；关闭朗读仍可正常查看提示。"),
+            ("资料保存与更新", "便携版使用程序旁的“用户数据”；安装版使用个人应用资料目录，升级时保留原位置。\n检查更新和打开数据目录的入口位于设置页底部。战绩分析只查询公开记录，不读取游戏内存，不自动操作游戏。"),
+            ("原作与许可", f"帝国开局助手 {APP_VERSION}，基于 CraftySalamander 的 RTS_Overlay（即时战略悬浮工具）。\n按 GNU GPL 第三版（通用公共许可证）分发，完整对应源码与许可随包提供。游戏名称和图标归原权利人所有；本项目是非官方工具。"),
+        ]
+        for title, paragraph in paragraphs:
+            section = QVBoxLayout()
+            section.setSpacing(7)
+            section.addWidget(ui_text(title, "SectionTitle"))
+            text = QLabel("<p style='margin:0;line-height:160%;'>" + html.escape(paragraph).replace("\n", "<br>") + "</p>")
+            text.setWordWrap(True)
+            text.setTextFormat(Qt.RichText)
+            text.setTextInteractionFlags(Qt.TextSelectableByMouse | Qt.TextSelectableByKeyboard)
+            text.setStyleSheet("font-family:'Microsoft YaHei UI';font-size:12px;color:#b8bac2;background:transparent;border:0;")
+            section.addWidget(text)
+            sections.addLayout(section)
+        source_link = QLabel('<a style="color:#78c99c;" href="https://github.com/CraftySalamander/RTS_Overlay">原项目与许可证</a>')
+        source_link.setOpenExternalLinks(True)
+        sections.addWidget(source_link)
+        sections.addStretch(1)
+        self.help_scroll.setWidget(content)
+        layout.addWidget(self.help_scroll)
         self.tabs.addTab(page, "中文帮助与署名")
 
     def position_fields(self):
@@ -1258,8 +1307,10 @@ class Manager(FramelessWindow):
     def save_settings(self):
         try:
             atomic_json(self.settings_path, self.settings)
+            return True
         except OSError:
             self.status_bar.setText("设置未能写入。请将整个便携文件夹放到有写入权限的位置。")
+            return False
 
     def register_hotkeys(self):
         try:
@@ -1304,12 +1355,13 @@ class Manager(FramelessWindow):
         self.last_reminder = int(self.clock.seconds)
         self.reminder_text = ""
         self.step_alert = ""
-        self.save_settings()
+        saved = self.save_settings()
         self.apply_ui_font()
         self.register_hotkeys()
         self.overlay.apply_settings()
         self.update_display()
-        self.status_bar.setText("设置已保存到本助手独立数据目录。")
+        if saved:
+            self.status_bar.clear()
         self.prepare_voice()
 
     def change_auto(self, enabled):

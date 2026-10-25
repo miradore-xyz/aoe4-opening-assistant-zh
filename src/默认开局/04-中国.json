@@ -1,0 +1,583 @@
+{
+  "name": "中国 · 翰林院税金封建压制",
+  "civilization": "Chinese",
+  "author": "Valdemar1902（原作）；中文练习提要",
+  "source": "https://aoe4guides.com/builds/gzZ29Jf9aytL113LZOEm",
+  "_zh_language": "zh-CN",
+  "_zh_timing": "starting",
+  "_zh_default_id": "aoe4guides-default:Chinese",
+  "_zh_source_id": "gzZ29Jf9aytL113LZOEm",
+  "_zh_source_url": "https://aoe4guides.com/builds/gzZ29Jf9aytL113LZOEm",
+  "_zh_reference": {
+    "id": "gzZ29Jf9aytL113LZOEm",
+    "url": "https://aoe4guides.com/builds/gzZ29Jf9aytL113LZOEm",
+    "title": "Fast Aggro Tax Build (2026)",
+    "author": "Valdemar1902",
+    "season": "Season 12",
+    "source_updated_at": "2026-01-12T17:54:12+00:00",
+    "selected_on": "2026-10-25",
+    "likes_at_selection": 30,
+    "views_at_selection": 13441,
+    "selection_reason_zh": "2026中国候选中高赞且浏览多，单城镇中心路线，练帝国官员监督、税金循环与按对手补生产建筑。",
+    "adaptation_zh": "独立中文短提要，非逐字翻译。保留原稿明确的分秒；缺时间为手动条件点；原稿赛季不等于当前版本实战验证。",
+    "issues_zh": [
+      "起手和最后条件段原稿没有时间，保持空白，不捏造0:00或后续进攻秒数。",
+      "升级前后部分资源栏不包含建地标村民，不能据此推算村民总数；所有总人数留-1。",
+      "兵营、靶场、马厩是按敌军选择，不生成三种都必须建造的动作。"
+    ]
+  },
+  "build_order": [
+    {
+      "time": "",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 6,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        1
+      ],
+      "_zh_time_source": "原稿未标时间，按条件手动切换",
+      "notes": [
+        "起手6人建磨坊并采食物；磨坊靠近木线，给伐木场和翰林院留位置。",
+        "@catalog/icons/buildings/mill-1.png@ 建造磨坊"
+      ],
+      "_zh_actions": [
+        {
+          "id": "mill-1",
+          "base_id": "mill",
+          "kind": "building",
+          "name_zh": "磨坊",
+          "name_en": "Mill",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ch"
+          ],
+          "icon": "catalog/icons/buildings/mill-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "村民可将食物存放于这个建筑。可研究提升食物采集效率的科技。\n每次存放资源都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 10
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Chinese"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/mill-1.png@ 建造磨坊"
+      ]
+    },
+    {
+      "time": "0:20",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 6,
+        "wood": -1,
+        "gold": 2,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        2
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "接下来2名新村民采黄金。"
+      ]
+    },
+    {
+      "time": "1:00",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 7,
+        "wood": -1,
+        "gold": 2,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        3
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "新村民回到食物，保持升时代资源。"
+      ]
+    },
+    {
+      "time": "2:15",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 10,
+        "wood": -1,
+        "gold": 2,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        4
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "抽5人建翰林院，覆盖磨坊与未来木材采集区。",
+        "@catalog/icons/buildings/imperial-academy-1.png@ 建造翰林院"
+      ],
+      "_zh_actions": [
+        {
+          "id": "imperial-academy-1",
+          "base_id": "imperial-academy",
+          "kind": "building",
+          "name_zh": "翰林院",
+          "name_en": "Imperial Academy",
+          "age": 1,
+          "age_label": "升至封建时代（II）",
+          "civs": [
+            "ch"
+          ],
+          "icon": "catalog/icons/buildings/imperial-academy-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "附近建筑从税收中额外产生 100% 黄金。此处产生的朝廷命官消耗的资源减少 30%，并且可以将税金存放于这座建筑。",
+          "costs": {
+            "food": 400,
+            "wood": 0,
+            "stone": 0,
+            "gold": 200,
+            "total": 600,
+            "popcap": 0,
+            "time": 95
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "target_age": 2,
+          "count": 1,
+          "civilization": "Chinese"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/imperial-academy-1.png@ 建造翰林院"
+      ]
+    },
+    {
+      "time": "2:20",
+      "age": 1,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 6,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        6
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "升级期间额外采35金准备帝国官员，随后采金村民转散树。食物补到7人后新村民集结木材；先村庄，再伐木场。",
+        "@catalog/icons/buildings/village-1.png@ 建造村庄",
+        "@catalog/icons/buildings/lumber-camp-1.png@ 建造伐木场"
+      ],
+      "_zh_actions": [
+        {
+          "id": "village-1",
+          "base_id": "village",
+          "kind": "building",
+          "name_zh": "村庄",
+          "name_en": "Village",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ch"
+          ],
+          "icon": "catalog/icons/buildings/village-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "人口上限 +40。\n最多可建造 3 个村庄。",
+          "costs": {
+            "food": 0,
+            "wood": 100,
+            "stone": 0,
+            "gold": 0,
+            "total": 100,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Chinese"
+        },
+        {
+          "id": "lumber-camp-1",
+          "base_id": "lumber-camp",
+          "kind": "building",
+          "name_zh": "伐木场",
+          "name_en": "Lumber Camp",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ch"
+          ],
+          "icon": "catalog/icons/buildings/lumber-camp-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "村民可将木材存放于这个建筑。可研究提升木材采集效率的科技。\n每次存放资源都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 10
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Chinese"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/village-1.png@ 建造村庄",
+        "@catalog/icons/buildings/lumber-camp-1.png@ 建造伐木场"
+      ]
+    },
+    {
+      "time": "3:12",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 7,
+        "wood": 8,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        8
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "封建后持续补 @unit_chinese/imperial-official.webp@ 帝国官员，目标4名；优先监督磨坊和伐木场，并安排收税。"
+      ]
+    },
+    {
+      "time": "3:45",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 7,
+        "wood": 9,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        9
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "补第二座村庄，避免人口停产。",
+        "@catalog/icons/buildings/village-1.png@ 建造村庄"
+      ],
+      "_zh_actions": [
+        {
+          "id": "village-1",
+          "base_id": "village",
+          "kind": "building",
+          "name_zh": "村庄",
+          "name_en": "Village",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ch"
+          ],
+          "icon": "catalog/icons/buildings/village-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "人口上限 +40。\n最多可建造 3 个村庄。",
+          "costs": {
+            "food": 0,
+            "wood": 100,
+            "stone": 0,
+            "gold": 0,
+            "total": 100,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Chinese"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/village-1.png@ 建造村庄"
+      ]
+    },
+    {
+      "time": "4:00",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 7,
+        "wood": 10,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        10
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "第二名官员出来后补伐木场，让监督覆盖主要采集点。",
+        "@catalog/icons/buildings/lumber-camp-1.png@ 建造伐木场"
+      ],
+      "_zh_actions": [
+        {
+          "id": "lumber-camp-1",
+          "base_id": "lumber-camp",
+          "kind": "building",
+          "name_zh": "伐木场",
+          "name_en": "Lumber Camp",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "ch"
+          ],
+          "icon": "catalog/icons/buildings/lumber-camp-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "村民可将木材存放于这个建筑。可研究提升木材采集效率的科技。\n每次存放资源都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 50,
+            "stone": 0,
+            "gold": 0,
+            "total": 50,
+            "popcap": 0,
+            "time": 10
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Chinese"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/lumber-camp-1.png@ 建造伐木场"
+      ]
+    },
+    {
+      "time": "4:20",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 8,
+        "wood": 11,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        11
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "继续补官员，按对手在 @catalog/icons/buildings/archery-range-2.png@ 靶场、@catalog/icons/buildings/barracks-1.png@ 兵营、@catalog/icons/buildings/stable-2.png@ 马厩中选生产建筑；新村民再补食物。"
+      ]
+    },
+    {
+      "time": "6:50",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": 12,
+        "wood": 14,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        12
+      ],
+      "_zh_time_source": "原稿时间（练习参考）",
+      "notes": [
+        "税金与资源足够后研究专业侦察兵，建马厩并训练侦察兵搬鹿；补铁匠铺。不要把条件科技当成必须卡秒完成。",
+        "@catalog/icons/technologies/professional-scouts-2.png@ 条件满足后研究专业侦察兵（谷仓、磨坊）",
+        "@catalog/icons/buildings/stable-2.png@ 建造马厩",
+        "@catalog/icons/buildings/blacksmith-2.png@ 建造铁匠铺"
+      ],
+      "_zh_actions": [
+        {
+          "id": "professional-scouts-2",
+          "base_id": "professional-scouts",
+          "kind": "technology",
+          "name_zh": "专业侦察兵",
+          "name_en": "Professional Scouts",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "ch"
+          ],
+          "icon": "catalog/icons/technologies/professional-scouts-2.png",
+          "location_zh": "谷仓、磨坊",
+          "produced_by": [
+            "granary",
+            "mill"
+          ],
+          "description_zh": "侦察兵获得携带动物尸骸的能力，且对野生动物造成的伤害 +100%。\n侦察兵在携带动物尸骸时移动速度 -55%，且无法拾取野猪尸骸。若携带的是鹿尸骸，则会缓慢腐烂。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 300,
+            "total": 450,
+            "popcap": 0,
+            "time": 75
+          },
+          "unique": false,
+          "category_zh": "科技研究",
+          "action_verb_zh": "条件满足后研究",
+          "count": 1,
+          "civilization": "Chinese"
+        },
+        {
+          "id": "stable-2",
+          "base_id": "stable",
+          "kind": "building",
+          "name_zh": "马厩",
+          "name_en": "Stable",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "ch"
+          ],
+          "icon": "catalog/icons/buildings/stable-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "生产骑兵军事单位。\n每次生产一个单位或进行研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Chinese"
+        },
+        {
+          "id": "blacksmith-2",
+          "base_id": "blacksmith",
+          "kind": "building",
+          "name_zh": "铁匠铺",
+          "name_en": "Blacksmith",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "ch"
+          ],
+          "icon": "catalog/icons/buildings/blacksmith-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "可研究强化步兵和骑兵的科技。\n每次完成科技研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 12.5
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1,
+          "civilization": "Chinese"
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/technologies/professional-scouts-2.png@ 条件满足后研究专业侦察兵（谷仓、磨坊）",
+        "@catalog/icons/buildings/stable-2.png@ 建造马厩",
+        "@catalog/icons/buildings/blacksmith-2.png@ 建造铁匠铺"
+      ]
+    },
+    {
+      "time": "",
+      "age": 2,
+      "population_count": -1,
+      "villager_count": -1,
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_source_rows": [
+        13
+      ],
+      "_zh_time_source": "原稿未标时间，按条件手动切换",
+      "notes": [
+        "一边压制，一边收税、搬鹿和补村民；根据实际兵种调整食物与木材。"
+      ]
+    }
+  ]
+}
