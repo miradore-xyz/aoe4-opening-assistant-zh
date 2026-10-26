@@ -127,7 +127,8 @@ class ReleasePayloadTests(unittest.TestCase):
 
         def compile_stub(arguments):
             """只替代外部编译器；程序暂存、便携压缩、元数据仍运行真实函数。"""
-            self.assertEqual(Path(arguments[0]), installer)
+            # 编译器查找返回规范路径；8.3短路径与长路径必须指向同一真实编译器。
+            self.assertEqual(Path(arguments[0]).resolve(), installer.resolve())
             self.write(output / release_build.SETUP_NAME, b"synthetic-compiled-installer")
 
         arguments = ["release_build.py", "--version", self.version, "--dist-dir", str(self.distribution),

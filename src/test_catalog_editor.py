@@ -26,8 +26,6 @@ from test_app import destroy_test_manager
 
 
 CIVILIZATION = "Order of the Dragon"  # 龙之骑士团的原格式文明标识。
-SOURCE = Path(__file__).resolve().parent
-WORK = SOURCE.parents[2] / "work"
 
 
 def catalog_entry(kind, base_id, count=1):
@@ -124,7 +122,8 @@ class CatalogEditorTests(unittest.TestCase):
         self.assertEqual(saved["external_metadata"], original["external_metadata"])
         validate_order(saved)
         # 真正经过磁盘 JSON（开局文件格式）再打开，不只比较同一个内存对象。
-        with tempfile.TemporaryDirectory(prefix="catalog-roundtrip-", dir=str(WORK)) as folder:
+        # 隔离临时目录由系统提供，不依赖开发电脑或CI仓库旁存在work目录。
+        with tempfile.TemporaryDirectory(prefix="catalog-roundtrip-") as folder:
             path = Path(folder) / "开局.json"
             atomic_json(path, saved)
             reopened = self.editor(read_order(path))
@@ -208,7 +207,8 @@ class CatalogEditorTests(unittest.TestCase):
         for action in actions:
             editor.step_actions.add_action(action)
         editor.save()
-        with tempfile.TemporaryDirectory(prefix="catalog-manager-", dir=str(WORK)) as folder:
+        # 本合约只要求隔离保存与重开，临时目录无需固定在工作区层级。
+        with tempfile.TemporaryDirectory(prefix="catalog-manager-") as folder:
             folder = Path(folder)
             (folder / ".已初始化").touch()
             path = folder / "开局库" / "目录验证.json"

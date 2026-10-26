@@ -93,7 +93,8 @@ class FullMapIntegrationTests(unittest.TestCase):
         chosen = self.directory / 'chosen.aoe4maps'
         chosen.write_bytes(b'isolated-input-handled-by-fake-catalog')
         self.assertTrue(view.use_map_pack(chosen))
-        self.assertEqual(load_map_pack_location(self.directory), chosen)
+        # Windows临时目录可能使用8.3短路径；比较解析后的同一实际文件，仍要求完整路径一致。
+        self.assertEqual(load_map_pack_location(self.directory).resolve(), chosen.resolve())
         after = view.capture_view_state()
         self.assertEqual(after['time'], before['time'])
         self.assertEqual(after['view_mode'], before['view_mode'])
@@ -110,7 +111,8 @@ class FullMapIntegrationTests(unittest.TestCase):
         self.patch = patch('full_map_catalog.FullMapCatalog', side_effect=lambda: _CatalogWithLocation(False))
         self.patch.start()
         view = self.make_view()
-        self.assertEqual(view.official_map.catalog.root, chosen)
+        # 持久化会规范化为长路径，不能把同一文件的短路径拼写差异当作换错资料包。
+        self.assertEqual(view.official_map.catalog.root.resolve(), chosen.resolve())
         self.assertEqual(view.official_map.catalog.data_status()['state'], 'ready')
 
     def test_builtin_compact_maps_take_priority_over_saved_legacy_pack_during_restore(self):

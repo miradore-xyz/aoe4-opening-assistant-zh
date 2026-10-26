@@ -4,6 +4,12 @@ on:
   push:
     tags: ['v*']
   workflow_dispatch:
+    inputs:
+      font_probe_only:
+        description: '仅诊断字体，不构建发行文件'
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -13,7 +19,7 @@ jobs:
     runs-on: windows-2022
     env:
       PYTHONUTF8: '1'
-      QT_QPA_PLATFORM: offscreen
+      QT_QPA_PLATFORM: windows
     steps:
       # actions/checkout（读取仓库）v7.0.1，锁定已核对的官方提交。
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
@@ -26,7 +32,20 @@ jobs:
           cache-dependency-path: src/requirements.txt
       - name: 安装固定版本依赖
         run: python -m pip install -r src/requirements.txt
+      - name: 对照诊断Qt插件与随附字体
+        shell: pwsh
+        run: |
+          # offscreen（离屏插件）仅作对照；windows（系统插件）必须通过严格验证。
+          $PSNativeCommandUseErrorActionPreference = $false
+          python .github/scripts/probe_qt_fonts.py --platform offscreen
+          $taskOffscreenExit = $LASTEXITCODE
+          Write-Output "离屏插件对照返回码：$taskOffscreenExit"
+          python .github/scripts/probe_qt_fonts.py --platform windows
+          if ($LASTEXITCODE -ne 0) { throw 'Windows插件的7字体与中英字形验证未通过。' }
+          python -m unittest discover -s src -p 'test_app_fonts.py' -v
+          if ($LASTEXITCODE -ne 0) { throw '独立严格字体测试未通过。' }
       - name: 核对版本并运行检查
+        if: ${{ !inputs.font_probe_only }}
         shell: pwsh
         run: |
           $taskVersion = python -c "import sys; sys.path.insert(0, 'src'); from version import APP_VERSION; print(APP_VERSION)"
@@ -36,6 +55,7 @@ jobs:
           python -m unittest discover -s src -p 'test_*.py'
           if ($LASTEXITCODE -ne 0) { throw '自动检查未通过。' }
       - name: 准备官方安装器编译工具
+        if: ${{ !inputs.font_probe_only }}
         shell: pwsh
         run: |
           $taskTools = Join-Path $env:RUNNER_TEMP 'AoE4ReleaseTools'
@@ -54,15 +74,17 @@ jobs:
           if ($taskProcess.ExitCode -ne 0) { throw '编译器准备失败。' }
           "ISCC_PATH=$taskInstall\ISCC.exe" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
       - name: 构建安装包、便携版、更新清单和校验值
+        if: ${{ !inputs.font_probe_only }}
         run: python src/release_build.py --output-dir release
       # actions/upload-artifact（保存构建产物）v7.0.2。
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        if: ${{ !inputs.font_probe_only }}
         with:
           name: AoE4OpeningAssistant-Windows
           path: release/*
           if-no-files-found: error
       - name: 将标签版本发布到 GitHub Releases（发行版）
-        if: startsWith(github.ref, 'refs/tags/v')
+        if: ${{ !inputs.font_probe_only && startsWith(github.ref, 'refs/tags/v') }}
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
