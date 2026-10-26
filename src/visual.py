@@ -113,8 +113,16 @@ def game_pixmap(path, size):
     ratio = screen.devicePixelRatio() if screen else 1.0
     from game_icons import tile_pixmap
     return tile_pixmap(source, path, size, ratio)
-STYLE += 'QComboBox::down-arrow { image:url("' + (_asset_root / 'common/icon/down_arrow.webp').as_posix() + '"); width:9px; height:7px; }'
 _design_root = _asset_root / 'design' if getattr(sys, 'frozen', False) else Path(__file__).resolve().parent / '界面素材'
+# QSS无法继承SVG的currentColor，使用只替换颜色的派生文件，原路径与线宽保持Lucide官方值。
+_combo_arrow = (_design_root / '图标/Lucide派生/chevron-down-normal.svg').as_posix()
+_combo_arrow_disabled = (_design_root / '图标/Lucide派生/chevron-down-disabled.svg').as_posix()
+STYLE += ('QComboBox {padding-right:28px;}'
+          'QComboBox::drop-down {width:24px;border:0;}'
+          'QComboBox::down-arrow {image:url("' + _combo_arrow + '");width:16px;height:16px;}'
+          'QComboBox::down-arrow:disabled {image:url("' + _combo_arrow_disabled + '");}'
+          'QComboBox#MatchHistory::drop-down {width:0;}'
+          'QComboBox#MatchHistory::down-arrow {image:none;width:0;height:0;}')
 _tapestries = {}
 _flag_root = _asset_root / 'flags' if getattr(sys, 'frozen', False) else Path(__file__).resolve().parent / '文明旗帜'
 _flag_files = json.loads((_flag_root / 'manifest.json').read_text(encoding='utf-8'))
@@ -413,10 +421,9 @@ class LibraryDelegate(QStyledItemDelegate):
         p.setPen(Qt.NoPen)
         p.setBrush(QColor('#34343b' if hovered else '#252529'))
         p.drawRoundedRect(QRectF(close), 4, 4)
-        p.setPen(QPen(QColor('#ffffff' if hovered else '#b5b5be'), 1.4, Qt.SolidLine, Qt.RoundCap))
-        center = close.center()
-        p.drawLine(center.x() - 3, center.y() - 3, center.x() + 3, center.y() + 3)
-        p.drawLine(center.x() + 3, center.y() - 3, center.x() - 3, center.y() + 3)
+        # 移除标记和进入箭头共用Lucide，不再手画不同粗细的几何符号。
+        icon_rect = QRect(close.center().x() - 7, close.center().y() - 7, 16, 16)
+        line_icon("x", '#ffffff' if hovered else '#b5b5be').paint(p, icon_rect)
         p.setPen(QPen(QColor('#28282e'), 1))
         p.drawLine(rect.left() + 14, rect.bottom(), rect.right() - 12, rect.bottom())
         if option.state & QStyle.State_HasFocus:
@@ -540,20 +547,15 @@ class CoverDelegate(LibraryDelegate):
         action_color = QColor('#f4f4f5' if hovered else '#b9b9c1')
         p.setPen(action_color)
         p.drawText(action.adjusted(7, 0, -18, 0), Qt.AlignCenter, '开始演练')
-        arrow_x, arrow_y = action.right() - 13, action.center().y()
-        p.setPen(QPen(action_color, 1.3, Qt.SolidLine, Qt.RoundCap))
-        p.drawLine(QPointF(arrow_x - 3, arrow_y - 4), QPointF(arrow_x + 1, arrow_y))
-        p.drawLine(QPointF(arrow_x + 1, arrow_y), QPointF(arrow_x - 3, arrow_y + 4))
+        arrow = QRect(round(action.right() - 21), round(action.center().y() - 8), 16, 16)
+        line_icon("chevron", action_color).paint(p, arrow)
         # × 始终可见，绘制和点击坐标沿用移除接口，避免误入开局。
         close = self.remove_rect(self.card_rect(option.rect, index))
         p.setPen(Qt.NoPen)
         p.setBrush(QColor(14, 14, 16, 225 if hovered else 205))
         p.drawRoundedRect(QRectF(close), 7, 7)
-        p.setPen(QPen(QColor('#ffffff' if hovered else '#d4d4d8'), 1.4,
-                      Qt.SolidLine, Qt.RoundCap))
-        center = close.center()
-        p.drawLine(center.x() - 4, center.y() - 4, center.x() + 4, center.y() + 4)
-        p.drawLine(center.x() + 4, center.y() - 4, center.x() - 4, center.y() + 4)
+        icon_rect = QRect(close.center().x() - 7, close.center().y() - 7, 16, 16)
+        line_icon("x", '#ffffff' if hovered else '#d4d4d8').paint(p, icon_rect)
         if selected or option.state & QStyle.State_HasFocus:
             p.setPen(QPen(QColor('#85858F' if selected else GOLD), 1.2 if selected else 1, Qt.SolidLine))
             p.setBrush(Qt.NoBrush)
@@ -571,7 +573,7 @@ _LINE_ICONS = {
     "settings": "settings", "help": "circle-question-mark", "history": "clock",
     "filter": "list-filter", "reset": "rotate-cw", "chevron": "chevron-right",
     "online": "globe", "new": "plus", "edit": "pencil", "import": "folder-input",
-    "export": "upload",
+    "export": "upload", "x": "x", "close": "x", "chevron-down": "chevron-down",
 }
 
 

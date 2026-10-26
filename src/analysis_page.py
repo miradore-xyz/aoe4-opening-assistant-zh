@@ -10,10 +10,10 @@ import threading
 from datetime import datetime
 from pathlib import Path
 
-from PyQt5.QtCore import QEvent, QObject, QSize, Qt, QTimer, pyqtSignal
-from PyQt5.QtGui import QBrush, QColor, QFontMetrics, QPalette
+from PyQt5.QtCore import QEvent, QObject, QPoint, QRect, QRectF, QSize, Qt, QTimer, pyqtSignal
+from PyQt5.QtGui import QBrush, QColor, QFontMetrics, QPainter, QPainterPath, QPalette, QRegion
 from PyQt5.QtWidgets import (
-    QAbstractItemView, QBoxLayout, QFrame, QHBoxLayout, QHeaderView, QLabel,
+    QApplication, QAbstractItemView, QBoxLayout, QFrame, QHBoxLayout, QHeaderView, QLabel,
     QLayout, QLineEdit, QListView, QListWidget, QListWidgetItem, QPushButton, QScrollArea, QSizePolicy,
     QStyle, QStyleOptionComboBox, QStylePainter, QStyledItemDelegate,
     QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget,
@@ -204,12 +204,106 @@ class _ReadableTableDelegate(QStyledItemDelegate):
             option.palette.setColor(group, QPalette.HighlightedText, color)
 
 
+class _HistoryItemDelegate(QStyledItemDelegate):
+    """只绘制历史列表的文字和内缩圆角状态，不使用系统整行灰色选择背景。"""
+    def sizeHint(self, option, index):
+        size = super().sizeHint(option, index)
+        size.setHeight(max(30, option.fontMetrics.height() + 10))
+        return size
+
+    def paint(self, painter, option, index):
+        painter.save()
+        painter.setRenderHint(QPainter.Antialiasing)
+        painter.setPen(Qt.NoPen)
+        if option.state & (QStyle.State_Selected | QStyle.State_MouseOver):
+            painter.setBrush(QColor("#202023"))
+            painter.drawRoundedRect(QRectF(option.rect.adjusted(3, 2, -3, -2)), 8, 8)
+        painter.setFont(option.font)
+        painter.setPen(QColor("#f4f4f5" if option.state & QStyle.State_Enabled else "#787880"))
+        text_rect = option.rect.adjusted(12, 0, -12, 0)
+        text = option.fontMetrics.elidedText(str(index.data(Qt.DisplayRole) or ""), Qt.ElideRight, text_rect.width())
+        painter.drawText(text_rect, Qt.AlignLeft | Qt.AlignVCenter, text)
+        painter.restore()
+
+
 class _HistoryPicker(ClickComboBox):
     """历史入口只显示时钟图标，展开后仍显示完整昵称和玩家编号。"""
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setObjectName("MatchHistory")
-        self.view().setMinimumWidth(250)
+        self.setMaxVisibleItems(8)
+        view = self.view()
+        view.setMinimumWidth(250)
+        view.setItemDelegate(_HistoryItemDelegate(view))
+        view.setStyleSheet("""
+            QListView#ChoicePopupList {
+                background:#161619; color:#f4f4f5; border:0; outline:0; padding:4px;
+            }
+        """)
+        palette = view.palette()
+        for group in (QPalette.Active, QPalette.Inactive, QPalette.Disabled):
+            palette.setColor(group, QPalette.Base, QColor("#161619"))
+            palette.setColor(group, QPalette.Window, QColor("#161619"))
+            palette.setColor(group, QPalette.Highlight, QColor("#202023"))
+        view.setPalette(palette)
+        view.viewport().setPalette(palette)
+        self.setAccessibleDescription("最近搜索记录。方向键选择，回车查询；较长昵称可悬停查看完整文字。")
+        self._history_popup = None
+
+    def _round_popup(self):
+        if self._history_popup is not None:
+            path = QPainterPath()
+            path.addRoundedRect(QRectF(self._history_popup.rect()), 8, 8)
+            self._history_popup.setMask(QRegion(path.toFillPolygon().toPolygon()))
+            # 子列表也裁切，避免其不透明视口覆盖父弹层圆角；截图与实际窗口保持同样边界。
+            inner = QPainterPath()
+            inner.addRoundedRect(QRectF(self.view().rect()), 7, 7)
+            self.view().setMask(QRegion(inner.toFillPolygon().toPolygon()))
+
+    def eventFilter(self, watched, event):
+        if watched in (self._history_popup, self.view()) and event.type() == QEvent.Resize:
+            self._round_popup()
+        return super().eventFilter(watched, event)
+
+    def showPopup(self):
+        if not self.count():
+            return
+        view = self.view()
+        container = view.parentWidget()
+        if self._history_popup is not container:
+            self._history_popup = container
+            container.installEventFilter(self)
+            view.installEventFilter(self)
+            # 保留Qt.Popup的键盘/外部点击关闭语义，只移除系统窗框和方形阴影。
+            container.setWindowFlag(Qt.FramelessWindowHint, True)
+            container.setWindowFlag(Qt.NoDropShadowWindowHint, True)
+            container.setAttribute(Qt.WA_TranslucentBackground)
+        super().showPopup()
+        container.setStyleSheet("QFrame#ChoicePopupFrame {background:#161619;"
+                               "border:1px solid #202023;border-radius:8px;}")
+        # Qt原生下拉层按当前项定位，长列表可能碰到屏幕边缘；显示后按入口重新夹紧。
+        anchor = QRect(self.mapToGlobal(QPoint()), self.size())
+        screen = QApplication.screenAt(anchor.center()) or self.screen()
+        available = screen.availableGeometry().adjusted(8, 8, -8, -8)
+        text_width = max((self.fontMetrics().horizontalAdvance(self.itemText(index))
+                          for index in range(self.count())), default=0)
+        width = min(max(250, text_width + 34), available.width())
+        row_height = view.sizeHintForRow(0)
+        below = max(0, available.bottom() - anchor.bottom() - 5)
+        above = max(0, anchor.top() - available.top() - 5)
+        desired = min(8, self.count()) * row_height + 10
+        use_below = below >= desired or below >= above
+        room = below if use_below else above
+        rows = min(8, self.count(), max(1, (room - 10) // row_height))
+        height = min(available.height(), rows * row_height + 10)
+        x = max(available.left(), min(anchor.right() - width + 1, available.right() - width + 1))
+        y = anchor.bottom() + 5 if use_below else anchor.top() - 5 - height
+        y = max(available.top(), min(y, available.bottom() - height + 1))
+        container.setMinimumWidth(width)
+        container.resize(width, height)
+        container.move(x, y)
+        self._round_popup()
+        view.scrollTo(view.currentIndex(), QAbstractItemView.EnsureVisible)
 
     def paintEvent(self, event):
         option = QStyleOptionComboBox()
@@ -262,7 +356,7 @@ class AnalysisPage(QWidget):
             }
             QWidget#MatchQueryToolbar QComboBox {padding-right:24px;}
             QWidget#MatchQueryToolbar QComboBox#MatchHistory {padding:2px 5px;}
-            QWidget#MatchQueryToolbar QComboBox#MatchHistory::drop-down {width:14px;}
+            QWidget#MatchQueryToolbar QComboBox#MatchHistory::drop-down {width:0;}
             QWidget#MatchQueryToolbar QPushButton {
                 padding:2px 10px; min-height:0; border-radius:6px;
             }
@@ -275,7 +369,7 @@ class AnalysisPage(QWidget):
         self.query_row = QWidget()
         query_row = QHBoxLayout(self.query_row)
         query_row.setContentsMargins(0, 0, 0, 0)
-        query_row.setSpacing(6)
+        query_row.setSpacing(8)
         self.query = QLineEdit()
         self.query.setPlaceholderText("昵称、玩家编号或 AoE4 World 个人主页链接")
         self.query.setAccessibleName("玩家查询条件")
@@ -294,16 +388,16 @@ class AnalysisPage(QWidget):
         self.refresh_button.setProperty("compact_icon", True)
         self.refresh_button.setToolTip("刷新战绩")
         self.refresh_button.setEnabled(False)
-        query_row.addWidget(self.refresh_button)
         toolbar.addWidget(self.query_row)
         self.query_options = QWidget()
         options = QHBoxLayout(self.query_options)
         options.setContentsMargins(0, 0, 0, 0)
-        options.setSpacing(10)
+        options.setSpacing(8)
+        options.addWidget(self.refresh_button)
         self.history_row = QWidget()
         recent = QHBoxLayout(self.history_row)
         recent.setContentsMargins(0, 0, 0, 0)
-        recent.setSpacing(6)
+        recent.setSpacing(8)
         self.history_combo = _HistoryPicker()
         self.history_combo.setAccessibleName("最近搜索记录")
         self.history_combo.setSizeAdjustPolicy(ClickComboBox.AdjustToMinimumContentsLengthWithIcon)
@@ -311,7 +405,9 @@ class AnalysisPage(QWidget):
         self.history_combo.setMinimumWidth(0)
         self.history_combo.activated.connect(self._use_history)
         recent.addWidget(self.history_combo, 1)
-        self.delete_history = _button("×", self._delete_history)
+        self.delete_history = _button("", self._delete_history)
+        self.delete_history.setIcon(line_icon("x"))
+        self.delete_history.setIconSize(QSize(16, 16))
         self.delete_history.setProperty("compact_delete", True)
         self.delete_history.setAccessibleName("删除选中的搜索记录")
         self.delete_history.setToolTip("只删除这条搜索记录，已获取的战绩仍会保留。")
@@ -394,15 +490,17 @@ class AnalysisPage(QWidget):
         self.history_combo.setToolTip("最近搜索：" + self.history_combo.currentText())
         self.query_row.setFixedHeight(height)
         self.query_options.setFixedHeight(height)
-        has_options = not self.history_row.isHidden() or not self.scope_row.isHidden()
+        self.scope_row.setFixedHeight(height)
+        self.scope_label.setFixedHeight(height)
+        has_options = True  # 刷新始终属于后续工具组，历史和样本说明按状态加入。
         self.query_options.setVisible(has_options)
         options_width = self.query_options.layout().minimumSize().width() if has_options else 0
         query_width = max(180, self.query.fontMetrics().horizontalAdvance("输入玩家昵称或编号") + 20)
-        minimum = (query_width + self.query_button.sizeHint().width() + self.refresh_button.sizeHint().width()
-                   + 12 + options_width + (10 if has_options else 0))
+        minimum = query_width + height + 8 + 12 + options_width
         one_row = self.query_toolbar.width() >= minimum
         self.toolbar_layout.setDirection(QBoxLayout.LeftToRight if one_row else QBoxLayout.TopToBottom)
-        self.toolbar_layout.setSpacing(10 if one_row else 4)
+        # 输入→查询为8px；查询组→后续工具组为12px；工具内部固定8px，不叠加空边距。
+        self.toolbar_layout.setSpacing(12 if one_row else 8)
         self.toolbar_layout.setStretch(0, 1 if one_row else 0)
         self.toolbar_layout.setStretch(1, 0)
         self.query_options.setSizePolicy(QSizePolicy.Maximum if one_row else QSizePolicy.Expanding, QSizePolicy.Fixed)
@@ -677,9 +775,12 @@ class AnalysisPage(QWidget):
                 self.player_choices.show()
                 self._arrange_player_choices()
                 self.choose_button.show()
-                self.notice.setText(f"找到 {len(result)} 个玩家 · 方向键选择，回车或双击查看")
+                # 候选已经可见，成功提示不再占据额外一行；键盘说明保留在辅助描述中。
+                self.notice.clear()
+                self.notice.hide()
             else:
                 self.notice.setText("没有找到该昵称。请核对名称，或粘贴个人主页链接。")
+                self.notice.show()
             if self.snapshot is None:
                 self.empty.setVisible(not bool(result))
             self.player_choices.blockSignals(False)

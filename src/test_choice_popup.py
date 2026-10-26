@@ -105,6 +105,46 @@ class ChoicePopupTests(unittest.TestCase):
         self.assertEqual(combo.currentIndex(), combo.count() - 1)
         self.assertFalse(view.isVisible())
 
+    def test_history_has_true_round_corners_and_inset_neutral_selection(self):
+        """检查真实弹层像素和两层裁切，矩形视口不能再遮住圆角。"""
+        combo = self.page.history_combo
+        combo.setCurrentIndex(0)
+        combo.showPopup()
+        QTest.qWait(20)
+        view, popup = combo.view(), combo.view().window()
+        self.assertEqual(combo.maxVisibleItems(), 8)
+        self.assertFalse(popup.mask().contains(QPoint(0, 0)))
+        self.assertFalse(view.mask().contains(QPoint(0, 0)))
+        self.assertTrue(popup.mask().contains(popup.rect().center()))
+        image = popup.grab().toImage()
+        self.assertEqual(image.pixelColor(0, 0).alpha(), 0)
+        pixels = view.viewport().grab().toImage()
+        selected = view.visualRect(view.model().index(0, 0))
+        self.assertEqual(pixels.pixelColor(1, selected.center().y()).name(), "#161619")
+        self.assertEqual(pixels.pixelColor(8, selected.center().y()).name(), "#202023")
+        self.assertGreater(view.verticalScrollBar().maximum(), 0)
+
+    def test_history_popup_stays_inside_screen_at_both_anchor_edges(self):
+        """入口靠近左右和上下边缘时仍显示完整行，较长历史继续滚动。"""
+        combo = self.page.history_combo
+        screen = combo.screen().availableGeometry().adjusted(8, 8, -8, -8)
+        for bottom_right in (False, True):
+            combo.hidePopup()
+            anchor = combo.mapToGlobal(QPoint())
+            desired = (screen.bottomRight() - QPoint(combo.width() + 4, combo.height() + 4)
+                       if bottom_right else screen.topLeft() + QPoint(4, 4))
+            self.manager.move(self.manager.pos() + desired - anchor)
+            QTest.qWait(10)
+            combo.showPopup()
+            QTest.qWait(20)
+            view, popup = combo.view(), combo.view().window()
+            self.assertTrue(screen.contains(popup.geometry()))
+            visible = [view.visualRect(view.model().index(row, 0)) for row in range(combo.count())
+                       if view.viewport().rect().intersects(view.visualRect(view.model().index(row, 0)))]
+            self.assertLessEqual(len(visible), 8)
+            self.assertTrue(all(view.viewport().rect().contains(rect) for rect in visible))
+
+
     def test_long_item_hover_has_full_text_tooltip(self):
         combo = self.page.history_combo
         combo.showPopup()

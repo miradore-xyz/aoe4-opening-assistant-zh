@@ -31,7 +31,7 @@ class CompactMatchToolbarTests(unittest.TestCase):
             page._show_snapshot(snapshot())
             page.show()
             try:
-                for width in (760, 1280):
+                for width in (760, 1100, 1500):
                     with self.subTest(width=width):
                         page.resize(width, 640)
                         QTest.qWait(30)
@@ -49,6 +49,16 @@ class CompactMatchToolbarTests(unittest.TestCase):
                         self.assertEqual(page.query.mapTo(page, QPoint()).y() ==
                                          page.history_combo.mapTo(page, QPoint()).y(), expected_single_row)
                         self.assertEqual(page.history_combo.width(), page.history_combo.height())
+                        # 验证实际控件边界的统一节奏，不依赖嵌套布局内部如何实现。
+                        ordered = (*fields, page.scope_label)
+                        positions = [control.mapTo(page, QPoint()) for control in ordered]
+                        self.assertEqual(len({position.y() for position in positions}), 1)
+                        gaps = [positions[index + 1].x() - positions[index].x() - ordered[index].width()
+                                for index in range(len(ordered) - 1)]
+                        self.assertEqual(gaps, [8, 12, 8, 8, 8])
+                        self.assertEqual(len({control.height() for control in ordered}), 1)
+                        self.assertEqual(page.delete_history.text(), "")
+                        self.assertFalse(page.delete_history.icon().isNull())
                         QTest.mouseClick(page.history_combo, Qt.LeftButton, pos=page.history_combo.rect().center())
                         self.assertTrue(page.history_combo.view().isVisible())
                         QTest.keyClick(page.history_combo.view(), Qt.Key_Escape)

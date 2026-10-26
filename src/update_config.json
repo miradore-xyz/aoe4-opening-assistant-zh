@@ -4,7 +4,7 @@
   "mirrors": [
     {
       "name": "Gitee 国内备用源",
-      "manifest_url": "https://gitee.com/code_liujiaxin/aoe4-opening-assistant-zh/raw/main/update.json"
+      "manifest_url": "https://gitee.com/miradore/aoe4-opening-assistant-zh/raw/main/update.json"
     }
   ]
 }

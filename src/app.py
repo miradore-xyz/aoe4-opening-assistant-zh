@@ -261,7 +261,7 @@ class Editor(FramelessDialog):
         content.setStyleSheet("""
             QWidget#OpeningEditorContent QWidget {font-size:12px;}
             QWidget#OpeningEditorContent QLineEdit,
-            QWidget#OpeningEditorContent QComboBox {padding:5px 8px;min-height:0;border-radius:6px;}
+            QWidget#OpeningEditorContent QComboBox {padding:5px 28px 5px 8px;min-height:0;border-radius:6px;}
             QWidget#OpeningEditorContent QSpinBox {padding:3px 6px;min-height:0;border-radius:6px;}
             QWidget#OpeningEditorContent QPushButton {padding:5px 10px;min-height:0;border-radius:8px;}
             QWidget#OpeningEditorContent QTextEdit {padding:6px 8px;border-radius:6px;}
@@ -1447,7 +1447,7 @@ class Manager(FramelessWindow):
         new_control = TapestryAction("新建开局", self.new_order, "knight")
         new_control.setObjectName("Primary")
         new_control.setIcon(line_icon("new", "#f4f4f5"))
-        new_control.setIconSize(QSize(16, 16))
+        new_control.setIconSize(QSize(18, 18))
         new_control.setFixedHeight(36)
         heading.addWidget(import_control)
         heading.addWidget(new_control)
@@ -1498,14 +1498,16 @@ class Manager(FramelessWindow):
         self.library.itemActivated.connect(self.open_session)
         self.home_layout.addWidget(self.library, 1)
         home_footer = QHBoxLayout()
-        online_control = TapestryAction("从网络获取开局", self.open_online_orders, "castle")
+        online_control = TapestryAction("获取开局", self.open_online_orders, "castle")
         self.online_orders_button = online_control
         online_control.setIcon(line_icon("online"))
+        online_control.setIconSize(QSize(18, 18))
         online_control.setObjectName("Quiet")
         home_footer.addWidget(online_control)
         home_footer.addStretch()
         self.resume_button = TapestryAction("继续演练", self.open_session, "dragon")
         self.resume_button.setIcon(line_icon("chevron"))
+        self.resume_button.setIconSize(QSize(18, 18))
         self.resume_button.setObjectName("Quiet")
         home_footer.addWidget(self.resume_button)
         self.home_layout.addLayout(home_footer)
@@ -1886,7 +1888,7 @@ class Manager(FramelessWindow):
         links.setSpacing(20)
         for caption, url in (("原项目与许可证", "https://github.com/CraftySalamander/RTS_Overlay"),
                              ("GitHub 源码", "https://github.com/miradore-xyz/aoe4-opening-assistant-zh"),
-                             ("Gitee 源码", "https://gitee.com/code_liujiaxin/aoe4-opening-assistant-zh")):
+                             ("Gitee 源码", "https://gitee.com/miradore/aoe4-opening-assistant-zh")):
             source_link = QLabel(f'<a style="color:#78c99c;" href="{url}">{caption}</a>')
             source_link.setOpenExternalLinks(True)
             links.addWidget(source_link)

@@ -17,7 +17,7 @@ python src/release_build.py --iscc 'C:\Program Files (x86)\Inno Setup 6\ISCC.exe
 
 公开源码仓库为 https://github.com/miradore-xyz/aoe4-opening-assistant-zh 。正式发布二进制前，应在仓库同版本标签提供完整对应源码、构建脚本和所需素材，并在发行页标明获取方式；公开旧版源码不能替代新版对应源码。本地构建不推送仓库、不创建标签、不上传附件。
 
-国内源码镜像为 https://gitee.com/code_liujiaxin/aoe4-opening-assistant-zh 。发布时两边同步同一版本源码和标签，发行附件使用相同二进制文件和校验值；备用更新清单使用Gitee自身的附件地址。
+国内源码镜像为 https://gitee.com/miradore/aoe4-opening-assistant-zh 。发布时两边同步同一版本源码和标签。普通Gitee仓库单附件上限100MB，超过上限的安装包由GitHub提供，Gitee发行说明与备用更新清单指向可用的GitHub附件，不填写不存在的Gitee大文件地址。
 
 ## 内置紧凑地图与字体
 

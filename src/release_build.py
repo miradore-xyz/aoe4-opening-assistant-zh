@@ -113,7 +113,7 @@ def stage_payload(distribution: Path, destination: Path, version: str) -> None:
         "原项目：https://github.com/CraftySalamander/RTS_Overlay\n"
         "上游提交：aaee02c95e47e4aadb7c3269fd07fb12b5871620\n"
         f"公开源码与构建说明：https://github.com/{github_repository()}\n"
-        "国内源码镜像：https://gitee.com/code_liujiaxin/aoe4-opening-assistant-zh\n"
+        "国内源码镜像：https://gitee.com/miradore/aoe4-opening-assistant-zh\n"
         f"程序版本：{version}；正式发行对应源码以仓库同版本标签为准。\n"
         "程序包不附带源码目录或源码素材副本；许可证与第三方署名继续随附。\n"
         "游戏图像版权归原权利人，文明资料来源见_internal/assets/catalog内的来源说明。\n"

@@ -1,0 +1,24 @@
+{
+  "project": "Lucide QSS颜色派生",
+  "commit": "1802f33f6c270395fcd981067f22719140e2ffbc",
+  "license": "../Lucide/LICENSE",
+  "policy_zh": "仅将currentColor替换为固定中性色，供Qt样式表读取；几何路径、viewBox、线宽和端点均保持官方原值。原SVG及其摘要位于Lucide目录。",
+  "files": [
+    {
+      "file": "chevron-down-normal.svg",
+      "source": "../Lucide/chevron-down.svg",
+      "source_sha256": "66ea878e72ed3488bb3b464c39dfdccee8d1f78e560dccea40e5e12da0e87e87",
+      "stroke_color": "#b8bac2",
+      "sha256": "d699b9f99f13137c5821cff4aece656b4cf69218cbe32dff48ffc1361ce1990d",
+      "bytes": 231
+    },
+    {
+      "file": "chevron-down-disabled.svg",
+      "source": "../Lucide/chevron-down.svg",
+      "source_sha256": "66ea878e72ed3488bb3b464c39dfdccee8d1f78e560dccea40e5e12da0e87e87",
+      "stroke_color": "#66666f",
+      "sha256": "31d5d04d0c49fb5e2070dc65643b7ffcd73ca396d5866c52be371e4f6cbd482e",
+      "bytes": 231
+    }
+  ]
+}

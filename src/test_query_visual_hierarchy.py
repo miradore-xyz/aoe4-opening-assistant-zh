@@ -55,6 +55,33 @@ class QueryVisualHierarchyTests(unittest.TestCase):
         self.application.processEvents()
         self.directory.cleanup()
 
+    def test_search_success_has_no_notice_row_but_preserves_accessibility_and_errors(self):
+        """成功候选没有多余提示条；完整账号、键盘说明及错误/空结果反馈仍保留。"""
+        self.page.resize(760, 560)
+        self.page.show()
+        self.page.query.setText("同名账号")
+        name = "长中文昵称和Sen拉丁字母Miradore保留完整辅助文字"
+        with patch.object(self.page, "_start_identities"):
+            self.page._job_result([{"profile_id": 5497834, "name": name, "game_level": 22}], "search")
+        self.assertTrue(self.page.notice.isHidden())
+        self.assertEqual(self.page.notice.text(), "")
+        self.assertTrue(self.page.player_choices.isVisible())
+        self.assertIn("方向键", self.page.player_choices.accessibleDescription())
+        item = self.page.player_choices.item(0)
+        self.assertIn(name, item.data(Qt.AccessibleTextRole))
+        self.assertIn("5497834", item.data(Qt.AccessibleTextRole))
+        choice = self.page.player_choices.itemWidget(item)
+        self.assertEqual(choice.name.text(), name)
+        self.assertIn(name, choice.toolTip())
+        self.page._job_error("网络暂时不可用，请重试")
+        self.assertTrue(self.page.notice.isVisible())
+        self.assertIn("网络暂时不可用", self.page.notice.text())
+        with patch.object(self.page, "_start_identities"):
+            self.page._job_result([], "search")
+        self.assertTrue(self.page.notice.isVisible())
+        self.assertIn("没有找到", self.page.notice.text())
+
+
     def test_card_has_distinct_captions_mode_and_compact_value_with_all_rows(self):
         card = ModeSummaryCard({"name": "排位 4 对 4", "wins": 17, "losses": 33,
                                 "win_rate": 34, "count": 50,

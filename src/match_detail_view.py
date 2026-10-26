@@ -420,7 +420,7 @@ class MatchDetailView(QWidget):
                 padding:6px 10px; min-height:21px; font-size:12px; selection-background-color:#45454D;
             }
             #MatchDetailView QComboBox:focus, #MatchDetailView QLineEdit:focus, #MatchDetailView QSpinBox:focus {border-color:#B8B8C0;}
-            #MatchDetailView QComboBox::drop-down {border:0; width:18px;}
+            #MatchDetailView QComboBox::drop-down {border:0; width:24px;}
             #MatchDetailView QPushButton, #MatchDetailView QToolButton {
                 background:#202023; color:#D6D6DB; border:1px solid #303035; border-radius:7px; padding:6px 10px; font-size:12px;
             }

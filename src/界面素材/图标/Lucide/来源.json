@@ -120,6 +120,18 @@
       "url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/icons/rotate-cw.svg",
       "sha256": "ddcfe6d87240475946935e77411cd4d15a06f3d28a9b921bafed224ebe953668",
       "bytes": 299
+    },
+    {
+      "name": "x",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/icons/x.svg",
+      "sha256": "4a9cdab38fbb96162e7dace28e33f4ca0e49d8963a6162abc3d4691b7d675117",
+      "bytes": 260
+    },
+    {
+      "name": "chevron-down",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/icons/chevron-down.svg",
+      "sha256": "66ea878e72ed3488bb3b464c39dfdccee8d1f78e560dccea40e5e12da0e87e87",
+      "bytes": 236
     }
   ]
 }
