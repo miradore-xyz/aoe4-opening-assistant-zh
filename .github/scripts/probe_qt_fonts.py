@@ -31,13 +31,18 @@ with tempfile.TemporaryDirectory(prefix="qt-font-probe-") as directory:
         identity = QFontDatabase.addApplicationFont(str(path))
         data = path.read_bytes()
         memory_identity = QFontDatabase.addApplicationFontFromData(QByteArray(data))
-        ascii_path = Path(directory) / path.name
-        ascii_path.write_bytes(data)
-        ascii_identity = QFontDatabase.addApplicationFont(str(ascii_path))
+        ascii_identity = None
+        if arguments.platform == "offscreen":
+            ascii_path = Path(directory) / path.name
+            ascii_path.write_bytes(data)
+            ascii_identity = QFontDatabase.addApplicationFont(str(ascii_path))
         rows.append({"path": str(path.relative_to(font_root())), "exists": path.is_file(),
                      "bytes": path.stat().st_size, "qt_font_id": identity,
                      "families": QFontDatabase.applicationFontFamilies(identity) if identity >= 0 else [],
                      "memory_font_id": memory_identity, "ascii_path_font_id": ascii_identity})
+        if ascii_identity is not None and ascii_identity >= 0:
+            # 移除ASCII对照注册后再清理临时目录，保留内存字体供字形核对。
+            QFontDatabase.removeApplicationFont(ascii_identity)
 layout = QTextLayout("玩家查询 Sen 1234", make_ui_font(14))
 layout.beginLayout()
 line = layout.createLine()

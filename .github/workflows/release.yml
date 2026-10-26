@@ -52,7 +52,8 @@ jobs:
           if ($env:GITHUB_REF_TYPE -eq 'tag' -and $env:GITHUB_REF_NAME -ne "v$taskVersion") {
             throw 'Git 标签与程序版本不一致。'
           }
-          python -m unittest discover -s src -p 'test_*.py'
+          # 字体已在Windows进程严格验证；其余测试以真实字体运行原定离屏后端。
+          python .github/scripts/run_offscreen_checks.py
           if ($LASTEXITCODE -ne 0) { throw '自动检查未通过。' }
       - name: 准备官方安装器编译工具
         if: ${{ !inputs.font_probe_only }}
