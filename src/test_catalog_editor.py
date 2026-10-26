@@ -22,6 +22,7 @@ from app import Editor, Manager, STYLE
 from catalog import catalog_icon, load_catalog, resolve_icon
 from core import DEFAULTS, atomic_json, load_settings, read_order, validate_order
 from order_actions import manual_notes
+from test_app import destroy_test_manager
 
 
 CIVILIZATION = "Order of the Dragon"  # 龙之骑士团的原格式文明标识。
@@ -40,6 +41,7 @@ def catalog_entry(kind, base_id, count=1):
 def fixture():
     """保留用户正文和未知扩展字段，验证编辑不会破坏既有内容。"""
     first, second = Editor.blank(), Editor.blank()
+    first["time"], second["time"] = "00:00", "05:05"
     first["notes"] = ["持续造村民，侦察地图。", "手写提示保留 @resource/wood.webp@"]
     second["notes"] = ["第二个时间点的独立提示。"]
     return {
@@ -60,8 +62,15 @@ class CatalogEditorTests(unittest.TestCase):
 
     def editor(self, data=None):
         editor = Editor(None, data if data is not None else fixture())
-        self.addCleanup(editor.deleteLater)
+        self.addCleanup(self.destroy_editor, editor)
         return editor
+
+    def destroy_editor(self, editor):
+        """本轮编辑器的延迟删除必须在本轮事件清理中完成。"""
+        editor.reject()
+        editor.deleteLater()
+        self.application.sendPostedEvents(None, QEvent.DeferredDelete)
+        self.application.processEvents()
 
     def flush_deleted_widgets(self):
         """清理重绘产生的旧行，使按钮查找只针对当前动作行。"""
@@ -127,7 +136,10 @@ class CatalogEditorTests(unittest.TestCase):
 
     def test_time_point_selection_keeps_actions_and_manual_text_independent(self):
         """切换列表触发提交与载入，各时间点动作互不串入。"""
-        editor = self.editor()
+        unfinished = fixture()
+        for step in unfinished["build_order"]:
+            step.pop("time", None)
+        editor = self.editor(unfinished)
         self.assertEqual(editor.steps.item(0).text(), "未设置时间")
         self.assertNotRegex(editor.steps.item(0).text(), r"第\s*\d+\s*步")
         editor.time.setText("3:20")
@@ -203,9 +215,11 @@ class CatalogEditorTests(unittest.TestCase):
             atomic_json(path, editor.data)
             atomic_json(folder / "设置.json", {
                 "speech": False, "voice_engine": "online", "last_order": str(path),
+                "timed_playback_policy": 1,
                 "hotkeys": {key: "" for key in ("previous", "next", "pause", "visible", "passthrough", "reset")},
             })
-            with patch("app.OnlineSpeech.prepare", side_effect=AssertionError("关闭语音时不应请求联网准备")):
+            with patch("app.OnlineSpeech.prepare", side_effect=AssertionError("关闭语音时不应请求联网准备")), \
+                    patch("app.Speech.start"), patch("update_ui.UpdateController.check"):
                 manager = Manager(self.application, folder)
                 try:
                     manager.open_session()
@@ -221,13 +235,13 @@ class CatalogEditorTests(unittest.TestCase):
                     self.assertIn("持续造村民，侦察地图。", spoken)
                     self.assertNotIn("catalog/icons/", spoken)
                     self.assertFalse(manager.settings["speech"])
-                    # 新用户默认关闭循环检查；写入其他设置不会意外打开它。
-                    self.assertFalse(DEFAULTS["reminders"])
-                    self.assertFalse(manager.settings["reminders"])
-                    self.assertFalse(manager.reminders_check.isChecked())
-                    self.assertFalse(load_settings(folder / "不存在的设置.json")[0]["reminders"])
+                    # 循环检查已移除，旧设置也不会重新生成相应控件或调度项。
+                    self.assertNotIn("reminders", DEFAULTS)
+                    self.assertNotIn("reminders", manager.settings)
+                    self.assertFalse(hasattr(manager, "reminders_check"))
+                    self.assertNotIn("reminders", load_settings(folder / "不存在的设置.json")[0])
                 finally:
-                    manager.close()
+                    destroy_test_manager(self.application, manager)
 
 
 if __name__ == "__main__":

@@ -5,6 +5,7 @@ controller=更新控制器，release=发行版，progress=下载进度，install
 from __future__ import annotations
 
 import json
+import math
 import os
 from pathlib import Path
 import subprocess
@@ -12,7 +13,7 @@ import sys
 import threading
 
 from PyQt5.QtCore import QObject, Qt, QTimer, QSize, pyqtSignal
-from PyQt5.QtGui import QColor, QIcon, QPainter, QPen, QPixmap
+from PyQt5.QtGui import QColor, QIcon, QPainter, QPen, QPixmap, QTextDocument
 from PyQt5.QtWidgets import (
     QApplication, QHBoxLayout, QLabel, QPlainTextEdit, QProgressBar,
     QPushButton, QVBoxLayout, QWidget,
@@ -73,6 +74,33 @@ class _Signals(QObject):
     verified = pyqtSignal(object, object)
 
 
+class _StatusLabel(QLabel):
+    """按真实字体与换行测量错误正文，避免负行间距把双行提示挤在一起。"""
+
+    def _text_height(self, width=None):
+        document = QTextDocument()
+        document.setDefaultFont(self.font())
+        document.setDocumentMargin(0)
+        document.setPlainText(self.text())
+        margins = self.contentsMargins()
+        if width is not None:
+            document.setTextWidth(max(1, width - margins.left() - margins.right()))
+        return math.ceil(document.size().height()) + margins.top() + margins.bottom()
+
+    def heightForWidth(self, width):
+        return max(super().heightForWidth(width), self._text_height(width))
+
+    def sizeHint(self):
+        hint = super().sizeHint()
+        hint.setHeight(max(hint.height(), self._text_height(hint.width())))
+        return hint
+
+    def minimumSizeHint(self):
+        hint = super().minimumSizeHint()
+        hint.setHeight(max(hint.height(), self._text_height()))
+        return hint
+
+
 class _UpdateDialog(FramelessDialog):
     """与主界面一致的更新说明、进度和操作区。"""
 
@@ -82,8 +110,8 @@ class _UpdateDialog(FramelessDialog):
         super().__init__(parent)
         self.setWindowTitle("软件更新")
         self.setModal(True)
-        self.setMinimumSize(460, 340)
-        self.resize(520, 420)
+        self.setMinimumWidth(460)
+        self.resize(520, 200)
         root = QVBoxLayout(self)
         root.setContentsMargins(1, 1, 1, 1)
         root.setSpacing(0)
@@ -91,6 +119,7 @@ class _UpdateDialog(FramelessDialog):
         root.addWidget(self.bar)
         body = QWidget(self)
         layout = QVBoxLayout(body)
+        self._body_layout = layout
         layout.setContentsMargins(24, 18, 24, 24)
         layout.setSpacing(12)
         self.heading = QLabel("正在检查更新…", body)
@@ -105,13 +134,15 @@ class _UpdateDialog(FramelessDialog):
         self.notes.setAccessibleName("更新内容")
         self.notes.setFrameShape(QPlainTextEdit.NoFrame)
         self.notes.setStyleSheet(
-            "QPlainTextEdit {background:#161618;border:0;border-radius:8px;"
+            "QPlainTextEdit {background:#161619;border:0;border-radius:8px;"
             "padding:10px;color:#e4e4e7;font-size:12px;}"
         )
+        self.notes.hide()
         layout.addWidget(self.notes, 1)
         self.source = QLabel(body)
         self.source.setStyleSheet("color:#a4a4ab;font-size:11px;")
         self.source.setWordWrap(True)
+        self.source.hide()
         layout.addWidget(self.source)
         self.progress = QProgressBar(body)
         self.progress.setAccessibleName("更新下载进度")
@@ -119,13 +150,15 @@ class _UpdateDialog(FramelessDialog):
         self.progress.setFixedHeight(5)
         self.progress.setStyleSheet(
             "QProgressBar {background:#29292e;border:0;border-radius:2px;}"
-            "QProgressBar::chunk {background:#39b875;border-radius:2px;}"
+            "QProgressBar::chunk {background:#B8B8C0;border-radius:2px;}"
         )
         self.progress.hide()
         layout.addWidget(self.progress)
-        self.status = QLabel(body)
+        self.status = _StatusLabel(body)
+        self.status.setTextFormat(Qt.PlainText)
         self.status.setWordWrap(True)
         self.status.setStyleSheet("color:#b8bac2;font-size:12px;")
+        self.status.hide()
         layout.addWidget(self.status)
         actions = QHBoxLayout()
         actions.setContentsMargins(0, 4, 0, 0)
@@ -140,9 +173,38 @@ class _UpdateDialog(FramelessDialog):
         self.primary.setObjectName("Primary")
         self.primary.setMinimumHeight(34)
         self.primary.setEnabled(False)
+        self.primary.hide()
         actions.addWidget(self.primary)
         layout.addLayout(actions)
         root.addWidget(body, 1)
+
+    def refresh_layout(self):
+        """只给真实内容留位置；状态切换后撤销旧说明面板占用的高度。"""
+        self.notes.setVisible(bool(self.notes.toPlainText().strip()))
+        self.source.setVisible(bool(self.source.text().strip()))
+        self.status.setVisible(bool(self.status.text().strip()))
+        self._body_layout.invalidate()
+        self._body_layout.activate()
+        self.layout().invalidate()
+        self.layout().activate()
+        # 按当前窗口宽度计算换行高度；首选宽度下的 sizeHint 会低估窄窗口错误正文。
+        height = self.layout().totalHeightForWidth(self.width())
+        self.resize(self.width(), height if height >= 0 else self.layout().sizeHint().height())
+
+    def set_status(self, message):
+        """错误与下载状态保留可见；空状态不占一行。"""
+        self.status.setText(message)
+        self.refresh_layout()
+
+    def show_summary(self, heading, message=""):
+        """检查中、已最新和检查失败均不沿用上一次的新版本说明。"""
+        self.heading.setText(heading)
+        self.notes.clear()
+        self.source.clear()
+        self.progress.hide()
+        self.primary.hide()
+        self.cancel.setText("关闭")
+        self.set_status(message)
 
     def done(self, result):
         self.closing.emit()
@@ -230,6 +292,7 @@ class UpdateController(QObject):
 
     def _show_dialog(self):
         dialog = self._ensure_dialog()
+        dialog.refresh_layout()
         dialog.show()
         dialog.raise_()
         dialog.activateWindow()
@@ -244,20 +307,14 @@ class UpdateController(QObject):
                 self.show_update()
             return
         if manual:
-            dialog = self._show_dialog()
-            if not self._checking:
-                dialog.heading.setText("正在检查更新…")
-                dialog.status.setText("")
-                dialog.progress.hide()
-                dialog.notes.setPlainText("")
-                dialog.source.setText("")
-                dialog.primary.hide()
+            dialog = self._ensure_dialog()
+            dialog.show_summary("正在检查更新…")
+            self._show_dialog()
         if self._checking:
             return
         if self.client is None:
             if manual:
-                self.dialog.heading.setText("暂时无法检查更新")
-                self.dialog.status.setText(self._configuration_error)
+                self.dialog.show_summary("暂时无法检查更新", self._configuration_error)
             return
         self._checking = True
 
@@ -275,9 +332,7 @@ class UpdateController(QObject):
         if error:
             if manual or (self.dialog is not None and self.dialog.isVisible()):
                 dialog = self._ensure_dialog()
-                dialog.heading.setText("暂时无法检查更新")
-                dialog.status.setText(str(error))
-                dialog.primary.hide()
+                dialog.show_summary("暂时无法检查更新", str(error))
             return
         self.release = release
         self.verified_path = None
@@ -288,17 +343,14 @@ class UpdateController(QObject):
                 self._populate_release()
         elif manual or (self.dialog is not None and self.dialog.isVisible()):
             dialog = self._ensure_dialog()
-            dialog.heading.setText("已是最新版本")
-            dialog.notes.setPlainText("")
-            dialog.status.setText("")
-            dialog.source.setText("")
-            dialog.primary.hide()
+            dialog.show_summary("已是最新版本")
 
     def _populate_release(self):
         dialog = self._ensure_dialog()
         release = self.release
         dialog.heading.setText(f"发现新版本 {release.version}")
-        dialog.notes.setPlainText(release.notes or "改进使用体验并修复问题。")
+        # 未提供发行说明时不编造改动，也不显示空面板。
+        dialog.notes.setPlainText((release.notes or "").strip())
         source = "GitHub 发行版" if release.source == "GitHub" else str(release.source)
         size = f" · {_bytes(release.size)}" if release.size else ""
         dialog.source.setText(f"更新来源：{source}{size}")
@@ -308,7 +360,9 @@ class UpdateController(QObject):
         dialog.cancel.setText("取消下载" if self._downloading else "关闭")
         if not self._downloading and not self._verifying:
             dialog.progress.setVisible(bool(self.verified_path))
-            dialog.status.setText("下载完成，点击后安装并重启。" if self.verified_path else "")
+            dialog.set_status("下载完成，点击后安装并重启。" if self.verified_path else "")
+        else:
+            dialog.refresh_layout()
 
     def show_update(self):
         """显示新版本说明；不会因打开弹窗而自动开始下载。"""
@@ -338,7 +392,7 @@ class UpdateController(QObject):
         dialog.cancel.setText("取消下载")
         dialog.progress.setRange(0, 0)
         dialog.progress.show()
-        dialog.status.setText("正在连接下载来源…")
+        dialog.set_status("正在连接下载来源…")
 
         def progress(received, total):
             if cancel.is_set():
@@ -369,10 +423,10 @@ class UpdateController(QObject):
         if total:
             self.dialog.progress.setRange(0, 1000)
             self.dialog.progress.setValue(min(1000, int(received * 1000 / total)))
-            self.dialog.status.setText(f"已下载 {_bytes(received)} / {_bytes(total)}")
+            self.dialog.set_status(f"已下载 {_bytes(received)} / {_bytes(total)}")
         else:
             self.dialog.progress.setRange(0, 0)
-            self.dialog.status.setText(f"已下载 {_bytes(received)}")
+            self.dialog.set_status(f"已下载 {_bytes(received)}")
 
     def _downloaded(self, path, error, cancelled):
         self._downloading = False
@@ -382,16 +436,16 @@ class UpdateController(QObject):
         dialog.progress.setRange(0, 1000)
         if cancelled:
             dialog.progress.hide()
-            dialog.status.setText("下载已取消。")
+            dialog.set_status("下载已取消。")
             dialog.primary.setText("重新下载")
         elif error:
             dialog.progress.hide()
-            dialog.status.setText(str(error))
+            dialog.set_status(str(error))
             dialog.primary.setText("重新下载")
         else:
             self.verified_path = Path(path)
             dialog.progress.setValue(1000)
-            dialog.status.setText("下载完成，点击后安装并重启。")
+            dialog.set_status("下载完成，点击后安装并重启。")
             dialog.primary.setText("安装并重启")
 
     def _other_modal_is_open(self):
@@ -404,13 +458,13 @@ class UpdateController(QObject):
             return
         dialog = self._ensure_dialog()
         if self._other_modal_is_open():
-            dialog.status.setText("请先保存并关闭正在编辑的窗口，再安装更新。")
+            dialog.set_status("请先保存并关闭正在编辑的窗口，再安装更新。")
             return
         self._verifying = True
         self._install_requested = True
         dialog.primary.setEnabled(False)
         dialog.cancel.setEnabled(False)
-        dialog.status.setText("正在检查安装文件…")
+        dialog.set_status("正在检查安装文件…")
         path, release = self.verified_path, self.release
 
         def work():
@@ -428,22 +482,22 @@ class UpdateController(QObject):
         dialog.cancel.setEnabled(True)
         dialog.primary.setEnabled(True)
         if not self._install_requested:
-            dialog.status.setText("安装已取消。")
+            dialog.set_status("安装已取消。")
             return
         self._install_requested = False
         if error or path is None:
             self.verified_path = None
-            dialog.status.setText(str(error or "安装文件无法读取，请重新下载。"))
+            dialog.set_status(str(error or "安装文件无法读取，请重新下载。"))
             dialog.primary.setText("重新下载")
             return
         if self._other_modal_is_open():
-            dialog.status.setText("请先保存并关闭正在编辑的窗口，再安装更新。")
+            dialog.set_status("请先保存并关闭正在编辑的窗口，再安装更新。")
             return
         try:
             self.manager.save_settings()
             subprocess.Popen([str(path), *installer_args(self.manager)], cwd=str(Path(path).parent))
         except (OSError, ValueError) as problem:
-            dialog.status.setText(f"安装程序未能启动：{problem}")
+            dialog.set_status(f"安装程序未能启动：{problem}")
             return
         # 安装器仅等待 /WAITPID 指定的当前进程自然结束，绝不强杀编辑窗口。
         self.manager.close()

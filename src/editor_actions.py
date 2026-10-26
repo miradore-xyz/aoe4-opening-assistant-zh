@@ -183,7 +183,7 @@ class ActionPicker(FramelessDialog):
             self.building_list.setFixedWidth(158)
             self.building_list.setIconSize(QSize(24, 24))
             self.building_list.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-            self.building_list.setStyleSheet('QListWidget::item{padding:7px 5px;border-radius:6px;} QListWidget::item:selected{background:#263a2e;color:#f4f4f5;}')
+            self.building_list.setStyleSheet('QListWidget::item{padding:8px 7px;border-radius:6px;} QListWidget::item:selected{background:#303035;color:#f4f4f5;}')
             all_items = QListWidgetItem('全部科技')
             all_items.setData(Qt.UserRole, '')
             self.building_list.addItem(all_items)

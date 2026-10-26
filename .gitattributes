@@ -1,0 +1,5 @@
+# 保留源码、素材及来源校验文件的原始字节，避免换行转换破坏SHA-256。
+src/** -text
+许可与依赖/** -text
+LICENSE -text
+update.json -text

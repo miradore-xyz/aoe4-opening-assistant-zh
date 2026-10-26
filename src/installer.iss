@@ -6,6 +6,9 @@
 #ifndef AppVersion
   #define AppVersion "1.6.0"
 #endif
+#ifndef AppCodename
+  #define AppCodename ""
+#endif
 #ifdef TestBuild
   ; 隔离安装测试使用独立标识和快捷方式，不污染真正发行安装。
   #define ProductAppId "{{A40CDF9F-AF3D-4D26-A68B-76EC135FE60A}"
@@ -13,7 +16,7 @@
   #define ProductMutex "AoE4OpeningAssistant.Setup.QA"
 #else
   #define ProductAppId "{{8B5744A8-F2C0-48E4-85D9-55BB537FBB11}"
-  #define ProductName "帝国开局助手"
+  #define ProductName "AoE4 HELP"
   #define ProductMutex "AoE4OpeningAssistant.Setup"
 #endif
 #ifndef WaitTimeoutMs
@@ -24,7 +27,10 @@
 AppId={#ProductAppId}
 AppName={#ProductName}
 AppVersion={#AppVersion}
-AppPublisher=帝国开局助手开源项目
+#if AppCodename != ""
+AppVerName={#ProductName} {#AppVersion} · {#AppCodename}
+#endif
+AppPublisher=AoE4 HELP 开源项目
 DefaultDirName={localappdata}\Programs\AoE4OpeningAssistant
 DefaultGroupName={#ProductName}
 PrivilegesRequired=lowest
@@ -33,7 +39,7 @@ ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
 MinVersion=10.0
 OutputBaseFilename=AoE4OpeningAssistant-Setup
-SetupIconFile={#PayloadDir}\源码\界面素材\龙序.ico
+SetupIconFile={#PayloadDir}\_internal\assets\design\龙序.ico
 UninstallDisplayIcon={app}\启动中文助手.exe
 LicenseFile={#PayloadDir}\LICENSE
 Compression=lzma2
@@ -56,7 +62,7 @@ Name: "desktopicon"; Description: "创建桌面快捷方式"; GroupDescription: 
 
 [Files]
 ; 仅从无用户数据的构建暂存目录取文件，双重排除个人目录。
-Source: "{#PayloadDir}\*"; DestDir: "{app}"; Excludes: "用户数据,用户数据\*,离线语音包,离线语音包\*,__pycache__,*.pyc,战绩缓存,战绩缓存\*"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#PayloadDir}\*"; DestDir: "{app}"; Excludes: "用户数据,用户数据\*,离线语音包,离线语音包\*,__pycache__,*.pyc,战绩缓存,战绩缓存\*,本地复盘,本地复盘\*,公开回放,公开回放\*,对局详情,对局详情\*,玩家身份,玩家身份\*,玩家头像,玩家头像\*"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: "{autoprograms}\{#ProductName}"; Filename: "{app}\启动中文助手.exe"; Parameters: "{code:ApplicationArguments}"; WorkingDir: "{app}"
@@ -64,7 +70,7 @@ Name: "{autodesktop}\{#ProductName}"; Filename: "{app}\启动中文助手.exe"; 
 
 [Run]
 ; 普通安装保留复选框；软件内更新通过 /RESTART_APP=1 在完成阶段启动一次。
-Filename: "{app}\启动中文助手.exe"; Parameters: "{code:ApplicationArguments}"; WorkingDir: "{app}"; Description: "启动帝国开局助手"; Flags: nowait postinstall skipifsilent; Check: IsInteractiveLaunch
+Filename: "{app}\启动中文助手.exe"; Parameters: "{code:ApplicationArguments}"; WorkingDir: "{app}"; Description: "启动 AoE4 HELP"; Flags: nowait postinstall skipifsilent; Check: IsInteractiveLaunch
 
 [Code]
 const
@@ -163,7 +169,7 @@ begin
         { 等待父程序正常退出；不使用任务终止或重启管理器关闭其他实例。 }
         WaitResult := WaitForSingleObject(ProcessHandle, {#WaitTimeoutMs});
         if WaitResult <> 0 then begin
-          SuppressibleMsgBox('程序尚未退出，请先保存并关闭帝国开局助手后重试。', mbError, MB_OK, IDOK);
+          SuppressibleMsgBox('程序尚未退出，请先保存并关闭 AoE4 HELP 后重试。', mbError, MB_OK, IDOK);
           Exit;
         end;
       finally

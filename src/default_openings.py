@@ -10,6 +10,7 @@ from pathlib import Path
 import re
 import sys
 
+import catalog
 from core import CIVS, atomic_json, read_order
 
 
@@ -20,6 +21,11 @@ DEFAULT_PREFIX = "aoe4guides-default:"
 LEGACY_EXAMPLE_HASHES = {
     "553a4aa2a5000a427aba2f6639c4eeba6045f2c2eff8094e7b528b7a7079e03b",
     "068ea06a639c137df77dfa6b4227e8c860058d216bfd432199472b3f76834ada",
+}
+# 原始文件字节的 SHA-256（安全散列指纹）完全一致才校订；玩家编辑过的稿件不覆盖。
+CONTROLLED_OPENING_REPAIRS = {
+    "597892a4a304204142222af479f8a232925236c6a998c8d3e4816bda446d7df9":
+        "蒙古-怯薛封建压制.json",
 }
 
 
@@ -95,10 +101,32 @@ def _unused_path(directory, name):
     return destination
 
 
+def _repair_controlled_openings(data_dir, orders_dir):
+    """受控旧稿原位校订：先备份完整字节，沿用文件路径与玩家当前选中项。"""
+    repaired = []
+    for path in sorted(orders_dir.glob("*.json")):
+        try:
+            original = path.read_bytes()
+        except OSError:
+            continue
+        filename = CONTROLLED_OPENING_REPAIRS.get(hashlib.sha256(original).hexdigest())
+        if filename is None:
+            continue
+        replacement = read_order(catalog.CATALOG_ROOT / "修正开局" / filename)
+        backup_dir = data_dir / "开局修正前备份"
+        backup_dir.mkdir(parents=True, exist_ok=True)
+        _unused_path(backup_dir, path.name).write_bytes(original)
+        atomic_json(path, replacement)
+        repaired.append(path)
+    return repaired
+
+
 def seed_default_openings(data_dir, orders_dir=None, directory=None):
     """对每个默认标识只处理一次；已处理后删除、改名和编辑均不自动恢复。"""
     data_dir = Path(data_dir)
     orders_dir = Path(orders_dir) if orders_dir is not None else data_dir / "开局库"
+    # 修正与默认开局 handled（已处理）记录独立；旧用户同样能在升级时获得校订。
+    _repair_controlled_openings(data_dir, orders_dir)
     entries = load_default_openings(directory)
     if not entries:
         return []

@@ -23,10 +23,7 @@ SOURCE = Path(__file__).resolve().parent
 PROJECT = SOURCE.parent
 SETUP_NAME = "AoE4OpeningAssistant-Setup.exe"
 PORTABLE_NAME = "AoE4OpeningAssistant-Portable.zip"
-SOURCE_NAME = "AoE4OpeningAssistant-Source.zip"
-ASSET_DIRECTORIES = ("upstream", "高清图标", "界面素材", "文明旗帜", "文明资料", "默认开局", "installer_resources")
-SOURCE_FILES = {"requirements.txt", "qt_zh_CN.qm", "build.ps1", "installer.iss", "update_config.json", "RELEASE.md"}
-FORBIDDEN_NAMES = {"用户数据", "离线语音包", "战绩缓存", "__pycache__", ".git", ".build-env", ".venv"}
+FORBIDDEN_NAMES = {"用户数据", "离线语音包", "战绩缓存", "本地复盘", "公开回放", "对局详情", "玩家身份", "玩家头像", "__pycache__", ".git", ".build-env", ".venv"}
 
 
 def version_from_source() -> str:
@@ -39,6 +36,16 @@ def version_from_source() -> str:
                 if names & {"APP_VERSION", "VERSION"} and isinstance(statement.value.value, str):
                     return statement.value.value
     return "1.6.0"
+
+
+def codename_from_source() -> str:
+    """版本代号只作人类可读名称，数字版本仍独立用于更新比较。"""
+    for statement in ast.parse((SOURCE / "version.py").read_text(encoding="utf-8-sig")).body:
+        if (isinstance(statement, ast.Assign) and isinstance(statement.value, ast.Constant)
+                and isinstance(statement.value.value, str)
+                and any(isinstance(target, ast.Name) and target.id == "APP_CODENAME" for target in statement.targets)):
+            return statement.value.value
+    return ""
 
 
 def run(arguments: list[str], *, cwd: Path = SOURCE) -> None:
@@ -56,15 +63,13 @@ def copy_tree(source: Path, destination: Path) -> None:
     shutil.copytree(source, destination, ignore=lambda _path, names: [name for name in names if excluded(name)])
 
 
-def copy_source(destination: Path) -> None:
-    destination.mkdir(parents=True)
-    for item in SOURCE.iterdir():
-        if item.is_file() and (item.suffix == ".py" or item.name in SOURCE_FILES):
-            shutil.copy2(item, destination / item.name)
-    for name in ASSET_DIRECTORIES:
-        if not (SOURCE / name).is_dir():
-            raise FileNotFoundError(f"缺少构建素材：{name}")
-        copy_tree(SOURCE / name, destination / name)
+def github_repository() -> str:
+    """读取已配置的公开源码仓库；构建过程不推送代码或发布附件。"""
+    configuration = json.loads((SOURCE / "update_config.json").read_text(encoding="utf-8-sig"))
+    repository = configuration.get("github_repository", "")
+    if not isinstance(repository, str) or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9-]{0,38}/[A-Za-z0-9_.-]{1,100}", repository):
+        raise ValueError("更新配置中的GitHub仓库无效。")
+    return repository
 
 
 def project_resource(name: str) -> Path:
@@ -100,16 +105,18 @@ def stage_payload(distribution: Path, destination: Path, version: str) -> None:
     destination.mkdir(parents=True)
     shutil.copy2(executable, destination / executable.name)
     copy_tree(runtime, destination / "_internal")
-    copy_source(destination / "源码")
     shutil.copy2(project_resource("LICENSE"), destination / "LICENSE")
     copy_tree(project_resource("许可与依赖"), destination / "许可与依赖")
     (destination / "版本与来源说明.txt").write_text(
-        f"帝国开局助手 {version}\n\n"
+        f"AoE4 HELP {version} · {codename_from_source()}\n\n"
         "本项目基于 CraftySalamander/RTS_Overlay，沿用 GNU GPL 第三版许可证。\n"
         "原项目：https://github.com/CraftySalamander/RTS_Overlay\n"
         "上游提交：aaee02c95e47e4aadb7c3269fd07fb12b5871620\n"
-        "完整运行源码、构建脚本及原项目版权声明均随附在“源码”目录。\n"
-        "游戏图像版权归原权利人，文明资料来源见源码/文明资料内的来源说明。\n"
+        f"公开源码与构建说明：https://github.com/{github_repository()}\n"
+        "国内源码镜像：https://gitee.com/code_liujiaxin/aoe4-opening-assistant-zh\n"
+        f"程序版本：{version}；正式发行对应源码以仓库同版本标签为准。\n"
+        "程序包不附带源码目录或源码素材副本；许可证与第三方署名继续随附。\n"
+        "游戏图像版权归原权利人，文明资料来源见_internal/assets/catalog内的来源说明。\n"
         "安装包不含个人开局、搜索记录、账号或语音缓存。\n"
         "默认安装数据目录：%APPDATA%/AoE4OpeningAssistant。\n"
         "便携版默认资料在程序旁“用户数据”；已有 data-location.json 时沿用其路径。\n"
@@ -149,9 +156,7 @@ def write_release_metadata(output: Path, version: str) -> None:
     if not re.fullmatch(r"\d+\.\d+\.\d+(?:\.\d+)?", version):
         raise ValueError("正式发行版本必须是数字版本号，例如1.6.1。")
     configuration = json.loads((SOURCE / "update_config.json").read_text(encoding="utf-8-sig"))
-    repository = configuration.get("github_repository", "")
-    if not isinstance(repository, str) or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9-]{0,38}/[A-Za-z0-9_.-]{1,100}", repository):
-        raise ValueError("更新配置中的GitHub仓库无效，不能生成发行清单。")
+    repository = github_repository()
     if configuration.get("asset_name", SETUP_NAME) != SETUP_NAME:
         raise ValueError("更新配置中的安装包名称与构建输出不一致。")
     setup = output / SETUP_NAME
@@ -161,14 +166,14 @@ def write_release_metadata(output: Path, version: str) -> None:
     manifest = {
         "schema_version": 1,
         "version": version,
-        "notes": f"帝国开局助手 {version}。本次更新内容见发行说明；安装会保留已有开局与设置。",
+        "notes": f"AoE4 HELP {version} · {codename_from_source()}。本次更新内容见发行说明；安装会保留已有开局与设置。",
         "page_url": page,
         "asset": {"name": SETUP_NAME,
                   "url": f"https://github.com/{repository}/releases/download/v{version}/{SETUP_NAME}",
                   "sha256": checksum, "size": setup.stat().st_size},
     }
     (output / "update.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    assets = [output / name for name in (SETUP_NAME, PORTABLE_NAME, SOURCE_NAME, "update.json")]
+    assets = [output / name for name in (SETUP_NAME, PORTABLE_NAME, "update.json")]
     hashes = []
     for path in assets:
         with path.open("rb") as stream:
@@ -197,22 +202,8 @@ def main() -> int:
         payload = scratch / "payload"
         stage_payload(distribution, payload, arguments.version)
         make_zip(payload, output / PORTABLE_NAME)
-        source_tree = scratch / "source"
-        source_tree.mkdir()
-        copy_tree(payload / "源码", source_tree / "src")
-        for name in ("LICENSE", "版本与来源说明.txt"):
-            shutil.copy2(payload / name, source_tree / name)
-        for name in ("许可与依赖",):
-            copy_tree(payload / name, source_tree / name)
-        workflow = PROJECT / ".github"
-        if workflow.is_dir():
-            copy_tree(workflow, source_tree / ".github")
-        for name in ("README.md", "RELEASE.md", ".gitignore"):
-            if (PROJECT / name).is_file():
-                shutil.copy2(PROJECT / name, source_tree / name)
-        assert_clean_payload(source_tree)
-        make_zip(source_tree, output / SOURCE_NAME)
-        run([compiler, f"/DPayloadDir={payload}", f"/DAppVersion={arguments.version}", f"/O{output}", str(SOURCE / "installer.iss")])
+        run([compiler, f"/DPayloadDir={payload}", f"/DAppVersion={arguments.version}",
+             f"/DAppCodename={codename_from_source()}", f"/O{output}", str(SOURCE / "installer.iss")])
     write_release_metadata(output, arguments.version)
     print(f"发布文件已完成：{output}")
     return 0

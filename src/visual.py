@@ -8,25 +8,29 @@ import re
 import json
 from string import Template
 from pathlib import Path
-from PyQt5.QtCore import Qt, QSize, QRect, QRectF, QPointF, QEvent, pyqtSignal
+from functools import lru_cache
+from PyQt5.QtCore import Qt, QSize, QRect, QRectF, QPointF, QEvent, QByteArray, pyqtSignal
 from PyQt5.QtGui import (QColor, QFont, QPainter, QPainterPath, QPen, QPixmap, QIcon,
                         QLinearGradient, QPolygonF, QFontMetrics)
 from PyQt5.QtWidgets import (QWidget, QFrame, QLabel, QCheckBox, QStyle, QStyledItemDelegate,
                             QHBoxLayout, QVBoxLayout, QGridLayout, QSizeGrip, QApplication, QPushButton, QToolTip)
+from PyQt5.QtSvg import QSvgRenderer
+from core import FIELDS
+from app_fonts import FONT_CSS, make_ui_font
 
-ACCENT = "#39b875"
+ACCENT = "#C4C4CB"  # 中性选中态；胜负绿红只在战绩组件表达比赛结果。
 GOLD = "#b8bac2"  # 旧接口名保留兼容；现为中性图标色，不再使用金色。
-MUTED = "#a4a4ab"
+MUTED = "#929299"
 
 # 视觉令牌：base=背景，sidebar=侧栏，surface=面板，raised=浮层，accent=状态强调，ink=正文。
-PALETTE = dict(base="#0e0e10", sidebar="#111113", surface="#161618", raised="#202023",
-               gold=GOLD, accent=ACCENT, ink="#f4f4f5", muted=MUTED, edge="#2b2b30")
+PALETTE = dict(base="#0F0F11", sidebar="#111113", surface="#161619", raised="#202023",
+               gold=GOLD, accent=ACCENT, ink="#F4F4F5", muted=MUTED, edge="#27272C")
 STYLE = Template("""
-QWidget {background:transparent;color:$ink;font-family:'Microsoft YaHei UI';font-size:14px;}
+QWidget {background:transparent;color:$ink;font-family:$fonts;font-size:14px;}
 QWidget#Manager {background:transparent;}
 QDialog, QMessageBox, QFileDialog {background:$base;}
 QWidget#Sidebar {background:$sidebar;border-right:1px solid $edge;}
-QFrame#Card {background:$surface;border:0;border-radius:12px;}
+QFrame#Card {background:$surface;border:0;border-radius:16px;}
 QFrame#Hero {background:$surface;border:0;border-radius:12px;}
 QFrame#CollectionPanel {background:$base;border:0;border-radius:0;}
 QFrame#SessionPanel, QFrame#FocusPanel {background:$surface;border:0;border-radius:14px;}
@@ -39,8 +43,9 @@ QLabel#DetailHeading, QLabel#SessionTitle {color:$ink;font-size:22px;font-weight
 QLabel#SectionTitle {color:$ink;font-size:16px;font-weight:600;}
 QLabel#CommandText, QLabel#PreviewText {color:$ink;font-size:19px;font-weight:400;}
 QLabel#Muted, QLabel#Eyebrow {color:$muted;font-size:12px;}
+QLabel#FieldLabel {color:#A4A4AB;font-size:13px;}
 QLabel#StatusPill {color:$muted;background:transparent;border:0;padding:0;font-size:12px;}
-QPushButton {background:#202023;border:1px solid #303035;border-radius:8px;padding:8px 14px;color:$ink;}
+QPushButton {background:#202023;border:1px solid #2D2D32;border-radius:8px;padding:8px 14px;color:#D6D6DB;}
 QPushButton:hover {background:#2a2a2e;border-color:#44444c;}
 QPushButton:pressed {background:#18181b;}
 QPushButton:focus {border:1px solid $gold;}
@@ -49,7 +54,7 @@ QPushButton#Primary, QPushButton#StartButton {color:#151517;background:#e4e4e7;b
 QPushButton#Primary:hover, QPushButton#StartButton:hover {background:#fafafa;}
 QPushButton#Primary:pressed, QPushButton#StartButton:pressed {background:#c4c4cb;}
 QPushButton#Primary:disabled, QPushButton#StartButton:disabled {color:#606068;background:#252529;border-color:#303035;}
-QPushButton#Quiet {background:transparent;border:1px solid #38383e;color:$muted;}
+QPushButton#Quiet {background:transparent;border:1px solid #2D2D32;color:#B2B2BA;}
 QPushButton#Quiet:hover {background:$raised;border-color:#55555e;color:$ink;}
 QPushButton#Tapestry {background:$raised;border:1px solid #38383e;border-radius:8px;color:$ink;padding:7px 10px;}
 QPushButton#Tapestry:focus {border:1px solid $gold;}
@@ -60,7 +65,7 @@ QPushButton#NavTab, QPushButton#QuietNav {background:transparent;border:1px soli
 QPushButton#NavTab:hover, QPushButton#QuietNav:hover {color:$ink;background:$surface;}
 QPushButton#NavTab:checked, QPushButton#QuietNav:checked {color:$ink;background:$raised;}
 QPushButton#NavTab:focus, QPushButton#QuietNav:focus {border-color:$gold;}
-QLineEdit, QTextEdit, QSpinBox, QComboBox, QKeySequenceEdit {background:#19191c;border:1px solid #38383e;border-radius:8px;padding:7px 10px;selection-background-color:#285b40;}
+QLineEdit, QTextEdit, QSpinBox, QComboBox, QKeySequenceEdit {background:#1E1E21;border:1px solid #303035;border-radius:8px;padding:8px 11px;selection-background-color:#45454D;selection-color:$ink;}
 QLineEdit#HomeSearch {background:$surface;border:1px solid transparent;border-radius:9px;padding:9px 13px;}
 QLineEdit:focus, QTextEdit:focus, QSpinBox:focus, QComboBox:focus, QKeySequenceEdit:focus {border-color:$gold;}
 QLineEdit#HomeSearch:focus {border-color:$gold;}
@@ -74,8 +79,10 @@ QListWidget::item {border:0;background:transparent;padding:0;}
 QListWidget#Timeline, QListWidget#CoverLibrary {background:transparent;border:0;padding:0;}
 QSplitter::handle {background:transparent;width:12px;}
 QTabWidget::pane {border:0;background:transparent;}
-QGroupBox {border:0;background:$surface;border-radius:12px;margin-top:18px;padding:24px 18px 16px 18px;}
-QGroupBox::title {subcontrol-origin:margin;subcontrol-position:top left;left:15px;top:5px;padding:0 6px;color:$ink;font-weight:600;}
+QGroupBox {border:0;background:$surface;border-radius:16px;margin-top:0;padding:54px 22px 22px 22px;font-size:16px;font-weight:600;}
+QGroupBox::title {subcontrol-origin:padding;subcontrol-position:top left;left:22px;top:20px;padding:0;color:$ink;font-size:16px;font-weight:600;}
+QGroupBox QLabel {color:#A4A4AB;font-size:13px;font-weight:400;}
+QGroupBox QLineEdit, QGroupBox QSpinBox, QGroupBox QComboBox, QGroupBox QKeySequenceEdit, QGroupBox QCheckBox, QGroupBox QPushButton {font-weight:400;}
 QScrollArea {border:0;background:transparent;}
 QScrollBar:vertical {border:0;background:transparent;width:7px;margin:2px;}
 QScrollBar::handle:vertical {background:#414147;border-radius:3px;min-height:26px;}
@@ -88,8 +95,8 @@ QSlider::handle:horizontal {background:#f4f4f5;border:3px solid #707078;width:12
 QToolTip {color:$ink;background:#252529;border:1px solid #4d4d55;padding:6px;}
 QListWidget#EditorSteps {background:$surface;border:0;border-radius:8px;padding:6px;}
 QListWidget#EditorSteps::item {padding:9px 11px;margin:2px;border-radius:4px;}
-QListWidget#EditorSteps::item:selected {color:$ink;background:#29382f;}
-""").substitute(PALETTE)
+QListWidget#EditorSteps::item:selected {color:$ink;background:#303035;}
+""").substitute(PALETTE, fonts=FONT_CSS)
 _asset_root = Path(sys._MEIPASS) / 'assets' if getattr(sys, 'frozen', False) else Path(__file__).resolve().parent / 'upstream/docs/assets'
 _hd_root = _asset_root / 'hd' if getattr(sys, 'frozen', False) else Path(__file__).resolve().parent / '高清图标'
 
@@ -159,10 +166,8 @@ class TapestryButton(QPushButton):
 
 
 def ui_font(size=14, weight=QFont.Normal, numeric=False):
-    font = QFont('Segoe UI' if numeric else 'Microsoft YaHei UI')
-    font.setPixelSize(size)
-    font.setWeight(weight)
-    return font
+    # numeric（数字用途）保留调用兼容；数字与正文共享Sen，列对齐由布局负责。
+    return make_ui_font(size, weight)
 
 def paint_game_surface(painter, rect, patterned=True):
     """正文采用中性石墨底色；有主题的游戏装饰留给书架封面。"""
@@ -256,7 +261,7 @@ class Switch(QCheckBox):
         p.setPen(Qt.NoPen)
         p.setBrush(QColor(ACCENT if self.isChecked() else "#38383f"))
         p.drawRoundedRect(QRectF(0, y, 34, 18), 9, 9)
-        p.setBrush(QColor("#ffffff" if self.isChecked() else "#a1a1aa"))
+        p.setBrush(QColor("#202023" if self.isChecked() else "#a1a1aa"))
         p.drawEllipse(QRectF(18 if self.isChecked() else 3, y + 3, 12, 12))
         p.setPen(QColor(PALETTE["ink"] if self.isEnabled() else "#62626c"))
         p.setFont(self.font())
@@ -282,7 +287,7 @@ class StepDelegate(QStyledItemDelegate):
         data = index.data(Qt.UserRole + 1) or {}
         if selected:
             p.setPen(Qt.NoPen)
-            p.setBrush(QColor('#1e2c24'))
+            p.setBrush(QColor('#26262C'))
             p.drawRoundedRect(QRectF(rect), 8, 8)
         elif hovered:
             p.fillRect(rect, QColor('#202023'))
@@ -300,7 +305,7 @@ class StepDelegate(QStyledItemDelegate):
         p.drawText(QRectF(center.x() - 10, center.y() - 10, 20, 20), Qt.AlignCenter, str(data.get('number', '')))
         time_rect = QRect(rect.left() + 42, rect.top() + 6, max(0, rect.width() - 54), 18)
         p.setFont(ui_font(11, numeric=bool(data.get('time'))))
-        p.setPen(QColor('#77cf9b' if selected else MUTED))
+        p.setPen(QColor('#F4F4F5' if selected else MUTED))
         p.drawText(time_rect, Qt.AlignLeft | Qt.AlignVCenter, str(data.get('time') or '手动'))
         body_rect = QRect(rect.left() + 42, rect.top() + 25, max(0, rect.width() - 54), 22)
         p.setFont(ui_font(13, QFont.Medium if selected else QFont.Normal))
@@ -361,7 +366,7 @@ class LibraryDelegate(QStyledItemDelegate):
         selected = bool(option.state & QStyle.State_Selected)
         hovered = bool(option.state & QStyle.State_MouseOver)
         if selected or hovered:
-            p.fillRect(rect, QColor('#1e2c24' if selected else '#1c1c1f'))
+            p.fillRect(rect, QColor('#29292F' if selected else '#1c1c1f'))
         if selected:
             p.fillRect(rect.left(), rect.top() + 11, 2, rect.height() - 22, QColor(ACCENT))
         icon = index.data(Qt.DecorationRole)
@@ -427,17 +432,31 @@ class LibraryDelegate(QStyledItemDelegate):
 class CoverDelegate(LibraryDelegate):
     """开局书架封面。Cover=上半部插画，整张卡片可进入演练。"""
     open_requested = pyqtSignal(str)
+    CELL_GAP_ROLE = Qt.UserRole + 4
+    CARD_HEIGHT = 180  # 文明缩略图、两行标题、独立操作行共用的逻辑高度。
+
+    @classmethod
+    def card_rect(cls, item_rect, index):
+        """绘制、点击与提示共用卡片边界，列间留白不算进卡片内容。"""
+        gap = index.data(cls.CELL_GAP_ROLE)
+        gap = gap if isinstance(gap, int) and 0 <= gap <= 32 else 0
+        return item_rect.adjusted(0, 0, -gap, -16)
 
     def editorEvent(self, event, model, option, index):
-        if event.type() == QEvent.MouseButtonRelease and event.button() == Qt.LeftButton:
-            if not self.remove_rect(option.rect).contains(event.pos()):
+        if event.type() in (QEvent.MouseButtonPress, QEvent.MouseButtonRelease) and event.button() == Qt.LeftButton:
+            card = self.card_rect(option.rect, index)
+            if self.remove_rect(card).contains(event.pos()):
+                if event.type() == QEvent.MouseButtonRelease:
+                    self.remove_requested.emit(str(index.data(Qt.UserRole)))
+                return True
+            if event.type() == QEvent.MouseButtonRelease and card.contains(event.pos()):
                 self.open_requested.emit(str(index.data(Qt.UserRole)))
                 return True
-        return super().editorEvent(event, model, option, index)
+        return QStyledItemDelegate.editorEvent(self, event, model, option, index)
 
     def helpEvent(self, event, view, option, index):
         if event.type() == QEvent.ToolTip and index.isValid():
-            if self.remove_rect(option.rect).contains(event.pos()):
+            if self.remove_rect(self.card_rect(option.rect, index)).contains(event.pos()):
                 tip = '移除此开局（移除后可撤销）'
             else:
                 details = index.data(Qt.UserRole + 3) or {}
@@ -471,15 +490,14 @@ class CoverDelegate(LibraryDelegate):
         p = painter
         p.save()
         p.setRenderHint(QPainter.Antialiasing)
-        rect = QRectF(option.rect).adjusted(3, 3, -3, -5)
+        rect = QRectF(self.card_rect(option.rect, index))
         selected = bool(option.state & QStyle.State_Selected)
         hovered = bool(option.state & QStyle.State_MouseOver)
         shape = QPainterPath()
-        shape.addRoundedRect(rect, 11, 11)
+        shape.addRoundedRect(rect, 13, 13)
         p.setClipPath(shape)
         p.fillRect(rect, QColor('#1f1f23' if hovered else PALETTE['surface']))
-        cover_height = min(180.0, round(rect.width() * 256 / 455))
-        cover = QRectF(rect.left(), rect.top(), rect.width(), cover_height)
+        cover = QRectF(rect.left() + 16, rect.top() + 17, 58, 33)
         details = index.data(Qt.UserRole + 3) or {}
         # 封面展示完整文明旗帜，保留旗上龙首、鹰冠等图案，不裁掉上下边缘。
         picture = civilization_flag(details.get('civilization', 'Generic'))
@@ -494,26 +512,29 @@ class CoverDelegate(LibraryDelegate):
         lines = str(index.data() or '').split('\n')
         title = str(details.get('name') or lines[0]).replace('龙之骑士团 · ', '')
         civilization = lines[-1] if len(lines) > 1 else ''
-        inset = 15
+        inset = 16
         text_width = max(0, round(rect.width() - inset * 2))
         p.setFont(ui_font(14, QFont.DemiBold))
         p.setPen(QColor(PALETTE['ink']))
         title_lines = self._title_lines(title, p.fontMetrics(), text_width)
-        title_top = round(cover.bottom() + 13)
+        title_top = round(rect.top() + 67)
         for number, line in enumerate(title_lines):
             p.drawText(QRectF(rect.left() + inset, title_top + number * 20,
                              text_width, 20), Qt.AlignLeft | Qt.AlignVCenter, line)
         p.setFont(ui_font(11))
         p.setPen(QColor(MUTED))
-        footer_y = round(rect.bottom() - 27)
-        metadata_width = text_width
-        p.drawText(QRectF(rect.left() + inset, footer_y - 21, metadata_width, 19),
+        footer_y = round(rect.bottom() - 29)
+        metadata_width = max(0, round(rect.width() - 116))
+        p.drawText(QRectF(cover.right() + 11, cover.top(), max(0, rect.width() - 116), cover.height()),
                    Qt.AlignLeft | Qt.AlignVCenter,
                    p.fontMetrics().elidedText(civilization, Qt.ElideRight, metadata_width))
         step_count = details.get('steps')
         if step_count is not None:
             p.drawText(QRectF(rect.left() + inset, footer_y, text_width, 19),
                        Qt.AlignLeft | Qt.AlignVCenter, f'{step_count} 个步骤')
+        # 辅助信息和操作共用一条独立底栏，避免与两行长标题拥挤。
+        p.setPen(QPen(QColor('#27272C'), 1))
+        p.drawLine(QPointF(rect.left() + inset, footer_y - 9), QPointF(rect.right() - inset, footer_y - 9))
         # 卡片内的进入动作只保留文字和箭头，整张卡片仍可点击。
         action = QRectF(rect.right() - 116, rect.bottom() - 30, 102, 24)
         action_color = QColor('#f4f4f5' if hovered else '#b9b9c1')
@@ -524,7 +545,7 @@ class CoverDelegate(LibraryDelegate):
         p.drawLine(QPointF(arrow_x - 3, arrow_y - 4), QPointF(arrow_x + 1, arrow_y))
         p.drawLine(QPointF(arrow_x + 1, arrow_y), QPointF(arrow_x - 3, arrow_y + 4))
         # × 始终可见，绘制和点击坐标沿用移除接口，避免误入开局。
-        close = self.remove_rect(option.rect)
+        close = self.remove_rect(self.card_rect(option.rect, index))
         p.setPen(Qt.NoPen)
         p.setBrush(QColor(14, 14, 16, 225 if hovered else 205))
         p.drawRoundedRect(QRectF(close), 7, 7)
@@ -534,129 +555,46 @@ class CoverDelegate(LibraryDelegate):
         p.drawLine(center.x() - 4, center.y() - 4, center.x() + 4, center.y() + 4)
         p.drawLine(center.x() + 4, center.y() - 4, center.x() - 4, center.y() + 4)
         if selected or option.state & QStyle.State_HasFocus:
-            p.setPen(QPen(QColor('#4e8f66' if selected else GOLD), 1.2 if selected else 1, Qt.SolidLine))
+            p.setPen(QPen(QColor('#85858F' if selected else GOLD), 1.2 if selected else 1, Qt.SolidLine))
             p.setBrush(Qt.NoBrush)
-            p.drawRoundedRect(rect.adjusted(0.7, 0.7, -0.7, -0.7), 11, 11)
+            p.drawRoundedRect(rect.adjusted(0.7, 0.7, -0.7, -0.7), 13, 13)
         p.restore()
 
     def sizeHint(self, option, index):
         assigned = index.data(Qt.SizeHintRole)
-        return assigned if isinstance(assigned, QSize) else QSize(200, 218)
+        return assigned if isinstance(assigned, QSize) else QSize(200, self.CARD_HEIGHT + 16)
 
 
-def line_icon(kind, color=GOLD):
-    """统一线条图标：导入/导出/新建/编辑，及文件夹、设置、帮助、归零和折叠。"""
+_LINE_ICONS = {
+    "search": "search", "user-search": "user-search", "arrow-up": "arrow-up", "back": "arrow-left", "grid": "layout-grid",
+    "sound": "volume-2", "window": "app-window", "folder": "folder",
+    "settings": "settings", "help": "circle-question-mark", "history": "clock",
+    "filter": "list-filter", "reset": "rotate-cw", "chevron": "chevron-right",
+    "online": "globe", "new": "plus", "edit": "pencil", "import": "folder-input",
+    "export": "upload",
+}
+
+
+@lru_cache(maxsize=64)
+def _lucide_icon(name, rgba):
+    """Lucide（线条图标库）原SVG只替换颜色，20逻辑像素以双倍密度绘制。"""
+    color = QColor.fromRgba(rgba)
+    source = (_design_root / "图标/Lucide" / f"{name}.svg").read_bytes()
+    renderer = QSvgRenderer(QByteArray(source.replace(b"currentColor", color.name().encode("ascii"))))
     image = QPixmap(40, 40)
     image.fill(Qt.transparent)
     image.setDevicePixelRatio(2)
-    p = QPainter(image)
-    p.setRenderHint(QPainter.Antialiasing)
-    p.setPen(QPen(QColor(color), 1.3, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
-    if kind == 'search':
-        p.drawEllipse(QRectF(3, 3, 10, 10))
-        p.drawLine(12, 12, 17, 17)
-    elif kind == 'back':
-        p.drawLine(4, 10, 17, 10)
-        p.drawLine(4, 10, 10, 4)
-        p.drawLine(4, 10, 10, 16)
-    elif kind == 'grid':
-        for x in (3, 11):
-            for y in (3, 11):
-                p.drawRoundedRect(QRectF(x, y, 6, 6), 1, 1)
-    elif kind == 'sound':
-        path = QPainterPath()
-        path.moveTo(3, 8)
-        path.lineTo(6, 8)
-        path.lineTo(10, 4)
-        path.lineTo(10, 16)
-        path.lineTo(6, 12)
-        path.lineTo(3, 12)
-        path.closeSubpath()
-        p.drawPath(path)
-        p.drawArc(QRectF(8, 6, 7, 8), -65 * 16, 130 * 16)
-        p.drawArc(QRectF(7, 2, 12, 16), -60 * 16, 120 * 16)
-    elif kind == 'window':
-        p.drawRoundedRect(QRectF(3, 3, 14, 14), 2, 2)
-        p.drawLine(3, 7, 17, 7)
-        p.drawPoint(5, 5)
-        p.drawPoint(7, 5)
-    elif kind == 'folder':
-        path = QPainterPath()
-        path.moveTo(3, 6)
-        path.lineTo(8, 6)
-        path.lineTo(10, 8)
-        path.lineTo(17, 8)
-        path.lineTo(17, 16)
-        path.lineTo(3, 16)
-        path.closeSubpath()
-        p.drawPath(path)
-        p.drawLine(3, 10, 17, 10)
-    elif kind == 'settings':
-        p.drawEllipse(QRectF(7, 7, 6, 6))
-        # 八角齿轮用线条组织，避免不同平台的字体符号外观不一致。
-        path = QPainterPath()
-        points = [(8, 2), (12, 2), (12.5, 4.2), (14, 5), (16, 4.5), (18, 8),
-                  (16.4, 9.5), (16.4, 10.5), (18, 12), (16, 15.5), (14, 15),
-                  (12.5, 15.8), (12, 18), (8, 18), (7.5, 15.8), (6, 15),
-                  (4, 15.5), (2, 12), (3.6, 10.5), (3.6, 9.5), (2, 8),
-                  (4, 4.5), (6, 5), (7.5, 4.2)]
-        path.moveTo(*points[0])
-        for point in points[1:]:
-            path.lineTo(*point)
-        path.closeSubpath()
-        p.drawPath(path)
-    elif kind == 'help':
-        p.drawEllipse(QRectF(3, 3, 14, 14))
-        path = QPainterPath()
-        path.moveTo(7.5, 7.5)
-        path.cubicTo(7.5, 4.8, 13.3, 5.5, 12, 8.5)
-        path.quadTo(10, 10, 10, 11.3)
-        p.drawPath(path)
-        p.drawPoint(10, 14)
-    elif kind == 'reset':
-        p.drawArc(QRectF(4, 4, 12, 12), 38 * 16, -290 * 16)
-        p.drawLine(QPointF(13, 3), QPointF(15.2, 6.4))
-        p.drawLine(QPointF(15.2, 6.4), QPointF(11.2, 7))
-    elif kind == 'chevron':
-        p.drawLine(7, 5, 12, 10)
-        p.drawLine(12, 10, 7, 15)
-    elif kind == "online":
-        p.drawEllipse(QRectF(3, 3, 14, 14))
-        p.drawEllipse(QRectF(7, 3, 6, 14))
-        p.drawLine(3, 10, 17, 10)
-    elif kind == "new":
-        p.drawLine(10, 4, 10, 16)
-        p.drawLine(4, 10, 16, 10)
-    elif kind == "edit":
-        p.drawLine(5, 15, 14, 6)
-        p.drawLine(7, 16, 16, 7)
-        p.drawLine(5, 15, 4, 18)
-        p.drawLine(4, 18, 7, 16)
-        p.drawLine(13, 5, 17, 9)
-    elif kind == "import":
-        # 横向箭头进入本地文件夹，区别于向下的网络下载图标。
-        folder = QPainterPath()
-        folder.moveTo(3, 9)
-        folder.lineTo(3, 6)
-        folder.lineTo(8, 6)
-        folder.lineTo(10, 8)
-        folder.lineTo(17, 8)
-        folder.lineTo(17, 17)
-        folder.lineTo(3, 17)
-        folder.lineTo(3, 15)
-        p.drawPath(folder)
-        p.drawLine(QPointF(1.5, 12), QPointF(11.5, 12))
-        p.drawLine(QPointF(8.5, 9), QPointF(11.5, 12))
-        p.drawLine(QPointF(11.5, 12), QPointF(8.5, 15))
-    else:
-        p.drawLine(4, 12, 4, 17)
-        p.drawLine(4, 17, 16, 17)
-        p.drawLine(16, 17, 16, 12)
-        p.drawLine(10, 3, 10, 12)
-        p.drawLine(7, 6, 10, 3)
-        p.drawLine(10, 3, 13, 6)
-    p.end()
+    painter = QPainter(image)
+    painter.setRenderHint(QPainter.Antialiasing)
+    painter.setOpacity(color.alphaF())
+    renderer.render(painter, QRectF(0, 0, 20, 20))
+    painter.end()
     return QIcon(image)
+
+
+def line_icon(kind, color=GOLD):
+    """通用操作统一使用Lucide；reset为顺时针单箭头刷新，history只保留时钟。"""
+    return _lucide_icon(_LINE_ICONS.get(kind, "upload"), QColor(color).rgba())
 
 
 class Grip(QSizeGrip):
@@ -671,14 +609,14 @@ class Grip(QSizeGrip):
 class Resources(QWidget):
     """游戏图标与人数配对；各项中文说明保留在悬停提示中。"""
     definitions = {
-        "food": ("食物村民", "resource/resource_food.webp"),
-        "wood": ("木材村民", "resource/resource_wood.webp"),
-        "gold": ("黄金村民", "resource/resource_gold.webp"),
-        "stone": ("石料村民", "resource/resource_stone.webp"),
-        "builder": ("建造村民", "resource/repair.webp"),
-        "villager_count": ("村民总数", "unit_worker/villager.webp"),
-        "population_count": ("人口", "building_economy/house.webp"),
-        "age": ("时代", "age/age_1.webp"),
+        "food": (FIELDS["food"], "resource/resource_food.webp"),
+        "wood": (FIELDS["wood"], "resource/resource_wood.webp"),
+        "gold": (FIELDS["gold"], "resource/resource_gold.webp"),
+        "stone": (FIELDS["stone"], "resource/resource_stone.webp"),
+        "builder": (FIELDS["builder"], "resource/repair.webp"),
+        "villager_count": (FIELDS["villager_count"], "unit_worker/villager.webp"),
+        "population_count": (FIELDS["population_count"], "building_economy/house.webp"),
+        "age": (FIELDS["age"], "age/age_1.webp"),
     }
 
     def __init__(self, assets, parent=None):
@@ -690,7 +628,9 @@ class Resources(QWidget):
         self.grid.setSpacing(6)
         self.cells = {}
         for key, (name, path) in self.definitions.items():
-            frame = QFrame()
+            # 即使未显示、尚未加入布局，也由资源栏持有并随其销毁。
+            frame = QFrame(self)
+            frame.hide()  # 仅由set_step按已有目标显隐，父级show不会带出未指定项。
             frame.setStyleSheet("QFrame{background:#202023;border:0;border-radius:6px;} QLabel{border:0;background:transparent;}")
             row = QHBoxLayout(frame)
             row.setContentsMargins(5, 3, 5, 3)

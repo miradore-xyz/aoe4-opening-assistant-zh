@@ -1,0 +1,26 @@
+{
+  "字体": "Source Han Sans SC（思源黑体简体中文）",
+  "上游提交": "a4f7cf94edfb9d7ffbdfc4841de276358bd7e0f2",
+  "文件": {
+    "SourceHanSansSC-Regular.otf": {
+      "来源": "https://raw.githubusercontent.com/adobe-fonts/source-han-sans/a4f7cf94edfb9d7ffbdfc4841de276358bd7e0f2/OTF/SimplifiedChinese/SourceHanSansSC-Regular.otf",
+      "sha256": "f1d8611151880c6c336aabeac4640ef434fa13cbfbf1ffe82d0a71b2a5637256",
+      "字节": 16529832
+    },
+    "SourceHanSansSC-Medium.otf": {
+      "来源": "https://raw.githubusercontent.com/adobe-fonts/source-han-sans/a4f7cf94edfb9d7ffbdfc4841de276358bd7e0f2/OTF/SimplifiedChinese/SourceHanSansSC-Medium.otf",
+      "sha256": "1df61d31687d04fd2f928a3bb6ca6cd61f0e988cc267cf317f32406edbb49f70",
+      "字节": 16546328
+    },
+    "SourceHanSansSC-Bold.otf": {
+      "来源": "https://raw.githubusercontent.com/adobe-fonts/source-han-sans/a4f7cf94edfb9d7ffbdfc4841de276358bd7e0f2/OTF/SimplifiedChinese/SourceHanSansSC-Bold.otf",
+      "sha256": "df2b90f5bcc6d01dfc964cec5f6d535d6b6aebd26ed7fd79a9c1b3f2112fcb6b",
+      "字节": 16963428
+    },
+    "LICENSE.txt": {
+      "来源": "https://raw.githubusercontent.com/adobe-fonts/source-han-sans/a4f7cf94edfb9d7ffbdfc4841de276358bd7e0f2/LICENSE.txt",
+      "sha256": "fcac737e761ec63dbfbdce11030a1780161920d80315edba9c8beff1c2bac5a2",
+      "字节": 4463
+    }
+  }
+}

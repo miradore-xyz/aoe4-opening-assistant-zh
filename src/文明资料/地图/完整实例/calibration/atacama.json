@@ -1,0 +1,987 @@
+{
+  "schema": "official_height_coordinate_calibration_v1",
+  "verified": true,
+  "source_sha256": "a4e6b4db0bc532eb04fe33f93acd7fa32bf01194706d93eed84148040fbbc887",
+  "instance_id": "sha256:a4e6b4db0bc532eb04fe33f93acd7fa32bf01194706d93eed84148040fbbc887",
+  "scope_zh": "仅绑定该保存实例，不按相同地图名复用到其他种子或实战。",
+  "native_full_bounds_queried": true,
+  "full_bounds": [
+    -272.0,
+    272.0,
+    -272.0,
+    272.0
+  ],
+  "playable_bounds": [
+    -208,
+    208,
+    -208,
+    208
+  ],
+  "array_shape": [
+    545,
+    545
+  ],
+  "sample_spacing": 1.0,
+  "sample_count": 9,
+  "error_policy": {
+    "maximum_ulp_distance": 8,
+    "maximum_absolute_error": 7.62939453125e-06,
+    "note_zh": "原生查询经过浮点插值，允许最多8个单精度步进，绝对门槛随实际浮点间距推导；保留全部原始数值及误差，其他方向不得通过。"
+  },
+  "winner": {
+    "transposed": false,
+    "origin_x": -272.0,
+    "origin_z": -272.0,
+    "column_x": 1,
+    "column_z": 0,
+    "row_x": 0,
+    "row_z": 1,
+    "maximum_absolute_error": 9.5367431640625e-07,
+    "maximum_ulp_distance": 1,
+    "exact_float32_count": 7,
+    "accepted": true,
+    "observations": [
+      {
+        "world_x": -129.0,
+        "world_z": -129.0,
+        "column": 143,
+        "row": 143,
+        "saved_height": 10.061798095703125,
+        "native_height": 10.061798095703125,
+        "absolute_error": 0.0,
+        "ulp_distance": 0
+      },
+      {
+        "world_x": -12.0,
+        "world_z": -129.0,
+        "column": 260,
+        "row": 143,
+        "saved_height": 9.314491271972656,
+        "native_height": 9.314491271972656,
+        "absolute_error": 0.0,
+        "ulp_distance": 0
+      },
+      {
+        "world_x": 121.0,
+        "world_z": -129.0,
+        "column": 393,
+        "row": 143,
+        "saved_height": 10.797398567199707,
+        "native_height": 10.79739761352539,
+        "absolute_error": 9.5367431640625e-07,
+        "ulp_distance": 1
+      },
+      {
+        "world_x": -129.0,
+        "world_z": -12.0,
+        "column": 143,
+        "row": 260,
+        "saved_height": 11.115253448486328,
+        "native_height": 11.115253448486328,
+        "absolute_error": 0.0,
+        "ulp_distance": 0
+      },
+      {
+        "world_x": -12.0,
+        "world_z": -12.0,
+        "column": 260,
+        "row": 260,
+        "saved_height": 2.419919967651367,
+        "native_height": 2.419919967651367,
+        "absolute_error": 0.0,
+        "ulp_distance": 0
+      },
+      {
+        "world_x": 121.0,
+        "world_z": -12.0,
+        "column": 393,
+        "row": 260,
+        "saved_height": 12.418912887573242,
+        "native_height": 12.418912887573242,
+        "absolute_error": 0.0,
+        "ulp_distance": 0
+      },
+      {
+        "world_x": -129.0,
+        "world_z": 121.0,
+        "column": 143,
+        "row": 393,
+        "saved_height": 9.802666664123535,
+        "native_height": 9.802666664123535,
+        "absolute_error": 0.0,
+        "ulp_distance": 0
+      },
+      {
+        "world_x": -12.0,
+        "world_z": 121.0,
+        "column": 260,
+        "row": 393,
+        "saved_height": 11.722168922424316,
+        "native_height": 11.722168922424316,
+        "absolute_error": 0.0,
+        "ulp_distance": 0
+      },
+      {
+        "world_x": 121.0,
+        "world_z": 121.0,
+        "column": 393,
+        "row": 393,
+        "saved_height": 9.834846496582031,
+        "native_height": 9.834847450256348,
+        "absolute_error": 9.5367431640625e-07,
+        "ulp_distance": 1
+      }
+    ]
+  },
+  "all_orientation_candidates": [
+    {
+      "transposed": false,
+      "origin_x": -272.0,
+      "origin_z": -272.0,
+      "column_x": 1,
+      "column_z": 0,
+      "row_x": 0,
+      "row_z": 1,
+      "maximum_absolute_error": 9.5367431640625e-07,
+      "maximum_ulp_distance": 1,
+      "exact_float32_count": 7,
+      "accepted": true,
+      "observations": [
+        {
+          "world_x": -129.0,
+          "world_z": -129.0,
+          "column": 143,
+          "row": 143,
+          "saved_height": 10.061798095703125,
+          "native_height": 10.061798095703125,
+          "absolute_error": 0.0,
+          "ulp_distance": 0
+        },
+        {
+          "world_x": -12.0,
+          "world_z": -129.0,
+          "column": 260,
+          "row": 143,
+          "saved_height": 9.314491271972656,
+          "native_height": 9.314491271972656,
+          "absolute_error": 0.0,
+          "ulp_distance": 0
+        },
+        {
+          "world_x": 121.0,
+          "world_z": -129.0,
+          "column": 393,
+          "row": 143,
+          "saved_height": 10.797398567199707,
+          "native_height": 10.79739761352539,
+          "absolute_error": 9.5367431640625e-07,
+          "ulp_distance": 1
+        },
+        {
+          "world_x": -129.0,
+          "world_z": -12.0,
+          "column": 143,
+          "row": 260,
+          "saved_height": 11.115253448486328,
+          "native_height": 11.115253448486328,
+          "absolute_error": 0.0,
+          "ulp_distance": 0
+        },
+        {
+          "world_x": -12.0,
+          "world_z": -12.0,
+          "column": 260,
+          "row": 260,
+          "saved_height": 2.419919967651367,
+          "native_height": 2.419919967651367,
+          "absolute_error": 0.0,
+          "ulp_distance": 0
+        },
+        {
+          "world_x": 121.0,
+          "world_z": -12.0,
+          "column": 393,
+          "row": 260,
+          "saved_height": 12.418912887573242,
+          "native_height": 12.418912887573242,
+          "absolute_error": 0.0,
+          "ulp_distance": 0
+        },
+        {
+          "world_x": -129.0,
+          "world_z": 121.0,
+          "column": 143,
+          "row": 393,
+          "saved_height": 9.802666664123535,
+          "native_height": 9.802666664123535,
+          "absolute_error": 0.0,
+          "ulp_distance": 0
+        },
+        {
+          "world_x": -12.0,
+          "world_z": 121.0,
+          "column": 260,
+          "row": 393,
+          "saved_height": 11.722168922424316,
+          "native_height": 11.722168922424316,
+          "absolute_error": 0.0,
+          "ulp_distance": 0
+        },
+        {
+          "world_x": 121.0,
+          "world_z": 121.0,
+          "column": 393,
+          "row": 393,
+          "saved_height": 9.834846496582031,
+          "native_height": 9.834847450256348,
+          "absolute_error": 9.5367431640625e-07,
+          "ulp_distance": 1
+        }
+      ]
+    },
+    {
+      "transposed": false,
+      "origin_x": -272.0,
+      "origin_z": 272.0,
+      "column_x": 1,
+      "column_z": 0,
+      "row_x": 0,
+      "row_z": -1,
+      "maximum_absolute_error": 2.2916784286499023,
+      "maximum_ulp_distance": 2402999,
+      "exact_float32_count": 0,
+      "accepted": false,
+      "observations": [
+        {
+          "world_x": -129.0,
+          "world_z": -129.0,
+          "column": 143,
+          "row": 401,
+          "saved_height": 8.944623947143555,
+          "native_height": 10.061798095703125,
+          "absolute_error": 1.1171741485595703,
+          "ulp_distance": 1171442
+        },
+        {
+          "world_x": -12.0,
+          "world_z": -129.0,
+          "column": 260,
+          "row": 401,
+          "saved_height": 11.606169700622559,
+          "native_height": 9.314491271972656,
+          "absolute_error": 2.2916784286499023,
+          "ulp_distance": 2402999
+        },
+        {
+          "world_x": 121.0,
+          "world_z": -129.0,
+          "column": 393,
+          "row": 401,
+          "saved_height": 9.159760475158691,
+          "native_height": 10.79739761352539,
+          "absolute_error": 1.6376371383666992,
+          "ulp_distance": 1717187
+        },
+        {
+          "world_x": -129.0,
+          "world_z": -12.0,
+          "column": 143,
+          "row": 284,
+          "saved_height": 10.346770286560059,
+          "native_height": 11.115253448486328,
+          "absolute_error": 0.7684831619262695,
+          "ulp_distance": 805813
+        },
+        {
+          "world_x": -12.0,
+          "world_z": -12.0,
+          "column": 260,
+          "row": 284,
+          "saved_height": 2.6455957889556885,
+          "native_height": 2.419919967651367,
+          "absolute_error": 0.2256758213043213,
+          "ulp_distance": 946553
+        },
+        {
+          "world_x": 121.0,
+          "world_z": -12.0,
+          "column": 393,
+          "row": 284,
+          "saved_height": 12.114367485046387,
+          "native_height": 12.418912887573242,
+          "absolute_error": 0.30454540252685547,
+          "ulp_distance": 319339
+        },
+        {
+          "world_x": -129.0,
+          "world_z": 121.0,
+          "column": 143,
+          "row": 151,
+          "saved_height": 11.4603271484375,
+          "native_height": 9.802666664123535,
+          "absolute_error": 1.6576604843139648,
+          "ulp_distance": 1738183
+        },
+        {
+          "world_x": -12.0,
+          "world_z": 121.0,
+          "column": 260,
+          "row": 151,
+          "saved_height": 10.316194534301758,
+          "native_height": 11.722168922424316,
+          "absolute_error": 1.4059743881225586,
+          "ulp_distance": 1474271
+        },
+        {
+          "world_x": 121.0,
+          "world_z": 121.0,
+          "column": 393,
+          "row": 151,
+          "saved_height": 11.261606216430664,
+          "native_height": 9.834847450256348,
+          "absolute_error": 1.4267587661743164,
+          "ulp_distance": 1496065
+        }
+      ]
+    },
+    {
+      "transposed": false,
+      "origin_x": 272.0,
+      "origin_z": -272.0,
+      "column_x": -1,
+      "column_z": 0,
+      "row_x": 0,
+      "row_z": 1,
+      "maximum_absolute_error": 1.668020248413086,
+      "maximum_ulp_distance": 1749046,
+      "exact_float32_count": 0,
+      "accepted": false,
+      "observations": [
+        {
+          "world_x": -129.0,
+          "world_z": -129.0,
+          "column": 401,
+          "row": 143,
+          "saved_height": 11.257442474365234,
+          "native_height": 10.061798095703125,
+          "absolute_error": 1.1956443786621094,
+          "ulp_distance": 1253724
+        },
+        {
+          "world_x": -12.0,
+          "world_z": -129.0,
+          "column": 284,
+          "row": 143,
+          "saved_height": 10.544490814208984,
+          "native_height": 9.314491271972656,
+          "absolute_error": 1.2299995422363281,
+          "ulp_distance": 1289748
+        },
+        {
+          "world_x": 121.0,
+          "world_z": -129.0,
+          "column": 151,
+          "row": 143,
+          "saved_height": 10.193918228149414,
+          "native_height": 10.79739761352539,
+          "absolute_error": 0.6034793853759766,
+          "ulp_distance": 632794
+        },
+        {
+          "world_x": -129.0,
+          "world_z": -12.0,
+          "column": 401,
+          "row": 260,
+          "saved_height": 12.783273696899414,
+          "native_height": 11.115253448486328,
+          "absolute_error": 1.668020248413086,
+          "ulp_distance": 1749046
+        },
+        {
+          "world_x": -12.0,
+          "world_z": -12.0,
+          "column": 284,
+          "row": 260,
+          "saved_height": 2.624656915664673,
+          "native_height": 2.419919967651367,
+          "absolute_error": 0.20473694801330566,
+          "ulp_distance": 858729
+        },
+        {
+          "world_x": 121.0,
+          "world_z": -12.0,
+          "column": 151,
+          "row": 260,
+          "saved_height": 11.82804012298584,
+          "native_height": 12.418912887573242,
+          "absolute_error": 0.5908727645874023,
+          "ulp_distance": 619575
+        },
+        {
+          "world_x": -129.0,
+          "world_z": 121.0,
+          "column": 401,
+          "row": 393,
+          "saved_height": 9.329829216003418,
+          "native_height": 9.802666664123535,
+          "absolute_error": 0.4728374481201172,
+          "ulp_distance": 495806
+        },
+        {
+          "world_x": -12.0,
+          "world_z": 121.0,
+          "column": 284,
+          "row": 393,
+          "saved_height": 11.769868850708008,
+          "native_height": 11.722168922424316,
+          "absolute_error": 0.047699928283691406,
+          "ulp_distance": 50017
+        },
+        {
+          "world_x": 121.0,
+          "world_z": 121.0,
+          "column": 151,
+          "row": 393,
+          "saved_height": 9.341523170471191,
+          "native_height": 9.834847450256348,
+          "absolute_error": 0.49332427978515625,
+          "ulp_distance": 517288
+        }
+      ]
+    },
+    {
+      "transposed": false,
+      "origin_x": 272.0,
+      "origin_z": 272.0,
+      "column_x": -1,
+      "column_z": 0,
+      "row_x": 0,
+      "row_z": -1,
+      "maximum_absolute_error": 3.264822006225586,
+      "maximum_ulp_distance": 3423414,
+      "exact_float32_count": 0,
+      "accepted": false,
+      "observations": [
+        {
+          "world_x": -129.0,
+          "world_z": -129.0,
+          "column": 401,
+          "row": 401,
+          "saved_height": 9.555424690246582,
+          "native_height": 10.061798095703125,
+          "absolute_error": 0.506373405456543,
+          "ulp_distance": 530971
+        },
+        {
+          "world_x": -12.0,
+          "world_z": -129.0,
+          "column": 284,
+          "row": 401,
+          "saved_height": 12.579313278198242,
+          "native_height": 9.314491271972656,
+          "absolute_error": 3.264822006225586,
+          "ulp_distance": 3423414
+        },
+        {
+          "world_x": 121.0,
+          "world_z": -129.0,
+          "column": 151,
+          "row": 401,
+          "saved_height": 9.005097389221191,
+          "native_height": 10.79739761352539,
+          "absolute_error": 1.7923002243041992,
+          "ulp_distance": 1879363
+        },
+        {
+          "world_x": -129.0,
+          "world_z": -12.0,
+          "column": 401,
+          "row": 284,
+          "saved_height": 11.48911190032959,
+          "native_height": 11.115253448486328,
+          "absolute_error": 0.3738584518432617,
+          "ulp_distance": 392019
+        },
+        {
+          "world_x": -12.0,
+          "world_z": -12.0,
+          "column": 284,
+          "row": 284,
+          "saved_height": 2.002633571624756,
+          "native_height": 2.419919967651367,
+          "absolute_error": 0.41728639602661133,
+          "ulp_distance": 1750226
+        },
+        {
+          "world_x": 121.0,
+          "world_z": -12.0,
+          "column": 151,
+          "row": 284,
+          "saved_height": 11.430293083190918,
+          "native_height": 12.418912887573242,
+          "absolute_error": 0.9886198043823242,
+          "ulp_distance": 1036643
+        },
+        {
+          "world_x": -129.0,
+          "world_z": 121.0,
+          "column": 401,
+          "row": 151,
+          "saved_height": 11.468561172485352,
+          "native_height": 9.802666664123535,
+          "absolute_error": 1.6658945083618164,
+          "ulp_distance": 1746817
+        },
+        {
+          "world_x": -12.0,
+          "world_z": 121.0,
+          "column": 284,
+          "row": 151,
+          "saved_height": 11.51018238067627,
+          "native_height": 11.722168922424316,
+          "absolute_error": 0.21198654174804688,
+          "ulp_distance": 222284
+        },
+        {
+          "world_x": 121.0,
+          "world_z": 121.0,
+          "column": 151,
+          "row": 151,
+          "saved_height": 11.247623443603516,
+          "native_height": 9.834847450256348,
+          "absolute_error": 1.412775993347168,
+          "ulp_distance": 1481403
+        }
+      ]
+    },
+    {
+      "transposed": true,
+      "origin_x": -272.0,
+      "origin_z": -272.0,
+      "column_x": 0,
+      "column_z": 1,
+      "row_x": 1,
+      "row_z": 0,
+      "maximum_absolute_error": 1.8007621765136719,
+      "maximum_ulp_distance": 1888236,
+      "exact_float32_count": 2,
+      "accepted": false,
+      "observations": [
+        {
+          "world_x": -129.0,
+          "world_z": -129.0,
+          "column": 143,
+          "row": 143,
+          "saved_height": 10.061798095703125,
+          "native_height": 10.061798095703125,
+          "absolute_error": 0.0,
+          "ulp_distance": 0
+        },
+        {
+          "world_x": -12.0,
+          "world_z": -129.0,
+          "column": 143,
+          "row": 260,
+          "saved_height": 11.115253448486328,
+          "native_height": 9.314491271972656,
+          "absolute_error": 1.8007621765136719,
+          "ulp_distance": 1888236
+        },
+        {
+          "world_x": 121.0,
+          "world_z": -129.0,
+          "column": 143,
+          "row": 393,
+          "saved_height": 9.802666664123535,
+          "native_height": 10.79739761352539,
+          "absolute_error": 0.9947309494018555,
+          "ulp_distance": 1043051
+        },
+        {
+          "world_x": -129.0,
+          "world_z": -12.0,
+          "column": 260,
+          "row": 143,
+          "saved_height": 9.314491271972656,
+          "native_height": 11.115253448486328,
+          "absolute_error": 1.8007621765136719,
+          "ulp_distance": 1888236
+        },
+        {
+          "world_x": -12.0,
+          "world_z": -12.0,
+          "column": 260,
+          "row": 260,
+          "saved_height": 2.419919967651367,
+          "native_height": 2.419919967651367,
+          "absolute_error": 0.0,
+          "ulp_distance": 0
+        },
+        {
+          "world_x": 121.0,
+          "world_z": -12.0,
+          "column": 260,
+          "row": 393,
+          "saved_height": 11.722168922424316,
+          "native_height": 12.418912887573242,
+          "absolute_error": 0.6967439651489258,
+          "ulp_distance": 730589
+        },
+        {
+          "world_x": -129.0,
+          "world_z": 121.0,
+          "column": 393,
+          "row": 143,
+          "saved_height": 10.797398567199707,
+          "native_height": 9.802666664123535,
+          "absolute_error": 0.9947319030761719,
+          "ulp_distance": 1043052
+        },
+        {
+          "world_x": -12.0,
+          "world_z": 121.0,
+          "column": 393,
+          "row": 260,
+          "saved_height": 12.418912887573242,
+          "native_height": 11.722168922424316,
+          "absolute_error": 0.6967439651489258,
+          "ulp_distance": 730589
+        },
+        {
+          "world_x": 121.0,
+          "world_z": 121.0,
+          "column": 393,
+          "row": 393,
+          "saved_height": 9.834846496582031,
+          "native_height": 9.834847450256348,
+          "absolute_error": 9.5367431640625e-07,
+          "ulp_distance": 1
+        }
+      ]
+    },
+    {
+      "transposed": true,
+      "origin_x": 272.0,
+      "origin_z": -272.0,
+      "column_x": 0,
+      "column_z": 1,
+      "row_x": -1,
+      "row_z": 0,
+      "maximum_absolute_error": 2.1027183532714844,
+      "maximum_ulp_distance": 2204860,
+      "exact_float32_count": 0,
+      "accepted": false,
+      "observations": [
+        {
+          "world_x": -129.0,
+          "world_z": -129.0,
+          "column": 143,
+          "row": 401,
+          "saved_height": 8.944623947143555,
+          "native_height": 10.061798095703125,
+          "absolute_error": 1.1171741485595703,
+          "ulp_distance": 1171442
+        },
+        {
+          "world_x": -12.0,
+          "world_z": -129.0,
+          "column": 143,
+          "row": 284,
+          "saved_height": 10.346770286560059,
+          "native_height": 9.314491271972656,
+          "absolute_error": 1.0322790145874023,
+          "ulp_distance": 1082423
+        },
+        {
+          "world_x": 121.0,
+          "world_z": -129.0,
+          "column": 143,
+          "row": 151,
+          "saved_height": 11.4603271484375,
+          "native_height": 10.79739761352539,
+          "absolute_error": 0.6629295349121094,
+          "ulp_distance": 695132
+        },
+        {
+          "world_x": -129.0,
+          "world_z": -12.0,
+          "column": 260,
+          "row": 401,
+          "saved_height": 11.606169700622559,
+          "native_height": 11.115253448486328,
+          "absolute_error": 0.49091625213623047,
+          "ulp_distance": 514763
+        },
+        {
+          "world_x": -12.0,
+          "world_z": -12.0,
+          "column": 260,
+          "row": 284,
+          "saved_height": 2.6455957889556885,
+          "native_height": 2.419919967651367,
+          "absolute_error": 0.2256758213043213,
+          "ulp_distance": 946553
+        },
+        {
+          "world_x": 121.0,
+          "world_z": -12.0,
+          "column": 260,
+          "row": 151,
+          "saved_height": 10.316194534301758,
+          "native_height": 12.418912887573242,
+          "absolute_error": 2.1027183532714844,
+          "ulp_distance": 2204860
+        },
+        {
+          "world_x": -129.0,
+          "world_z": 121.0,
+          "column": 393,
+          "row": 401,
+          "saved_height": 9.159760475158691,
+          "native_height": 9.802666664123535,
+          "absolute_error": 0.6429061889648438,
+          "ulp_distance": 674136
+        },
+        {
+          "world_x": -12.0,
+          "world_z": 121.0,
+          "column": 393,
+          "row": 284,
+          "saved_height": 12.114367485046387,
+          "native_height": 11.722168922424316,
+          "absolute_error": 0.3921985626220703,
+          "ulp_distance": 411250
+        },
+        {
+          "world_x": 121.0,
+          "world_z": 121.0,
+          "column": 393,
+          "row": 151,
+          "saved_height": 11.261606216430664,
+          "native_height": 9.834847450256348,
+          "absolute_error": 1.4267587661743164,
+          "ulp_distance": 1496065
+        }
+      ]
+    },
+    {
+      "transposed": true,
+      "origin_x": -272.0,
+      "origin_z": 272.0,
+      "column_x": 0,
+      "column_z": -1,
+      "row_x": 1,
+      "row_z": 0,
+      "maximum_absolute_error": 3.468782424926758,
+      "maximum_ulp_distance": 3637282,
+      "exact_float32_count": 0,
+      "accepted": false,
+      "observations": [
+        {
+          "world_x": -129.0,
+          "world_z": -129.0,
+          "column": 401,
+          "row": 143,
+          "saved_height": 11.257442474365234,
+          "native_height": 10.061798095703125,
+          "absolute_error": 1.1956443786621094,
+          "ulp_distance": 1253724
+        },
+        {
+          "world_x": -12.0,
+          "world_z": -129.0,
+          "column": 401,
+          "row": 260,
+          "saved_height": 12.783273696899414,
+          "native_height": 9.314491271972656,
+          "absolute_error": 3.468782424926758,
+          "ulp_distance": 3637282
+        },
+        {
+          "world_x": 121.0,
+          "world_z": -129.0,
+          "column": 401,
+          "row": 393,
+          "saved_height": 9.329829216003418,
+          "native_height": 10.79739761352539,
+          "absolute_error": 1.4675683975219727,
+          "ulp_distance": 1538857
+        },
+        {
+          "world_x": -129.0,
+          "world_z": -12.0,
+          "column": 284,
+          "row": 143,
+          "saved_height": 10.544490814208984,
+          "native_height": 11.115253448486328,
+          "absolute_error": 0.5707626342773438,
+          "ulp_distance": 598488
+        },
+        {
+          "world_x": -12.0,
+          "world_z": -12.0,
+          "column": 284,
+          "row": 260,
+          "saved_height": 2.624656915664673,
+          "native_height": 2.419919967651367,
+          "absolute_error": 0.20473694801330566,
+          "ulp_distance": 858729
+        },
+        {
+          "world_x": 121.0,
+          "world_z": -12.0,
+          "column": 284,
+          "row": 393,
+          "saved_height": 11.769868850708008,
+          "native_height": 12.418912887573242,
+          "absolute_error": 0.6490440368652344,
+          "ulp_distance": 680572
+        },
+        {
+          "world_x": -129.0,
+          "world_z": 121.0,
+          "column": 151,
+          "row": 143,
+          "saved_height": 10.193918228149414,
+          "native_height": 9.802666664123535,
+          "absolute_error": 0.3912515640258789,
+          "ulp_distance": 410257
+        },
+        {
+          "world_x": -12.0,
+          "world_z": 121.0,
+          "column": 151,
+          "row": 260,
+          "saved_height": 11.82804012298584,
+          "native_height": 11.722168922424316,
+          "absolute_error": 0.10587120056152344,
+          "ulp_distance": 111014
+        },
+        {
+          "world_x": 121.0,
+          "world_z": 121.0,
+          "column": 151,
+          "row": 393,
+          "saved_height": 9.341523170471191,
+          "native_height": 9.834847450256348,
+          "absolute_error": 0.49332427978515625,
+          "ulp_distance": 517288
+        }
+      ]
+    },
+    {
+      "transposed": true,
+      "origin_x": 272.0,
+      "origin_z": 272.0,
+      "column_x": 0,
+      "column_z": -1,
+      "row_x": -1,
+      "row_z": 0,
+      "maximum_absolute_error": 2.1746206283569336,
+      "maximum_ulp_distance": 2280255,
+      "exact_float32_count": 0,
+      "accepted": false,
+      "observations": [
+        {
+          "world_x": -129.0,
+          "world_z": -129.0,
+          "column": 401,
+          "row": 401,
+          "saved_height": 9.555424690246582,
+          "native_height": 10.061798095703125,
+          "absolute_error": 0.506373405456543,
+          "ulp_distance": 530971
+        },
+        {
+          "world_x": -12.0,
+          "world_z": -129.0,
+          "column": 401,
+          "row": 284,
+          "saved_height": 11.48911190032959,
+          "native_height": 9.314491271972656,
+          "absolute_error": 2.1746206283569336,
+          "ulp_distance": 2280255
+        },
+        {
+          "world_x": 121.0,
+          "world_z": -129.0,
+          "column": 401,
+          "row": 151,
+          "saved_height": 11.468561172485352,
+          "native_height": 10.79739761352539,
+          "absolute_error": 0.6711635589599609,
+          "ulp_distance": 703766
+        },
+        {
+          "world_x": -129.0,
+          "world_z": -12.0,
+          "column": 284,
+          "row": 401,
+          "saved_height": 12.579313278198242,
+          "native_height": 11.115253448486328,
+          "absolute_error": 1.464059829711914,
+          "ulp_distance": 1535178
+        },
+        {
+          "world_x": -12.0,
+          "world_z": -12.0,
+          "column": 284,
+          "row": 284,
+          "saved_height": 2.002633571624756,
+          "native_height": 2.419919967651367,
+          "absolute_error": 0.41728639602661133,
+          "ulp_distance": 1750226
+        },
+        {
+          "world_x": 121.0,
+          "world_z": -12.0,
+          "column": 284,
+          "row": 151,
+          "saved_height": 11.51018238067627,
+          "native_height": 12.418912887573242,
+          "absolute_error": 0.9087305068969727,
+          "ulp_distance": 952873
+        },
+        {
+          "world_x": -129.0,
+          "world_z": 121.0,
+          "column": 151,
+          "row": 401,
+          "saved_height": 9.005097389221191,
+          "native_height": 9.802666664123535,
+          "absolute_error": 0.7975692749023438,
+          "ulp_distance": 836312
+        },
+        {
+          "world_x": -12.0,
+          "world_z": 121.0,
+          "column": 151,
+          "row": 284,
+          "saved_height": 11.430293083190918,
+          "native_height": 11.722168922424316,
+          "absolute_error": 0.29187583923339844,
+          "ulp_distance": 306054
+        },
+        {
+          "world_x": 121.0,
+          "world_z": 121.0,
+          "column": 151,
+          "row": 151,
+          "saved_height": 11.247623443603516,
+          "native_height": 9.834847450256348,
+          "absolute_error": 1.412775993347168,
+          "ulp_distance": 1481403
+        }
+      ]
+    }
+  ],
+  "world_axis_evidence_zh": "官方ClampToTerrain(Vector3fProxy)先Swizzle_xz取得二维X/Y，调用二维钳制后写回三维X/Z；GetHeight_CS(X,Z)写三维Y。",
+  "calibration": {
+    "origin_x": -272.0,
+    "origin_z": -272.0,
+    "column_x": 1,
+    "column_z": 0,
+    "row_x": 0,
+    "row_z": 1
+  }
+}

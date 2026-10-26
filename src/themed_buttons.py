@@ -1,5 +1,6 @@
 """中性动作按钮：保留标准按钮的键盘、无障碍与点击语义。"""
 
+from app_fonts import make_ui_font, register_ui_fonts
 from PyQt5.QtCore import Qt, QSize, QRectF
 from PyQt5.QtGui import QColor, QFont, QFontMetrics, QIcon, QPainter, QPen
 from PyQt5.QtWidgets import QPushButton, QStyle, QStyleOptionButton
@@ -20,7 +21,7 @@ class TapestryAction(QPushButton):
         self.setCursor(Qt.PointingHandCursor)
         self.setFocusPolicy(Qt.StrongFocus)
         self.setIconSize(QSize(18, 18))
-        font = QFont('Microsoft YaHei UI')
+        font = make_ui_font()
         font.setPixelSize(14)
         font.setWeight(QFont.DemiBold)
         self.setFont(font)
@@ -63,8 +64,8 @@ class TapestryAction(QPushButton):
             background = '#bfbfc6' if down else '#ffffff' if hovered else '#e8e8eb'
             border, foreground = background, '#141416'
         elif checked:
-            background = '#17291f' if down else '#263b2e' if hovered else '#1d3024'
-            border, foreground = '#4c7d5d', '#d7efdf'
+            background = '#242429' if down else '#38383F' if hovered else '#2D2D33'
+            border, foreground = '#6B6B75', '#F4F4F5'
         else:
             background = '#18181b' if down else '#2b2b30' if hovered else '#202023'
             if quiet and not hovered and not down:

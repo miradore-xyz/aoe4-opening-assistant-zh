@@ -15,7 +15,7 @@ os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 from PyQt5.QtCore import Qt, QPoint, QTimer, QEvent
 from PyQt5.QtGui import QFontDatabase
 from PyQt5.QtTest import QTest
-from PyQt5.QtWidgets import QApplication, QDialog
+from PyQt5.QtWidgets import QApplication, QDialog, QSplitter, QFrame, QScrollArea
 
 from app import Editor, STYLE
 from catalog import catalog_icon, load_catalog, technology_buildings
@@ -34,7 +34,7 @@ def fixture(civilization=DRAGON):
     return {
         "name": "界面改进离线验证", "civilization": civilization,
         "author": "隔离验证", "source": "本地测试资料",
-        "build_order": [Editor.blank()],
+        "build_order": [{**Editor.blank(), "time": "00:00"}],
         "external_metadata": {"preserve": ["用户扩展字段", 3]},
     }
 
@@ -244,10 +244,11 @@ class InterfaceRefinementTests(unittest.TestCase):
                     self.assertFalse(dialog._windowing_active)
 
     def test_resource_inputs_keep_width_row_and_column_alignment_at_both_sizes(self):
-        """八个资源输入框两列等宽，每行垂直居中，窄窗口不挤压数字框。"""
+        """七个目标框两列等宽，左右编辑面板有分隔，窄窗口不挤压数字框。"""
         editor = self.editor()
-        keys = list(FIELDS)
-        for width in (880, 760):
+        keys = [key for key in FIELDS if key != "population_count"]
+        self.assertEqual(set(editor.numbers), set(keys))
+        for width in (1100, 760):
             with self.subTest(width=width):
                 editor.resize(width, 700)
                 editor.show()
@@ -266,6 +267,15 @@ class InterfaceRefinementTests(unittest.TestCase):
                     self.assertEqual(left.y(), right.y())
                 self.assertTrue(all(position.x() + box.width() <= editor.width()
                                     for position, box in zip(positions, boxes)))
+                split = editor.findChild(QSplitter, "OpeningEditorSplit")
+                scroll = editor.findChild(QScrollArea, "OpeningStepScroll")
+                divider = editor.findChild(QFrame, "OpeningEditorDivider")
+                self.assertEqual(split.handleWidth(), 20)
+                self.assertEqual(divider.width(), 1)
+                self.assertTrue(divider.testAttribute(Qt.WA_TransparentForMouseEvents))
+                self.assertEqual(editor.steps.mapTo(editor, QPoint(0, 0)).y(), scroll.mapTo(editor, QPoint(0, 0)).y())
+                gap = scroll.mapTo(editor, QPoint(0, 0)).x() - (editor.steps.mapTo(editor, QPoint(0, 0)).x() + editor.steps.width())
+                self.assertEqual(gap, 20)
 
     def test_default_interface_font_is_twelve_and_eleven_remains_available(self):
         """默认主界面字号为 12 像素，用户已选 11 像素仍保留。"""

@@ -1,0 +1,756 @@
+{
+  "source_sha256": "4712c521dd737487d919efd916d0a26f22d8354d7a83b0bcdf1ffb4a2023bf47",
+  "source": "relic_river-map_size_416-native.scenario",
+  "coordinates": {
+    "height_header": {
+      "width": 545,
+      "height": 545,
+      "sample_spacing": 1.0,
+      "chunk": {
+        "path": "/FOLDSCEN/FOLDGEWD/FOLDTERR/FOLDHITE/DATADATA",
+        "offset": 3998,
+        "payload_offset": 4018,
+        "size": 12,
+        "version": 3000
+      }
+    },
+    "world_axis_mapping": null,
+    "native_texel_center_phase": null,
+    "texture_header": {
+      "width": 545,
+      "height": 545,
+      "sample_spacing": 1.0,
+      "chunk_width": 34,
+      "chunk_height": 34,
+      "texels_per_meter": 64.0,
+      "chunk": {
+        "path": "/FOLDSCEN/FOLDGEWD/FOLDTERR/FOLDTTEX/DATADATA",
+        "offset": 8400409,
+        "payload_offset": 8400429,
+        "size": 20,
+        "version": 3000
+      }
+    },
+    "compiled_reference_header": {
+      "enable": true,
+      "world_extents": [
+        -272.0,
+        272.0,
+        -272.0,
+        272.0
+      ],
+      "chunks_x": 34,
+      "chunks_y": 34,
+      "enable_tiles_on_close_up": true,
+      "switch_threshold": 40.0,
+      "chunk": {
+        "path": "/FOLDSCEN/FOLDGEWD/FOLDTERR/FOLDTTEX/FOLDCOMP/FOLDRCMT/DATAHEAD",
+        "offset": 10915423,
+        "payload_offset": 10915443,
+        "size": 26,
+        "version": 3001
+      }
+    },
+    "sampling_boundary_zh": "保留各字段原始行序；全域范围可核对，但原生纹理中心相位、世界轴正负及UV单位未确认。"
+  },
+  "material_counts_masks": [
+    {
+      "materials": 2,
+      "masks": 1,
+      "tiles": 146
+    },
+    {
+      "materials": 3,
+      "masks": 1,
+      "tiles": 330
+    },
+    {
+      "materials": 4,
+      "masks": 1,
+      "tiles": 337
+    },
+    {
+      "materials": 5,
+      "masks": 2,
+      "tiles": 203
+    },
+    {
+      "materials": 6,
+      "masks": 2,
+      "tiles": 74
+    },
+    {
+      "materials": 7,
+      "masks": 2,
+      "tiles": 30
+    },
+    {
+      "materials": 8,
+      "masks": 2,
+      "tiles": 35
+    },
+    {
+      "materials": 9,
+      "masks": 2,
+      "tiles": 1
+    }
+  ],
+  "source_layers": [
+    {
+      "index": 0,
+      "material": "biome_temperate_deciduous\\stone\\stone_cliffside_dark_snow_a",
+      "version": 4003,
+      "width": 546,
+      "height": 546
+    },
+    {
+      "index": 1,
+      "material": "biome_temperate_deciduous\\stone\\stone_clifftop_dark_snow_a",
+      "version": 4003,
+      "width": 546,
+      "height": 546
+    },
+    {
+      "index": 2,
+      "material": "biome_temperate_deciduous\\stone\\stone_cliffscree_dark_snow_a",
+      "version": 4003,
+      "width": 546,
+      "height": 546
+    },
+    {
+      "index": 3,
+      "material": "biome_temperate_deciduous\\grass_tall\\grass_tall_lush_b",
+      "version": 4003,
+      "width": 546,
+      "height": 546
+    },
+    {
+      "index": 4,
+      "material": "biome_tropical_dry\\mud\\mud_trodden_wet",
+      "version": 4003,
+      "width": 546,
+      "height": 546
+    },
+    {
+      "index": 5,
+      "material": "biome_temperate_deciduous\\grass\\grass_short_a_large_mix_b_cool",
+      "version": 4003,
+      "width": 546,
+      "height": 546
+    },
+    {
+      "index": 6,
+      "material": "biome_temperate_deciduous\\mud\\mud_trodden_a",
+      "version": 4003,
+      "width": 546,
+      "height": 546
+    },
+    {
+      "index": 7,
+      "material": "biome_temperate_deciduous\\grass\\grass_short_a_large_mix_a",
+      "version": 4003,
+      "width": 546,
+      "height": 546
+    },
+    {
+      "index": 8,
+      "material": "biome_temperate_deciduous\\dirt\\dirt_grass_patch_b_dark_snow",
+      "version": 4003,
+      "width": 546,
+      "height": 546
+    },
+    {
+      "index": 9,
+      "material": "biome_temperate_deciduous\\stone\\riverbed_b",
+      "version": 4003,
+      "width": 546,
+      "height": 546
+    },
+    {
+      "index": 10,
+      "material": "biome_temperate_deciduous\\sand\\sand_pebble_beach_b",
+      "version": 4003,
+      "width": 546,
+      "height": 546
+    },
+    {
+      "index": 11,
+      "material": "biome_temperate_deciduous\\dirt\\dirt_grass_patch_b_dark_snow",
+      "version": 4003,
+      "width": 546,
+      "height": 546
+    },
+    {
+      "index": 12,
+      "material": "biome_temperate_deciduous\\sand\\sand_pebble_beach_b",
+      "version": 4003,
+      "width": 546,
+      "height": 546
+    },
+    {
+      "index": 13,
+      "material": "biome_temperate_deciduous\\sand\\sand_wet_a",
+      "version": 4003,
+      "width": 546,
+      "height": 546
+    },
+    {
+      "index": 14,
+      "material": "biome_temperate_deciduous\\sand\\sand_pebble_beach_a",
+      "version": 4003,
+      "width": 546,
+      "height": 546
+    },
+    {
+      "index": 15,
+      "material": "biome_temperate_deciduous\\stone\\riverbed_seafloor_grey_a",
+      "version": 4003,
+      "width": 546,
+      "height": 546
+    },
+    {
+      "index": 16,
+      "material": "biome_temperate_deciduous\\snow\\snow_trodden_a",
+      "version": 4003,
+      "width": 546,
+      "height": 546
+    }
+  ],
+  "missing_channels": [
+    {
+      "tile": 488,
+      "tile_xy": [
+        12,
+        14
+      ],
+      "material_count": 9,
+      "packed_image_count": 2,
+      "materials": [
+        {
+          "material": "biome_temperate_deciduous\\stone\\stone_cliffside_dark_snow_a",
+          "uv_scale": [
+            1.5,
+            1.5
+          ],
+          "rotation_radians": 0.0,
+          "uv_offset": [
+            0.0,
+            0.0
+          ],
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "material": "biome_temperate_deciduous\\stone\\stone_clifftop_dark_snow_a",
+          "uv_scale": [
+            1.5,
+            1.5
+          ],
+          "rotation_radians": 0.0,
+          "uv_offset": [
+            0.0,
+            0.0
+          ],
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "material": "biome_temperate_deciduous\\stone\\stone_cliffscree_dark_snow_a",
+          "uv_scale": [
+            1.5,
+            1.5
+          ],
+          "rotation_radians": 0.0,
+          "uv_offset": [
+            0.0,
+            0.0
+          ],
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "material": "biome_temperate_deciduous\\grass\\grass_short_a_large_mix_a",
+          "uv_scale": [
+            1.5,
+            1.5
+          ],
+          "rotation_radians": 0.0,
+          "uv_offset": [
+            0.0,
+            0.0
+          ],
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "material": "biome_temperate_deciduous\\stone\\riverbed_b",
+          "uv_scale": [
+            0.8999999761581421,
+            0.8999999761581421
+          ],
+          "rotation_radians": 0.0,
+          "uv_offset": [
+            0.0,
+            0.0
+          ],
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "material": "biome_temperate_deciduous\\sand\\sand_pebble_beach_b",
+          "uv_scale": [
+            1.5,
+            1.5
+          ],
+          "rotation_radians": 0.0,
+          "uv_offset": [
+            0.0,
+            0.0
+          ],
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "material": "biome_temperate_deciduous\\dirt\\dirt_grass_patch_b_dark_snow",
+          "uv_scale": [
+            1.5,
+            1.5
+          ],
+          "rotation_radians": 0.0,
+          "uv_offset": [
+            0.0,
+            0.0
+          ],
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "material": "biome_temperate_deciduous\\snow\\snow_trodden_a",
+          "uv_scale": [
+            1.5,
+            1.5
+          ],
+          "rotation_radians": 0.5235987901687622,
+          "uv_offset": [
+            0.0,
+            0.0
+          ],
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "material": "biome_temperate_deciduous\\grass_tall\\grass_tall_lush_b",
+          "uv_scale": [
+            1.5,
+            1.5
+          ],
+          "rotation_radians": 0.0,
+          "uv_offset": [
+            0.0,
+            0.0
+          ],
+          "flags": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "source_core": [
+        {
+          "index": 0,
+          "material": "biome_temperate_deciduous\\stone\\stone_cliffside_dark_snow_a",
+          "histogram": {
+            "0": 235,
+            "200": 1,
+            "188": 1,
+            "255": 14,
+            "220": 2,
+            "218": 1,
+            "221": 1,
+            "212": 1
+          },
+          "nonzero": 21
+        },
+        {
+          "index": 1,
+          "material": "biome_temperate_deciduous\\stone\\stone_clifftop_dark_snow_a",
+          "histogram": {
+            "255": 22,
+            "0": 229,
+            "55": 1,
+            "67": 1,
+            "37": 1,
+            "34": 1,
+            "43": 1
+          },
+          "nonzero": 27
+        },
+        {
+          "index": 2,
+          "material": "biome_temperate_deciduous\\stone\\stone_cliffscree_dark_snow_a",
+          "histogram": {
+            "0": 246,
+            "255": 8,
+            "35": 2
+          },
+          "nonzero": 10
+        },
+        {
+          "index": 3,
+          "material": "biome_temperate_deciduous\\grass_tall\\grass_tall_lush_b",
+          "histogram": {
+            "0": 255,
+            "255": 1
+          },
+          "nonzero": 1
+        },
+        {
+          "index": 4,
+          "material": "biome_tropical_dry\\mud\\mud_trodden_wet",
+          "histogram": {
+            "0": 256
+          },
+          "nonzero": 0
+        },
+        {
+          "index": 5,
+          "material": "biome_temperate_deciduous\\grass\\grass_short_a_large_mix_b_cool",
+          "histogram": {
+            "0": 256
+          },
+          "nonzero": 0
+        },
+        {
+          "index": 6,
+          "material": "biome_temperate_deciduous\\mud\\mud_trodden_a",
+          "histogram": {
+            "0": 256
+          },
+          "nonzero": 0
+        },
+        {
+          "index": 7,
+          "material": "biome_temperate_deciduous\\grass\\grass_short_a_large_mix_a",
+          "histogram": {
+            "0": 159,
+            "110": 1,
+            "97": 2,
+            "152": 1,
+            "138": 2,
+            "125": 2,
+            "95": 2,
+            "165": 1,
+            "151": 1,
+            "137": 1,
+            "107": 1,
+            "180": 1,
+            "167": 3,
+            "153": 1,
+            "77": 1,
+            "214": 1,
+            "184": 1,
+            "169": 1,
+            "81": 2,
+            "82": 2,
+            "99": 2,
+            "98": 4,
+            "85": 4,
+            "89": 3,
+            "88": 3,
+            "84": 5,
+            "101": 6,
+            "93": 2,
+            "94": 1,
+            "100": 5,
+            "86": 4,
+            "87": 1,
+            "103": 1,
+            "123": 1,
+            "90": 2,
+            "122": 1,
+            "159": 2,
+            "80": 1,
+            "121": 1,
+            "120": 1,
+            "171": 2,
+            "149": 1,
+            "133": 2,
+            "132": 3,
+            "181": 1,
+            "160": 1,
+            "136": 1,
+            "113": 1,
+            "92": 2,
+            "96": 1,
+            "131": 1,
+            "172": 1,
+            "148": 1,
+            "177": 1,
+            "168": 1
+          },
+          "nonzero": 97
+        },
+        {
+          "index": 8,
+          "material": "biome_temperate_deciduous\\dirt\\dirt_grass_patch_b_dark_snow",
+          "histogram": {
+            "0": 256
+          },
+          "nonzero": 0
+        },
+        {
+          "index": 9,
+          "material": "biome_temperate_deciduous\\stone\\riverbed_b",
+          "histogram": {
+            "0": 235,
+            "112": 1,
+            "81": 2,
+            "88": 2,
+            "78": 1,
+            "110": 1,
+            "95": 1,
+            "84": 1,
+            "83": 1,
+            "105": 2,
+            "91": 1,
+            "100": 1,
+            "79": 1,
+            "96": 1,
+            "85": 1,
+            "82": 1,
+            "92": 1,
+            "117": 1,
+            "102": 1
+          },
+          "nonzero": 21
+        },
+        {
+          "index": 10,
+          "material": "biome_temperate_deciduous\\sand\\sand_pebble_beach_b",
+          "histogram": {
+            "0": 116,
+            "64": 1,
+            "88": 3,
+            "147": 1,
+            "153": 3,
+            "187": 1,
+            "188": 1,
+            "255": 47,
+            "143": 2,
+            "55": 1,
+            "126": 1,
+            "135": 1,
+            "144": 1,
+            "179": 1,
+            "183": 1,
+            "46": 1,
+            "145": 2,
+            "158": 1,
+            "150": 3,
+            "157": 1,
+            "164": 2,
+            "103": 1,
+            "117": 2,
+            "130": 2,
+            "160": 3,
+            "146": 1,
+            "178": 3,
+            "184": 1,
+            "90": 1,
+            "104": 1,
+            "118": 1,
+            "148": 1,
+            "149": 1,
+            "170": 2,
+            "75": 2,
+            "102": 1,
+            "121": 1,
+            "171": 2,
+            "41": 1,
+            "71": 1,
+            "86": 1,
+            "53": 1,
+            "91": 1,
+            "161": 2,
+            "173": 1,
+            "43": 1,
+            "54": 1,
+            "78": 1,
+            "167": 3,
+            "45": 1,
+            "68": 1,
+            "174": 2,
+            "60": 1,
+            "155": 2,
+            "177": 1,
+            "66": 1,
+            "96": 2,
+            "92": 1,
+            "84": 1,
+            "106": 1,
+            "176": 1,
+            "95": 1,
+            "119": 1,
+            "142": 1,
+            "159": 1,
+            "83": 1,
+            "107": 1,
+            "89": 1,
+            "163": 1,
+            "122": 1,
+            "138": 1
+          },
+          "nonzero": 140
+        },
+        {
+          "index": 11,
+          "material": "biome_temperate_deciduous\\dirt\\dirt_grass_patch_b_dark_snow",
+          "histogram": {
+            "0": 159,
+            "191": 1,
+            "167": 3,
+            "108": 1,
+            "102": 2,
+            "68": 1,
+            "67": 1,
+            "200": 1,
+            "129": 1,
+            "120": 2,
+            "111": 1,
+            "76": 1,
+            "72": 1,
+            "209": 1,
+            "105": 1,
+            "98": 1,
+            "91": 1,
+            "109": 1,
+            "77": 2,
+            "71": 1,
+            "106": 1,
+            "85": 2,
+            "134": 2,
+            "95": 1,
+            "84": 1,
+            "121": 1,
+            "164": 1,
+            "94": 3,
+            "255": 12,
+            "156": 2,
+            "157": 4,
+            "127": 1,
+            "88": 1,
+            "170": 3,
+            "171": 3,
+            "154": 6,
+            "126": 1,
+            "112": 1,
+            "155": 4,
+            "100": 1,
+            "168": 1,
+            "169": 3,
+            "152": 1,
+            "132": 1,
+            "99": 1,
+            "166": 2,
+            "133": 1,
+            "165": 1,
+            "135": 1,
+            "162": 1,
+            "158": 1,
+            "122": 1,
+            "123": 3,
+            "163": 2,
+            "159": 1,
+            "124": 1
+          },
+          "nonzero": 97
+        },
+        {
+          "index": 12,
+          "material": "biome_temperate_deciduous\\sand\\sand_pebble_beach_b",
+          "histogram": {
+            "0": 256
+          },
+          "nonzero": 0
+        },
+        {
+          "index": 13,
+          "material": "biome_temperate_deciduous\\sand\\sand_wet_a",
+          "histogram": {
+            "0": 256
+          },
+          "nonzero": 0
+        },
+        {
+          "index": 14,
+          "material": "biome_temperate_deciduous\\sand\\sand_pebble_beach_a",
+          "histogram": {
+            "0": 256
+          },
+          "nonzero": 0
+        },
+        {
+          "index": 15,
+          "material": "biome_temperate_deciduous\\stone\\riverbed_seafloor_grey_a",
+          "histogram": {
+            "0": 256
+          },
+          "nonzero": 0
+        },
+        {
+          "index": 16,
+          "material": "biome_temperate_deciduous\\snow\\snow_trodden_a",
+          "histogram": {
+            "0": 250,
+            "74": 1,
+            "84": 1,
+            "78": 1,
+            "88": 2,
+            "87": 1
+          },
+          "nonzero": 6
+        }
+      ]
+    }
+  ],
+  "available_compiled_values_compared": 1174272,
+  "available_compiled_values_different": 1,
+  "unequal_values": [
+    {
+      "tile": 488,
+      "compiled_channel": 0,
+      "material": "biome_temperate_deciduous\\stone\\stone_cliffside_dark_snow_a",
+      "local_core_xy": [
+        0,
+        15
+      ],
+      "compiled": 255,
+      "source": 0
+    }
+  ]
+}

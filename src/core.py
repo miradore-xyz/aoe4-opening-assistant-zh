@@ -27,18 +27,20 @@ CIVS = dict(zip(aoe4_civilization_icon, [
     "罗斯", "战国大名", "图格鲁克王朝", "朱熹的传承",
 ]))
 CIVS.update({"any": "通用", "Any": "通用", "Generic": "通用"})
-FIELDS = {"food": "食物村民", "wood": "木材村民", "gold": "黄金村民", "stone": "石料村民",
+FIELDS = {"food": "吃肉村民", "wood": "采木村民", "gold": "采金村民", "stone": "采石村民",
           "builder": "建造村民", "villager_count": "村民总数", "population_count": "人口", "age": "时代"}
-DEFAULT_HOTKEYS = {"previous": "Ctrl+Alt+F6", "next": "Ctrl+Alt+F7", "pause": "Ctrl+Alt+F8",
-                   "visible": "Ctrl+Alt+F9", "passthrough": "Ctrl+Alt+F10", "reset": "Ctrl+Alt+F11"}
+DEFAULT_HOTKEYS = {key: "" for key in ("previous", "next", "pause", "visible", "passthrough", "reset")}
+# 仅用于一次性识别旧版自动预设，不再向新用户登记这些组合键。
+_LEGACY_HOTKEYS = dict(zip(DEFAULT_HOTKEYS, (f"Ctrl+Alt+F{number}" for number in range(6, 12))))
 HOTKEY_LABELS = {"previous": "上一步", "next": "下一步", "pause": "开始／暂停",
-                 "visible": "显示／隐藏悬浮窗", "passthrough": "开关鼠标穿透", "reset": "计时归零"}
-DEFAULTS = {"font_size": 7, "ui_font_size": 12, "width": 330, "height": 220, "opacity": 92, "x": 70, "y": 70,
-            "speech": False, "voice": "", "volume": 80, "rate": 0, "auto": False, "sound": True,
+                 "visible": "显示／隐藏悬浮窗", "passthrough": "锁定／解锁悬浮窗", "reset": "计时归零"}
+DEFAULTS = {"font_size": 14, "font_size_unit": "px", "overlay_readability_policy": 2, "overlay_style": "a", "ui_font_size": 12, "width": 400, "height": 220, "opacity": 65,
+            "overlay_color": "#1b1b1e", "overlay_color_policy": 1, "overlay_text_color": "", "text_shadow": True, "text_shadow_strength": 75, "x": 70, "y": 70,
+            "speech": True, "voice": "", "volume": 80, "rate": 0, "auto": True,
+            "timed_playback_policy": 1, "overlay_interaction_policy": 2,
             "voice_engine": "online", "online_voice": "zh-CN-XiaoxiaoNeural",
-            "timing": "ending", "reminders": False, "reminder_seconds": 40,
-            "reminder_text": "检查城镇中心造村民；看人口提前补房；检查军队持续补充；查看金矿余量和备用矿。",
-            "hotkeys": DEFAULT_HOTKEYS.copy(), "last_order": "", "passthrough": False}
+            "timing": "starting",
+            "hotkeys": DEFAULT_HOTKEYS.copy(), "hotkeys_policy": 1, "last_order": "", "passthrough": False}
 
 
 def civilization_text(value):
@@ -57,7 +59,8 @@ def atomic_json(path, value):
     temporary.replace(path)
 
 
-def load_settings(path):
+def load_settings(path, logical_dpi=96):
+    """读取设置；旧版悬浮字号由磅按当前屏幕逻辑分辨率换算为像素。"""
     result = copy.deepcopy(DEFAULTS)
     warning = ""
     if Path(path).exists():
@@ -68,21 +71,64 @@ def load_settings(path):
             for key in DEFAULTS:
                 if key in saved and type(saved[key]) is type(DEFAULTS[key]):
                     result[key] = saved[key]
+            # 精确旧默认才换成中性黑灰；升级后用户主动选回绿色也不再覆盖。
+            if type(saved.get("overlay_color_policy")) is not int or saved["overlay_color_policy"] < 1:
+                if result["overlay_color"].lower() == "#101b17":
+                    result["overlay_color"] = DEFAULTS["overlay_color"]
+                result["overlay_color_policy"] = 1
+            # 逐项清除旧自动组合，混合配置中真正自定义的按键保持原样。
+            if type(saved.get("hotkeys_policy")) is not int or saved["hotkeys_policy"] < 1:
+                for action, previous in _LEGACY_HOTKEYS.items():
+                    value = result["hotkeys"].get(action)
+                    if isinstance(value, str) and value.strip().casefold() == previous.casefold():
+                        result["hotkeys"][action] = ""
+                result["hotkeys_policy"] = 1
+            if type(saved.get("font_size")) is int and saved.get("font_size_unit") != "px":
+                # 旧版 6–28 磅；px（像素）标记保存后，后续启动不再重复换算。
+                old_points = max(6, min(28, saved["font_size"]))
+                result["font_size"] = round(old_points * logical_dpi / 72)
+            # 一次性落实新版到点自动切步与朗读；用户之后手动改过的开关仍会保留。
+            if (type(saved.get("timed_playback_policy")) is not int
+                    or saved["timed_playback_policy"] < 1):
+                result.update(auto=True, speech=True, timing="starting",
+                              timed_playback_policy=1)
+            # 预览可直接点击开始；开始成功后自动锁定，独立的小锁仍能解锁。
+            if (type(saved.get("overlay_interaction_policy")) is not int
+                    or saved["overlay_interaction_policy"] < 2):
+                result.update(passthrough=False, overlay_interaction_policy=2)
+            # 仅兼容旧默认宽度；不再借样式升级改变用户保存的字号。
+            if (type(saved.get("overlay_readability_policy")) is not int
+                    or saved["overlay_readability_policy"] < 1):
+                if result["width"] == 330:
+                    result["width"] = 400
+                result["overlay_readability_policy"] = 1
+            result["overlay_readability_policy"] = 2
         except (ValueError, OSError):
             warning = "设置文件无法读取，已使用默认设置。原文件仍保留。"
-    for key, low, high in [("font_size", 6, 28), ("ui_font_size", 11, 18), ("width", 280, 900), ("height", 160, 1400), ("opacity", 35, 100),
-                           ("volume", 0, 100), ("rate", -5, 5), ("reminder_seconds", 15, 600)]:
+    result["font_size_unit"] = "px"
+    if result["overlay_style"] not in ("a", "c", "b"):
+        result["overlay_style"] = "a"
+    if not re.fullmatch(r"#[0-9a-fA-F]{6}", result["overlay_color"]):
+        result["overlay_color"] = DEFAULTS["overlay_color"]
+    result["overlay_color"] = result["overlay_color"].lower()
+    # 空值沿用原本的分层文字配色，升级时不把所有文字强制改成单一颜色。
+    if not re.fullmatch(r"#[0-9a-fA-F]{6}", result["overlay_text_color"]):
+        result["overlay_text_color"] = ""
+    result["overlay_text_color"] = result["overlay_text_color"].lower()
+    for key, low, high in [("font_size", 8, 80), ("ui_font_size", 11, 18), ("width", 280, 900), ("height", 160, 1400), ("opacity", 0, 100),
+                           ("text_shadow_strength", 0, 100),
+                           ("volume", 0, 100), ("rate", -5, 5)]:
         result[key] = max(low, min(high, result[key]))
     result["hotkeys"] = {k: result["hotkeys"].get(k, v) if isinstance(result["hotkeys"].get(k, v), str) else v
                          for k, v in DEFAULT_HOTKEYS.items()}
     if result["timing"] not in ("starting", "ending"):
-        result["timing"] = "ending"
+        result["timing"] = "starting"
     if result["voice_engine"] not in ("system", "online"):
         result["voice_engine"] = "online"
     if result["online_voice"] not in ("zh-CN-XiaoxiaoNeural", "zh-CN-YunxiNeural", "zh-CN-XiaoyiNeural"):
         result["online_voice"] = "zh-CN-XiaoxiaoNeural"
-    # 启动始终允许鼠标操作，防止穿透后找不到恢复入口。
-    result["passthrough"] = False
+    # 三档沿用同一底层语速单位；旧数值选最近一档，恰好居中时优先默认。
+    result["rate"] = min((0, -2, 2), key=lambda value: abs(result["rate"] - value))
     return result, warning
 
 
@@ -194,6 +240,26 @@ def timed_ids(order, seconds, starting=False):
         groups = {steps[index]["time_sec"] for index in selected}
         return [index for index, step in enumerate(steps) if step["time_sec"] in groups]
     return selected
+
+
+def overlay_end_deadline(order, grace_seconds=120):
+    """最后一个已知时间点后保留两分钟；全手动稿没有自动完成时刻。"""
+    steps = timer_steps(order)
+    if not steps:
+        return None
+    return max(step["time_sec"] for step in steps) + max(0, grace_seconds)
+
+
+def timeline_selection(order, seconds, current_ids, manual_anchor=None, starting=True):
+    """直接定位当前时间组，手动切步保持到下一个时间组，避免立即跳回或补读旧节点。
+
+    manual_anchor（手动切换时的时间组）只控制临时预览；不会关闭自动切步。
+    返回新的节点列表和仍有效的手动时间组，供暂停、继续与周期刷新共用。
+    """
+    selected = timed_ids(order, seconds, starting=starting) or list(current_ids)
+    if manual_anchor is not None and tuple(selected) == tuple(manual_anchor):
+        return list(current_ids), manual_anchor
+    return selected, None
 
 
 def timestamp(seconds):

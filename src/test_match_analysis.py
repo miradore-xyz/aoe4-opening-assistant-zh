@@ -20,7 +20,7 @@ os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
 from match_analysis import (
     MatchError, PublicMatchClient, USER_AGENT, analyze_games, normalize_games,
-    parse_player_input, summary_url,
+    match_page_url, parse_player_input, summary_url,
 )
 
 
@@ -52,8 +52,32 @@ class PublicMatchTests(unittest.TestCase):
                       "0", "999999999999999999", "短名", ""):
             with self.subTest(value=value), self.assertRaises(MatchError):
                 parse_player_input(value)
-        self.assertEqual(summary_url(7, 101), "https://aoe4world.com/players/7/games/101/summary")
-        self.assertEqual(summary_url("../7", 101), "")
+
+    def test_open_link_uses_readable_match_page_not_summary_data(self):
+        expected = "https://aoe4world.com/players/7/games/101"
+        self.assertEqual(match_page_url(7, 101), expected)
+        self.assertEqual(summary_url(7, 101), expected)
+        for player, match in (("../7", 101), (7, "101/summary"), (0, 101), (7, False)):
+            with self.subTest(player=player, match=match):
+                self.assertEqual(match_page_url(player, match), "")
+
+    def test_cached_match_rebuilds_readable_url_without_network(self):
+        stale = game()
+        stale["url"] = "https://aoe4world.com/players/7/games/101/summary"
+        replies = [{"profile_id": 7, "name": "测试玩家"}, {"games": [stale]}]
+
+        def opener(request, timeout):
+            return io.BytesIO(json.dumps(replies.pop(0)).encode("utf-8"))
+
+        with tempfile.TemporaryDirectory() as directory:
+            client = PublicMatchClient(directory, opener=opener)
+            client.fetch_profile(7)
+            cached = client.fetch_profile(7)
+            self.assertEqual(cached["source"], "cache")
+            self.assertEqual(replies, [])
+            rows, _ = normalize_games(cached["games"], 7)
+            self.assertEqual(rows[0]["url"], "https://aoe4world.com/players/7/games/101")
+            self.assertEqual(cached["games"][0]["url"], stale["url"])
 
     def test_second_team_identity_and_complete_team_strength(self):
         rows, skipped = normalize_games([game()], 7)
@@ -147,7 +171,12 @@ class PublicMatchTests(unittest.TestCase):
             return io.BytesIO(json.dumps(replies.pop(0)).encode("utf-8"))
         with tempfile.TemporaryDirectory() as directory:
             client = PublicMatchClient(directory, opener=opener)
-            self.assertEqual(client.search_players("测试玩家"), [{"profile_id": 7, "name": "测试玩家"}])
+            identities = client.search_players("测试玩家")
+            self.assertEqual(len(identities), 1)
+            self.assertEqual(identities[0]["profile_id"], 7)
+            self.assertEqual(identities[0]["name"], "测试玩家")
+            self.assertIsNone(identities[0]["game_level"])
+            self.assertEqual(identities[0]["avatars"], {"small": None, "medium": None, "full": None})
             failed = PublicMatchClient(directory, opener=lambda *a, **k: (_ for _ in ()).throw(URLError("offline")))
             with self.assertRaises(MatchError):
                 failed.fetch_profile(7)
@@ -173,6 +202,13 @@ class PublicMatchTests(unittest.TestCase):
 
 
 class AnalysisPageTests(unittest.TestCase):
+    def setUp(self):
+        from unittest.mock import patch
+        # 身份补全单独测试；战绩界面回归不访问真实服务。
+        identity = patch("analysis_page.PlayerIdentityClient.fetch_identity", return_value={})
+        identity.start()
+        self.addCleanup(identity.stop)
+
     @classmethod
     def setUpClass(cls):
         from PyQt5.QtWidgets import QApplication

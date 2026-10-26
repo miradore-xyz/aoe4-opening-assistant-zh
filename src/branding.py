@@ -1,10 +1,14 @@
-"""帝国开局助手品牌标记：可缩放的原创几何龙首。"""
+"""产品显示名称与品牌标记：可缩放的原创几何龙首。"""
 from __future__ import annotations
 
 import math
 
 from PyQt5.QtCore import Qt, QRectF
 from PyQt5.QtGui import QColor, QGuiApplication, QPainter, QPainterPath, QPixmap
+
+
+# APP_NAME 是产品显示名；数据目录、安装标识和更新地址继续沿用原值。
+APP_NAME = "AoE4 HELP"
 
 
 def brand_mark(size: int = 26) -> QPixmap:

@@ -1,0 +1,172 @@
+{
+  "kind": "official_full_reference_postprocess_verification",
+  "source_scenario_sha256": "6f8d6ba119857f9b88fb9531c3f1d92be82eac1c75ad02eadcc09fd8f416a98b",
+  "source_layer_sha256": "5833dfe7069cdde3fa5eda3471a815d9c114cd75883e74f31d44d89571780cdf",
+  "bundle_sha256": "3e5f27448196e196e917f685e6a7667efe5472aad4554356f4bb238d0ca6cb9f",
+  "scope_evidence": {
+    "kind": "native_result_explicit_full_fields",
+    "file": "result.json",
+    "sha256": "5e4d56d518e2321fc384f13b92356c1a2cccef726f12ae523fe335c698fa7e4d"
+  },
+  "manifest_sha256": "bd49a86350e5b98bb16b57eca03441dd34531cb2221cab89cc780d98f9c6062d",
+  "entity_manifest_sha256": "69d0b8e744df5535c1fb58267c1ccdfe161cf9cf78a502ca2b7e8ef206b2c3a5",
+  "coordinate_calibration_sha256": "810193456a4537a92696a1c50a13132ff92b7bf289bff5c81c5d869969791f3c",
+  "terrain": {
+    "kind": "terrain_reference_verification",
+    "source_scenario_sha256": "6f8d6ba119857f9b88fb9531c3f1d92be82eac1c75ad02eadcc09fd8f416a98b",
+    "manifest_sha256": "bd49a86350e5b98bb16b57eca03441dd34531cb2221cab89cc780d98f9c6062d",
+    "source_fields_unchanged": true,
+    "material_coverage_complete": true,
+    "real_albedo_count": 12,
+    "tile_count": 478,
+    "all_tile_hashes_and_dimensions_valid": true,
+    "seam_and_edge_checks": [
+      {
+        "style": "natural",
+        "box": [
+          480,
+          480,
+          544,
+          544
+        ],
+        "pixel_exact": true
+      },
+      {
+        "style": "natural",
+        "box": [
+          3040,
+          3040,
+          3104,
+          3104
+        ],
+        "pixel_exact": true
+      },
+      {
+        "style": "natural",
+        "box": [
+          6495,
+          6495,
+          6528,
+          6528
+        ],
+        "pixel_exact": true
+      },
+      {
+        "style": "medieval",
+        "box": [
+          480,
+          480,
+          544,
+          544
+        ],
+        "pixel_exact": true
+      },
+      {
+        "style": "medieval",
+        "box": [
+          3040,
+          3040,
+          3104,
+          3104
+        ],
+        "pixel_exact": true
+      },
+      {
+        "style": "medieval",
+        "box": [
+          6495,
+          6495,
+          6528,
+          6528
+        ],
+        "pixel_exact": true
+      }
+    ],
+    "not_current_multiplayer_match": true,
+    "verification_scope": "height_water_materials_tiles_only",
+    "entity_verification": "separate_same_source_entity_proof_required"
+  },
+  "entities": {
+    "result": "passed",
+    "source_scenario_sha256": "6f8d6ba119857f9b88fb9531c3f1d92be82eac1c75ad02eadcc09fd8f416a98b",
+    "source_layer_sha256": "5833dfe7069cdde3fa5eda3471a815d9c114cd75883e74f31d44d89571780cdf",
+    "entity_json_sha256": "69d0b8e744df5535c1fb58267c1ccdfe161cf9cf78a502ca2b7e8ef206b2c3a5",
+    "entity_json_bytes": 2532123,
+    "entities": 1435,
+    "raw_position_scale_orientation_bit_exact": 1435,
+    "unique_ids": 1435,
+    "baseline_editor_name_counts_match": null,
+    "positions_synthesized": 0,
+    "identity_lengths": {
+      "16": 1378,
+      "20": 57
+    },
+    "counts": {
+      "baked_records": 1435,
+      "entities": 1435,
+      "editor_entity_links": 1378,
+      "squad_member_links": 57,
+      "unmapped": 0,
+      "editor_metadata_issues": 0,
+      "by_category": {
+        "unknown": 145,
+        "building": 2,
+        "tree": 1152,
+        "food": 40,
+        "resource_spawner": 12,
+        "gold": 10,
+        "stone": 10,
+        "animal": 57,
+        "sacred_site": 2,
+        "relic": 5
+      },
+      "by_blueprint_reference": {
+        "starting_position_shared_territory": 2,
+        "building_trade_post_east": 2,
+        "larch_med_wild": 510,
+        "larch_tall_wild": 292,
+        "spruce_small_wild": 161,
+        "larch_small_wild": 139,
+        "resource_food_forage_berry_bush": 26,
+        "resource_food_forage_berry_bush_sml": 14,
+        "resource_food_forage_berry_bush_dummy_minimap_icon": 6,
+        "resource_gold_deposit_small": 10,
+        "resource_stone_deposit_small": 10,
+        "gaia_herdable_sheep_black": 3,
+        "gaia_herdable_sheep": 15,
+        "larch_med_wild_scatter": 50,
+        "gaia_herdable_sheep_brown": 2,
+        "holy_site": 2,
+        "gaia_huntable_deer": 28,
+        "gaia_deer_dummy_minimap_icon": 4,
+        "resource_food_shore_fish": 4,
+        "gaia_huntable_boar": 2,
+        "gaia_boar_dummy_minimap_icon": 2,
+        "relic": 5,
+        "gaia_huntable_wolf": 7,
+        "splat_mud_puddle_desert": 1,
+        "dynamic_spawn_marker": 138
+      }
+    },
+    "coordinates_calibrated": true,
+    "coordinate_ranges": {
+      "x": [
+        -196.5,
+        203.5
+      ],
+      "y": [
+        7.653570175170898,
+        33.971473693847656
+      ],
+      "z": [
+        -203.5,
+        203.5
+      ]
+    },
+    "scope_zh": "逐条源ENTI字节核对；非指定实战，不将出生标记当村民或城镇中心。"
+  },
+  "resource_entities_generated": true,
+  "all_entity_positions_bit_exact": true,
+  "not_match_reconstruction": true,
+  "starting_units_zh": "保留实际出生标记与静态实体，未把标记推定为村民或城镇中心。"
+}

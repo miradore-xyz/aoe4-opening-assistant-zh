@@ -1,0 +1,32 @@
+{
+  "字体": "Sen",
+  "中文回退": "Microsoft YaHei UI",
+  "固定上游提交": "8a0a0d7648fb466ebbab3a00b0e07046b0814727",
+  "文件": {
+    "Sen-Regular.ttf": {
+      "来源": "https://raw.githubusercontent.com/philatype/Sen/8a0a0d7648fb466ebbab3a00b0e07046b0814727/fonts/ttf/Sen-Regular.ttf",
+      "sha256": "86d6ab820b057758f48753a87fc93d74f0adc53416a8de11cea9c01fdf2d2216",
+      "字节": 51560
+    },
+    "Sen-Medium.ttf": {
+      "来源": "https://raw.githubusercontent.com/philatype/Sen/8a0a0d7648fb466ebbab3a00b0e07046b0814727/fonts/ttf/Sen-Medium.ttf",
+      "sha256": "33e044de84218148fe18a7bddfd2114299c517c8d40706f5b6d259ba41604a9d",
+      "字节": 52364
+    },
+    "Sen-SemiBold.ttf": {
+      "来源": "https://raw.githubusercontent.com/philatype/Sen/8a0a0d7648fb466ebbab3a00b0e07046b0814727/fonts/ttf/Sen-SemiBold.ttf",
+      "sha256": "0723f5c183e05a66815474e1f25863bd5d5ae94c89e02d144860f2507ad9df6f",
+      "字节": 54256
+    },
+    "Sen-Bold.ttf": {
+      "来源": "https://raw.githubusercontent.com/philatype/Sen/8a0a0d7648fb466ebbab3a00b0e07046b0814727/fonts/ttf/Sen-Bold.ttf",
+      "sha256": "12a61d8a479b25f305e4c145e3afdc6eb39434ff62f778f90af9f56cc7304c72",
+      "字节": 54260
+    },
+    "OFL.txt": {
+      "来源": "https://raw.githubusercontent.com/philatype/Sen/8a0a0d7648fb466ebbab3a00b0e07046b0814727/OFL.txt",
+      "sha256": "1d37e58d4bc1383c5141211bbd5bf123d80aa1d26d5b09dfcbac2bfc2fffb826",
+      "字节": 4379
+    }
+  }
+}

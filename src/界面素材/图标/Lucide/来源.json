@@ -1,0 +1,125 @@
+{
+  "project": "Lucide（开源线条图标）",
+  "official_repository": "https://github.com/lucide-icons/lucide",
+  "commit": "1802f33f6c270395fcd981067f22719140e2ffbc",
+  "license_note_zh": "Lucide采用ISC许可证；源LICENSE保留其中Feather衍生部分的MIT许可证及版权声明。",
+  "license_url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/LICENSE",
+  "license_sha256": "b495047bd93a9b06913511076f504daba17d5bbeb3e0650f3bb53a4220329c57",
+  "modification_note_zh": "保留官方SVG原文件；运行时将currentColor替换为本软件按钮颜色，以20逻辑像素显示，形状不修改。",
+  "icons": [
+    {
+      "name": "search",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/icons/search.svg",
+      "sha256": "283d371c2e433817bb9c0c8310caa6c77fa4177c0f4f1168d9c83b97af7389dc",
+      "bytes": 275
+    },
+    {
+      "name": "arrow-left",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/icons/arrow-left.svg",
+      "sha256": "c5f4b88076108eb1a0d95336e1aa7e7bb1419a3a92af96f6247d88cd3456f933",
+      "bytes": 262
+    },
+    {
+      "name": "layout-grid",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/icons/layout-grid.svg",
+      "sha256": "b8903f61d09b1d75e55c71158277d26570962f69c2099446a251871e0a2d6678",
+      "bytes": 416
+    },
+    {
+      "name": "volume-2",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/icons/volume-2.svg",
+      "sha256": "fb404f9c128a0579de67b399177631e5edb3502fdc247ceb30e8b15754b46071",
+      "bytes": 476
+    },
+    {
+      "name": "app-window",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/icons/app-window.svg",
+      "sha256": "78635d0da597104f526ea01dede8ab4d04ccabc7a2229c4baf17f921b15985de",
+      "bytes": 329
+    },
+    {
+      "name": "folder",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/icons/folder.svg",
+      "sha256": "f0d92b94b797a8ab7d4c4ae33c3236c47f64068351b4e14bdb5014ee42898a39",
+      "bytes": 342
+    },
+    {
+      "name": "settings",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/icons/settings.svg",
+      "sha256": "0ae27fd0f81999229e3127ac96c5b32edfea448e291d509e76212b917551d66b",
+      "bytes": 586
+    },
+    {
+      "name": "circle-question-mark",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/icons/circle-question-mark.svg",
+      "sha256": "975db087da041530dbf59ba1e61a7b99c3519fad43dae6375e42ccc74ba63924",
+      "bytes": 322
+    },
+    {
+      "name": "clock",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/icons/clock.svg",
+      "sha256": "e9d3e3acf4d1c280fcf8092293439dc0a4756a908ceb859de144b12451cd1cb9",
+      "bytes": 271
+    },
+    {
+      "name": "list-filter",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/icons/list-filter.svg",
+      "sha256": "36b94082bd7f161244c06a27cdeea647cb99ee5b805183cbeaf7ac3155a7103b",
+      "bytes": 278
+    },
+    {
+      "name": "chevron-right",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/icons/chevron-right.svg",
+      "sha256": "2758143d7b2434e4aa7307dfd34405c87909ff4052f21b5f3f40d45224b4f19b",
+      "bytes": 237
+    },
+    {
+      "name": "globe",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/icons/globe.svg",
+      "sha256": "82c6b8fa0b8e8d775ec9becd86f74a4e50bff7bee4c81f7362de45348504f14d",
+      "bytes": 331
+    },
+    {
+      "name": "plus",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/icons/plus.svg",
+      "sha256": "7f6af73bf1ff6c4bca3f18351c8d1bdec6749c0c2530c4de5da85d520c21df17",
+      "bytes": 256
+    },
+    {
+      "name": "pencil",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/icons/pencil.svg",
+      "sha256": "7e1ca7a6f5c1eb949671df762f2baadd32f5bd841d43153c3a15279af7d78d0c",
+      "bytes": 377
+    },
+    {
+      "name": "folder-input",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/icons/folder-input.svg",
+      "sha256": "422afd22efd4b7474ee50fcdc42c37cdee1c170a81a2eb339df7ecd0d0dc3578",
+      "bytes": 396
+    },
+    {
+      "name": "upload",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/icons/upload.svg",
+      "sha256": "42816ee1fa0e9d3b82272a97615c1e562b0e9de64780ebf21963bc1db0ceffd1",
+      "bytes": 318
+    },
+    {
+      "name": "user-search",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/icons/user-search.svg",
+      "sha256": "a6aa7aba35056e72c736efe36a14f70e1a4d52e804069dc23746d13faf8e333f",
+      "bytes": 349
+    },
+    {
+      "name": "arrow-up",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/icons/arrow-up.svg",
+      "sha256": "8c22c25874c80bb062bef985d207d8f1d4a4d7847237d0a8cf720a3235968518",
+      "bytes": 261
+    },
+    {
+      "name": "rotate-cw",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/icons/rotate-cw.svg",
+      "sha256": "ddcfe6d87240475946935e77411cd4d15a06f3d28a9b921bafed224ebe953668",
+      "bytes": 299
+    }
+  ]
+}

@@ -10,6 +10,7 @@ from PyQt5.QtCore import QEvent
 from PyQt5.QtWidgets import QApplication
 from app import Manager, resource_step
 from core import atomic_json,read_order
+from test_app import destroy_test_manager
 
 class TimedSessionTests(unittest.TestCase):
  @classmethod
@@ -22,15 +23,13 @@ class TimedSessionTests(unittest.TestCase):
   self.order=read_order(Path(__file__).resolve().parent/'默认开局/06-英格兰.json')
   self.path=folder/'开局库/英格兰.json'
   atomic_json(self.path,self.order)
-  atomic_json(folder/'设置.json',{'last_order':str(self.path),'speech':False,'sound':False,'voice_engine':'system','hotkeys':{}})
+  atomic_json(folder/'设置.json',{'last_order':str(self.path),'speech':False,'sound':False,'voice_engine':'system','hotkeys':{},'timed_playback_policy':1})
   self.patches=[patch.object(Manager,'seed'),patch('app.Speech.start'),patch('app.Manager.register_hotkeys'),patch('update_ui.UpdateController.check')]
   for item in self.patches:item.start()
   self.manager=Manager(self.application,folder)
   self.manager.tick_timer.stop()
  def tearDown(self):
-  self.manager.close()
-  self.manager.deleteLater()
-  self.application.sendPostedEvents(None,QEvent.DeferredDelete)
+  destroy_test_manager(self.application,self.manager)
   for item in reversed(self.patches):item.stop()
   self.temp.cleanup()
  def test_actual_english_auto_progresses_after_a_tail_with_no_timestamp(self):
@@ -43,7 +42,7 @@ class TimedSessionTests(unittest.TestCase):
    m.clock.seek(seconds);m.tick()
    self.assertEqual(m.ids,expected)
    self.assertEqual(m.steps_list.currentRow(),expected[0])
-  self.assertIn('10–11',m.overlay.step_count.text())
+  self.assertIn('10–11',m.session_step.text())
   self.assertIn('条件提示',m.overlay.notes.text())
   self.assertIn('控图后',m.overlay.notes.text())
   self.assertEqual(resource_step(m.order,m.ids)['resources']['food'],11)

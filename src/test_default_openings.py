@@ -121,7 +121,6 @@ class DefaultOpeningTests(unittest.TestCase):
         entries = defaults.validate_default_bundle()
         self.assertEqual(len(entries), 23)
         import release_build
-        self.assertIn("默认开局", release_build.ASSET_DIRECTORIES)
         with patch.object(release_build, "run") as command:
             release_build.freeze_program(self.root)
         self.assertTrue(any("默认开局;assets/default_openings" in value for value in command.call_args.args[0]))

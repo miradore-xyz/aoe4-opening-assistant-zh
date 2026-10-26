@@ -16,10 +16,15 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode, urlparse
 from urllib.request import Request, urlopen
 
+from map_names import MAP_NAMES, map_name
+from player_identity import profile_identity
+from player_labels import player_labels
+from version import APP_VERSION
+
 
 BASE_URL = "https://aoe4world.com"
 API_SOURCE = BASE_URL + "/api"
-USER_AGENT = "EmpireOpeningAssistant/1.5 (public match history; user initiated desktop query)"
+USER_AGENT = f"AOE4HELP/{APP_VERSION} (public match history; user initiated desktop query)"
 MAX_GAMES = 50
 CACHE_SECONDS = 10 * 60
 MODE_NAMES = {
@@ -39,14 +44,6 @@ CIV_NAMES = {
     "ottomans": "奥斯曼", "rus": "罗斯", "sengoku_daimyo": "战国大名",
     "tughlaq_dynasty": "图格鲁克王朝", "zhu_xis_legacy": "朱熹的传承",
 }
-MAP_NAMES = {"Dry Arabia": "阿拉伯旱地", "Lipany": "利帕尼", "High View": "高视角",
-             "Hill and Dale": "高山深谷", "Mongolian Heights": "蒙古高原",
-             "Black Forest": "黑森林", "Ancient Spires": "古代尖塔", "Danube River": "多瑙河",
-             "French Pass": "法国山隘", "Mountain Pass": "山隘", "Boulder Bay": "巨石海湾",
-             "Archipelago": "群岛", "Baltic": "波罗的海", "Cliffside": "悬崖边",
-             "Gorge": "峡谷", "Himeyama": "姬山", "West Lake": "西湖"}
-
-
 class MatchError(ValueError):
     """可直接展示给用户的查询错误。"""
 
@@ -115,14 +112,56 @@ def civilization_name(value):
     return CIV_NAMES.get(str(value), str(value) + "（文明代码）") if value else "未提供文明"
 
 
-def map_name(value):
-    return MAP_NAMES.get(str(value), str(value) + "（地图原名）") if value else "未提供地图"
+def profile_overview(profile):
+    """读取官方玩家汇总，不从近期样本重算赛季数据。
+
+    overview=总览，scope=统计范围，rating=评分；_elo（匹配分）和
+    rm_team（团队排位积分）是不同指标，保留各自原始模式及口径。
+    """
+    modes = profile.get("modes") if isinstance(profile, dict) else None
+    if not isinstance(modes, dict):
+        return []
+
+    def count(value):
+        number = _number(value)
+        return int(number) if number is not None and number >= 0 and number.is_integer() else None
+
+    result = []
+    for code, values in modes.items():
+        if not isinstance(code, str) or not isinstance(values, dict):
+            continue
+        matching = code.endswith("_elo")
+        base = code[:-4] if matching else code
+        if base not in MODE_NAMES:
+            continue
+        games = count(values.get("games_count"))
+        wins = count(values.get("wins_count"))
+        losses = count(values.get("losses_count"))
+        rate = _number(values.get("win_rate"))
+        if rate is None or not 0 <= rate <= 100:
+            # 只有明确的完整胜负才补算；平局、争议或缺失不会自动记负。
+            rate = 100 * wins / games if games and wins is not None and losses is not None and wins + losses == games else None
+        season = count(values.get("season"))
+        if season == 0:
+            season = None
+        result.append({"mode": code, "name": mode_name(base) + (" · 匹配分" if matching else ""),
+                       "scope": f"第{season}赛季" if season else "官方模式累计",
+                       "games": games, "wins": wins, "losses": losses, "win_rate": rate,
+                       "rating": _number(values.get("rating")),
+                       "rating_label": "匹配分" if matching or base.startswith("qm_") else "排位积分",
+                       "season": season})
+    return sorted(result, key=lambda row: (0 if row["mode"] == "rm_solo" else 1 if row["mode"] == "rm_team" else 2, row["mode"]))
+
+
+def match_page_url(profile_id, game_id):
+    """生成可直接阅读的对局网页；/summary 是 JSON（结构化数据）接口。"""
+    player, game = _positive_id(profile_id), _positive_id(game_id)
+    return f"{BASE_URL}/players/{player}/games/{game}" if player and game else ""
 
 
 def summary_url(profile_id, game_id):
-    """仅生成供人点击的网页链接；不自动请求该动态页面。"""
-    player, game = _positive_id(profile_id), _positive_id(game_id)
-    return f"{BASE_URL}/players/{player}/games/{game}/summary" if player and game else ""
+    """兼容旧调用名称；始终返回对局网页，不打开原始数据接口。"""
+    return match_page_url(profile_id, game_id)
 
 
 def normalize_games(games, profile_id):
@@ -163,6 +202,7 @@ def normalize_games(games, profile_id):
             skipped["结果未确认"] += 1
             continue
         opponents = [player for index, team in enumerate(teams) if index != own_index for player in team]
+        labels = player_labels([player for team in teams for player in team], id_key="profile_id")
         strength_delta, strength_kind = None, None
         # 多队混战不套用双方队伍强弱比较；任何评分缺失也不以零填补。
         if len(teams) == 2 and opponents and teams[own_index]:
@@ -179,11 +219,13 @@ def normalize_games(games, profile_id):
         rows.append({"game_id": game_id, "started_at": game.get("started_at"),
                      "duration": duration, "mode": game.get("kind") or game.get("leaderboard") or "unknown",
                      "map": game.get("map"), "civilization": own.get("civilization"),
-                     "result": result, "rating_diff": _number(own.get("rating_diff")),
-                     "opponents": [str(player.get("name") or "未提供昵称") for player in opponents],
+                     "result": result, "rating": _number(own.get("rating")),
+                     "rating_diff": _number(own.get("rating_diff")),
+                     "leaderboard": game.get("leaderboard"),
+                     "opponents": [labels.get(player.get("profile_id"), str(player.get("name") or "未提供昵称")) for player in opponents],
                      "strength_delta": strength_delta, "strength_kind": strength_kind,
                      "patch": game.get("patch"), "season": game.get("season"),
-                     "url": summary_url(wanted, game_id)})
+                     "url": match_page_url(wanted, game_id)})
     rows.sort(key=lambda row: str(row.get("started_at") or ""), reverse=True)
     return rows, dict(skipped)
 
@@ -228,9 +270,20 @@ def analyze_games(games, profile_id, mode=None):
 class PublicMatchClient:
     """单次手动操作最多读取一页 50 场；10 分钟内复用缓存。"""
 
-    def __init__(self, data_dir, opener=urlopen, now=utc_now):
+    def __init__(self, data_dir, opener=urlopen, now=utc_now, *, api_base_url=BASE_URL):
         self.cache_dir = Path(data_dir) / "战绩缓存"
         self.opener, self.now = opener, now
+        # 为自有同源中继预留入口；默认仍直连，不内置未经验证的第三方服务。
+        try:
+            origin = urlparse(api_base_url)
+            valid = (origin.scheme == "https" and origin.hostname and origin.port in (None, 443)
+                     and origin.path in ("", "/") and not origin.params and not origin.query
+                     and not origin.fragment and not origin.username and not origin.password)
+        except (TypeError, ValueError, AttributeError):
+            valid = False
+        if not valid:
+            raise MatchError("查询服务地址应为不含路径和账号的 HTTPS（加密连接）域名。")
+        self.api_base_url = api_base_url.rstrip("/")
 
     def _path(self, profile_id):
         number = _positive_id(profile_id)
@@ -252,7 +305,7 @@ class PublicMatchClient:
         temporary.replace(path)
 
     def _get(self, route, params=None):
-        url = BASE_URL + "/api/v0/" + route
+        url = self.api_base_url + "/api/v0/" + route
         if params:
             url += "?" + urlencode(params)
         request = Request(url, headers={"User-Agent": USER_AGENT, "Accept": "application/json"})
@@ -281,12 +334,14 @@ class PublicMatchClient:
     def search_players(self, query):
         parsed = parse_player_input(query)
         if isinstance(parsed, int):
-            return [{"profile_id": parsed, "name": f"玩家 {parsed}"}]
+            cached = self.cached_profile(parsed)
+            return [profile_identity(cached["profile"] if cached else
+                                     {"profile_id": parsed, "name": f"玩家 {parsed}"})]
         result = self._get("players/search", {"query": parsed, "page": 1})
         players = result.get("players", [])
         if not isinstance(players, list):
             raise MatchError("玩家搜索结果格式异常。")
-        return [{"profile_id": player["profile_id"], "name": str(player.get("name") or "未提供昵称")}
+        return [profile_identity(player)
                 for player in players[:50] if isinstance(player, dict) and _positive_id(player.get("profile_id"))]
 
     def cached_profile(self, profile_id):

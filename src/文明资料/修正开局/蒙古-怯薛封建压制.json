@@ -1,0 +1,838 @@
+{
+  "name": "蒙古 · 怯薛封建压制",
+  "civilization": "Mongols",
+  "author": "Richarddurodo（原作）；中文整理",
+  "source": "原作：https://aoe4guides.com/builds/Ku7MObO7OKAJnxRs2EiX；第13赛季，AOE4 HELP 1.7.4中文校订。",
+  "_zh_language": "zh-CN",
+  "_zh_timing": "starting",
+  "_zh_reference": {
+    "url": "https://aoe4guides.com/builds/Ku7MObO7OKAJnxRs2EiX",
+    "id": "Ku7MObO7OKAJnxRs2EiX",
+    "title": "Mongols Keshik + Pressão Feudal（蒙古怯薛＋封建压制）",
+    "author": "Richarddurodo",
+    "season": "第13赛季",
+    "time_note": "保留原稿及截图参考时间。原稿只有3:08、4:55、5:00、5:50、7:10等明确时间；其余截图约数由各节点_zh_approximate_time标记，不代表经过当前版本实战验证。资源、时代和建筑完工条件优先于参考钟点；没有推算城堡完成时间。",
+    "villager_note": "保留原稿明确人数节点，建造者从原采集岗位扣除；其余节点不给虚构的总村民数。资源栏是该节点调配后的目标，非自动读取的游戏状态。",
+    "original_issues_zh": [
+      "原稿要求先凑10人伐木，5:00资源栏却写12食物、4木材、2黄金，存在冲突；两者均保留并在对应时间点注明。",
+      "最后一行误用德里科技瞭望塔的图标，蒙古无法研究；不把它加入蒙古科技动作。原文也没有说明真正想点的哨站升级。",
+      "0:43为马厩、靶场、兵营三选一，不转换成三座必建建筑。7:10为两种护甲科技二选一，不转换成两项必点科技。",
+      "怯薛双倍生产的200石料阈值按原稿保留；执行还需满足当前游戏的食物、黄金和石料成本。"
+    ]
+  },
+  "build_order": [
+    {
+      "population_count": -1,
+      "villager_count": 6,
+      "age": 1,
+      "time": "0:00",
+      "resources": {
+        "food": 5,
+        "wood": 0,
+        "gold": 0,
+        "stone": 0,
+        "builder": 1
+      },
+      "_zh_time_source": "开局起点",
+      "notes": [
+        "城镇中心靠木线展开，兼顾石矿安全，并在敖包周围为马厩预留位置。",
+        "起始蒙古包在零散树旁展开；城镇中心展开后持续生产村民，先集结到羊。",
+        "准备把5名吃肉村民转去砍树，另1名村民建敖包。",
+        "@catalog/icons/buildings/town-center-1.png@ 展开起始城镇中心",
+        "@catalog/icons/buildings/ger-1.png@ 展开起始蒙古包"
+      ],
+      "_zh_actions": [
+        {
+          "id": "town-center-1",
+          "base_id": "town-center",
+          "kind": "building",
+          "name_zh": "城镇中心",
+          "name_en": "Town Center",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "mo"
+          ],
+          "icon": "catalog/icons/buildings/town-center-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "可在此存放所有资源。可生产村民、侦察兵和命官，并提高人口上限。单位驻扎时可增加额外的攻击次数。\n非首都城镇中心无法侦测匿踪或伪装。",
+          "costs": {
+            "food": 0,
+            "wood": 750,
+            "stone": 0,
+            "gold": 0,
+            "total": 750,
+            "popcap": 0,
+            "time": 150
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "展开起始",
+          "count": 1
+        },
+        {
+          "id": "ger-1",
+          "base_id": "ger",
+          "kind": "building",
+          "name_zh": "蒙古包",
+          "name_en": "Ger",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "mo"
+          ],
+          "icon": "catalog/icons/buildings/ger-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "村民可将食物、木材和黄金存放于此建筑。可研究提升资源采集效率的科技。\n石料可通过敖包来采集。",
+          "costs": {
+            "food": 0,
+            "wood": 100,
+            "stone": 0,
+            "gold": 0,
+            "total": 100,
+            "popcap": 0,
+            "time": 20
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "展开起始",
+          "count": 1
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/town-center-1.png@ 展开起始城镇中心",
+        "@catalog/icons/buildings/ger-1.png@ 展开起始蒙古包"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "0:14",
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_time_source": "截图中网站估算的近似时间",
+      "_zh_approximate_time": true,
+      "notes": [
+        "5名村民砍零散树，另1名村民在石矿建敖包；敖包完工后，这名建造者回去采羊。",
+        "后续新村民先采羊，维持城镇中心连续生产。",
+        "@catalog/icons/buildings/ovoo-1.png@ 建造敖包"
+      ],
+      "_zh_actions": [
+        {
+          "id": "ovoo-1",
+          "base_id": "ovoo",
+          "kind": "building",
+          "name_zh": "敖包",
+          "name_en": "Ovoo",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "mo"
+          ],
+          "icon": "catalog/icons/buildings/ovoo-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "必须建在石料露头上。\n随着时代提升，每分钟采集 70/100/140/170 石料。可研究独特蒙古科技。\n建造新敖包会摧毁旧有的敖包。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 15
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/ovoo-1.png@ 建造敖包"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "0:29",
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_time_source": "截图中网站估算的近似时间",
+      "_zh_approximate_time": true,
+      "notes": [
+        "木材存量达到150后，留作第一座马厩的费用；将原先砍树的3人转去采羊，另2人转去采金。",
+        "把起始蒙古包从树旁打包移到金矿旁展开，供这2人交金；不额外新建蒙古包。",
+        "@catalog/icons/buildings/ger-1.png@ 移动并展开起始蒙古包"
+      ],
+      "_zh_actions": [
+        {
+          "id": "ger-1",
+          "base_id": "ger",
+          "kind": "building",
+          "name_zh": "蒙古包",
+          "name_en": "Ger",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "mo"
+          ],
+          "icon": "catalog/icons/buildings/ger-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "村民可将食物、木材和黄金存放于此建筑。可研究提升资源采集效率的科技。\n石料可通过敖包来采集。",
+          "costs": {
+            "food": 0,
+            "wood": 100,
+            "stone": 0,
+            "gold": 0,
+            "total": 100,
+            "popcap": 0,
+            "time": 20
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "移动并展开起始",
+          "count": 1
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/ger-1.png@ 移动并展开起始蒙古包"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "0:43",
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_time_source": "截图中网站估算的近似时间",
+      "_zh_approximate_time": true,
+      "notes": [
+        "有150木材后，从采金村民中抽1人，在敖包影响范围内建第一座马厩；建成后回金矿。",
+        "马厩先准备好，怯薛到封建时代再生产。",
+        "@catalog/icons/buildings/stable-1.png@ 木材足够后建第一座马厩"
+      ],
+      "_zh_actions": [
+        {
+          "id": "stable-1",
+          "base_id": "stable",
+          "kind": "building",
+          "name_zh": "马厩",
+          "name_en": "Stable",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "mo"
+          ],
+          "icon": "catalog/icons/buildings/stable-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "生产骑兵军事单位。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "木材足够后建第一座",
+          "count": 1
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/stable-1.png@ 木材足够后建第一座马厩"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "0:58",
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_time_source": "截图中网站估算的近似时间",
+      "_zh_approximate_time": true,
+      "notes": [
+        "@unit_worker/villager-mongols.webp@ 保持城镇中心连续生产，集结到羊，攒升封建所需的400食物和200黄金。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": 14,
+      "age": 1,
+      "time": "3:08",
+      "resources": {
+        "food": 8,
+        "wood": 0,
+        "gold": 2,
+        "stone": 0,
+        "builder": 4
+      },
+      "_zh_time_source": "原作者时间",
+      "notes": [
+        "攒够400食物和200黄金后，从采羊村民中抽4人建鹿石，开始升封建；接下来的2名新村民继续采羊。",
+        "@catalog/icons/buildings/deer-stones-1.png@ 建造鹿石"
+      ],
+      "_zh_actions": [
+        {
+          "id": "deer-stones-1",
+          "base_id": "deer-stones",
+          "kind": "building",
+          "name_zh": "鹿石",
+          "name_en": "Deer Stones",
+          "age": 1,
+          "age_label": "升至封建时代（II）",
+          "civs": [
+            "mo"
+          ],
+          "icon": "catalog/icons/buildings/deer-stones-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "有了鹿石，可以在靶场获得汗的猎人。\n立即研究驿站网络科技。",
+          "costs": {
+            "food": 400,
+            "wood": 0,
+            "stone": 0,
+            "gold": 200,
+            "total": 600,
+            "popcap": 0,
+            "time": 190
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "target_age": 2,
+          "count": 1
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/deer-stones-1.png@ 建造鹿石"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "3:18",
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_time_source": "截图中网站估算的近似时间",
+      "_zh_approximate_time": true,
+      "notes": [
+        "升封建费用已支付、第一座马厩已建且另有150木材时，从采羊村民中抽1人，在敖包范围内补第二座马厩；完工后回去采羊。",
+        "若第一座尚未建好，先完成第一座；不要因参考钟点到达而同时铺两座马厩。",
+        "@catalog/icons/buildings/stable-1.png@ 条件满足后补第二座马厩"
+      ],
+      "_zh_actions": [
+        {
+          "id": "stable-1",
+          "base_id": "stable",
+          "kind": "building",
+          "name_zh": "马厩",
+          "name_en": "Stable",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "mo"
+          ],
+          "icon": "catalog/icons/buildings/stable-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "生产骑兵军事单位。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "条件满足后补第二座",
+          "count": 1
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/stable-1.png@ 条件满足后补第二座马厩"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 1,
+      "time": "3:28",
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_time_source": "截图中网站估算的近似时间",
+      "_zh_approximate_time": true,
+      "notes": [
+        "升级期间，新村民转去采木；鹿石完工后按下一节点重新分配建造者。",
+        "进入封建后，满足马厩“双倍生产怯薛”按钮所需的食物、黄金、石料，再排队生产。",
+        "@unit_mongols/keshik-2.webp@ 怯薛出兵后寻找落单村民和暴露的采集点；遇到长矛兵时先绕行，保持兵力。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": 17,
+      "age": 2,
+      "time": "4:55",
+      "resources": {
+        "food": 8,
+        "wood": 6,
+        "gold": 2,
+        "stone": 0,
+        "builder": 1
+      },
+      "_zh_time_source": "原作者时间",
+      "notes": [
+        "鹿石完工进入封建，先调为8人采食物、7人采木、2人采金。",
+        "有150木材时，从这7名采木村民中抽1人建第一座牧场；建造期间剩6人采木。牧场建成后，这名建造者回去采羊。",
+        "@unit_mongols/keshik-2.webp@ 开始生产怯薛；石料和其他费用足够时使用双倍生产，同时保持城镇中心造村民。",
+        "@catalog/icons/buildings/pasture-1.png@ 木材足够后建第一座牧场"
+      ],
+      "_zh_actions": [
+        {
+          "id": "pasture-1",
+          "base_id": "pasture",
+          "kind": "building",
+          "name_zh": "牧场",
+          "name_en": "Pasture",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "mo"
+          ],
+          "icon": "catalog/icons/buildings/pasture-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "每 140 秒自动生产一只可收集的绵羊。如果生产的绵羊太多且没有被收集，则生产将停止。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 20
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "木材足够后建第一座",
+          "count": 1
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/pasture-1.png@ 木材足够后建第一座牧场"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 2,
+      "time": "4:57",
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_time_source": "截图中网站估算的近似时间",
+      "_zh_approximate_time": true,
+      "notes": [
+        "备足50食物和100黄金、不影响村民及首批怯薛生产时，在蒙古包研究双阔斧。",
+        "从采木调2人到食物，下一名新村民也采食物；第一座牧场的建造者继续施工，完工后再回去采羊。",
+        "@catalog/icons/technologies/double-broadax-2.png@ 费用足够后研究双阔斧（蒙古包、草原防卫据点）"
+      ],
+      "_zh_actions": [
+        {
+          "id": "double-broadax-2",
+          "base_id": "double-broadax",
+          "kind": "technology",
+          "name_zh": "双阔斧",
+          "name_en": "Double Broadax",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "mo"
+          ],
+          "icon": "catalog/icons/technologies/double-broadax-2.png",
+          "location_zh": "蒙古包、草原防卫据点",
+          "produced_by": [
+            "ger",
+            "steppe-redoubt"
+          ],
+          "description_zh": "村民的木材采集速率 +15%。",
+          "costs": {
+            "food": 50,
+            "wood": 0,
+            "stone": 0,
+            "gold": 100,
+            "total": 150,
+            "popcap": 0,
+            "time": 45
+          },
+          "unique": false,
+          "category_zh": "科技研究",
+          "action_verb_zh": "费用足够后研究",
+          "count": 1
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/technologies/double-broadax-2.png@ 费用足够后研究双阔斧（蒙古包、草原防卫据点）"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": 18,
+      "age": 2,
+      "time": "5:00",
+      "resources": {
+        "food": 11,
+        "wood": 4,
+        "gold": 2,
+        "stone": 0,
+        "builder": 1
+      },
+      "_zh_time_source": "原作者时间",
+      "notes": [
+        "牧场施工期间调整到11人采食物、4人采木、2人采金、1人建造；牧场完工后，建造者回去采羊，达到12人采食物。",
+        "后续新村民先补木材；羊量不足时再分批补牧场，建造者从采木岗位调出。"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": 21,
+      "age": 2,
+      "time": "5:50",
+      "resources": {
+        "food": 12,
+        "wood": 6,
+        "gold": 2,
+        "stone": 0,
+        "builder": 1
+      },
+      "_zh_time_source": "原作者时间",
+      "notes": [
+        "后续村民补木材，再抽1名采木村民负责接续牧场；建造期间维持12人采食物、6人采木、2人采金、1人建造。",
+        "每攒够150木材补1座牧场，逐步做到总共5座；已有第一座时，再分批补4座，不一次花掉600木材。",
+        "食物与牧场供应稳定后，新村民转去采金，逐步补到5人；牧场建造者完成当前建筑后回去采木。",
+        "@catalog/icons/buildings/pasture-1.png@ 后续分批补建牧场 × 4"
+      ],
+      "_zh_actions": [
+        {
+          "id": "pasture-1",
+          "base_id": "pasture",
+          "kind": "building",
+          "name_zh": "牧场",
+          "name_en": "Pasture",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "mo"
+          ],
+          "icon": "catalog/icons/buildings/pasture-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "每 140 秒自动生产一只可收集的绵羊。如果生产的绵羊太多且没有被收集，则生产将停止。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 20
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "后续分批补建",
+          "count": 4
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/pasture-1.png@ 后续分批补建牧场 × 4"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": 25,
+      "age": 2,
+      "time": "7:10",
+      "resources": {
+        "food": 12,
+        "wood": 7,
+        "gold": 5,
+        "stone": 0,
+        "builder": 1
+      },
+      "_zh_time_source": "原作者时间",
+      "notes": [
+        "先调整到12人采食物、8人采木、5人采金，再从采木抽1人建铁匠铺；施工期间剩7人采木，建成后该村民回采木。",
+        "铁匠铺完工后按对手伤害选择一项：@catalog/icons/technologies/iron-undermesh-2.png@ 铁制底网对抗远程伤害，或 @catalog/icons/technologies/fitted-leatherwork-2.png@ 合身皮具对抗近战伤害。",
+        "继续骚扰并保存怯薛；准备转城堡时，保留1200食物和600黄金作为升时代费用。",
+        "@catalog/icons/buildings/blacksmith-2.png@ 建造铁匠铺"
+      ],
+      "_zh_actions": [
+        {
+          "id": "blacksmith-2",
+          "base_id": "blacksmith",
+          "kind": "building",
+          "name_zh": "铁匠铺",
+          "name_en": "Blacksmith",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "mo"
+          ],
+          "icon": "catalog/icons/buildings/blacksmith-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "可研究强化步兵和骑兵的科技。\n每次完成科技研究都会产生税。",
+          "costs": {
+            "food": 0,
+            "wood": 150,
+            "stone": 0,
+            "gold": 0,
+            "total": 150,
+            "popcap": 0,
+            "time": 25
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "建造",
+          "count": 1
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/blacksmith-2.png@ 建造铁匠铺"
+      ]
+    },
+    {
+      "population_count": -1,
+      "villager_count": -1,
+      "age": 2,
+      "time": "8:30",
+      "resources": {
+        "food": -1,
+        "wood": -1,
+        "gold": -1,
+        "stone": -1,
+        "builder": -1
+      },
+      "_zh_time_source": "截图中网站估算的近似时间",
+      "_zh_approximate_time": true,
+      "notes": [
+        "攒够1200食物和600黄金、外部金矿安全时，将现有5名采金村民与5名采木村民编为10人建造队，靠第二处金矿建草原防卫据点。",
+        "地标完工进入城堡后，这10人转采该金矿；有200木材时，从其中抽2人各建1座哨站，建成后回采金，其余新村民集结到木材。",
+        "需要哨站自行射击时，在哨站研究@catalog/icons/technologies/arrowslits-2.png@ 射箭槽；每座单独支付25黄金和50石料。",
+        "@catalog/icons/buildings/steppe-redoubt-2.png@ 升时代费用足够后建造草原防卫据点",
+        "@catalog/icons/buildings/outpost-1.png@ 地标完工后分批建造哨站 × 2",
+        "@catalog/icons/technologies/arrowslits-2.png@ 哨站需要自行射击时研究射箭槽（哨站）"
+      ],
+      "_zh_actions": [
+        {
+          "id": "steppe-redoubt-2",
+          "base_id": "steppe-redoubt",
+          "kind": "building",
+          "name_zh": "草原防卫据点",
+          "name_en": "Steppe Redoubt",
+          "age": 2,
+          "age_label": "升至城堡时代（III）",
+          "civs": [
+            "mo"
+          ],
+          "icon": "catalog/icons/buildings/steppe-redoubt-2.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "可作为蒙古包使用。在此地标存放黄金时，获得的黄金 +50%。",
+          "costs": {
+            "food": 1200,
+            "wood": 0,
+            "stone": 0,
+            "gold": 600,
+            "total": 1800,
+            "popcap": 0,
+            "time": 220
+          },
+          "unique": true,
+          "category_zh": "建筑",
+          "action_verb_zh": "升时代费用足够后建造",
+          "target_age": 3,
+          "count": 1
+        },
+        {
+          "id": "outpost-1",
+          "base_id": "outpost",
+          "kind": "building",
+          "name_zh": "哨站",
+          "name_en": "Outpost",
+          "age": 1,
+          "age_label": "黑暗时代（I）",
+          "civs": [
+            "mo"
+          ],
+          "icon": "catalog/icons/buildings/outpost-1.png",
+          "location_zh": "村民",
+          "produced_by": [
+            "villager"
+          ],
+          "description_zh": "可提供开阔的视野，侦测匿踪或伪装单位。可以升级武器和防御工事。单位驻扎时可进行攻击。",
+          "costs": {
+            "food": 0,
+            "wood": 100,
+            "stone": 0,
+            "gold": 0,
+            "total": 100,
+            "popcap": 0,
+            "time": 60
+          },
+          "unique": false,
+          "category_zh": "建筑",
+          "action_verb_zh": "地标完工后分批建造",
+          "count": 2
+        },
+        {
+          "id": "arrowslits-2",
+          "base_id": "arrowslits",
+          "kind": "technology",
+          "name_zh": "射箭槽",
+          "name_en": "Arrowslits",
+          "age": 2,
+          "age_label": "封建时代（II）",
+          "civs": [
+            "mo"
+          ],
+          "icon": "catalog/icons/technologies/arrowslits-2.png",
+          "location_zh": "哨站",
+          "produced_by": [
+            "outpost"
+          ],
+          "description_zh": "为此建筑添加防御型射箭槽并使驻扎单位的弓箭攻击范围 +1。只能添加一座武器炮台。",
+          "costs": {
+            "food": 0,
+            "wood": 0,
+            "stone": 50,
+            "gold": 25,
+            "total": 75,
+            "popcap": 0,
+            "time": 30
+          },
+          "unique": false,
+          "category_zh": "科技研究",
+          "action_verb_zh": "哨站需要自行射击时研究",
+          "count": 1
+        }
+      ],
+      "_zh_action_notes": [
+        "@catalog/icons/buildings/steppe-redoubt-2.png@ 升时代费用足够后建造草原防卫据点",
+        "@catalog/icons/buildings/outpost-1.png@ 地标完工后分批建造哨站 × 2",
+        "@catalog/icons/technologies/arrowslits-2.png@ 哨站需要自行射击时研究射箭槽（哨站）"
+      ]
+    }
+  ],
+  "_zh_revision": {
+    "version": "1.7.4",
+    "date": "2026-10-25",
+    "editor": "AOE4 HELP 中文校订",
+    "original_sha256": "597892a4a304204142222af479f8a232925236c6a998c8d3e4816bda446d7df9",
+    "strategy_zh": "保留原作者的马厩怯薛封建压制、牧场接续、草原防卫据点转城堡路线。",
+    "catalog": {
+      "source": "https://github.com/aoe4world/data",
+      "commit": "ce8f375004d62ac23946dcc377199f9aa50eb37d",
+      "patch": "16.2.10604",
+      "language": "zh-hans"
+    },
+    "sources": [
+      {
+        "url": "https://aoe4guides.com/builds/Ku7MObO7OKAJnxRs2EiX",
+        "description_zh": "Richarddurodo原始怯薛开局，保留署名与策略路线。"
+      },
+      {
+        "url": "https://www.ageofempires.com/news/age-of-empires-iv-patch-20249/",
+        "description_zh": "官方补丁明确蒙古自带打包蒙古包，改为展开起始蒙古包而非额外新建。"
+      },
+      {
+        "url": "https://github.com/aoe4world/data/tree/ce8f375004d62ac23946dcc377199f9aa50eb37d",
+        "description_zh": "随包游戏资料及官方中文本地化：蒙古可用建筑、科技、时代和成本。"
+      }
+    ],
+    "changes_zh": [
+      "0:00展开起始蒙古包辅助伐木，0:29把同一蒙古包移到金矿，不再额外支付100木建造。",
+      "早期军事建筑明确为马厩，达到150木后再建；不再在黑暗时代并列靶场选项。",
+      "第二座马厩明确以前一座已建、升封建费用已支付且另有150木为条件；没有完成第一座时只补第一座。",
+      "取消与4木材分配冲突的先凑10伐木要求；5:00改为11食物、4木材、2黄金、1建造，牧场完工后再回到原稿12食物目标。",
+      "4:55将建牧场者从7采木中扣除，变为6采木和1建造；单人牧场需20秒，5:00不把仍在施工的村民提前计入采食物。7:10将建铁匠铺者从8采木中扣除，变为7采木和1建造。",
+      "双阔斧明确为50食物和100黄金；两种护甲继续按敌方伤害类型二选一。",
+      "转城堡的10名建造者由既有5采金和5采木组成，不再要求凭空出现的10采金；先确保1200食物与600黄金。",
+      "德里瞭望塔无效图标替换为蒙古可研究的射箭槽，作为哨站需要自行射击时的条件升级；这是校订选择，原作者意图无法仅由错误图标确定。",
+      "不再把原稿200石料当唯一怯薛双倍生产条件，改为满足马厩该生产按钮的食物、黄金、石料成本后再排队。",
+      "校订说明、来源限制与近似时间标记集中放在元数据，不混入演练操作正文。"
+    ],
+    "validation_zh": "已核对结构、所有明确分配合计、调人衔接、蒙古建筑科技可用时代及本地图标。未以本稿完成当前补丁实战，参考时间和战略强度不宣称已经实战验证。"
+  }
+}

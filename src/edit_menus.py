@@ -1,6 +1,38 @@
 """输入控件的中文标准编辑菜单，不依赖外部 Qt 翻译文件。"""
 
-from PyQt5.QtCore import QTranslator
+import re
+
+from app_fonts import make_ui_font, register_ui_fonts
+from PyQt5.QtCore import QEvent, QObject, QTranslator
+from PyQt5.QtWidgets import QMenu
+
+
+MENU_STYLE = """
+QMenu {background:#1c1c20;color:#ededf0;border:1px solid #42424a;
+       border-radius:8px;padding:6px;font-family:'Sen','Source Han Sans SC','Microsoft YaHei UI';font-size:13px;}
+QMenu::item {background:transparent;border:1px solid transparent;border-radius:5px;
+             min-height:24px;padding:5px 18px 5px 12px;}
+QMenu::item:selected {background:#34343C;border:1px solid #64646E;color:#ffffff;}
+QMenu::item:pressed {background:#42424A;color:#ffffff;}
+QMenu::item:disabled {color:#74747e;background:transparent;border-color:transparent;}
+QMenu::separator {height:1px;background:#38383f;margin:5px 8px;}
+"""
+
+
+def style_edit_menu(menu):
+    """菜单使用清晰悬停与键盘选中状态；仅去掉文本中的英文助记字母。"""
+    menu.setStyleSheet(MENU_STYLE)
+    for action in menu.actions():
+        action.setText(re.sub(r"[（(]&?[A-Za-z][）)]", "", action.text()))
+    return menu
+
+
+class _MenuAppearance(QObject):
+    """在显示时统一标准右键菜单，不拦截动作、快捷键或鼠标事件。"""
+    def eventFilter(self, watched, event):
+        if isinstance(watched, QMenu) and event.type() == QEvent.Show:
+            style_edit_menu(watched)
+        return False
 
 
 class ChineseEditMenuTranslator(QTranslator):
@@ -8,21 +40,21 @@ class ChineseEditMenuTranslator(QTranslator):
 
     _EDIT_CONTEXTS = frozenset(('QLineEdit', 'QWidgetTextControl'))
     _EDIT_CAPTIONS = {
-        '&Undo': '撤销(&U)',
-        '&Redo': '重做(&R)',
-        'Cu&t': '剪切(&T)',
-        '&Copy': '复制(&C)',
-        '&Paste': '粘贴(&P)',
-        'Delete': '删除(&D)',
-        'Select All': '全选(&A)',
-        'Copy &Link Location': '复制链接地址(&L)',
+        '&Undo': '撤销',
+        '&Redo': '重做',
+        'Cu&t': '剪切',
+        '&Copy': '复制',
+        '&Paste': '粘贴',
+        'Delete': '删除',
+        'Select All': '全选',
+        'Copy &Link Location': '复制链接地址',
     }
     _SPIN_CAPTIONS = {
-        '&Step up': '增加(&U)',
-        'Step &up': '增加(&U)',
-        '&Step down': '减少(&D)',
-        'Step &down': '减少(&D)',
-        '&Select All': '全选(&A)',
+        '&Step up': '增加',
+        'Step &up': '增加',
+        '&Step down': '减少',
+        'Step &down': '减少',
+        '&Select All': '全选',
     }
 
     def isEmpty(self):
@@ -47,4 +79,9 @@ def install_chinese_edit_menus(application):
         application.installTranslator(translator)
         # 保存 Python 引用，确保翻译器与应用同时存活；用户自定义菜单无需修改。
         application._chinese_edit_menu_translator = translator
+    appearance = getattr(application, '_chinese_edit_menu_appearance', None)
+    if appearance is None:
+        appearance = _MenuAppearance(application)
+        application.installEventFilter(appearance)
+        application._chinese_edit_menu_appearance = appearance
     return translator

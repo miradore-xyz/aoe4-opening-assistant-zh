@@ -6,6 +6,8 @@ FramelessDialog=保留模态语义的无边框弹窗，DialogBar=弹窗标题栏
 """
 from __future__ import annotations
 
+import sys
+
 from PyQt5.QtCore import Qt, QEvent, QPoint, QRect, QRectF, QSize
 from PyQt5.QtGui import QColor, QPainter, QPainterPath, QPen
 from PyQt5.QtWidgets import (
@@ -231,7 +233,7 @@ class FramelessDialog(_FramelessBehavior, QDialog):
         painter = QPainter(self)
         painter.setRenderHint(QPainter.Antialiasing)
         painter.setPen(QPen(QColor("#303034"), 1))
-        painter.setBrush(QColor("#0e0e10"))
+        painter.setBrush(QColor("#0F0F11"))
         radius = 0 if self.isMaximized() or self.isFullScreen() else 14
         painter.drawRoundedRect(QRectF(self.rect()).adjusted(0.5, 0.5, -0.5, -0.5), radius, radius)
 
@@ -352,7 +354,15 @@ class _TitleBarBehavior:
         if event.button() == Qt.LeftButton:
             handle = self.target.windowHandle()
             method = getattr(handle, "startSystemMove", None) if handle else None
-            if method is not None:
+            # Windows 透明无边框窗体由 Qt 的逻辑坐标路径拖动，移动只改变位置。
+            # 标题拖动不依赖系统移动循环及其非客户区/DPI（显示缩放）尺寸换算。
+            # 其他平台以及非透明/有边框窗体继续使用系统拖动，保留平台原有行为。
+            qt_only_move = (
+                sys.platform == "win32"
+                and bool(self.target.windowFlags() & Qt.FramelessWindowHint)
+                and self.target.testAttribute(Qt.WA_TranslucentBackground)
+            )
+            if method is not None and not qt_only_move:
                 try:
                     if method():
                         event.accept()
@@ -409,7 +419,9 @@ class WindowBar(_TitleBarBehavior, QWidget):
         brand.setObjectName("WindowBrand")
         brand.setAttribute(Qt.WA_TransparentForMouseEvents, True)
         brand.setFixedWidth(152)
-        brand.setAccessibleName("帝国开局助手")
+        # 局部导入避免窗口框架单独用于测试时强制载入完整视觉模块。
+        from branding import APP_NAME, brand_mark
+        brand.setAccessibleName(APP_NAME)
         brand_row = QHBoxLayout(brand)
         brand_row.setContentsMargins(0, 0, 0, 0)
         brand_row.setSpacing(9)
@@ -417,11 +429,10 @@ class WindowBar(_TitleBarBehavior, QWidget):
         self.crest_label = QLabel(brand)
         self.crest_label.setFixedSize(26, 26)
         self.crest_label.setStyleSheet("background:transparent; border:0;")
-        # 局部导入避免窗口框架单独用于测试时强制载入完整视觉模块。
-        from branding import brand_mark
         self.crest_label.setPixmap(brand_mark(26))
         brand_row.addWidget(self.crest_label)
-        self.title = QLabel("帝国开局助手", brand)
+        self.title = QLabel(APP_NAME, brand)
+        self.title.setAccessibleName(APP_NAME)
         self.title.setObjectName("WindowBrandTitle")
         self.title.setStyleSheet(
             "background:transparent; color:#f4f4f5; font-size:15px; "

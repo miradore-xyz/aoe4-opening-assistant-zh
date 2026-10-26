@@ -1,0 +1,24 @@
+帝国时代 IV 原生排位徽章
+
+来源：AoE4 World 维护的公开 overlay（直播悬浮层）仓库。
+https://github.com/aoe4world/overlay/tree/main/src/assets/badges/s3_ingame
+读取日期：2026-10-25。保留原 PNG 文件，不重绘、不更改图案。
+solo（单人）和 team（团队）各含青铜至征服者的 I、II、III 徽章与未定级徽章。
+本程序仅展示有明确赛后积分的历史排位记录；不以快速对局匹配分推算段位。
+
+分段校验：AoE4 World 的公开“Solo Ranked – Ladder”页面首张玩家分布图。
+https://aoe4world.com/stats/rm_solo/ladder
+页面 application/json 图表数据 config.custom.annotations 对应每 50 分一个横轴区间，
+18 个段位下界依次是：
+0、400、450、500、600、650、700、800、900、1000、1100、1150、1200、1300、1350、1400、1500、1600。
+前两个历史赛季不直接套用现代分段。
+
+游戏官方关于定位赛的说明：完成新赛季 5 场定位赛后获得段位。
+https://support.ageofempires.com/hc/en-us/articles/5777008449300-What-are-Placement-Battles
+缺失的 rating（赛前积分）或 rating_diff（该局变化）不会补成 0；
+赛后积分采用该局赛前积分与变化相加，不使用 mmr（匹配分）或当前段位替代。
+
+Age of Empires IV © Microsoft Corporation。游戏图片的权利归原权利人所有。
+本项目按微软 Game Content Usage Rules（游戏内容使用规则）展示游戏内容，
+不表示本项目得到 Microsoft、World's Edge、Relic 或 AoE4 World 官方认可。
+https://www.xbox.com/en-US/developers/rules

@@ -2,14 +2,22 @@
 import hashlib
 import io
 import json
+import os
 import tempfile
 import unittest
 from dataclasses import replace
 from pathlib import Path
 from urllib.error import URLError
+from unittest.mock import patch
+
+os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
+
+from PyQt5.QtCore import QEvent
+from PyQt5.QtWidgets import QApplication, QHBoxLayout, QWidget
 
 from update_client import (DEFAULT_ASSET_NAME, TIMEOUT, USER_AGENT, ReleaseInfo,
                            UpdateCancelled, UpdateClient, UpdateError, version_key)
+from update_ui import UpdateController
 
 
 REPOSITORY = "example/empire-opening-assistant"
@@ -211,6 +219,128 @@ class UpdateTests(unittest.TestCase):
                 with self.assertRaises(UpdateError):
                     updater.download(updater.check(), directory)
                 self.assertEqual(list(Path(directory).iterdir()), [])
+
+
+class UpdateDialogTests(unittest.TestCase):
+    """用真实 Qt 布局验证更新状态切换；不联网、不启动安装器。"""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.application = QApplication.instance() or QApplication([])
+        cls.quit_policy = cls.application.quitOnLastWindowClosed()
+        cls.application.setQuitOnLastWindowClosed(False)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.application.setQuitOnLastWindowClosed(cls.quit_policy)
+
+    def setUp(self):
+        self.directory = tempfile.TemporaryDirectory()
+        config = Path(self.directory.name) / "update.json"
+        config.write_text(json.dumps({"github_repository": REPOSITORY}), encoding="utf-8")
+        self.manager = QWidget()
+        self.manager.data_dir = Path(self.directory.name)
+        self.manager.window_bar = QWidget(self.manager)
+        self.manager.window_bar.status_layout = QHBoxLayout(self.manager.window_bar)
+        with patch("update_ui.config_path", return_value=config):
+            self.controller = UpdateController(self.manager)
+        self.controller._startup_timer.stop()
+        self.dialog = self.controller._show_dialog()
+        self.application.processEvents()
+
+    def tearDown(self):
+        self.controller._stopped.set()
+        self.dialog.close()
+        self.manager.deleteLater()
+        self.application.sendPostedEvents(None, QEvent.DeferredDelete)
+        self.application.processEvents()
+        self.directory.cleanup()
+
+    @staticmethod
+    def release(notes="更新说明第一条。\n更新说明第二条。"):
+        return ReleaseInfo("1.10.0", notes, URL, CHECKSUM, len(PACKAGE), "GitHub", "https://github.com/" + REPOSITORY)
+
+    def test_latest_after_release_removes_panel_and_shrinks_dialog(self):
+        """复用已展开的窗口检查到最新版后，说明、来源和空白高度一起撤销。"""
+        self.controller._checked(self.release(), None, True)
+        self.application.processEvents()
+        expanded_height = self.dialog.height()
+        self.assertTrue(self.dialog.notes.isVisible())
+        self.assertTrue(self.dialog.primary.isVisible())
+        with patch("update_ui.threading.Thread"):
+            self.controller.check(manual=True)
+        self.assertEqual(self.dialog.heading.text(), "正在检查更新…")
+        self.assertFalse(self.dialog.notes.isVisible())
+        self.controller._checked(None, None, True)
+        self.application.processEvents()
+        self.assertEqual(self.dialog.heading.text(), "已是最新版本")
+        self.assertFalse(self.dialog.notes.isVisible())
+        self.assertFalse(self.dialog.source.isVisible())
+        self.assertFalse(self.dialog.status.isVisible())
+        self.assertFalse(self.dialog.primary.isVisible())
+        self.assertTrue(self.dialog.cancel.isVisible())
+        self.assertLess(self.dialog.height(), expanded_height - 100)
+        self.assertLess(self.dialog.height(), 250)
+        self.assertLess(self.dialog.cancel.geometry().bottom(), self.dialog.cancel.parentWidget().height())
+
+    def test_offline_and_configuration_errors_remain_visible_without_old_notes(self):
+        """检查失败必须保留错误，不把上一次的更新说明当作错误区域。"""
+        self.controller._checked(self.release(), None, True)
+        message = "无法连接更新来源。\n请检查网络后重试。"
+        self.controller._checked(None, message, True)
+        self.application.processEvents()
+        self.assertEqual(self.dialog.status.text(), message)
+        self.assertTrue(self.dialog.status.isVisible())
+        self.assertFalse(self.dialog.notes.isVisible())
+        self.assertFalse(self.dialog.source.isVisible())
+        self.assertFalse(self.dialog.primary.isVisible())
+        self.assertGreaterEqual(self.dialog.status.height(), self.dialog.status.fontMetrics().height() * 2)
+        self.controller.client = None
+        self.controller._configuration_error = "更新配置无法读取。"
+        self.controller.check(manual=True)
+        self.assertTrue(self.dialog.status.isVisible())
+        self.assertEqual(self.dialog.status.text(), "更新配置无法读取。")
+
+    def test_new_release_without_notes_keeps_download_and_download_error(self):
+        """没有发行说明时仍可下载，但不编造说明或留下空面板。"""
+        for notes in ("", " \n\t "):
+            with self.subTest(notes=repr(notes)):
+                self.controller._checked(self.release(notes), None, True)
+                self.application.processEvents()
+                self.assertFalse(self.dialog.notes.isVisible())
+                self.assertTrue(self.dialog.source.isVisible())
+                self.assertTrue(self.dialog.primary.isVisible())
+                self.assertTrue(self.dialog.primary.isEnabled())
+                self.assertIn("1.10.0", self.dialog.heading.text())
+        self.controller._downloaded(None, "安装包下载失败，请稍后重试。", False)
+        self.assertTrue(self.dialog.status.isVisible())
+        self.assertIn("下载失败", self.dialog.status.text())
+        self.assertEqual(self.dialog.primary.text(), "重新下载")
+        self.assertFalse(self.dialog.progress.isVisible())
+
+    def test_error_reflows_for_larger_font_and_wrapped_messages(self):
+        """微软雅黑负行间距和较大字号都要留足正文高度，宽度变化仍重新换行。"""
+        for pixels in (14, 18):
+            with self.subTest(pixels=pixels):
+                self.dialog.status.setStyleSheet(f"font-family:'Microsoft YaHei UI';font-size:{pixels}px;")
+                self.controller._checked(None, "无法连接更新来源。\n请检查网络后重试。", True)
+                self.application.processEvents()
+                self.assertGreaterEqual(self.dialog.status.height(), self.dialog.status.fontMetrics().height() * 2)
+                message = "无法连接更新来源，请检查网络后重试。" * 5
+                self.dialog.resize(460, self.dialog.height())
+                self.dialog.show_summary("暂时无法检查更新", message)
+                self.application.processEvents()
+                narrow_height = self.dialog.status.height()
+                self.assertGreater(narrow_height, self.dialog.status.fontMetrics().height() * 2)
+                self.assertGreaterEqual(narrow_height,
+                                        self.dialog.status.heightForWidth(self.dialog.status.width()))
+                self.dialog.resize(720, self.dialog.height())
+                self.dialog.refresh_layout()
+                self.application.processEvents()
+                self.assertLess(self.dialog.status.height(), narrow_height)
+                self.assertGreaterEqual(self.dialog.status.height(),
+                                        self.dialog.status.heightForWidth(self.dialog.status.width()))
+                self.assertLess(self.dialog.status.geometry().bottom(), self.dialog.cancel.geometry().top())
 
 
 if __name__ == "__main__":
