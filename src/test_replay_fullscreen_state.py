@@ -1,4 +1,4 @@
-"""大图宿主真实Qt交互：全屏切换、返回、状态交接和时间条可见性。"""
+"""大图宿主真实Qt交互：全屏切换、Esc返回、状态交接和无旧工具占位。"""
 import os
 import tempfile
 import unittest
@@ -42,6 +42,8 @@ class ReplayFullscreenStateTests(unittest.TestCase):
         self.page.resize(1100, 780)
         self.report = fullscreen_report()
         self.page._show_report(self.report)
+        # 首屏默认参考地图；以下既有9项交接验证显式选择真实操作坐标模式。
+        self.page.map_view.view_mode.setCurrentIndex(self.page.map_view.view_mode.findData("records"))
         self.page.show()
         self.page.activateWindow()
         QTest.qWait(10)
@@ -69,6 +71,11 @@ class ReplayFullscreenStateTests(unittest.TestCase):
         view.canvas.centerOn(QPointF(70, -35))
         return view.capture_view_state()
 
+    def close_large(self, dialog):
+        """按产品实际入口Esc返回，不依赖已移出界面的旧文字按钮。"""
+        dialog.activateWindow()
+        QTest.keyClick(dialog, Qt.Key_Escape)
+
     def assert_state(self, view, expected):
         actual = view.capture_view_state()
         for key in ("time", "player_id", "speed", "playing", "selected_event_id"):
@@ -95,107 +102,88 @@ class ReplayFullscreenStateTests(unittest.TestCase):
         self.assertEqual(len(time_spy), 0)
         self.assertLess(target.layer.selected["time"], target.current_time)
 
-    def test_real_fullscreen_and_return_button_restore_all_view_state(self):
+    def test_real_fullscreen_and_escape_restore_all_view_state(self):
         expected = self.configure_view(self.page.map_view)
         self.page.expand_map_button.click()
         QTest.qWait(15)
         dialog = self.page._map_dialog
         self.assertTrue(dialog.isFullScreen())
-        self.assertTrue(dialog.return_button.isVisible())
-        self.assertIn("返回复盘", dialog.return_button.text())
+        self.assertTrue(dialog.return_button.isHidden())
+        self.assertTrue(dialog.fullscreen_button.isHidden())
+        self.assertTrue(dialog.map_view.slider.isHidden())
         self.assert_state(dialog.map_view, expected)
         changed = self.configure_view(dialog.map_view, player=101, seconds=60, speed=8, zoom=1.5)
-        dialog.return_button.click()
+        self.close_large(dialog)
         self.assertIsNone(self.page._map_dialog)
         self.assertFalse(dialog.map_view.timer.isActive())
         self.assert_state(self.page.map_view, changed)
         self.assertFalse(self.page.map_view._cleaned)
 
-    def test_f11_opens_toggles_fullscreen_and_escape_returns_to_replay(self):
-        self.configure_view(self.page.map_view, seconds=38)
-        self.page.map_view.canvas.setFocus()
-        QTest.keyClick(self.page.map_view.canvas, Qt.Key_F11)
-        QTest.qWait(15)
-        dialog = self.page._map_dialog
-        self.assertIsNotNone(dialog)
-        self.assertTrue(dialog.isFullScreen())
-        dialog.activateWindow()
-        dialog.map_view.canvas.setFocus()
-        QTest.keyClick(dialog.map_view.canvas, Qt.Key_F11)
-        QTest.qWait(15)
-        self.assertFalse(dialog.isFullScreen())
-        self.assertFalse(dialog.isMaximized())
-        self.assertIs(self.page._map_dialog, dialog)
-        self.assertIn("进入全屏", dialog.fullscreen_button.text())
-        QTest.keyClick(dialog.map_view.canvas, Qt.Key_F11)
-        QTest.qWait(15)
-        self.assertTrue(dialog.isFullScreen())
-        QTest.keyClick(dialog.map_view.canvas, Qt.Key_Escape)
-        self.assertIsNone(self.page._map_dialog)
-        self.assertEqual(self.page.map_view.current_time, 38)
+    def test_f11_opens_then_returns_to_embedded_page_and_escape_is_equivalent(self):
+        expected = self.configure_view(self.page.map_view, seconds=38)
+        for return_key in (Qt.Key_F11, Qt.Key_Escape):
+            with self.subTest(return_key=return_key):
+                self.page.activateWindow()
+                self.page.expand_map_button.setFocus()
+                self.application.processEvents()
+                QTest.keyClick(self.page.expand_map_button, Qt.Key_F11)
+                QTest.qWait(15)
+                dialog = self.page._map_dialog
+                self.assertIsNotNone(dialog)
+                self.assertTrue(dialog.isFullScreen())
+                self.assert_state(dialog.map_view, expected)
+                changed = self.configure_view(dialog.map_view, player=101, seconds=60, speed=8, zoom=1.5)
+                dialog.activateWindow()
+                QTest.keyClick(dialog.map_view.canvas, return_key)
+                self.assertIsNone(self.page._map_dialog)
+                self.assertFalse(dialog.isVisible(), "退出不能留下无标题栏普通地图浮窗")
+                self.assertFalse(dialog.map_view.timer.isActive())
+                self.assertTrue(dialog.map_view._cleaned)
+                self.assert_state(self.page.map_view, changed)
+                self.assertFalse(self.page.map_view._cleaned)
+                expected = changed
 
-    def test_fullscreen_button_repeatedly_restores_window_position_size_and_view(self):
-        self.page._expand_map()
-        QTest.qWait(15)
-        dialog = self.page._map_dialog
-        dialog.fullscreen_button.click()
-        QTest.qWait(15)
-        self.assertFalse(dialog.isFullScreen())
-        self.assertFalse(dialog.isMaximized())
-        self.assertGreaterEqual(dialog.width(), dialog.minimumWidth())
-        self.assertGreaterEqual(dialog.height(), dialog.minimumHeight())
-        # 首次全屏前没有独立普通窗口，退出时仍应恢复到可缩放的合理尺寸。
-        self.assertLess(dialog.width(), dialog.screen().availableGeometry().width())
-        self.assertLess(dialog.height(), dialog.screen().availableGeometry().height())
-        windowed = QRect(38, 44, 720, 500)
-        dialog.setGeometry(windowed)
-        QTest.qWait(15)
-        expected = self.configure_view(dialog.map_view, seconds=38)
-        for _ in range(3):
-            dialog.fullscreen_button.click()
-            QTest.qWait(15)
+    def test_repeated_fullscreen_returns_preserve_new_camera_and_do_not_leave_dialogs(self):
+        expected = self.configure_view(self.page.map_view, seconds=38)
+        for cycle in range(3):
+            self.page._expand_map()
+            QTest.qWait(10)
+            dialog = self.page._map_dialog
             self.assertTrue(dialog.isFullScreen())
-            self.assertIn("退出全屏", dialog.fullscreen_button.text())
             self.assert_state(dialog.map_view, expected)
-            dialog.fullscreen_button.click()
-            QTest.qWait(15)
-            self.assertFalse(dialog.isFullScreen())
-            self.assertFalse(dialog.isMaximized())
-            self.assertEqual(dialog.geometry(), windowed)
-            self.assertIn("进入全屏", dialog.fullscreen_button.text())
-            self.assert_state(dialog.map_view, expected)
-        # 用户主动缩放、平移后的新镜头必须取代旧镜头，不能被稳定中心处理覆盖。
-        self.configure_view(dialog.map_view, player=101, seconds=60, speed=8, zoom=1.5)
-        dialog.map_view.canvas.centerOn(QPointF(90, -45))
-        changed = dialog.map_view.capture_view_state()
-        dialog.fullscreen_button.click()
-        QTest.qWait(15)
-        self.assert_state(dialog.map_view, changed)
-        dialog.fullscreen_button.click()
-        QTest.qWait(15)
-        self.assertEqual(dialog.geometry(), windowed)
-        self.assert_state(dialog.map_view, changed)
+            # 用户主动缩放、平移的新状态必须取代旧镜头，交回原页面。
+            self.configure_view(dialog.map_view, player=101, seconds=50 + cycle * 5, speed=8, zoom=1.5)
+            dialog.map_view.canvas.centerOn(QPointF(90 + cycle * 5, -45))
+            changed = dialog.map_view.capture_view_state()
+            dialog.toggle_fullscreen()
+            self.assertIsNone(self.page._map_dialog)
+            self.assertFalse(dialog.isVisible())
+            self.assertFalse(dialog._restore_timer.isActive())
+            self.assertFalse(dialog.map_view.timer.isActive())
+            self.assert_state(self.page.map_view, changed)
+            # 下轮以原页面的可表示镜头为基准，不累加跨不同像素栅格的量化误差。
+            expected = self.page.map_view.capture_view_state()
+        self.application.sendPostedEvents(None, QEvent.DeferredDelete)
+        self.assertFalse(any(widget.isVisible() and widget.windowTitle() == "二维复盘地图"
+                             for widget in self.application.topLevelWidgets()))
 
-    def test_fullscreen_restores_a_previously_maximized_window_state(self):
+    def test_fullscreen_return_keeps_original_page_maximized_and_normal_geometry(self):
+        normal = QRect(38, 44, 720, 500)
+        self.page.setGeometry(normal)
+        self.page.showMaximized()
+        QTest.qWait(15)
+        expected = self.configure_view(self.page.map_view, seconds=38)
         self.page._expand_map()
         QTest.qWait(15)
         dialog = self.page._map_dialog
-        dialog.fullscreen_button.click()
-        QTest.qWait(15)
-        windowed = QRect(38, 44, 720, 500)
-        dialog.setGeometry(windowed)
-        dialog.showMaximized()
-        QTest.qWait(15)
-        dialog.fullscreen_button.click()
-        QTest.qWait(15)
         self.assertTrue(dialog.isFullScreen())
-        dialog.fullscreen_button.click()
+        dialog.toggle_fullscreen()
+        self.assertIsNone(self.page._map_dialog)
+        self.assertTrue(self.page.isMaximized(), "返回应保持原页面状态，而不是还原独立地图窗口")
+        self.assert_state(self.page.map_view, expected)
+        self.page.showNormal()
         QTest.qWait(15)
-        self.assertFalse(dialog.isFullScreen())
-        self.assertTrue(dialog.isMaximized())
-        dialog.showNormal()
-        QTest.qWait(15)
-        self.assertEqual(dialog.geometry(), windowed)
+        self.assertEqual(self.page.geometry(), normal)
 
     def test_playback_continues_in_one_view_then_resumes_in_original_view(self):
         main = self.page.map_view
@@ -214,7 +202,7 @@ class ReplayFullscreenStateTests(unittest.TestCase):
             QTest.qWait(20)
         self.assertGreater(dialog.map_view.current_time, 30)
         returned_time = dialog.map_view.current_time
-        dialog.return_button.click()
+        self.close_large(dialog)
         self.assertTrue(main.timer.isActive())
         self.assertEqual(main.current_time, returned_time)
         QTest.qWait(100)
@@ -248,7 +236,7 @@ class ReplayFullscreenStateTests(unittest.TestCase):
         self.assertFalse(dialog._restore_timer.isActive())
         self.assertEqual(self.page.map_view.current_time, 0)
 
-    def test_time_axis_remains_inside_embedded_page_and_large_host_at_both_sizes(self):
+    def test_embedded_time_axis_and_fullscreen_overlay_fit_both_sizes_without_old_chrome(self):
         for width, height in ((760, 520), (1600, 900)):
             with self.subTest(width=width, height=height):
                 self.page.resize(width, height)
@@ -265,11 +253,18 @@ class ReplayFullscreenStateTests(unittest.TestCase):
                 dialog.resize(width, height)
                 QTest.qWait(10)
                 large = dialog.map_view
-                slider_bottom = large.slider.mapTo(dialog, QPoint(0, large.slider.height()))
-                self.assertLessEqual(slider_bottom.y(), dialog.height())
-                self.assertGreaterEqual(large.canvas.height(), 200)
-                self.assertTrue(dialog.return_button.isVisible())
-                dialog.return_button.click()
+                self.assertTrue(large.slider.isHidden())
+                self.assertTrue(large.speed.isHidden())
+                self.assertTrue(dialog.return_button.isHidden())
+                self.assertTrue(dialog.fullscreen_button.isHidden())
+                self.assertEqual(large.map_stack.geometry().topLeft(), QPoint(0, 0))
+                self.assertEqual(large.map_stack.size(), large.size())
+                self.assertGreaterEqual(large.map_stack.currentWidget().height(), 200)
+                panel = large.fullscreen_panel
+                self.assertTrue(panel.isVisible())
+                self.assertLessEqual(panel.geometry().right(), large.width() - 1)
+                self.assertLessEqual(panel.geometry().bottom(), large.height() - 1)
+                self.close_large(dialog)
 
 
 if __name__ == "__main__":

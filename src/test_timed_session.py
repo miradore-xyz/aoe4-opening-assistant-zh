@@ -7,6 +7,7 @@ import tempfile
 import unittest
 from unittest.mock import patch
 from PyQt5.QtCore import QEvent
+from PyQt5.QtGui import QTextDocument
 from PyQt5.QtWidgets import QApplication
 from app import Manager, resource_step
 from core import atomic_json,read_order
@@ -43,8 +44,14 @@ class TimedSessionTests(unittest.TestCase):
    self.assertEqual(m.ids,expected)
    self.assertEqual(m.steps_list.currentRow(),expected[0])
   self.assertIn('10–11',m.session_step.text())
-  self.assertIn('条件提示',m.overlay.notes.text())
-  self.assertIn('控图后',m.overlay.notes.text())
+  # 只核当前真实阶段与两段正文；已按用户要求删除的栏目字样不能再要求恢复。
+  document=QTextDocument()
+  document.setHtml(m.overlay.notes.text())
+  body=document.toPlainText()
+  self.assertNotIn('条件提示',body)
+  self.assertIn('当前阶段 · 05:40',body)
+  self.assertIn('先补1名食物村民',body)
+  self.assertIn('控图后',body)
   self.assertEqual(resource_step(m.order,m.ids)['resources']['food'],11)
   self.assertEqual(resource_step(m.order,m.ids)['resources']['wood'],11)
   self.assertTrue(m.overlay.resources.cells['food'][0].isVisibleTo(m.overlay.resources))

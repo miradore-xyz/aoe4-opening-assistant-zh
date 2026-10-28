@@ -410,7 +410,7 @@ class MatchDetailView(QWidget):
         self.setObjectName("MatchDetailView")
         self.setMinimumWidth(0)
         self.setStyleSheet("""
-            QWidget#MatchDetailView {color:#F4F4F5; background:transparent; font-family:'Sen','Source Han Sans SC','Microsoft YaHei UI'; font-size:12px;}
+            QWidget#MatchDetailView {color:#F4F4F5; background:transparent; font-family:'Smiley Sans'; font-size:12px;}
             #MatchDetailView QLabel {background:transparent; border:0; color:#D6D6DB; font-size:12px;}
             #MatchDetailView QLabel#DetailMuted {color:#929299; font-size:11px;}
             #MatchDetailView QLabel#DetailTitle {font-size:14px; font-weight:600;}
@@ -720,7 +720,7 @@ class MatchDetailView(QWidget):
         apm = primary.get("apm")
         values = [name, time_label(duration), civilization_name(primary.get("civilization")), result]
         if _finite(apm):
-            values.append(f"APM（每分钟操作） {_number(apm)}")
+            values.append(f"每分钟操作次数 {_number(apm)}")
         self.player_summary.setText(" · ".join(values))
         self._refresh_charts()
         self._refresh_bars()

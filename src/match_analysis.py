@@ -153,6 +153,38 @@ def profile_overview(profile):
     return sorted(result, key=lambda row: (0 if row["mode"] == "rm_solo" else 1 if row["mode"] == "rm_team" else 2, row["mode"]))
 
 
+def retain_rank_history(profile, cached_profile, now):
+    """保存同一赛季近15天已取得的真实快照；新接口返回的同时间值优先。
+
+    不从对局赛前分、ELO或没有记录的日期反推积分，也不跨赛季拼接。
+    """
+    modes = profile.get("modes", {})
+    old_modes = cached_profile.get("modes", {}) if isinstance(cached_profile, dict) else {}
+    if not isinstance(modes, dict) or not isinstance(old_modes, dict):
+        return
+    first = now.astimezone().date() - timedelta(days=14)
+    start = datetime.combine(first, datetime.min.time()).astimezone().timestamp()
+    for code in ("rm_solo", "rm_team"):
+        current, previous = modes.get(code), old_modes.get(code)
+        if not isinstance(current, dict):
+            continue
+        season = current.get("season")
+        same_season = (isinstance(previous, dict) and isinstance(season, int)
+                       and not isinstance(season, bool) and season > 0 and previous.get("season") == season)
+        histories = [previous.get("rating_history", {})] if same_season else []
+        histories.append(current.get("rating_history", {}))
+        merged = {}
+        for history in histories:
+            for raw_stamp, point in history.items() if isinstance(history, dict) else ():
+                if isinstance(raw_stamp, (str, int)) and not isinstance(raw_stamp, bool) and str(raw_stamp).isdigit():
+                    stamp = int(raw_stamp)
+                    rating = point.get("rating") if isinstance(point, dict) else None
+                    if (start <= stamp <= now.timestamp() and isinstance(rating, (int, float))
+                            and not isinstance(rating, bool) and math.isfinite(rating) and rating >= 0):
+                        merged[str(stamp)] = point
+        current["rating_history"] = merged
+
+
 def match_page_url(profile_id, game_id):
     """生成可直接阅读的对局网页；/summary 是 JSON（结构化数据）接口。"""
     player, game = _positive_id(profile_id), _positive_id(game_id)
@@ -363,6 +395,7 @@ class PublicMatchClient:
             profile = self._get(f"players/{number}")
             if _positive_id(profile.get("profile_id")) != number:
                 raise MatchError("玩家资料与请求编号不一致。")
+            retain_rank_history(profile, (cached or {}).get("profile"), self.now())
             params = {"limit": MAX_GAMES, "page": 1}
             # since（起始时间）通常回溯最新一局前六小时；尚未确认的旧局也要纳入，
             # 避免长局或延迟同步的胜负永久停留在旧缓存中。始终只读一页。
@@ -383,6 +416,19 @@ class PublicMatchClient:
             incoming = result.get("games")
             if not isinstance(incoming, list):
                 raise MatchError("对局列表格式异常。")
+            # total_count（列表总数）受since筛选影响。增量请求另读1条无筛选元数据，
+            # 不下载全历史，不累加会重叠的当前赛季/匹配分模式计数。
+            total_result = result if "since" not in params else None
+            if total_result is None and "total_count" in result:
+                try:
+                    total_result = self._get(f"players/{number}/games", {"limit": 1, "page": 1})
+                except MatchError:
+                    total_result = None
+            total = total_result.get("total_count") if isinstance(total_result, dict) else None
+            filters = total_result.get("filters", {}) if isinstance(total_result, dict) else {}
+            unfiltered = isinstance(filters, dict) and not any(filters.get(key) for key in
+                         ("since", "leaderboard", "opponent_profile_id", "opponent_profile_ids"))
+            valid_total = isinstance(total, int) and not isinstance(total, bool) and total >= 0 and unfiltered
             merged = {}
             for game in ((cached or {}).get("games", []) + incoming):
                 if isinstance(game, dict) and _positive_id(game.get("game_id")):
@@ -390,6 +436,9 @@ class PublicMatchClient:
             games = sorted(merged.values(), key=lambda game: str(game.get("started_at") or ""), reverse=True)[:MAX_GAMES]
             snapshot = {"schema": 1, "profile_id": number, "profile": profile, "games": games,
                         "fetched_at": self.now().isoformat(), "source_url": f"{BASE_URL}/api/v0/players/{number}/games"}
+            if valid_total:
+                snapshot["history_totals"] = {"count": total, "scope": "public_history",
+                                              "fetched_at": snapshot["fetched_at"]}
             try:
                 self._save(path, snapshot)
                 warning = ""

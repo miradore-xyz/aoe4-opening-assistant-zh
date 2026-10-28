@@ -36,6 +36,9 @@ class ReplayMapIntegrationTests(unittest.TestCase):
         self.page._show_report(self.report, "合成地图", self.detail)
         self.page.show()
         self.app.processEvents()
+        # 网格是唯一宿主；播放和图表仍共享原始秒数。
+        self.page.map_view.view_mode.setCurrentIndex(self.page.map_view.view_mode.findData("records"))
+        self.app.processEvents()
 
     def tearDown(self):
         self.page.close()
@@ -48,7 +51,15 @@ class ReplayMapIntegrationTests(unittest.TestCase):
         self.assertFalse(self.page.map_view.isHidden())
         self.assertTrue(self.page.detail_view.isHidden())
         self.assertTrue(self.page.raw_report.isHidden())
-        slider = self.page.map_view.slider
+        view = self.page.map_view
+        self.assertIsNone(view.official_map)
+        self.assertEqual(view.view_mode.findData("reference"), -1)
+        self.assertEqual(view.view_mode.currentData(), "records")
+        self.app.processEvents()
+        self.assertIs(view.map_stack.currentWidget(), view.canvas)
+        self.assertTrue(view.canvas.isVisible())
+        self.assertTrue(view.slider.isVisible())
+        slider = view.slider
         viewport = self.page.scroll.viewport()
         position = slider.mapTo(viewport, QPoint(0, slider.height()))
         self.assertLessEqual(position.y(), viewport.height())
@@ -92,19 +103,47 @@ class ReplayMapIntegrationTests(unittest.TestCase):
         main.toggle_playback()
         self.assertTrue(main.timer.isActive())
 
-    def test_replacing_report_stops_both_old_maps_and_discards_dialog(self):
+    def test_replacing_report_reuses_main_map_and_resets_playback_selection_and_model(self):
         old = self.page.map_view
+        old.select_event(old.events[5])
+        old.seek(90)
+        old.toggle_playback()
+        self.assertTrue(old.timer.isActive())
+        self.assertIsNotNone(old.layer.selected)
+        previous_model = old.model
         self.page._expand_map()
+        self.app.processEvents()
         dialog = self.page._map_dialog
-        dialog.map_view.toggle_playback()
-        self.page._show_report(self.report)
-        self.assertTrue(old._cleaned)
+        self.assertFalse(old.timer.isActive())
+        self.assertTrue(dialog.map_view.timer.isActive())
+        changed = fixture()
+        changed["source"]["sha256"] = "b" * 64
+        changed["metadata"]["map"] = "King of the Hill"
+        changed["commands"] = changed["commands"][:4]
+        for index, event in enumerate(changed["commands"]):
+            event["target"]["z"] = index * 7
+        replacement = analyze_replay(changed)
+        self.page._show_report(replacement)
+        # 新布局有意复用主地图；旧大图及播放必须清理，新模型不继承旧选点和时间。
+        self.assertIs(self.page.map_view, old)
+        self.assertFalse(old._cleaned)
+        self.assertFalse(old.timer.isActive())
         self.assertTrue(dialog.map_view._cleaned)
         self.assertFalse(dialog.map_view.timer.isActive())
         self.assertIsNone(self.page._map_dialog)
-        self.assertIsNot(self.page.map_view, old)
-        self.page.map_view.seek(30)
-        self.assertEqual(self.page.map_view.current_time, 30)
+        self.assertIsNot(old.model, previous_model)
+        self.assertIs(old.model, self.page.spatial_model)
+        self.assertEqual(old.model["map_name"], "King of the Hill")
+        self.assertEqual(len(old.events), 4)
+        self.assertEqual(old.current_time, 0)
+        self.assertIsNone(old.layer.selected)
+        self.assertIsNone(old._selected)
+        self.assertEqual(old.view_mode.currentData(), "records")
+        self.assertIsNone(old.official_map)
+        old.seek(20)
+        old.toggle_playback()
+        self.assertEqual(old.current_time, 20)
+        self.assertTrue(old.timer.isActive(), "复用后的主地图仍可播放新模型")
 
     def test_hiding_page_pauses_without_permanently_disabling_map(self):
         view = self.page.map_view

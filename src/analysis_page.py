@@ -13,7 +13,7 @@ from pathlib import Path
 from PyQt5.QtCore import QEvent, QObject, QPoint, QRect, QRectF, QSize, Qt, QTimer, pyqtSignal
 from PyQt5.QtGui import QBrush, QColor, QFontMetrics, QPainter, QPainterPath, QPalette, QRegion
 from PyQt5.QtWidgets import (
-    QApplication, QAbstractItemView, QBoxLayout, QFrame, QHBoxLayout, QHeaderView, QLabel,
+    QApplication, QAbstractItemView, QBoxLayout, QFrame, QGridLayout, QHBoxLayout, QHeaderView, QLabel,
     QLayout, QLineEdit, QListView, QListWidget, QListWidgetItem, QPushButton, QScrollArea, QSizePolicy,
     QStyle, QStyleOptionComboBox, QStylePainter, QStyledItemDelegate,
     QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget,
@@ -21,19 +21,19 @@ from PyQt5.QtWidgets import (
 
 from choice_controls import ClickComboBox
 from match_analysis import (
-    API_SOURCE, MatchError, PublicMatchClient, analyze_games, civilization_name,
-    map_name, mode_name, parse_player_input, profile_overview,
+    MatchError, PublicMatchClient, analyze_games, civilization_name,
+    map_name, mode_name, parse_player_input,
 )
-from match_widgets import (MatchActionHeader, ModeSummaryGrid, RoundedMatchPanel, RoundedMatchTable, style_recent_matches, MATCH_ACTION_SIZE,
+from match_widgets import (MatchActionHeader, ModeSummaryGrid, RoundedMatchPanel, RoundedMatchTable, style_recent_matches, arrange_recent_match_columns, MATCH_ACTION_SIZE,
                            MATCH_ACTION_PADDING, MATCH_RESULT_COLUMN_WIDTH,
-                           MATCH_ACTION_COLUMN_WIDTH, MATCH_METADATA_ROLE, CARD_WIN, CARD_LOSS)
+                           MATCH_ACTION_COLUMN_WIDTH, MATCH_RANK_COLUMN_WIDTH, MATCH_METADATA_ROLE, CARD_WIN, CARD_LOSS)
 from rank_display import ranked_result
-from visual import line_icon, ui_font
+from visual import CARD_GAP, line_icon, ui_font
 from player_avatars import PlayerAvatar
 from player_identity import IdentityClient as PlayerIdentityClient, IdentityError
 from player_labels import player_display_labels
 from scroll_to_top import install_scroll_to_top
-from profile_rank_summary import ProfileRankSummary
+from rank_history_chart import RankOverviewRow
 
 
 def _merge_identity(profile, identity):
@@ -77,6 +77,80 @@ class _PlayerName(QLabel):
             QPalette.WindowText)
 
 
+def _history_total_text(snapshot):
+    """只显示无筛选公开历史总数；缺失时不拿近期列表或模式场次补数。"""
+    totals = snapshot.get("history_totals") if isinstance(snapshot, dict) else None
+    count = totals.get("count") if isinstance(totals, dict) and totals.get("scope") == "public_history" else None
+    valid = isinstance(count, int) and not isinstance(count, bool) and count >= 0
+    return f"全部场次 {count:,} 场" if valid else "全部场次 暂无数据"
+
+
+class _ProfileHeader(QWidget):
+    """头像资料与全部历史总数；窄宽时总数另起一行，不挤压昵称。"""
+    def __init__(self, profile, snapshot, data_dir, parent=None):
+        super().__init__(parent)
+        self.setMinimumWidth(0)
+        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        self.grid = QGridLayout(self)
+        self.grid.setContentsMargins(0, 0, 0, 0)
+        self.grid.setSpacing(CARD_GAP)
+        self.identity = QWidget()
+        self.identity.setMinimumWidth(0)
+        self.identity.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        left = QHBoxLayout(self.identity)
+        left.setContentsMargins(0, 0, 0, 0)
+        left.setSpacing(CARD_GAP)
+        self.avatar = PlayerAvatar(size=40)
+        self.avatar.set_profile(profile, data_dir, allow_network=False)
+        left.addWidget(self.avatar, 0, Qt.AlignVCenter)
+        words = QVBoxLayout()
+        words.setContentsMargins(0, 0, 0, 0)
+        words.setSpacing(4)
+        words.setAlignment(Qt.AlignVCenter)
+        self.name = _PlayerName(str(profile.get("name") or f"玩家 {snapshot['profile_id']}"))
+        self.name.setObjectName("SectionTitle")
+        self.name.setTextFormat(Qt.PlainText)
+        self.name.setTextInteractionFlags(Qt.TextSelectableByMouse)
+        self.name.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
+        self.name.setToolTip(self.name.text())
+        self.name.setAccessibleName(self.name.text())
+        words.addWidget(self.name)
+        self.meta = _text(_identity_text(profile), "Muted")
+        self.meta.setWordWrap(False)
+        self.meta.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
+        self.meta.setToolTip(self.meta.text())
+        words.addWidget(self.meta)
+        left.addLayout(words, 1)
+        self.total = QLabel(_history_total_text(snapshot))
+        self.total.setTextFormat(Qt.PlainText)
+        self.total.setFont(ui_font(13))
+        self.total.setStyleSheet("color:#a9a9b2;background:transparent;border:0;padding:0;")
+        self.total.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
+        self.total.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
+        self.total.setAccessibleName(self.total.text())
+        self._stacked = None
+        self._arrange()
+
+    def _arrange(self):
+        # 给左侧资料留出固定的合理宽度，长昵称仍按原组件省略显示。
+        stacked = self.width() < max(560, 360 + CARD_GAP + self.total.sizeHint().width())
+        if stacked == self._stacked:
+            return
+        self._stacked = stacked
+        self.grid.removeWidget(self.identity)
+        self.grid.removeWidget(self.total)
+        self.grid.setColumnStretch(0, 1)
+        self.grid.setColumnStretch(1, 0)
+        self.grid.addWidget(self.identity, 0, 0, 1, 2 if stacked else 1)
+        self.grid.addWidget(self.total, 1 if stacked else 0, 0 if stacked else 1,
+                            1, 2 if stacked else 1, Qt.AlignRight | Qt.AlignVCenter)
+        self.updateGeometry()
+
+    def resizeEvent(self, event):
+        super().resizeEvent(event)
+        self._arrange()
+
+
 class _PlayerChoice(QWidget):
     """同名候选的头像、等级和唯一编号；点击仍交给外层列表处理。"""
     def __init__(self, profile, data_dir, parent=None, *, allow_network=False):
@@ -89,15 +163,18 @@ class _PlayerChoice(QWidget):
         self.avatar = PlayerAvatar(self, size=36)
         layout.addWidget(self.avatar)
         words = QVBoxLayout()
+        words.setContentsMargins(0, 0, 0, 0)
         words.setSpacing(2)
+        words.setAlignment(Qt.AlignVCenter)
         self.name = _PlayerName()
         self.name.setTextFormat(Qt.PlainText)
-        self.name.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Preferred)
+        # 候选卡高于两行文字时，只把整组居中，不将多余高度分摊进每个文本框。
+        self.name.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
         self.name.setStyleSheet("font-weight:600;color:#f4f4f5;font-size:13px;")
         self.details = QLabel()
         self.details.setTextFormat(Qt.PlainText)
         self.details.setWordWrap(True)
-        self.details.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Preferred)
+        self.details.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
         self.details.setStyleSheet("color:#929299;font-size:11px;")
         words.addWidget(self.name)
         words.addWidget(self.details)
@@ -113,8 +190,9 @@ class _PlayerChoice(QWidget):
 
 
 class _PlayerChoiceList(QListWidget):
-    """原生候选网格，保留方向键、回车和辅助功能的列表语义。"""
+    """整张卡片单击查询；方向键保留原生选择，回车/空格共用一次激活入口。"""
     resized = pyqtSignal()
+    candidateActivated = pyqtSignal(object)  # 候选激活：只传原项目，账号编号由Qt.UserRole读取。
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -127,6 +205,18 @@ class _PlayerChoiceList(QListWidget):
         self.setUniformItemSizes(True)
         self.setSelectionMode(QAbstractItemView.SingleSelection)
         self.setCursor(Qt.PointingHandCursor)
+        self.setFocusPolicy(Qt.StrongFocus)
+        # 鼠标仅接原生单击信号；原生itemActivated（平台激活）不再另接一次查询。
+        self.itemClicked.connect(self.candidateActivated.emit)
+
+    def keyPressEvent(self, event):
+        if event.key() in (Qt.Key_Return, Qt.Key_Enter, Qt.Key_Space):
+            event.accept()
+            item = self.currentItem()
+            if item is not None and not event.isAutoRepeat():
+                self.candidateActivated.emit(item)
+            return
+        super().keyPressEvent(event)
 
     def resizeEvent(self, event):
         super().resizeEvent(event)
@@ -226,11 +316,62 @@ class _HistoryItemDelegate(QStyledItemDelegate):
         painter.restore()
 
 
-class _HistoryPicker(ClickComboBox):
+class _QueryToolVisual:
+    """查询图标控件共用实际绘制：按钮与时钟不再分别继承平台的底色和禁用样式。"""
+    def _init_tool_icon(self, kind):
+        self._tool_kind = kind
+        self._tool_hovered = False
+        self.setCursor(Qt.PointingHandCursor)
+        if isinstance(self, QPushButton):
+            self.setIcon(line_icon(kind, "#b8bac2"))
+        self.setIconSize(QSize(16, 16))
+
+    def _paint_tool_icon(self, painter, pressed=False):
+        enabled = self.isEnabled()
+        hover = enabled and self._tool_hovered
+        background = "#d4d4d8" if hover and pressed else "#f4f4f5" if hover else "#202023"
+        icon_color = "#66666f" if not enabled else "#171719" if hover else "#b8bac2"
+        painter.setRenderHint(QPainter.Antialiasing)
+        painter.setPen(QColor("#303035"))
+        painter.setBrush(QColor(background))
+        painter.drawRoundedRect(QRectF(self.rect()).adjusted(.5, .5, -.5, -.5), 6, 6)
+        if enabled and self.hasFocus():
+            painter.setBrush(Qt.NoBrush)
+            painter.setPen(QColor("#b8bac2"))
+            painter.drawRoundedRect(QRectF(self.rect()).adjusted(3.5, 3.5, -3.5, -3.5), 3, 3)
+        target = QRect((self.width() - 16) // 2, (self.height() - 16) // 2, 16, 16)
+        line_icon(self._tool_kind, icon_color).paint(painter, target)
+
+    def enterEvent(self, event):
+        self._tool_hovered = True
+        self.update()
+        super().enterEvent(event)
+
+    def leaveEvent(self, event):
+        self._tool_hovered = False
+        self.update()
+        super().leaveEvent(event)
+
+
+class _QueryToolButton(_QueryToolVisual, QPushButton):
+    """保留QPushButton原生点击和键盘语义，只统一查询工具的图标及状态外观。"""
+    def __init__(self, kind, callback, parent=None):
+        super().__init__(parent)
+        self.setObjectName("QueryTool")
+        self._init_tool_icon(kind)
+        self.clicked.connect(callback)
+
+    def paintEvent(self, event):
+        self._paint_tool_icon(QPainter(self), self.isDown())
+
+
+class _HistoryPicker(_QueryToolVisual, ClickComboBox):
     """历史入口只显示时钟图标，展开后仍显示完整昵称和玩家编号。"""
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setObjectName("MatchHistory")
+        self._init_tool_icon("history")
+        self._tool_pressed = False
         self.setMaxVisibleItems(8)
         view = self.view()
         view.setMinimumWidth(250)
@@ -305,18 +446,30 @@ class _HistoryPicker(ClickComboBox):
         self._round_popup()
         view.scrollTo(view.currentIndex(), QAbstractItemView.EnsureVisible)
 
+    def mousePressEvent(self, event):
+        if event.button() == Qt.LeftButton and self.isEnabled():
+            # 与同排按钮一样先呈现按下态，完整点击释放后再展开，避免弹层抢走悬停状态。
+            self._tool_pressed = True
+            self.setFocus(Qt.MouseFocusReason)
+            self.update()
+            event.accept()
+            return
+        super().mousePressEvent(event)
+
+    def mouseReleaseEvent(self, event):
+        if event.button() == Qt.LeftButton and self._tool_pressed:
+            self._tool_pressed = False
+            self.update()
+            if self.rect().contains(event.pos()):
+                self.showPopup()
+            event.accept()
+            return
+        super().mouseReleaseEvent(event)
+
     def paintEvent(self, event):
-        option = QStyleOptionComboBox()
-        self.initStyleOption(option)
-        option.currentText = ""
-        # 绘制边框与居中时钟，不绘制组合框额外的向下箭头。
-        option.subControls = QStyle.SC_ComboBoxFrame
-        painter = QStylePainter(self)
-        painter.drawComplexControl(QStyle.CC_ComboBox, option)
-        if not self.isEnabled():
-            painter.setOpacity(.4)
-        painter.drawPixmap((self.width() - 16) // 2, (self.height() - 16) // 2,
-                           line_icon("history").pixmap(16, 16))
+        # 同一绘制规则只画时钟，展开态也不引入向下箭头。
+        self._paint_tool_icon(QPainter(self), self._tool_pressed)
+
 
 
 class AnalysisPage(QWidget):
@@ -376,15 +529,13 @@ class AnalysisPage(QWidget):
         self.query.setMinimumWidth(120)
         self.query.returnPressed.connect(self.lookup)
         query_row.addWidget(self.query, 1)
-        self.query_button = _button("", self.lookup, True)
+        self.query_button = _QueryToolButton("user-search", self.lookup)
         self.query_button.setAccessibleName("查询玩家")
-        self.query_button.setIcon(line_icon("user-search", "#171719"))
         self.query_button.setProperty("compact_icon", True)
         self.query_button.setToolTip("查询玩家")
         query_row.addWidget(self.query_button)
-        self.refresh_button = _button("", self.refresh)
+        self.refresh_button = _QueryToolButton("reset", self.refresh)
         self.refresh_button.setAccessibleName("刷新战绩")
-        self.refresh_button.setIcon(line_icon("reset"))
         self.refresh_button.setProperty("compact_icon", True)
         self.refresh_button.setToolTip("刷新战绩")
         self.refresh_button.setEnabled(False)
@@ -405,9 +556,7 @@ class AnalysisPage(QWidget):
         self.history_combo.setMinimumWidth(0)
         self.history_combo.activated.connect(self._use_history)
         recent.addWidget(self.history_combo, 1)
-        self.delete_history = _button("", self._delete_history)
-        self.delete_history.setIcon(line_icon("x"))
-        self.delete_history.setIconSize(QSize(16, 16))
+        self.delete_history = _QueryToolButton("x", self._delete_history)
         self.delete_history.setProperty("compact_delete", True)
         self.delete_history.setAccessibleName("删除选中的搜索记录")
         self.delete_history.setToolTip("只删除这条搜索记录，已获取的战绩仍会保留。")
@@ -444,15 +593,12 @@ class AnalysisPage(QWidget):
             QListWidget::item:selected {background:#29292e;border-color:#8c8c96;}
             QListWidget::item:focus {border:2px solid #c4c4cb;}
         """)
-        self.player_choices.itemActivated.connect(self._choose_player)
+        self.player_choices.candidateActivated.connect(self._choose_player)
         self.player_choices.resized.connect(self._arrange_player_choices)
         self.player_choices.currentItemChanged.connect(self._candidate_selected)
         self.player_choices.verticalScrollBar().valueChanged.connect(self._refresh_visible_candidates)
         self.player_choices.hide()
         layout.addWidget(self.player_choices)
-        self.choose_button = _button("查看选中玩家", self._choose_player, True)
-        self.choose_button.hide()
-        layout.addWidget(self.choose_button, 0, Qt.AlignRight)
 
         self.scroll = QScrollArea()
         self.scroll.setWidgetResizable(True)
@@ -463,7 +609,7 @@ class AnalysisPage(QWidget):
         self.body_layout = QVBoxLayout(self.body)
         self.body_layout.setSizeConstraint(QLayout.SetMinAndMaxSize)
         self.body_layout.setContentsMargins(0, 0, 4, 0)
-        self.body_layout.setSpacing(14)
+        self.body_layout.setSpacing(CARD_GAP)
         self.scroll.setWidget(self.body)
         self.scroll_top_button = install_scroll_to_top(self.scroll)
         layout.addWidget(self.scroll, 1)
@@ -496,11 +642,11 @@ class AnalysisPage(QWidget):
         self.query_options.setVisible(has_options)
         options_width = self.query_options.layout().minimumSize().width() if has_options else 0
         query_width = max(180, self.query.fontMetrics().horizontalAdvance("输入玩家昵称或编号") + 20)
-        minimum = query_width + height + 8 + 12 + options_width
+        minimum = query_width + height + 8 + 8 + options_width
         one_row = self.query_toolbar.width() >= minimum
         self.toolbar_layout.setDirection(QBoxLayout.LeftToRight if one_row else QBoxLayout.TopToBottom)
-        # 输入→查询为8px；查询组→后续工具组为12px；工具内部固定8px，不叠加空边距。
-        self.toolbar_layout.setSpacing(12 if one_row else 8)
+        # 所有相邻控件和窄窗的行距均为8px；分组不额外增加空隙。
+        self.toolbar_layout.setSpacing(8)
         self.toolbar_layout.setStretch(0, 1 if one_row else 0)
         self.toolbar_layout.setStretch(1, 0)
         self.query_options.setSizePolicy(QSizePolicy.Maximum if one_row else QSizePolicy.Expanding, QSizePolicy.Fixed)
@@ -512,23 +658,20 @@ class AnalysisPage(QWidget):
         self._arrange_recent_columns()
 
     def _arrange_recent_columns(self):
-        """窄窗合并时长到地图次行，给双方名单留下真正可读的宽度。"""
+        """整表七个阅读组使用同一间距；窄窗收短名字，宽窗余量均分各处。"""
         table = getattr(self, "game_table", None)
         if table is None:
             return
         try:
-            available = self.scroll.viewport().width()
-            table.setColumnHidden(3, available < 980)
+            table.setColumnHidden(3, False)
             table.setColumnHidden(4, True)
             # 依真实文本收紧地图列；长昵称获得剩余空间，不靠缩小文字换取整齐。
             maps = [table.item(row, 0).data(MATCH_METADATA_ROLE) or {} for row in range(table.rowCount())]
             map_font, sub_font = QFontMetrics(ui_font(12)), QFontMetrics(ui_font(10))
-            map_width = max([112] + [max(map_font.horizontalAdvance(map_name(row.get("map"))),
-                                        sub_font.horizontalAdvance(row.get("display_mode", "") + " · " + _duration(row.get("duration")))) + 16
+            map_width = max([88] + [max(map_font.horizontalAdvance(map_name(row.get("map"))),
+                                       sub_font.horizontalAdvance(row.get("display_mode", "") + " · " + _duration(row.get("duration"))))
                                      for row in maps])
-            for column, width in ((0, 78), (1, min(176, map_width)), (3, 108),
-                                  (5, MATCH_RESULT_COLUMN_WIDTH), (6, MATCH_ACTION_COLUMN_WIDTH)):
-                table.setColumnWidth(column, width)
+            arrange_recent_match_columns(table, map_width)
         except RuntimeError:
             pass  # 换模式时旧表已经交由Qt销毁，下一张表会重新排版。
 
@@ -551,7 +694,7 @@ class AnalysisPage(QWidget):
         target_height = rows * row_height
         if choices.height() != target_height:
             choices.setFixedHeight(target_height)
-        choices.setAccessibleDescription(f"{count} 个候选，{columns} 列。方向键选择，回车查看选中玩家。")
+        choices.setAccessibleDescription(f"{count} 个候选，{columns} 列。方向键选择，回车或空格查看选中玩家。")
 
     def _clear_player_choices(self):
         """新查询开始即清除旧候选，避免加载期间还能选到上一轮账号。"""
@@ -559,7 +702,6 @@ class AnalysisPage(QWidget):
         self.player_choices.clear()
         self.player_choices.blockSignals(False)
         self.player_choices.hide()
-        self.choose_button.hide()
         self._candidate_profiles = {}
         self._avatar_identity_requested.clear()
 
@@ -572,7 +714,24 @@ class AnalysisPage(QWidget):
         """请求主窗口分析这一场，查询条件与全部记录保留在原页面。"""
         if not self.snapshot:
             return
-        self.public_match_requested.emit(self.snapshot["profile_id"], row["game_id"], dict(row))
+        focus = row.get("focus_profile_id", self.snapshot["profile_id"])
+        self.public_match_requested.emit(focus, row["game_id"], dict(row))
+
+    def _query_table_player(self, player):
+        """名字仅是命中位置；直接查询只接受该项明确的profile_id，不回退同名搜索。"""
+        if self.busy:
+            return
+        value = player.get("profile_id")
+        try:
+            number = parse_player_input(value)
+        except MatchError:
+            number = None
+        if not isinstance(number, int) or isinstance(value, bool):
+            self._job_error("该玩家未提供有效编号，无法直接查询。")
+            return
+        self.query.setText(str(number))
+        self.notice.setText("正在读取该玩家最近的公开战绩。")
+        self._job(lambda: self.client.fetch_profile(number), "profile")
 
     def _restore_history(self):
         try:
@@ -634,7 +793,6 @@ class AnalysisPage(QWidget):
         number = entry.get("profile_id")
         if number:
             self.player_choices.hide()
-            self.choose_button.hide()
             self.notice.setText("正在读取最近搜索的玩家战绩。")
             self._job(lambda: self.client.fetch_profile(number), "profile")
         else:
@@ -689,7 +847,6 @@ class AnalysisPage(QWidget):
             self.notice.setStyleSheet("")
             self.notice.show()
         self.query_button.setEnabled(not value)
-        self.choose_button.setEnabled(not value)
         self.refresh_button.setEnabled(not value and self.snapshot is not None)
         self.query_button.setToolTip("正在查询玩家…" if value else "查询玩家")
         self._arrange_query_toolbar()
@@ -744,7 +901,6 @@ class AnalysisPage(QWidget):
             return
         number = selected.data(Qt.UserRole)
         self.player_choices.hide()
-        self.choose_button.hide()
         self.notice.setText("正在读取该玩家最近的公开战绩。")
         self._job(lambda: self.client.fetch_profile(number), "profile")
 
@@ -774,7 +930,6 @@ class AnalysisPage(QWidget):
                 self.player_choices.setCurrentRow(0)
                 self.player_choices.show()
                 self._arrange_player_choices()
-                self.choose_button.show()
                 # 候选已经可见，成功提示不再占据额外一行；键盘说明保留在辅助描述中。
                 self.notice.clear()
                 self.notice.hide()
@@ -877,37 +1032,16 @@ class AnalysisPage(QWidget):
         self.notice.setVisible(bool(warning))
         if warning:
             self.notice.setStyleSheet("color:#e6b8ad;")
-        top = QHBoxLayout()
-        top.setSpacing(10)
         profile = _merge_identity(snapshot["profile"], self.identity_client.load_cached(snapshot["profile_id"]))
-        player_name = str(profile.get("name") or f"玩家 {snapshot['profile_id']}")
-        self.profile_avatar = PlayerAvatar(size=40)
-        self.profile_avatar.set_profile(profile, self.data_dir, allow_network=False)
-        top.addWidget(self.profile_avatar, 0, Qt.AlignVCenter)
-        identity = QVBoxLayout()
-        identity.setSpacing(4)
-        identity.setAlignment(Qt.AlignVCenter)
-        # 两行按内容高度成组居中；右侧两行段位不再把姓名与资料各自拉高。
-        title = _PlayerName(player_name)
-        title.setObjectName("SectionTitle")
-        title.setTextFormat(Qt.PlainText)
-        title.setTextInteractionFlags(Qt.TextSelectableByMouse)
-        title.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
-        title.setToolTip(player_name)
-        title.setAccessibleName(player_name)
-        self.profile_header_name = title
-        identity.addWidget(title)
-        self.profile_meta = _text(_identity_text(profile), "Muted")
-        self.profile_meta.setWordWrap(False)
-        self.profile_meta.setSizePolicy(QSizePolicy.Ignored, QSizePolicy.Fixed)
-        self.profile_meta.setToolTip(self.profile_meta.text())
-        identity.addWidget(self.profile_meta)
-        top.addLayout(identity, 1)
-        self.profile_rank_summary = ProfileRankSummary(profile)
-        top.addWidget(self.profile_rank_summary, 0, Qt.AlignRight | Qt.AlignVCenter)
-        self.body_layout.addLayout(top)
-        scope = f"最近 {len(snapshot['games'])} 场样本 · 非赛季累计"
-        self.scope_label.setText(f"近 {len(snapshot['games'])} 场样本")
+        self.profile_header = _ProfileHeader(profile, snapshot, self.data_dir)
+        self.profile_avatar = self.profile_header.avatar
+        self.profile_header_name = self.profile_header.name
+        self.profile_meta = self.profile_header.meta
+        self.profile_history_total = self.profile_header.total
+        self.snapshot["profile"] = profile
+        self.body_layout.addWidget(self.profile_header)
+        scope = f"最近 {len(snapshot['games'])} 场数据 · 非赛季累计"
+        self.scope_label.setText(f"近 {len(snapshot['games'])} 场数据")
         self.scope_label.setToolTip(scope)
         self.scope_label.setAccessibleName(scope)
         self.scope_row.show()
@@ -919,17 +1053,10 @@ class AnalysisPage(QWidget):
         self.detail_layout = QVBoxLayout(self.detail)
         self.detail_layout.setSizeConstraint(QLayout.SetMinimumSize)
         self.detail_layout.setContentsMargins(0, 0, 0, 0)
-        self.detail_layout.setSpacing(14)
+        self.detail_layout.setSpacing(CARD_GAP)
         self.detail_layout.setAlignment(Qt.AlignTop)
         self.body_layout.addWidget(self.detail)
         self._render_mode()
-        excluded = sum(self.report["skipped"].values())
-        if excluded:
-            reasons = "、".join(f"{key} {value} 场" for key, value in self.report["skipped"].items())
-            self.body_layout.addWidget(_text("统计已排除：" + reasons + "。", "Muted"))
-        source_link = _text(f'<a style="color:#b8bac2" href="{API_SOURCE}">数据来源与接口说明 ↗</a>', "Muted")
-        source_link.setOpenExternalLinks(True)
-        self.body_layout.addWidget(source_link)
         self.body_layout.addStretch()
         self.refresh_button.setEnabled(not self.busy)
         self.scroll.verticalScrollBar().setValue(0)
@@ -944,9 +1071,8 @@ class AnalysisPage(QWidget):
         info = self.report["by_mode"].get(code)
         rows = [row for row in self.report["rows"] if code is None or row["mode"] == code]
         if not rows:
+            self._render_rank_overview()
             self.detail_layout.addWidget(_text("暂无可分析的已完成公开对局。请稍后刷新，或确认玩家编号。", "Muted"))
-            if code is None:
-                self._render_official_overview()
             return
         if code is None:
             # 全部模式直接展示各模式卡片；场数已在卡片和固定筛选栏中显示。
@@ -959,41 +1085,25 @@ class AnalysisPage(QWidget):
             self.detail_layout.addWidget(self.mode_cards)
         else:
             self._render_metrics(info)
+        # 排位积分直接来自现有玩家历史，不改变全模式列表或额外访问网络。
+        self._render_rank_overview()
         self._render_recent_games(rows, code)
         if info is not None:
             self._render_groups(info)
-        else:
-            self._render_official_overview()
         self.scroll.verticalScrollBar().setValue(0)
 
-    def _render_official_overview(self):
-        """官网的赛季或模式累计放在最近记录之后，避免与近期样本混用。"""
-        overview = profile_overview(self.snapshot["profile"])
-        if not overview:
-            return
-        heading = _text("官方总览", "SectionTitle")
-        heading.setToolTip("服务器提供的赛季或模式累计；与最近公开记录分别统计。")
-        self.detail_layout.addWidget(heading)
-        values = []
-        for row in overview:
-            count = "未提供场数" if row["games"] is None else f"{row['games']} 场"
-            if row["wins"] is not None and row["losses"] is not None:
-                count += f" · {row['wins']} 胜 {row['losses']} 负"
-            rate = "未提供" if row["win_rate"] is None else f"{row['win_rate']:.1f}%"
-            rating = "未提供" if row["rating"] is None else f"{row['rating']:g}\n{row['rating_label']}"
-            values.append([row["name"], row["scope"], count, rate, rating])
-        self.overview_table = self._table(["模式", "范围", "场数 / 胜负", "胜率", "评分"], values, 44)
-        self.overview_table.horizontalHeader().setSectionResizeMode(0, QHeaderView.Stretch)
-        for column, width in ((1, 104), (2, 178), (3, 72), (4, 100)):
-            self.overview_table.setColumnWidth(column, width)
-        self.detail_layout.addWidget(self.overview_table)
+    def _render_rank_overview(self):
+        self.rank_overview_row = RankOverviewRow(self.snapshot["profile"])
+        self.rank_history_card = self.rank_overview_row.history_card
+        self.profile_rank_summary = self.rank_overview_row.rank_summary
+        self.detail_layout.addWidget(self.rank_overview_row)
 
     def _render_metrics(self, info):
         """单个模式保留经济简表，明确统计范围。"""
         metrics = QWidget()
         metric_row = QHBoxLayout(metrics)
         metric_row.setContentsMargins(0, 0, 0, 0)
-        metric_row.setSpacing(10)
+        metric_row.setSpacing(CARD_GAP)
         values = [("样本", f"{info['count']} 场", f"{info['wins']} 胜 · {info['losses']} 负"),
                   ("胜率", f"{info['win_rate']:.1f}%", "仅当前模式"),
                   ("中位时长", _duration(info["median_duration"]), f"{info['duration_count']} 场提供时长")]
@@ -1052,7 +1162,7 @@ class AnalysisPage(QWidget):
                                 ("、".join(row["opponents"]) or "未提供对手") + "\n" + strength,
                                 ranked_result(row)["text"], _duration(row["duration"]),
                                 "胜利" if row["result"] == "win" else "失利", ""])
-        self.game_table = self._table(["日期", "地图 / 模式 / 时长", "ELO / 玩家 / ELO / 对手", "赛后段位", "时长", "结果", "分析"], game_values, 56, action_column=6)
+        self.game_table = self._table(["日期", "地图 / 模式 / 时长", "ELO / 玩家 / ELO / 对手", "积分变化", "时长", "结果", "分析"], game_values, 56, action_column=6)
         self.game_table.horizontalHeaderItem(2).setToolTip("ELO：公开匹配分，用于说明匹配强度；与赛后排位积分分开。未提供时显示—。")
         # 只通过对局编号读取同场原资料；玩家归属仅用profile_id，不用同名昵称。
         source_games = {str(game.get("game_id")): game for game in self.snapshot.get("games", []) if isinstance(game, dict)}
@@ -1079,25 +1189,14 @@ class AnalysisPage(QWidget):
         # 每行保留对局编号，便于在模式切换与数据刷新测试中核对记录。
         for index, row in enumerate(rows):
             self.game_table.item(index, 0).setData(Qt.UserRole, row["game_id"])
-        self.game_table.horizontalHeader().setSectionResizeMode(2, QHeaderView.Stretch)
-        for column, width in ((0, 94), (1, 154), (3, 112), (4, 50),
+        for column, width in ((0, 94), (1, 154), (3, MATCH_RANK_COLUMN_WIDTH), (4, 50),
                               (5, MATCH_RESULT_COLUMN_WIDTH), (6, MATCH_ACTION_COLUMN_WIDTH)):
             self.game_table.setColumnWidth(column, width)
         for index, row in enumerate(rows):
             color = CARD_WIN if row["result"] == "win" else CARD_LOSS
             self.game_table.item(index, 5).setForeground(QColor(color))
             self.game_table.item(index, 3).setToolTip(ranked_result(row)["tooltip"])
-            delta = row["strength_delta"]
-            if delta is None:
-                strength = "双方评分不完整，无法比较对手强弱。"
-            else:
-                method = "匹配分（MMR）" if row["strength_kind"] == "mmr" else "排位积分"
-                strength = f"按双方队伍平均{method}比较：对手{'高' if delta >= 0 else '低'} {abs(delta):.0f} 分。"
-            members = display_rows[index].get("display_teams", [])
-            team_tooltip = "\n".join(team["label"] + "：" + "、".join(
-                player["display_name"] + f"（账号{player.get('profile_id', '未提供')}）" for player in team["players"])
-                                     for team in members)
-            self.game_table.item(index, 2).setToolTip((team_tooltip or "、".join(row["opponents"])) + "\n" + strength)
+            self.game_table.item(index, 2).setToolTip("")
             actions = QWidget()
             action_row = QHBoxLayout(actions)
             action_row.setContentsMargins(MATCH_ACTION_PADDING, 0, MATCH_ACTION_PADDING, 0)
@@ -1115,6 +1214,8 @@ class AnalysisPage(QWidget):
             action_row.addWidget(analyze, 0, Qt.AlignCenter)
             self.game_table.setCellWidget(index, 6, actions)
         style_recent_matches(self.game_table, display_rows)
+        self.game_table.matchActivated.connect(self.open_public_replay)
+        self.game_table.playerActivated.connect(self._query_table_player)
         self.game_table.setColumnWidth(6, MATCH_ACTION_COLUMN_WIDTH)
         self.game_table.horizontalHeader().moveSection(1, 0)
         recent_layout.addWidget(self.game_table)

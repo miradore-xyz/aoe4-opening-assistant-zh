@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QMenu
 
 MENU_STYLE = """
 QMenu {background:#1c1c20;color:#ededf0;border:1px solid #42424a;
-       border-radius:8px;padding:6px;font-family:'Sen','Source Han Sans SC','Microsoft YaHei UI';font-size:13px;}
+       border-radius:8px;padding:6px;font-family:'Smiley Sans';font-size:13px;}
 QMenu::item {background:transparent;border:1px solid transparent;border-radius:5px;
              min-height:24px;padding:5px 18px 5px 12px;}
 QMenu::item:selected {background:#34343C;border:1px solid #64646E;color:#ffffff;}

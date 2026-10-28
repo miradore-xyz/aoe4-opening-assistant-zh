@@ -1,4 +1,4 @@
-"""软件内置字体：Sen承接拉丁字母与数字，思源黑体承接中文。
+"""软件内置得意黑：中文、英文字母与数字使用同一套字形。
 
 字体只登记到当前进程，不修改Windows（微软桌面系统）的系统字体目录。
 """
@@ -8,8 +8,9 @@ import sys
 from PyQt5.QtGui import QFont, QFontDatabase, QGuiApplication
 
 
-FONT_FAMILIES = ('Sen', 'Source Han Sans SC', 'Microsoft YaHei UI')
-FONT_CSS = "'Sen','Source Han Sans SC','Microsoft YaHei UI'"
+FONT_FAMILY = 'Smiley Sans'
+FONT_FAMILIES = (FONT_FAMILY,)
+FONT_CSS = "'Smiley Sans'"
 _registered = None
 
 
@@ -29,22 +30,16 @@ def register_ui_fonts():
         return ()
     root = font_root()
     registered = []
-    for subfolder, names in (
-        ('Sen', ('Sen-Regular.ttf', 'Sen-Medium.ttf', 'Sen-SemiBold.ttf', 'Sen-Bold.ttf')),
-        ('思源黑体', ('SourceHanSansSC-Regular.otf', 'SourceHanSansSC-Medium.otf', 'SourceHanSansSC-Bold.otf')),
-    ):
-        for name in names:
-            path = root / subfolder / name
-            identity = QFontDatabase.addApplicationFont(str(path))
-            if identity >= 0:
-                registered.append(str(path))
-    QFont.insertSubstitutions('Sen', list(FONT_FAMILIES[1:]))
+    path = root / '得意黑' / 'SmileySans-Oblique.ttf'
+    identity = QFontDatabase.addApplicationFont(str(path))
+    if identity >= 0:
+        registered.append(str(path))
     _registered = tuple(registered)
     return _registered
 
 
 def make_ui_font(size=14, weight=QFont.Normal):
-    """明确的中英文字体链；字重由随附的真实字体文件匹配。"""
+    """全界面共用得意黑；官方只有一个字重，加粗由Qt合成，不伪造另一字重文件。"""
     register_ui_fonts()
     font = QFont()
     font.setFamilies(list(FONT_FAMILIES))

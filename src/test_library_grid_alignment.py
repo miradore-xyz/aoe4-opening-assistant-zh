@@ -5,6 +5,7 @@ import unittest
 from PyQt5.QtCore import QPoint, QPointF, Qt
 from PyQt5.QtGui import QWheelEvent
 from PyQt5.QtTest import QTest
+from PyQt5.QtWidgets import QPushButton
 
 from default_openings import seed_default_openings
 import test_brand_name as brand_fixture
@@ -36,7 +37,7 @@ class LibraryGridAlignmentTests(unittest.TestCase):
         return [(item, delegate.card_rect(library.visualItemRect(item), library.indexFromItem(item)))
                 for item in (library.item(i) for i in range(library.count())) if not item.isHidden()]
 
-    def test_full_rows_fill_width_with_matching_heading_and_footer_edges(self):
+    def test_full_rows_fill_width_with_matching_heading_action_edges(self):
         """760 至 1920 像素均分余数；卡片上限244，满行左右误差不超过2像素。"""
         for width in (760, 1100, 1440, 1920):
             with self.subTest(width=width):
@@ -59,8 +60,8 @@ class LibraryGridAlignmentTests(unittest.TestCase):
                     self.assertEqual(following.left() - previous.right() - 1, 16)
                 origin = library.viewport().mapTo(manager, QPoint())
                 self.assertEqual(origin.x() + left, manager.home_layout.contentsMargins().left() + 1)
-                footer_right = manager.resume_button.mapTo(manager, QPoint(manager.resume_button.width(), 0)).x()
-                self.assertLessEqual(abs(origin.x() + first_row[-1].right() + 1 - footer_right), 2)
+                action_right = manager.new_order_button.mapTo(manager, QPoint(manager.new_order_button.width(), 0)).x()
+                self.assertLessEqual(abs(origin.x() + first_row[-1].right() + 1 - action_right), 2)
                 self.assertFalse(library.dragEnabled())
                 self.assertEqual(library.verticalScrollBarPolicy(), Qt.ScrollBarAlwaysOff)
                 self.assertEqual(library.horizontalScrollBarPolicy(), Qt.ScrollBarAlwaysOff)
@@ -70,6 +71,31 @@ class LibraryGridAlignmentTests(unittest.TestCase):
                 self.assertEqual(tail[0].left(), first_row[0].left())
                 for index, rect in enumerate(tail):
                     self.assertEqual(rect.left(), first_row[index].left())
+
+    def test_three_header_actions_share_one_row_without_footer_or_clipping(self):
+        manager = self.manager
+        buttons = [manager.online_orders_button, manager.import_orders_button, manager.new_order_button]
+        self.assertEqual([button.text() for button in buttons], ["获取开局", "本地导入", "新建开局"])
+        self.assertEqual(manager.home_layout.count(), 3, "首页只保留标题、筛选和书架，不留空底栏")
+        self.assertFalse(any(button.text() == "继续演练" for button in manager.findChildren(QPushButton)))
+        self.assertEqual(buttons[0].objectName(), buttons[1].objectName())
+        for font_size in (14, 18):
+            manager.ui_font_input.setValue(font_size)
+            QTest.qWait(390)
+            for width in (760, 1100):
+                manager.resize(width, 800)
+                QTest.qWait(30)
+                positions = [button.mapTo(manager, QPoint()) for button in buttons]
+                self.assertEqual(len({point.y() for point in positions}), 1)
+                for button, position in zip(buttons, positions):
+                    self.assertIs(button.parentWidget(), manager.library_header_actions)
+                    self.assertTrue(button.isVisible())
+                    self.assertGreaterEqual(button.width(), button.minimumSizeHint().width())
+                    self.assertGreaterEqual(position.x(), 0)
+                    self.assertLessEqual(position.x() + button.width(), manager.width())
+                for previous, following in zip(buttons, buttons[1:]):
+                    right = previous.mapTo(manager, QPoint(previous.width(), 0)).x()
+                    self.assertGreaterEqual(following.mapTo(manager, QPoint()).x() - right, 8)
 
     def test_hidden_scrollbar_reaches_last_card_and_filter_resets_positions(self):
         manager = self.manager

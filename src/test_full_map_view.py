@@ -2,13 +2,14 @@
 import copy
 import os
 import unittest
+from unittest.mock import patch
 
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
 from PyQt5.QtCore import QBuffer, QEvent, QIODevice, QPoint, QPointF, Qt
 from PyQt5.QtGui import QColor, QImage, QPixmap, QTransform
 from PyQt5.QtTest import QSignalSpy, QTest
-from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QApplication, QGraphicsView
 
 from full_map_view import FullMapView, _TileCache, _TreeLayerCache, build_entity_index
 
@@ -295,6 +296,67 @@ class FullMapViewTests(unittest.TestCase):
         self.assertFalse(canvas.tree_geometry_cache.items)
         self.paint(view)
         self.assertEqual(canvas.index["points"][0]["entity"]["id"], "tree-second")
+
+    def test_reference_grid_only_appears_outside_terrain_and_empty_stays_solid(self):
+        view = self.view()
+        canvas = view.canvas
+        canvas.set_reference_grid("#161619", "#26262c")
+        empty = self.paint(view)
+        self.assertEqual(empty.pixelColor(8, 8).name(), "#0f0f11")
+        view.set_map("first")
+        canvas.zoom_at(canvas.viewport().rect().center(), .5)
+        image = self.paint(view)
+        colors = {image.pixelColor(x, y).name() for x in range(70) for y in range(70)}
+        self.assertIn("#161619", colors)
+        self.assertIn("#26262c", colors)
+        position = canvas.mapFromScene(QPointF(300, 400))
+        self.assertEqual(image.pixelColor(position).name(), "#49a65c", "底纹不得画在真实地形矩形内")
+        view.set_match_map("unknown")
+        self.assertEqual(self.paint(view).pixelColor(8, 8).name(), "#0f0f11")
+
+    def test_clipped_reference_viewport_keeps_qt_exposed_region_cleanup(self):
+        view = self.view()
+        view.set_map("first")
+        # 圆角父容器与高DPI滚动并非每次都由本画布填满暴露区域；不能跳过Qt底层清理。
+        self.assertFalse(view.canvas.viewport().testAttribute(Qt.WA_OpaquePaintEvent))
+        view.canvas.set_reference_grid("#161619", "#26262c")
+        view.canvas.zoom_at(view.canvas.viewport().rect().center(), 4)
+        view.canvas.centerOn(QPointF(100, 100))
+        self.paint(view)
+        self.assertFalse(view.canvas.viewport().testAttribute(Qt.WA_OpaquePaintEvent))
+
+    def test_background_cache_avoids_fractional_dpi_scroll_rounding(self):
+        view = self.view()
+        canvas = view.canvas
+        for ratio, expected in ((1, QGraphicsView.CacheBackground), (1.25, QGraphicsView.CacheNone),
+                                (1.5, QGraphicsView.CacheNone), (2, QGraphicsView.CacheBackground)):
+            with self.subTest(ratio=ratio), patch.object(canvas.viewport(), "devicePixelRatioF", return_value=ratio):
+                canvas._sync_background_cache_mode()
+                self.assertEqual(canvas.cacheMode(), expected)
+                self.assertEqual(canvas._background_cache_dpr, ratio)
+
+    def test_static_background_keeps_selection_dynamic_and_same_map_inputs_reused(self):
+        view = self.view()
+        view.set_map("first")
+        canvas = view.canvas
+        self.paint(view)
+        original = copy.deepcopy(canvas.index["points"])
+        counts = (len(self.catalog.entity_reads), canvas.tile_cache.loads, canvas.tree_cache.builds)
+        point = canvas.mapFromScene(QPointF(500, 300))
+        QTest.mouseClick(canvas.viewport(), Qt.LeftButton, pos=point)
+        selected = self.paint(view)
+        edge = point + QPoint(8, 0)
+        self.assertGreater(selected.pixelColor(edge).red(), 230)
+        QTest.mouseClick(canvas.viewport(), Qt.LeftButton, pos=canvas.mapFromScene(QPointF(300, 400)))
+        cleared = self.paint(view)
+        self.assertIsNone(canvas.selected)
+        self.assertEqual(cleared.pixelColor(edge).name(), "#49a65c", "选中环不能残留在静态缓存")
+        state = view.capture_view_state()
+        view.set_match_map("first")
+        view.restore_view_state(state)
+        self.paint(view)
+        self.assertEqual((len(self.catalog.entity_reads), canvas.tile_cache.loads, canvas.tree_cache.builds), counts)
+        self.assertEqual(canvas.index["points"], original)
 
     def test_static_tree_cache_has_a_memory_and_item_limit(self):
         cache = _TreeLayerCache(max_bytes=5000, max_items=2)

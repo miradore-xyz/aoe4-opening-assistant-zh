@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "version": "1.9.5",
-  "notes": "AoE4 HELP 1.9.5 · 王兰花版本。本次更新内容见发行说明；安装会保留已有开局与设置。",
-  "page_url": "https://github.com/miradore-xyz/aoe4-opening-assistant-zh/releases/tag/v1.9.5",
+  "version": "1.9.6",
+  "notes": "AoE4 HELP 1.9.6 · 王兰花版本。本次更新内容见发行说明；安装会保留已有开局与设置。",
+  "page_url": "https://github.com/miradore-xyz/aoe4-opening-assistant-zh/releases/tag/v1.9.6",
   "asset": {
     "name": "AoE4OpeningAssistant-Setup.exe",
-    "url": "https://github.com/miradore-xyz/aoe4-opening-assistant-zh/releases/download/v1.9.5/AoE4OpeningAssistant-Setup.exe",
-    "sha256": "19246a01ede02086b98c8f3bd333f80b18a070aa95de77f54364ee97ee67d4bc",
-    "size": 258487698
+    "url": "https://github.com/miradore-xyz/aoe4-opening-assistant-zh/releases/download/v1.9.6/AoE4OpeningAssistant-Setup.exe",
+    "sha256": "e97ab46df0ad7be546d0720f1fd705677edd4fceec7f2f762580bde4b5d00091",
+    "size": 63074699
   }
 }

@@ -11,9 +11,9 @@ import sys
 from app_fonts import make_ui_font, register_ui_fonts
 from PyQt5 import sip
 from PyQt5.QtCore import QEvent, QEasingCurve, QPoint, QPointF, QRect, QRectF, QSize, Qt, QTimer, QVariantAnimation
-from PyQt5.QtGui import QColor, QFont, QPainter, QPen
-from PyQt5.QtGui import QPainterPath
+from PyQt5.QtGui import QColor, QFont, QIcon, QPainter, QPen
 from PyQt5.QtWidgets import QPushButton
+from visual import line_icon
 
 
 def _alive(widget):
@@ -41,7 +41,7 @@ class OverlayLockHandle(QPushButton):
         font = make_ui_font()
         font.setPixelSize(12)
         self.setFont(font)
-        self.setStyleSheet("font-family:'Sen','Source Han Sans SC','Microsoft YaHei UI';font-size:12px;")
+        self.setStyleSheet("font-family:'Smiley Sans';font-size:12px;")
         self._overlay = weakref.ref(overlay)
         self._anchor = weakref.ref(anchor_widget)
         self._on_toggle = on_toggle
@@ -77,6 +77,8 @@ class OverlayLockHandle(QPushButton):
             return
         self._locked = bool(locked)
         self.setText("")
+        # 与播放/关闭共用官方Lucide原稿，只替换金色，锁定/解锁以真实形状区分。
+        self.setIcon(line_icon("lock-keyhole" if self._locked else "lock-keyhole-open", "#e5c88e"))
         current = "已锁定" if self._locked else "已解锁"
         action = "解锁悬浮窗" if self._locked else "锁定悬浮窗"
         self.setAccessibleName(f"{action}（当前{current}）")
@@ -197,27 +199,11 @@ class OverlayLockHandle(QPushButton):
             painter.setPen(QPen(QColor("#ffe4a3"), 1, Qt.DotLine))
             painter.setBrush(Qt.NoBrush)
             painter.drawRoundedRect(bounds.adjusted(2, 2, -2, -2), 5, 5)
-        # 同一18像素线稿体系；开锁的钩明确向右移开，以形状区分状态。
+        # 沿用独立点击窗及其动画，只替换18像素图形，不改变命中、穿透或同步位置。
         edge = min(18, self.width(), self.height())
         painter.setOpacity(1 - pressed * .16)
-        painter.translate((self.width() - edge) / 2, (self.height() - edge) / 2)
-        painter.scale(edge / 24, edge / 24)
-        painter.setPen(QPen(QColor("#e5c88e"), 1.7, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
-        painter.setBrush(Qt.NoBrush)
-        painter.drawRoundedRect(QRectF(6.5, 10, 11, 10), 2.4, 2.4)
-        hook = QPainterPath()
-        if self._locked:
-            hook.moveTo(9, 10)
-            hook.lineTo(9, 7)
-            hook.cubicTo(9, 3, 15, 3, 15, 7)
-            hook.lineTo(15, 10)
-        else:
-            hook.moveTo(11, 10)
-            hook.lineTo(11, 6.5)
-            hook.cubicTo(11, 2.5, 17, 2.5, 17, 6.5)
-            hook.lineTo(17, 8)
-        painter.drawPath(hook)
-        painter.drawLine(QPointF(12, 14), QPointF(12, 16.5))
+        self.icon().paint(painter, QRect((self.width()-edge)//2, (self.height()-edge)//2, edge, edge),
+                          Qt.AlignCenter, QIcon.Normal)
     def cleanup(self, *_args):
         """退出或锁槽销毁时隐藏并删除工具窗；重复调用不会访问已销毁的 Qt 对象。"""
         if self._cleaned:

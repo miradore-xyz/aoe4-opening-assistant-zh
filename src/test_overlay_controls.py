@@ -157,12 +157,12 @@ class OverlayControlTests(unittest.TestCase):
         slot = lock_slot.rect().translated(lock_slot.mapToGlobal(QPoint()))
         self.assertTrue(slot.contains(self.overlay.lock_handle.geometry()))
 
-    def test_group_range_and_small_condition_caption_keep_original_notes(self):
+    def test_group_range_keeps_condition_notes_without_extra_caption(self):
         self.panel.ids = [0, 1]
         with patch("app.timer_steps", return_value=[{"time": "0:00"}, {"time": "4:00"}]):
             self.overlay.render()
         self.assertEqual(self.overlay.current_stage_ids, [0, 1])
-        self.assertIn("条件提示", self.overlay.notes.text())
+        self.assertNotIn("条件提示", self.overlay.notes.text())
         self.assertIn("达到条件后再分配村民", self.overlay.notes.text())
         self.assertFalse(self.overlay.resources.isVisible())
         self.panel.ids = [2]
@@ -171,7 +171,8 @@ class OverlayControlTests(unittest.TestCase):
         self.assertEqual(self.overlay.previous_stage_ids, [0, 1])
         current_html = self.overlay.notes.text().split('<div data-stage="previous">')[0]
         self.assertNotIn("条件提示", current_html)
-        self.assertIn("条件提示", self.overlay.notes.text(), "上一阶段的附属条件提示仍应保留")
+        self.assertNotIn("条件提示", self.overlay.notes.text())
+        self.assertIn("达到条件后再分配村民", self.overlay.notes.text(), "上一阶段的附属条件正文仍应保留")
 
     def test_start_is_compact_locks_only_after_success_and_removes_legacy_controls(self):
         self.assertEqual((self.overlay.start_button.width(), self.overlay.start_button.height()), (28, 28))

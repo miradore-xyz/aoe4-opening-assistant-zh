@@ -391,8 +391,8 @@ class ReplayPageTests(unittest.TestCase):
         for area in self.page.findChildren(QAbstractScrollArea):
             self.assertEqual(area.verticalScrollBarPolicy(), Qt.ScrollBarAlwaysOff)
             self.assertEqual(area.horizontalScrollBarPolicy(), Qt.ScrollBarAlwaysOff)
-        self.assertGreaterEqual(self.page.import_button.height(), 30)
-        self.assertLess(self.page.import_button.width(), 200)
+        self.assertTrue(self.page.legacy_tools.isHidden())
+        self.assertFalse(self.page.import_button.isVisible())
         scrollbar = self.page.scroll.verticalScrollBar()
         self.assertGreater(scrollbar.maximum(), 0)
         scrollbar.setValue(0)

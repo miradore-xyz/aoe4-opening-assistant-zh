@@ -9,15 +9,16 @@ import math
 import re
 from datetime import datetime
 
-from PyQt5.QtCore import QEvent, Qt, QRectF, QSize
-from PyQt5.QtGui import QColor, QBrush, QFont, QFontMetricsF, QPainter, QPainterPath, QPen, QPalette, QRegion
+from PyQt5.QtCore import QEvent, Qt, QPointF, QRectF, QSize, pyqtSignal
+from PyQt5.QtGui import QColor, QBrush, QFont, QFontMetrics, QFontMetricsF, QPainter, QPainterPath, QPen, QPalette
 from PyQt5.QtWidgets import (
     QFrame, QGridLayout, QHBoxLayout, QHeaderView, QLabel, QPushButton, QSizePolicy, QStyle,
     QStyleOptionHeader, QStyledItemDelegate, QTableWidget, QToolTip, QVBoxLayout, QWidget,
 )
 
-from visual import civilization_flag, ui_font
+from visual import CARD_GAP, civilization_flag, ui_font
 from rank_display import ranked_result, rank_badge
+from rounded_corners import make_corner_covers, position_corner_covers
 
 
 MATCH_METADATA_ROLE = Qt.UserRole + 1
@@ -26,12 +27,16 @@ MATCH_ROW_HEIGHT = 56
 # 结果槽和单一箭头入口各自保持明确命中区，列宽随入口收紧。
 MATCH_CONTROL_SIZE = QSize(44, 26)
 MATCH_ACTION_SIZE = QSize(28, 28)
-MATCH_ACTION_PADDING = 10
-MATCH_RESULT_PADDING = 12
+MATCH_ACTION_PADDING = 8
+MATCH_RESULT_PADDING = 6
 MATCH_RESULT_COLUMN_WIDTH = MATCH_CONTROL_SIZE.width() + MATCH_RESULT_PADDING * 2
 MATCH_ACTION_COLUMN_WIDTH = MATCH_ACTION_PADDING * 2 + MATCH_ACTION_SIZE.width()
+# 视觉首列仅增加左侧留白；地图表头、地图名与模式/时长共用16像素起点。
+MATCH_MAP_LEFT_PADDING = 16
+MATCH_RANK_COLUMN_WIDTH = 80  # 原色段位徽章与本局有符号积分变化共用紧凑槽。
 # 双方名单与表头共用这些槽位，避免各自计算产生横向偏移。
-MATCH_TEAM_GAP = 24
+MATCH_TEAM_MAX_WIDTH = 205  # 每队保留135像素名字槽，长名省略，宽窗不继续拉开两队。
+MATCH_GROUP_GAP = 16  # 七个阅读组使用同一最小间距，宽窗余量均分到六处组间隙。
 MATCH_PLAYER_HEIGHT = 19
 MATCH_PLAYER_PITCH = 21
 MATCH_SCORE_WIDTH = 32
@@ -66,11 +71,75 @@ _CIVILIZATION_FLAGS = {
 
 
 def match_team_columns(rect):
-    """将同一内容区域等分成两队，供表头和每行共用横向基准。"""
+    """名单使用有限名字槽；宽窗中的两队间隙与整表其他组一致。"""
     rect = QRectF(rect)
-    width = max(0, (rect.width() - MATCH_TEAM_GAP) / 2)
-    return tuple(QRectF(rect.left() + number * (width + MATCH_TEAM_GAP),
+    gap = max(MATCH_GROUP_GAP, rect.width() - MATCH_TEAM_MAX_WIDTH * 2)
+    width = max(0, min(MATCH_TEAM_MAX_WIDTH, (rect.width() - gap) / 2))
+    return tuple(QRectF(rect.left() + number * (width + gap),
                         rect.top(), width, rect.height()) for number in range(2))
+
+
+def arrange_recent_match_columns(table, map_preferred_width):
+    """按七个内容组统一分配整表宽度；不存在独吞剩余宽度的伸展列。"""
+    available = table.viewport().width()
+    if available <= 0:
+        return
+    map_width = max(88, min(108 if available < 980 else 152, map_preferred_width))
+    fixed_width = map_width + 52 + 64 + 44 + 28
+    inner_width = max(0, available - MATCH_MAP_LEFT_PADDING * 2)
+    gap = max(MATCH_GROUP_GAP, (inner_width - fixed_width - MATCH_TEAM_MAX_WIDTH * 2) / 6)
+    team_width = max(0, min(MATCH_TEAM_MAX_WIDTH, (inner_width - fixed_width - gap * 6) / 2))
+    names = ("map", "date", "players", "opponents", "rank", "result", "action")
+    widths = (map_width, 52, team_width, team_width, 64, 44, 28)
+    groups = {}
+    cursor = float(MATCH_MAP_LEFT_PADDING)
+    for name, width in zip(names, widths):
+        groups[name] = (cursor, width)
+        cursor += width + gap
+    # 物理列边界放在相邻组之间；双方名单仍在同一模型列中，保留原编号和信号。
+    borders = [0] + [round(groups[name][0] + groups[name][1] + gap / 2)
+                     for name in ("map", "date", "opponents", "rank", "result")] + [available]
+    columns = (1, 0, 2, 3, 5, 6)
+    content = {}
+    for number, (column, name) in enumerate(zip(columns, ("map", "date", "players", "rank", "result", "action"))):
+        cell_width = borders[number + 1] - borders[number]
+        start, width = groups[name]
+        if column == 2:
+            width = team_width * 2 + gap
+        inset = start - borders[number]
+        if column in (0, 3, 5):
+            inset = (cell_width - width) / 2
+        elif column == 6:
+            inset = round(inset)
+        content[column] = (inset, width)
+        table.horizontalHeader().setSectionResizeMode(column, QHeaderView.Fixed)
+        table.setColumnWidth(column, cell_width)
+    table.match_column_content = content
+    table.match_group_gap = gap
+    table.match_map_preferred_width = map_preferred_width
+    # 实际按钮与分析表头共用最后一个内容槽，跟随列宽变化而非固定左内距。
+    for row in range(table.rowCount()):
+        action = table.cellWidget(row, 6)
+        if action is not None and action.layout() is not None:
+            left = round(content[6][0])
+            action.layout().setContentsMargins(left, 0, table.columnWidth(6) - left - MATCH_ACTION_SIZE.width(), 0)
+    table.viewport().update()
+    table.horizontalHeader().viewport().update()
+
+
+def match_cell_content_rect(table, column, rect):
+    """表头、正文和名字命中读取同一份实际内容槽，列宽取整不会产生各自偏移。"""
+    rect = QRectF(rect)
+    content = getattr(table, "match_column_content", {})
+    if column in content:
+        inset, width = content[column]
+        return QRectF(rect.left() + inset, rect.top(), width, rect.height())
+    return match_map_content_rect(rect) if column == 1 else rect.adjusted(8, 0, -8, 0)
+
+
+def match_map_content_rect(rect):
+    """地图列的统一内容槽；不改变双方名单及名字双击的几何基准。"""
+    return QRectF(rect).adjusted(MATCH_MAP_LEFT_PADDING, 0, -8, 0)
 
 
 def match_player_rect(area, index, count):
@@ -285,8 +354,8 @@ class ModeSummaryGrid(QWidget):
         self.column_count = 0
         self._grid = QGridLayout(self)
         self._grid.setContentsMargins(0, 0, 0, 0)
-        self._grid.setHorizontalSpacing(10)
-        self._grid.setVerticalSpacing(10)
+        self._grid.setHorizontalSpacing(CARD_GAP)
+        self._grid.setVerticalSpacing(CARD_GAP)
         self.setMinimumWidth(0)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         self.set_modes(items or [])
@@ -309,7 +378,7 @@ class ModeSummaryGrid(QWidget):
         columns = min(preferred, len(self.cards)) or 1
         # 以真实中文文本尺寸校验列数，避免主机等较长模式名被挤掉。
         minimum = max((card.minimumSizeHint().width() for card in self.cards), default=154)
-        while columns > 1 and columns * minimum + (columns - 1) * 10 > width:
+        while columns > 1 and columns * minimum + (columns - 1) * CARD_GAP > width:
             columns -= 1
         if columns != self.column_count:
             while self._grid.count():
@@ -320,7 +389,7 @@ class ModeSummaryGrid(QWidget):
                 self._grid.setColumnStretch(column, 1 if column < columns else 0)
             self.column_count = columns
         rows = math.ceil(len(self.cards) / columns)
-        height = rows * CARD_HEIGHT + max(0, rows - 1) * 10
+        height = rows * CARD_HEIGHT + max(0, rows - 1) * CARD_GAP
         self.setFixedHeight(height)
         self.updateGeometry()
 
@@ -332,23 +401,68 @@ class ModeSummaryGrid(QWidget):
         return QSize(max((card.minimumSizeHint().width() for card in self.cards), default=0), self.height())
 
 class RoundedMatchPanel(QFrame):
-    """最近对局标题、表头、正文的一体容器，裁剪整块外边缘。"""
+    """标题、表头、正文共用平滑外缘，不用硬多边形裁剪曲线。"""
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self._corners = make_corner_covers(self)
 
     def resizeEvent(self, event):
         super().resizeEvent(event)
-        path = QPainterPath()
-        path.addRoundedRect(QRectF(self.rect()), 12, 12)
-        self.setMask(QRegion(path.toFillPolygon().toPolygon()))
+        position_corner_covers(self, self._corners)
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        position_corner_covers(self, self._corners)
 
 
 class RoundedMatchTable(QTableWidget):
-    """整张对局表统一12像素圆角，真实裁剪表头、视口与所有子控件。"""
+    """独立表格使用平滑圆角；一体卡片内的表格不再额外挖去四角。"""
+
+    matchActivated = pyqtSignal(object)  # 对局记录：保留原查询焦点、game_id与同场上下文。
+    playerActivated = pyqtSignal(object)  # 玩家记录：只由名字文字命中触发，编号可缺失但不猜测。
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._corners = make_corner_covers(self)
+
+    def _update_corners(self):
+        nested = isinstance(self.parentWidget(), RoundedMatchPanel)
+        for corner in self._corners:
+            corner.setVisible(not nested)
+        position_corner_covers(self, self._corners)
 
     def resizeEvent(self, event):
         super().resizeEvent(event)
-        path = QPainterPath()
-        path.addRoundedRect(QRectF(self.rect()), 12, 12)
-        self.setMask(QRegion(path.toFillPolygon().toPolygon()))
+        if hasattr(self, "_corners"):
+            self._update_corners()
+        if hasattr(self, "match_map_preferred_width"):
+            arrange_recent_match_columns(self, self.match_map_preferred_width)
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        self._update_corners()
+
+    def mouseDoubleClickEvent(self, event):
+        index = self.indexAt(event.pos())
+        if event.button() == Qt.LeftButton and index.isValid():
+            metadata = index.sibling(index.row(), 0).data(MATCH_METADATA_ROLE) or {}
+            if metadata.get("game_id") is not None:
+                self.setCurrentCell(index.row(), index.column())
+                self.selectRow(index.row())
+                if index.column() == 2:
+                    delegate = self.itemDelegate(index)
+                    if isinstance(delegate, RecentMatchDelegate):
+                        player = delegate.player_at(self.visualRect(index), metadata, event.pos())
+                        if player is not None:
+                            self.playerActivated.emit(dict(player))
+                            event.accept()
+                            return
+                self.matchActivated.emit(dict(metadata))
+                # 一次双击只派发一个目标；不再让基类额外发出一轮双击/编辑信号。
+                event.accept()
+                return
+        super().mouseDoubleClickEvent(event)
 
 
 class RecentMatchDelegate(QStyledItemDelegate):
@@ -378,40 +492,90 @@ class RecentMatchDelegate(QStyledItemDelegate):
         clipped = painter.fontMetrics().elidedText(str(text), Qt.ElideRight, max(0, int(rect.width())))
         painter.drawText(rect, alignment, clipped)
 
-    def _paint_teams(self, painter, rect, metadata):
-        """明确ID关联后的双方列表；每人独立旗帜/昵称/公开匹配分槽，不按名字分队。"""
-        teams = metadata.get("display_teams", [])
-        for area, team in zip(match_team_columns(rect), teams[:2]):
-            for index, player in enumerate(team["players"]):
-                line = match_player_rect(area, index, len(team["players"]))
-                y = line.top()
-                # 两侧统一为固定分数槽→旗帜→昵称，分数靠近对应玩家而非远端。
-                score_width, flag_offset, name_offset = MATCH_SCORE_WIDTH, MATCH_FLAG_OFFSET, MATCH_NAME_OFFSET
-                rating = player.get("mmr")
-                if not isinstance(rating, (int, float)) or isinstance(rating, bool) or not math.isfinite(rating):
-                    rating = None
-                rating_text = f"{rating:g}" if rating is not None else "—"
-                self._text(painter, QRectF(area.left(), y, score_width, 19), rating_text,
-                           10, "#c4c4ca" if rating is not None else CARD_AUX,
-                           alignment=Qt.AlignRight | Qt.AlignVCenter, numeric=True)
-                flag_name = _CIVILIZATION_FLAGS.get(str(player.get("civilization")))
-                flag = civilization_flag(flag_name) if flag_name else None
-                if flag is not None and not flag.isNull():
-                    target = QRectF(area.left() + flag_offset, line.center().y() - 7, 23, 14)
-                    clip = QPainterPath()
-                    clip.addRoundedRect(target, 2, 2)
-                    painter.save()
-                    painter.setClipPath(clip, Qt.IntersectClip)
-                    painter.drawPixmap(target, flag, QRectF(flag.rect()))
-                    painter.restore()
-                else:
-                    self._text(painter, QRectF(area.left() + flag_offset, y, 23, 19), "—", 10, CARD_AUX,
-                               alignment=Qt.AlignCenter)
-                result = player.get("result")
-                color = CARD_WIN if result == "win" else CARD_LOSS if result == "loss" else CARD_MODE
+    @staticmethod
+    def player_name_layout(content, metadata):
+        """绘制和点击共用玩家行、名字槽、相同字体及省略后字宽，空白不算名字。"""
+        result = []
+        for area, team in zip(match_team_columns(content), metadata.get("display_teams", [])[:2]):
+            players = team.get("players", [])
+            for index, player in enumerate(players):
+                line = match_player_rect(area, index, len(players))
+                name_rect = QRectF(area.left() + MATCH_NAME_OFFSET, line.top(),
+                                   max(0, area.width() - MATCH_NAME_OFFSET), MATCH_PLAYER_HEIGHT)
                 focused = str(player.get("profile_id")) == str(metadata.get("focus_profile_id"))
-                self._text(painter, QRectF(area.left() + name_offset, y, max(0, area.width() - name_offset), 19),
-                           player["display_name"], 11, color, QFont.DemiBold if focused else QFont.Normal)
+                weight = QFont.DemiBold if focused else QFont.Normal
+                metrics = QFontMetrics(ui_font(11, weight))
+                text = str(player.get("display_name") or player.get("name") or "")
+                clipped = metrics.elidedText(text, Qt.ElideRight, max(0, int(name_rect.width())))
+                text_width = min(name_rect.width(), metrics.horizontalAdvance(clipped))
+                text_height = min(name_rect.height(), metrics.height())
+                hit_rect = QRectF(name_rect.left(), name_rect.center().y() - text_height / 2,
+                                  text_width, text_height)
+                result.append({"player": player, "area": area, "line": line, "name_rect": name_rect,
+                               "text": text, "visible_text": clipped, "hit_rect": hit_rect, "weight": weight})
+        return result
+
+    def content_rect(self, cell, column):
+        return match_cell_content_rect(self.parent(), column, cell)
+
+    def player_layout_at(self, cell, metadata, position):
+        """名字绘制、省略提示及双击共用相同的实际文字命中矩形。"""
+        content = self.content_rect(cell, 2)
+        for layout in self.player_name_layout(content, metadata):
+            if layout["visible_text"] and layout["hit_rect"].contains(QPointF(position)):
+                return layout
+        return None
+
+    def player_at(self, cell, metadata, position):
+        layout = self.player_layout_at(cell, metadata, position)
+        return layout["player"] if layout is not None else None
+
+    def helpEvent(self, event, view, option, index):
+        """双方整格不弹队伍说明；仅省略名字的实际文字上提示该一个完整昵称。"""
+        if event.type() == QEvent.ToolTip and index.column() == 2:
+            metadata = index.sibling(index.row(), 0).data(MATCH_METADATA_ROLE) or {}
+            layout = self.player_layout_at(option.rect, metadata, event.pos())
+            if layout is not None and layout["visible_text"] != layout["text"]:
+                name = str(layout["player"].get("name") or layout["text"])
+                QToolTip.showText(event.globalPos(), name, view.viewport(), layout["hit_rect"].toAlignedRect())
+            else:
+                QToolTip.hideText()
+            return True
+        return super().helpEvent(event, view, option, index)
+
+    def _paint_teams(self, painter, rect, metadata):
+        """明确ID关联后的双方列表；姓名命中区域直接复用此处的实际绘制布局。"""
+        if len(metadata.get("display_teams", [])) >= 2:
+            left, right = match_team_columns(rect)
+            # VS（对阵）只占双方原有留白，不挤占昵称槽，也不成为玩家名字命中区域。
+            versus = QRectF(left.right(), rect.top(), max(0, right.left() - left.right()), rect.height())
+            self._text(painter, versus, "VS", 13, INK, QFont.DemiBold, Qt.AlignCenter)
+        for layout in self.player_name_layout(rect, metadata):
+            player, area, line = layout["player"], layout["area"], layout["line"]
+            y = line.top()
+            rating = player.get("mmr")
+            if not isinstance(rating, (int, float)) or isinstance(rating, bool) or not math.isfinite(rating):
+                rating = None
+            rating_text = f"{rating:g}" if rating is not None else "—"
+            self._text(painter, QRectF(area.left(), y, MATCH_SCORE_WIDTH, 19), rating_text,
+                       10, "#c4c4ca" if rating is not None else CARD_AUX,
+                       alignment=Qt.AlignRight | Qt.AlignVCenter, numeric=True)
+            flag_name = _CIVILIZATION_FLAGS.get(str(player.get("civilization")))
+            flag = civilization_flag(flag_name) if flag_name else None
+            if flag is not None and not flag.isNull():
+                target = QRectF(area.left() + MATCH_FLAG_OFFSET, line.center().y() - 7, 23, 14)
+                clip = QPainterPath()
+                clip.addRoundedRect(target, 2, 2)
+                painter.save()
+                painter.setClipPath(clip, Qt.IntersectClip)
+                painter.drawPixmap(target, flag, QRectF(flag.rect()))
+                painter.restore()
+            else:
+                self._text(painter, QRectF(area.left() + MATCH_FLAG_OFFSET, y, 23, 19), "—", 10, CARD_AUX,
+                           alignment=Qt.AlignCenter)
+            result = player.get("result")
+            color = CARD_WIN if result == "win" else CARD_LOSS if result == "loss" else CARD_MODE
+            self._text(painter, layout["name_rect"], layout["text"], 11, color, layout["weight"])
 
     def paint(self, painter, option, index):
         self.initStyleOption(option, index)
@@ -428,7 +592,7 @@ class RecentMatchDelegate(QStyledItemDelegate):
         painter.fillRect(rect, background)
         painter.setPen(QPen(QColor("#252529"), 1))
         painter.drawLine(rect.bottomLeft(), rect.bottomRight())
-        content = rect.adjusted(8, 0, -8, 0)
+        content = self.content_rect(rect, column)
         expanded = index.model().columnCount() >= 7
         rank_column, duration_column, result_column = (3, 4, 5) if expanded else (-1, 4, 3)
         action_column = 6 if expanded else 5
@@ -443,9 +607,19 @@ class RecentMatchDelegate(QStyledItemDelegate):
             bottom = QRectF(content.left(), rect.center().y() + 3, content.width(), 17)
             self._text(painter, top, primary, 12, "#d5d5db")
             self._text(painter, bottom, metadata.get("display_mode", "") + " · " + _duration_label(metadata.get("duration")), 10, CARD_AUX)
-        elif column == 0 and has_teams:
-            self._text(painter, content, primary, 10, CARD_MODE,
-                       alignment=Qt.AlignCenter, numeric=True)
+        elif column == 0:
+            # 仅拆分已格式化的月日/时间；原单元格文字、排序及对局编号保持原值。
+            date_time = re.fullmatch(r"(\d{2}-\d{2})\s+(\d{2}:\d{2})", primary.strip())
+            if date_time:
+                line_height = QFontMetrics(ui_font(10, numeric=True)).height()
+                gap = 4
+                top = rect.center().y() - line_height - gap / 2
+                for number, text in enumerate(date_time.groups()):
+                    line = QRectF(content.left(), top + number * (line_height + gap), content.width(), line_height)
+                    self._text(painter, line, text, 10, CARD_MODE, alignment=Qt.AlignCenter, numeric=True)
+            else:
+                self._text(painter, content, primary or "未提供时间", 10, CARD_MODE,
+                           alignment=Qt.AlignCenter, numeric=True)
         elif column == 1:
             flag = civilization_flag(_CIVILIZATION_FLAGS.get(str(metadata.get("civilization")), "Generic"))
             if not flag.isNull():
@@ -457,28 +631,23 @@ class RecentMatchDelegate(QStyledItemDelegate):
                 painter.drawPixmap(target, flag, QRectF(flag.rect()))
                 painter.restore()
                 content.adjust(38, 0, 0, 0)
-        if has_teams and column in (0, 1, 2):
+        if column == 0 or (has_teams and column in (1, 2)):
             pass  # 双方/地图/日期已按专用槽绘制，避免默认文字覆盖。
         elif column == rank_column:
             rank = ranked_result(metadata)
-            if rank["points"] is None:
+            if rank["points"] is None or rank["change"] is None:
                 self._text(painter, content, "—", 11, MUTED, alignment=Qt.AlignCenter)
             else:
                 badge = rank_badge(rank["icon_name"])
                 if not badge.isNull():
-                    image = QRectF(content.left() - 5, rect.center().y() - 21, 42, 42)
+                    # 徽章直接用原图原色；只给本局积分增减赋予红绿语义色。
+                    image = QRectF(content.left(), rect.center().y() - 14, 28, 28)
                     painter.drawPixmap(image, badge, QRectF(badge.rect()))
-                    content.adjust(33, 0, 0, 0)
-                top = QRectF(content.left(), rect.center().y() - 18, content.width(), 18)
-                bottom = QRectF(content.left(), rect.center().y() + 2, content.width(), 17)
-                self._text(painter, top, rank["label"], 11, INK, QFont.DemiBold)
-                points = str(rank["points"])
-                self._text(painter, bottom, points, 10, "#c1ccd3", numeric=True)
-                if rank["change_text"]:
-                    painter.setFont(ui_font(10, QFont.Normal, True))
-                    width = painter.fontMetrics().horizontalAdvance(points) + 5
-                    change_rect = bottom.adjusted(width, 0, 0, 0)
-                    self._text(painter, change_rect, rank["change_text"], 10, rank["color"], QFont.DemiBold, numeric=True)
+                    content.adjust(32, 0, 0, 0)
+                change = rank["change"]
+                color = CARD_WIN if change > 0 else CARD_LOSS if change < 0 else CARD_MODE
+                self._text(painter, content, rank["change_text"].replace("-", "−"), 11,
+                           color, QFont.DemiBold, Qt.AlignCenter, True)
         elif column == result_column:
             winning = result == "win" or primary == "胜利"
             pill = self.result_badge_rect(rect)
@@ -515,12 +684,16 @@ class MatchActionHeader(QHeaderView):
         self.action_column = action_column
 
     def action_text_rect(self):
-        return QRectF(self.sectionViewportPosition(self.action_column) + MATCH_ACTION_PADDING,
-                      0, MATCH_ACTION_SIZE.width(), self.height())
+        cell = QRectF(self.sectionViewportPosition(self.action_column), 0,
+                      self.sectionSize(self.action_column), self.height())
+        if self.action_column in getattr(self.parent(), "match_column_content", {}):
+            return match_cell_content_rect(self.parent(), self.action_column, cell)
+        return QRectF(cell.left() + MATCH_ACTION_PADDING, 0, MATCH_ACTION_SIZE.width(), self.height())
 
     def team_header_rects(self):
         """真实表头槽与名单的分数、旗帜/昵称组保持同一列基准。"""
-        content = QRectF(self.sectionViewportPosition(2), 0, self.sectionSize(2), self.height()).adjusted(8, 0, -8, 0)
+        cell = QRectF(self.sectionViewportPosition(2), 0, self.sectionSize(2), self.height())
+        content = match_cell_content_rect(self.parent(), 2, cell)
         return tuple((QRectF(area.left(), 0, MATCH_SCORE_WIDTH, self.height()),
                       QRectF(area.left() + MATCH_FLAG_OFFSET, 0,
                              max(0, area.width() - MATCH_FLAG_OFFSET), self.height()))
@@ -544,7 +717,8 @@ class MatchActionHeader(QHeaderView):
             painter.restore()
             return
         caption = self.model().headerData(logical_index, Qt.Horizontal, Qt.DisplayRole) or ""
-        text_rect = self.action_text_rect() if logical_index == self.action_column else QRectF(rect).adjusted(8, 0, -8, 0)
+        text_rect = (self.action_text_rect() if logical_index == self.action_column else
+                     match_cell_content_rect(self.parent(), logical_index, rect))
         alignment = (Qt.AlignCenter if logical_index == self.action_column else
                      self.model().headerData(logical_index, Qt.Horizontal, Qt.TextAlignmentRole) or
                      (Qt.AlignLeft | Qt.AlignVCenter))
@@ -571,7 +745,7 @@ def style_recent_matches(table, rows):
     header.setFixedHeight(30)
     table.setAlternatingRowColors(False)
     expanded = table.columnCount() >= 7
-    widths = ((0, 94), (1, 154), (3, 112), (4, 50),
+    widths = ((0, 94), (1, 154), (3, MATCH_RANK_COLUMN_WIDTH), (4, 50),
               (5, MATCH_RESULT_COLUMN_WIDTH), (6, MATCH_ACTION_COLUMN_WIDTH)) if expanded else (
         (0, 94), (1, 154), (3, MATCH_RESULT_COLUMN_WIDTH), (4, 50), (5, MATCH_ACTION_COLUMN_WIDTH))
     action_column = 6 if expanded else 5

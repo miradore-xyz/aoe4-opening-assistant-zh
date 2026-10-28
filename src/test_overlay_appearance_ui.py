@@ -1,4 +1,4 @@
-"""真实Qt外观设置验收：即时显示、保存、演练连续性及实际金色按钮。"""
+"""真实Qt外观设置验收：即时显示、保存、演练连续性及主灰/悬浮金图标。"""
 from __future__ import annotations
 
 import copy
@@ -17,12 +17,13 @@ from test_app import timed_example
 from core import load_settings
 
 
-def gold_pixels(image):
-    """统计真实绘制的金色前景，不把暗底或灰色图标误算作金色。"""
+def foreground_pixels(image, expected):
+    """统计与明确前景色相近的实绘像素；小容差只包容边缘抗锯齿，不把暗底计入。"""
+    color = QColor(expected)
     return sum(image.pixelColor(x, y).alpha() > 160
-               and image.pixelColor(x, y).red() > 130
-               and image.pixelColor(x, y).green() > 100
-               and image.pixelColor(x, y).red() > image.pixelColor(x, y).blue() + 30
+               and max(abs(image.pixelColor(x, y).red() - color.red()),
+                       abs(image.pixelColor(x, y).green() - color.green()),
+                       abs(image.pixelColor(x, y).blue() - color.blue())) <= 12
                for y in range(image.height()) for x in range(image.width()))
 
 
@@ -239,7 +240,7 @@ class OverlayAppearanceUiTests(unittest.TestCase):
         self.assertTrue(manager.clock.running)
         self.assertEqual(manager.clock.seconds, 8)
 
-    def test_real_main_and_overlay_icons_remain_gold_in_disabled_and_pause_states(self):
+    def test_real_main_gray_and_overlay_gold_icons_keep_their_own_color_in_disabled_and_pause_states(self):
         manager, overlay = self.manager, self.overlay
         self.assertIs(type(manager.pause_button), QPushButton, "主动作不能由纹样按钮再次重染图标")
         for running in (False, True):
@@ -250,11 +251,13 @@ class OverlayAppearanceUiTests(unittest.TestCase):
                 for enabled in (True, False):
                     with self.subTest(running=running, button=button.objectName(), enabled=enabled):
                         button.setEnabled(enabled)
+                        # 当前已批准外观：主窗口按钮灰色，悬浮窗按钮金色；禁用/暂停均保持各自颜色。
+                        expected = "#c6c7cb" if button is manager.pause_button else "#e5c88e"
                         icon = button.icon().pixmap(18, 18, QIcon.Normal if enabled else QIcon.Disabled).toImage()
-                        self.assertGreater(gold_pixels(icon), 8)
+                        self.assertGreater(foreground_pixels(icon, expected), 8)
                         rect = QRect((button.width() - 18) // 2, (button.height() - 18) // 2, 18, 18)
                         image = button.grab().toImage().copy(rect)
-                        self.assertGreater(gold_pixels(image), 8, "实际按钮中心应仍绘制金色图标")
+                        self.assertGreater(foreground_pixels(image, expected), 8, "实际按钮中心应保留主灰或悬浮金前景")
 
 
 if __name__ == "__main__":

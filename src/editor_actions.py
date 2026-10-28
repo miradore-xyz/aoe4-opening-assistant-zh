@@ -307,8 +307,6 @@ class StepActions(QWidget):
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         header = QHBoxLayout()
         header.setSpacing(8)
-        title = QLabel("建筑与科技")
-        header.addWidget(title)
         header.addStretch()
         for kind, caption in (("building", "+ 建筑"), ("technology", "+ 科技")):
             control = QPushButton(caption)
@@ -386,18 +384,14 @@ class StepActions(QWidget):
         self.changed.emit()
 
     def _render(self):
-        self.scroll.setFixedHeight(28 if not self._actions else min(100, len(self._actions) * 42 + 4))
+        self.scroll.setVisible(bool(self._actions))
+        self.scroll.setFixedHeight(min(100, len(self._actions) * 42 + 4) if self._actions else 0)
         while self.row_layout.count():
             item = self.row_layout.takeAt(0)
             if item.widget():
                 item.widget().hide()
                 item.widget().deleteLater()
         if not self._actions:
-            empty = QLabel("添加本时刻要建造的建筑或研究的科技")
-            empty.setObjectName("Muted")
-            empty.setWordWrap(True)
-            empty.setMinimumHeight(24)
-            self.row_layout.addWidget(empty)
             return
         for index, action in enumerate(self._actions):
             row = QWidget()

@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "render_mode": "official_icons",
+  "usage_zh": "使用游戏官方图标显示有坐标的原始放置记录；图标尺寸不等于建筑地基。",
+  "scope_zh": "取消3D模型顶视图接入；资源和动物仍须有本局真实实例坐标，不能用图标补造分布。",
+  "identity_overrides": {
+    "2101237": {
+      "type_id": 2101237,
+      "kind": "building",
+      "name": "输水道",
+      "base_id": "aqueduct",
+      "attrib_name": "building_aqueduct_byz",
+      "namespace": "ebps",
+      "source_member": "attrib/ebps/races/byzantine/buildings/building_aqueduct_byz/building_aqueduct_byz.rgd",
+      "raw_sha256": "d58d81290a8f0fd6bed4d2271ec78963551d01a7ae504fe1256194dfd9daa5af",
+      "classes": [
+        "building",
+        "wall",
+        "siegeable",
+        "aqueduct"
+      ],
+      "known": true,
+      "wall": true,
+      "official_icon_key": "races\\byzantine\\buildings\\aquaeducts"
+    },
+    "200255": {
+      "type_id": 200255,
+      "kind": "unit",
+      "name": "可野外建造扭力弩",
+      "base_id": "springald",
+      "attrib_name": "unit_springald_3_buildable_abb",
+      "namespace": "ebps",
+      "source_member": "attrib/ebps/races/abbasid/units/unit_springald_3_buildable_abb.rgd",
+      "raw_sha256": "405c6ed77c9cefa98e7f5bf72391bbe32333d6f3fc2b6e3418789886be98682b",
+      "classes": [
+        "siege",
+        "military",
+        "springald",
+        "siege_range",
+        "formational",
+        "annihilation_condition",
+        "included_by_military_hotkeys",
+        "land_military"
+      ],
+      "known": true,
+      "wall": false,
+      "official_icon_key": "races\\common\\units\\scorpion"
+    },
+    "137527": {
+      "type_id": 137527,
+      "kind": "unit",
+      "name": "攻城锤",
+      "base_id": "battering-ram",
+      "attrib_name": "unit_ram_3_chi",
+      "namespace": "ebps",
+      "source_member": "attrib/ebps/races/chinese/units/unit_ram_3_chi.rgd",
+      "raw_sha256": "fcfcd87ca7ffce7f156a1b990b3045116ae874d2d28926143375c06dc65df0da",
+      "classes": [
+        "siege",
+        "ram",
+        "military",
+        "formational",
+        "transport",
+        "annihilation_condition",
+        "included_by_military_hotkeys",
+        "land_military"
+      ],
+      "known": true,
+      "wall": false,
+      "official_icon_key": "races\\common\\units\\ram_2"
+    }
+  },
+  "icons": {
+    "2101237": {
+      "file": "official/2101237.png",
+      "sha256": "fa0026a0dd13f1b5a7cdaef13b8e22563a1f0c7aca1329f731339b63d6ac902c",
+      "pixels": [
+        96,
+        96
+      ],
+      "source_archive": "UIArt.sga",
+      "source_member": "ui/icons/races/byzantine/buildings/aquaeducts.rrtex",
+      "source_sha256": "88724bdd11cff87c6d03835cd031283ac97d3cf6f9b67cbe31b005f36629a569",
+      "original_icon_key": "races\\byzantine\\buildings\\aquaeducts",
+      "source_ebp_sha256": "d58d81290a8f0fd6bed4d2271ec78963551d01a7ae504fe1256194dfd9daa5af",
+      "source_buildid": "24231237",
+      "conversion_zh": "使用既有RRTex块表与Pillow BC纹理解码；输出原尺寸RGBA像素，不绘画、不重着色。"
+    },
+    "137527": {
+      "file": "official/137527.png",
+      "sha256": "53a5c124e2e98154f585d581016d31172fa738c83ecda80e75089e291fabf50e",
+      "pixels": [
+        96,
+        96
+      ],
+      "source_archive": "UIArt.sga",
+      "source_member": "ui/icons/races/common/units/ram_2.rrtex",
+      "source_sha256": "3c1355015e4ccd9698ef56937d74342c57308d4b50c4d8b5341cb29b7a4e2dda",
+      "original_icon_key": "races\\common\\units\\ram_2",
+      "source_ebp_sha256": "fcfcd87ca7ffce7f156a1b990b3045116ae874d2d28926143375c06dc65df0da",
+      "source_buildid": "24231237",
+      "conversion_zh": "使用既有RRTex块表与Pillow BC纹理解码；输出原尺寸RGBA像素，不绘画、不重着色。"
+    },
+    "200255": {
+      "file": "official/200255.png",
+      "sha256": "1be0a6b9a765ae52a4bf3e8d64b14cbc648d0f71f08dfe8d5be537272a9a1651",
+      "pixels": [
+        96,
+        96
+      ],
+      "source_archive": "UIArt.sga",
+      "source_member": "ui/icons/races/common/units/scorpion.rrtex",
+      "source_sha256": "94cb615415e8277cf948a05223634e7612275b08b4785fd8cde262109a1a64cd",
+      "original_icon_key": "races\\common\\units\\scorpion",
+      "source_ebp_sha256": "405c6ed77c9cefa98e7f5bf72391bbe32333d6f3fc2b6e3418789886be98682b",
+      "source_buildid": "24231237",
+      "conversion_zh": "使用既有RRTex块表与Pillow BC纹理解码；输出原尺寸RGBA像素，不绘画、不重着色。"
+    }
+  }
+}

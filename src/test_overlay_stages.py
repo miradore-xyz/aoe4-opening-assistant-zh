@@ -103,7 +103,7 @@ class OverlayStagesTests(unittest.TestCase):
         self.assertEqual(self.overlay.current_stage_ids, [5])
         self.assertIn("封建组同刻行动", rendered)
         self.assertIn("封建组附属条件", rendered)
-        self.assertIn("条件提示", rendered)
+        self.assertNotIn("条件提示", rendered)
         self.assertEqual(self.overlay.resources.cells["food"][2].text(), "18")
         self.assertEqual(self.overlay.resources.cells["gold"][2].text(), "6")
 

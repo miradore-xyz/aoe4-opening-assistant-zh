@@ -85,9 +85,15 @@ def freeze_program(directory: Path) -> Path:
                "--name", "启动中文助手", "--paths", str(SOURCE / "upstream/python"), "--icon", str(SOURCE / "界面素材/龙序.ico")]
     for source, target in (("upstream/docs/assets", "assets"), ("高清图标", "assets/hd"),
                            ("界面素材", "assets/design"), ("文明旗帜", "assets/flags"),
-                           ("文明资料", "assets/catalog"), ("默认开局", "assets/default_openings"),
+                           ("默认开局", "assets/default_openings"),
                            ("qt_zh_CN.qm", "."), ("update_config.json", "assets")):
         command.extend(("--add-data", f"{SOURCE / source};{target}"))
+    # 新程序只使用网格战场；保留文明/实体目录，单独排除全部旧地形图资料。
+    for item in sorted((SOURCE / "文明资料").iterdir()):
+        if item.name == "地图" or excluded(item.name):
+            continue
+        target = f"assets/catalog/{item.name}" if item.is_dir() else "assets/catalog"
+        command.extend(("--add-data", f"{item};{target}"))
     command.extend(("--hidden-import", "win32com.client", "--hidden-import", "pythoncom", "--hidden-import", "pywintypes",
                     "--collect-all", "edge_tts", "--collect-data", "certifi", "--exclude-module", "sherpa_onnx",
                     "--exclude-module", "sherpa_onnx_core", "--exclude-module", "numpy", "--distpath", str(directory / "dist"),

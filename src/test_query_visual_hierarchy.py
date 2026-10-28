@@ -10,14 +10,14 @@ from unittest.mock import patch
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
 from PyQt5.QtCore import QEvent, QPoint, QRectF, Qt
-from PyQt5.QtGui import QFontDatabase, QFontMetricsF
+from PyQt5.QtGui import QFontDatabase, QFontMetricsF, QPainter
 from PyQt5.QtTest import QTest
 from PyQt5.QtWidgets import QApplication, QTableWidgetItem, QWidget
 
 from analysis_page import AnalysisPage
 from match_widgets import CARD_AUX, CARD_MODE, CARD_SURFACE, MATCH_METADATA_ROLE, MatchActionHeader, ModeSummaryCard, RoundedMatchTable, style_recent_matches
 from test_match_analysis import game
-from visual import STYLE, ui_font
+from visual import CARD_GAP, STYLE, ui_font
 
 
 def four_player_snapshot():
@@ -119,16 +119,17 @@ class QueryVisualHierarchyTests(unittest.TestCase):
             self.assertEqual(data["focus_profile_id"], 7)
             self.assertEqual([len(team["players"]) for team in data["display_teams"]], [4, 4])
             self.assertEqual({person["profile_id"] for person in data["display_teams"][0]["players"]}, {6, 7, 22, 23})
-            self.assertIn("相同昵称 · 账号7", table.item(0, 2).toolTip())
-            self.assertIn("相同昵称 · 账号8", table.item(0, 2).toolTip())
+            self.assertEqual(table.item(0, 2).toolTip(), "")
             self.assertEqual(table.rowHeight(0), 104)
             self.assertTrue(table.isColumnHidden(4))
-            self.assertEqual(table.isColumnHidden(3), self.page.scroll.viewport().width() < 980)
+            self.assertFalse(table.isColumnHidden(3))
             self.assertGreaterEqual(table.columnWidth(2), 280)
             self.assertLessEqual(table.horizontalHeader().length(), table.viewport().width())
             self.assertFalse(table.alternatingRowColors())
             self.assertEqual(table.horizontalHeader().logicalIndex(0), 1)
-            self.assertEqual(self.page.recent_panel.y() - self.page.mode_cards.geometry().bottom() - 1, 14)
+            # 积分与双段位在同一个概览行中，外层横纵卡片共用固定16逻辑像素。
+            self.assertEqual(self.page.rank_overview_row.y() - self.page.mode_cards.geometry().bottom() - 1, CARD_GAP)
+            self.assertEqual(self.page.recent_panel.y() - self.page.rank_overview_row.geometry().bottom() - 1, CARD_GAP)
             self.assertIs(self.page.recent_heading.parentWidget(), self.page.recent_panel)
             self.assertIs(table.parentWidget(), self.page.recent_panel)
             self.assertEqual(table.y() - self.page.recent_heading.geometry().bottom() - 1, 1)
@@ -143,6 +144,49 @@ class QueryVisualHierarchyTests(unittest.TestCase):
             self.assertEqual(card.duration_chart.rows, [])
         finally:
             card.deleteLater()
+
+    def test_map_header_and_both_lines_start_sixteen_pixels_inside_visible_card(self):
+        """从真实绘制调用量首列留白，长地图省略但完整提示及原始资料仍保留。"""
+        source = four_player_snapshot()
+        full_name = "长地图名称用于核对首列增加留白后仍会正确省略并能悬停查看全文"
+        source["games"][0]["map"] = full_name
+        original_source = copy.deepcopy(source)
+        self.page._show_snapshot(source)
+        self.page.show()
+        for width in (760, 1100, 1500):
+            self.page.resize(width, 900)
+            QTest.qWait(10)
+            table, panel = self.page.game_table, self.page.recent_panel
+            header, item = table.horizontalHeader(), table.item(0, 1)
+            self.assertEqual(header.logicalIndex(0), 1)
+            self.assertEqual(table.visualItemRect(item).left(), 0)
+            self.assertEqual(table.viewport().mapTo(panel, QPoint()).x(), 0)
+            self.assertEqual(header.viewport().mapTo(panel, QPoint()).x(), 0)
+            calls = []
+            original_draw = QPainter.drawText
+            def capture(painter, *args):
+                if len(args) == 3 and isinstance(args[0], QRectF):
+                    calls.append((str(args[2]), QRectF(args[0]),
+                                  painter.fontMetrics().horizontalAdvance(str(args[2]))))
+                return original_draw(painter, *args)
+            with patch.object(QPainter, "drawText", capture):
+                self.assertFalse(header.grab().isNull())
+                header_call = next(row for row in calls if row[0].startswith("地图"))
+                calls.clear()
+                self.assertFalse(table.viewport().grab().isNull())
+            map_call = next(row for row in calls if row[0].startswith("长地图"))
+            mode_call = next(row for row in calls if row[0].startswith("排位 4 对 4"))
+            for text, rect, text_width in (header_call, map_call, mode_call):
+                self.assertEqual(rect.left(), 16)
+                self.assertLessEqual(rect.right(), table.columnWidth(1))
+                self.assertLessEqual(text_width, rect.width())
+            self.assertIn("…", map_call[0])
+            self.assertIn(full_name, item.toolTip())
+            self.assertEqual(item.text().split("\n", 1)[0], full_name)
+            self.assertEqual(table.item(0, 0).data(MATCH_METADATA_ROLE)["game_id"], 501)
+            self.assertLessEqual(header.length(), table.viewport().width())
+            self.assertEqual(table.horizontalScrollBar().maximum(), 0)
+        self.assertEqual(source, original_source)
 
     def test_mixed_one_and_four_player_groups_share_row_centres_and_header_columns(self):
         """混排行按整组中心对齐，表头ELO/旗名槽与实际绘制坐标逐项核对。"""
@@ -172,10 +216,18 @@ class QueryVisualHierarchyTests(unittest.TestCase):
             self.assertEqual(table.horizontalHeaderItem(2).text(), "ELO / 玩家 / ELO / 对手")
             self.assertIn("与赛后排位积分分开", table.horizontalHeaderItem(2).toolTip())
             self.assertFalse(any(text in ("我方", "对手") for text, _ in calls))
+            team_headers = header.team_header_rects()
+            first_score, first_people = team_headers[0]
+            second_score, second_people = team_headers[1]
+            # 两队间距也参与整表统一分配，宽窗不再把余白集中在对手之后。
+            self.assertGreaterEqual(second_score.left() - first_people.right(), 16)
+            self.assertLessEqual(first_people.width() + 40, 205)
+            self.assertLessEqual(second_people.width() + 40, 205)
             for row in range(2):
                 row_rect = QRectF(table.visualItemRect(table.item(row, 2)))
+                self.assertAlmostEqual(first_score.left(), delegate.content_rect(row_rect, 2).left(), places=1)
                 data = table.item(row, 0).data(MATCH_METADATA_ROLE)
-                for group, (score_header, people_header) in zip(data["display_teams"], header.team_header_rects()):
+                for group, (score_header, people_header) in zip(data["display_teams"], team_headers):
                     names = {person["display_name"] for person in group["players"]}
                     painted = [rect for text, rect in calls if text in names and row_rect.contains(rect.center())]
                     self.assertEqual(len(painted), len(group["players"]))
@@ -185,7 +237,20 @@ class QueryVisualHierarchyTests(unittest.TestCase):
                     for rect in painted:
                         self.assertAlmostEqual(rect.left() - 70, score_header.left(), places=1)
                         self.assertAlmostEqual(rect.left() - 30, people_header.left(), places=1)
-                for column in (0, 5):
+                        self.assertLessEqual(rect.width(), 135)
+                # 日期与时间分成两行，整组按行中心居中，保持日期表头的水平中心线。
+                date_text, time_text = table.item(row, 0).text().split("\n", 1)[0].split()
+                date_rect, time_rect = [next(rect for value, rect in calls if value == text and
+                                            row_rect.top() <= rect.center().y() <= row_rect.bottom())
+                                        for text in (date_text, time_text)]
+                date_center = header.sectionViewportPosition(0) + header.sectionSize(0) / 2
+                self.assertAlmostEqual(date_rect.center().x(), date_center, places=1)
+                self.assertAlmostEqual(time_rect.center().x(), date_center, places=1)
+                self.assertAlmostEqual((date_rect.top() + time_rect.bottom()) / 2,
+                                       row_rect.center().y(), places=1)
+                self.assertGreaterEqual(time_rect.top() - date_rect.bottom(), 3)
+                self.assertLessEqual(time_rect.top() - date_rect.bottom(), 4)
+                for column in (5,):
                     text = table.item(row, column).text().split("\n", 1)[0]
                     painted = next(rect for value, rect in calls if value == text and
                                    row_rect.top() <= rect.center().y() <= row_rect.bottom())
@@ -226,12 +291,14 @@ class QueryVisualHierarchyTests(unittest.TestCase):
                 return original(painter, rect, text, *args, **kwargs)
             with patch.object(delegate, "_text", side_effect=capture):
                 self.assertFalse(table.viewport().grab().isNull())
-            date = table.item(0, 0).text().split("\n", 1)[0]
-            date_call = next((rect, options) for text, rect, options in calls if text == date)
+            date, time = table.item(0, 0).text().split("\n", 1)[0].split()
+            date_calls = [(rect, options) for text, rect, options in calls if text in (date, time)]
             header = table.horizontalHeader()
             date_center = header.sectionViewportPosition(0) + header.sectionSize(0) / 2
-            self.assertAlmostEqual(date_call[0].center().x(), date_center, places=1)
-            self.assertTrue(date_call[1]["alignment"] & Qt.AlignHCenter)
+            self.assertEqual(len(date_calls), 2)
+            for rect, options in date_calls:
+                self.assertAlmostEqual(rect.center().x(), date_center, places=1)
+                self.assertTrue(options["alignment"] & Qt.AlignHCenter)
             self.assertTrue(table.horizontalHeaderItem(0).textAlignment() & Qt.AlignHCenter)
             names = [(text, rect) for text, rect, _ in calls if text in ("相同昵称 · 账号7", "相同昵称 · 账号8")]
             self.assertEqual(len(names), 2)
@@ -246,6 +313,30 @@ class QueryVisualHierarchyTests(unittest.TestCase):
                 self.assertTrue(options["alignment"] & Qt.AlignRight)
             # 缺失分数仍绘制—，且仅在32像素分数槽里，不替换为0。
             self.assertTrue(any(text == "—" and rect.width() == 32 for text, rect, _ in calls))
+
+    def test_missing_date_is_one_centred_line_without_changing_item_data(self):
+        """缺失日期保持单行空态，绘制不能改原文字、提示、编号或对局元数据。"""
+        self.page._show_snapshot(four_player_snapshot())
+        self.page.resize(760, 900)
+        self.page.show()
+        QTest.qWait(10)
+        table = self.page.game_table
+        item = table.item(0, 0)
+        item.setText("未提供时间\n排位 4 对 4")
+        item.setToolTip("原始时间未知，保留此完整提示")
+        before = (item.text(), item.toolTip(), item.data(Qt.UserRole), item.data(MATCH_METADATA_ROLE))
+        calls = []
+        delegate = table.itemDelegate()
+        original_text = delegate._text
+        def capture(painter, rect, text, *args, **kwargs):
+            calls.append((str(text), QRectF(rect)))
+            return original_text(painter, rect, text, *args, **kwargs)
+        with patch.object(delegate, "_text", side_effect=capture):
+            self.assertFalse(table.viewport().grab().isNull())
+        painted = [rect for text, rect in calls if text == "未提供时间"]
+        self.assertEqual(len(painted), 1)
+        self.assertEqual(painted[0].center(), QRectF(table.visualItemRect(item)).center())
+        self.assertEqual((item.text(), item.toolTip(), item.data(Qt.UserRole), item.data(MATCH_METADATA_ROLE)), before)
 
     def test_whole_table_clips_header_and_bottom_corners_to_parent_background(self):
         """从父窗口实际像素核对四角，避免只写border-radius而被矩形子视口盖住。"""
@@ -266,8 +357,8 @@ class QueryVisualHierarchyTests(unittest.TestCase):
                 parent.resize(width, 160)
                 table.setGeometry(10, 10, width - 20, 86)
                 self.application.processEvents()
-                self.assertFalse(table.mask().contains(QPoint(0, 0)))
-                self.assertTrue(table.mask().contains(table.rect().center()))
+                # 抗锯齿圆角由轻量角覆盖绘制，不再依赖会产生硬斜边的窗口mask。
+                self.assertTrue(table.mask().isEmpty())
                 image = parent.grab().toImage()
                 scale = parent.devicePixelRatioF()
                 def pixel(x, y):

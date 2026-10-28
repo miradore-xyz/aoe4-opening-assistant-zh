@@ -10,6 +10,11 @@ on:
         required: false
         type: boolean
         default: false
+      publish_release:
+        description: '明确上传正式发行版；标签推送只测试构建并保存产物'
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -41,7 +46,7 @@ jobs:
           $taskOffscreenExit = $LASTEXITCODE
           Write-Output "离屏插件对照返回码：$taskOffscreenExit"
           python .github/scripts/probe_qt_fonts.py --platform windows
-          if ($LASTEXITCODE -ne 0) { throw 'Windows插件的7字体与中英字形验证未通过。' }
+          if ($LASTEXITCODE -ne 0) { throw 'Windows插件的唯一得意黑与中英数字真实字形验证未通过。' }
           python -m unittest discover -s src -p 'test_app_fonts.py' -v
           if ($LASTEXITCODE -ne 0) { throw '独立严格字体测试未通过。' }
       - name: 核对版本并运行检查
@@ -53,8 +58,13 @@ jobs:
             throw 'Git 标签与程序版本不一致。'
           }
           # 字体已在Windows进程严格验证；其余测试以真实字体运行原定离屏后端。
-          python .github/scripts/run_offscreen_checks.py
-          if ($LASTEXITCODE -ne 0) { throw '自动检查未通过。' }
+          python .github/scripts/run_offscreen_checks.py 2>&1 | Tee-Object -FilePath ci-test-output.log
+          $taskTestsExit = $LASTEXITCODE
+          if ($taskTestsExit -ne 0) { throw "自动检查未通过（返回码 $taskTestsExit）。" }
+          # 原生异常有时在子线程出现后仍暂时继续，不能凭测试ok或退出0冒充通过。
+          if (Select-String -LiteralPath ci-test-output.log -Pattern 'Windows fatal exception|Fatal Python error' -Quiet) {
+            throw '测试日志出现原生异常，阻止构建和发布。'
+          }
       - name: 准备官方安装器编译工具
         if: ${{ !inputs.font_probe_only }}
         shell: pwsh
@@ -84,22 +94,31 @@ jobs:
           name: AoE4OpeningAssistant-Windows
           path: release/*
           if-no-files-found: error
-      - name: 将标签版本发布到 GitHub Releases（发行版）
-        if: ${{ !inputs.font_probe_only && startsWith(github.ref, 'refs/tags/v') }}
+      # 标签推送只测试和构建；上传必须在手动运行时明确勾选，避免与本机发行附件竞跑。
+      - name: 明确手动发布到 GitHub Releases（发行版）
+        if: ${{ !inputs.font_probe_only && github.event_name == 'workflow_dispatch' && inputs.publish_release }}
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          $taskVersion = python -c "import sys; sys.path.insert(0, 'src'); from version import APP_VERSION; print(APP_VERSION)"
+          if ($LASTEXITCODE -ne 0) { throw '读取程序版本失败。' }
+          $taskTag = "v$taskVersion"
+          # 手动运行也必须使用已经存在且对应本次构建提交的源码标签；此处不创建或改写标签。
+          $taskTaggedCommit = gh api "repos/$env:GITHUB_REPOSITORY/commits/$taskTag" --jq .sha
+          if ($LASTEXITCODE -ne 0) { throw '正式版本源码标签不存在，停止上传。' }
+          $taskBuildCommit = git rev-parse HEAD
+          if ($taskTaggedCommit -ne $taskBuildCommit) { throw '正式标签与本次构建源码提交不一致。' }
           @"
           下载 AoE4OpeningAssistant-Setup.exe 安装；已有版本可在首页下载更新并选择“安装并重启”。
           安装及卸载均保留开局和设置。程序包不附带源码副本；完整对应源码、构建脚本与运行素材见本仓库同版本标签。更新清单为 update.json，校验值为 SHA256SUMS.txt。
           本项目沿用 GNU GPL 第三版许可证，原作与第三方声明随包附带。
           "@ | Set-Content -LiteralPath release-notes.md -Encoding utf8
-          gh release view $env:GITHUB_REF_NAME --repo $env:GITHUB_REPOSITORY 2>$null
+          gh release view $taskTag --repo $env:GITHUB_REPOSITORY 2>$null
           if ($LASTEXITCODE -eq 0) {
             Write-Output '同标签发行版已存在；保留已经发布的附件，本次仅完成自动构建。'
             exit 0
           }
           # gh release create（新建发行版）在同名发行版已出现时也会失败，不替换既有附件。
-          gh release create $env:GITHUB_REF_NAME release/AoE4OpeningAssistant-Setup.exe release/AoE4OpeningAssistant-Portable.zip release/update.json release/SHA256SUMS.txt --repo $env:GITHUB_REPOSITORY --verify-tag --title "AoE4 HELP $env:GITHUB_REF_NAME · 王兰花版本" --notes-file release-notes.md
+          gh release create $taskTag release/AoE4OpeningAssistant-Setup.exe release/AoE4OpeningAssistant-Portable.zip release/update.json release/SHA256SUMS.txt --repo $env:GITHUB_REPOSITORY --verify-tag --title "AoE4 HELP $taskVersion · 王兰花版本" --notes-file release-notes.md
           if ($LASTEXITCODE -ne 0) { throw 'GitHub 发行版上传失败。' }

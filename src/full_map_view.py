@@ -9,8 +9,8 @@ from collections import OrderedDict
 import json
 import math
 
-from PyQt5.QtCore import QPointF, QRectF, Qt, pyqtSignal
-from PyQt5.QtGui import QColor, QPainter, QPen, QPicture, QPixmap, QPolygonF
+from PyQt5.QtCore import QEvent, QPointF, QRectF, Qt, pyqtSignal
+from PyQt5.QtGui import QColor, QPainter, QPen, QPicture, QPixmap, QPolygonF, QRegion
 from PyQt5.QtWidgets import (QComboBox, QCompleter, QFrame, QGraphicsScene,
                             QGraphicsView, QHBoxLayout, QLabel, QPlainTextEdit,
                             QPushButton, QSizePolicy, QVBoxLayout, QWidget)
@@ -98,17 +98,22 @@ def build_entity_index(data, render):
         buckets.setdefault(key, []).append(point)
     bounds = ((min(k[0] for k in buckets), min(k[1] for k in buckets),
                max(k[0] for k in buckets), max(k[1] for k in buckets)) if buckets else None)
-    tree_buckets = {}
+    tree_buckets, resource_buckets = {}, {}
     unit = render.get("pixels_per_source_unit", 12)
     for point in points:
         if point["role"] != "tree":
+            key = (math.floor(point["px"] / 256), math.floor(point["py"] / 256))
+            resource_buckets.setdefault(key, []).append(point)
             continue
         entity_scale = point["entity"].get("scale")
         entity_scale = entity_scale if _finite(entity_scale) else 1
         point["tree_radius"] = unit * (1.45 + point["variation"] * .45) * max(.5, min(2, entity_scale))
         key = (math.floor(point["px"] / 256), math.floor(point["py"] / 256))
         tree_buckets.setdefault(key, []).append(point)
+    # 静态背景只补绘窄边缘时，仍需纳入中心在边缘外、树冠或资源图形伸入的实体。
+    static_margin = max([unit * 3] + [point["tree_radius"] * 1.5 for point in points if point["role"] == "tree"])
     return {"points": points, "buckets": buckets, "tree_buckets": tree_buckets,
+            "resource_buckets": resource_buckets, "static_margin": static_margin,
             "bounds": bounds, "source_sha256": source}
 
 
@@ -184,6 +189,8 @@ class FullMapCanvas(QGraphicsView):
         self.style, self.index, self.selected = "natural", None, None
         self.entities_enabled, self.user_camera = True, False
         self._fit_scale, self._press = 1.0, None
+        self.initial_fit = "contain"  # 默认完整图；仅嵌入首屏可显式选择等比铺满。
+        self._restored_camera = None
         self.tile_cache = _TileCache()
         self.tree_cache = _TreeLayerCache()
         self.tree_geometry_cache = _TreeLayerCache(max_bytes=16 * 1024 * 1024)
@@ -191,6 +198,13 @@ class FullMapCanvas(QGraphicsView):
         self.empty_text = "搜索并选择地图，浏览完整参考实例"
         self.setFrameShape(QFrame.NoFrame)
         self.setBackgroundBrush(QColor("#0f0f11"))
+        # 整数DPI比例可复用Qt背景缓存；分数比例的滚动取整会让缓存与真实镜头错位。
+        self._background_cache_dpr = None
+        self._sync_background_cache_mode()
+        # 不能声明视口完全不透明：高DPI滚动与圆角父容器会留下未被当前绘制覆盖的边缘。
+        # 让Qt清理暴露区域，再复用背景缓存，避免地图内外出现沿拖动轨迹的三角残留。
+        self.viewport().setAttribute(Qt.WA_OpaquePaintEvent, False)
+        self._grid_colors, self._grid_tile = None, None
         self.setRenderHints(QPainter.Antialiasing | QPainter.SmoothPixmapTransform)
         self.setDragMode(QGraphicsView.ScrollHandDrag)
         self.setTransformationAnchor(QGraphicsView.NoAnchor)
@@ -201,7 +215,30 @@ class FullMapCanvas(QGraphicsView):
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.setAccessibleName("官方生成参考地图；滚轮缩放、左键拖动、点击资源查看保存坐标；非本场实战")
 
+    def _sync_background_cache_mode(self):
+        """只关闭分数DPI下不可靠的视口背景缓存，图块与树冠缓存仍照常复用。"""
+        ratio = self.viewport().devicePixelRatioF()
+        mode = (QGraphicsView.CacheBackground if math.isclose(ratio, round(ratio), abs_tol=1e-6)
+                else QGraphicsView.CacheNone)
+        if self.cacheMode() != mode:
+            self.setCacheMode(mode)
+        if ratio != self._background_cache_dpr:
+            self._background_cache_dpr = ratio
+            self.resetCachedContent()
+
+    def viewportEvent(self, event):
+        if event.type() == QEvent.Paint and hasattr(self, "_background_cache_dpr"):
+            # 绘制开始前检查实际视口DPI，窗口跨屏时也不能沿用旧比例的缓存。
+            self._sync_background_cache_mode()
+        return super().viewportEvent(event)
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        self._sync_background_cache_mode()
+
     def set_entry(self, entry, entities=None):
+        self._restored_camera = None
+        self.resetCachedContent()
         self.entry, self.render = entry, entry.get("render") if entry else None
         self.index = build_entity_index(entities, self.render) if isinstance(entities, dict) and self.render else None
         self.selected = None
@@ -212,10 +249,44 @@ class FullMapCanvas(QGraphicsView):
         self.extent = QRectF(0, 0, self.render["width"], self.render["height"]) if self.render else QRectF(0, 0, 1, 1)
         self.setSceneRect(self.extent.adjusted(-self.extent.width() * 3, -self.extent.height() * 3,
                                               self.extent.width() * 3, self.extent.height() * 3))
-        self.fit_all()
+        self._fit_initial()
         self.viewport().update()
 
+    def set_reference_grid(self, surface, line):
+        """仅演示页面启用64像素底纹，不代表游戏地图坐标；普通图鉴保持原样。"""
+        colors = (surface, line)
+        if self._grid_colors == colors:
+            return
+        self._grid_colors = colors
+        tile = QPixmap(64, 64)
+        tile.fill(QColor(surface))
+        painter = QPainter(tile)
+        painter.setPen(QPen(QColor(line), 1))
+        painter.drawLine(0, 0, 63, 0)
+        painter.drawLine(0, 0, 0, 63)
+        painter.end()
+        self._grid_tile = tile
+        self.resetCachedContent()
+        self.viewport().update()
+
+    def set_initial_fit(self, mode):
+        """只改变自动取景，保留完整图按钮和镜头存档共用的contain缩放基准。"""
+        self.initial_fit = "cover" if mode == "cover" else "contain"
+        if not self.user_camera:
+            self._fit_initial()
+
+    def _fit_initial(self):
+        self.fit_all()
+        if self.initial_fit == "cover" and self.render:
+            width, height = self.extent.width(), self.extent.height()
+            scale = max(self.viewport().width() / width, self.viewport().height() / height)
+            factor = scale / self._fit_scale
+            self.scale(factor, factor)
+            self.centerOn(self.extent.center())
+            self.zoomChanged.emit(self.zoom_ratio())
+
     def fit_all(self):
+        self._restored_camera = None
         self.resetTransform()
         self.fitInView(self.extent, Qt.KeepAspectRatio)
         self._fit_scale = max(1e-6, self.transform().m11())
@@ -254,6 +325,9 @@ class FullMapCanvas(QGraphicsView):
         if isinstance(center, (list, tuple)) and len(center) == 2 and all(_finite(v) for v in center):
             self.centerOn(QPointF(*center))
         self.user_camera = bool(state.get("user_camera"))
+        # 显式交接的自动镜头也优先于随后控件布局触发的resize，避免全屏首帧退回全图。
+        # 换图或适应全图会清除此快照，重新采用该视图的默认取景。
+        self._restored_camera = self.capture_camera()
         self.zoomChanged.emit(self.zoom_ratio())
 
     @staticmethod
@@ -301,8 +375,20 @@ class FullMapCanvas(QGraphicsView):
         levels = ((self.render or {}).get("styles", {}).get(self.style) or {}).get("levels") or []
         if not levels:
             return
+        if self._grid_tile is not None:
+            # 网格严格排除地图矩形。平铺相位随镜头平移，兼容Qt背景滚动缓存。
+            transform = self.viewportTransform()
+            outside = QRegion(self.viewport().rect()).subtracted(QRegion(transform.mapRect(self.extent).toAlignedRect()))
+            if not outside.isEmpty():
+                painter.save()
+                painter.resetTransform()
+                painter.setClipRegion(outside, Qt.IntersectClip)
+                origin = transform.map(QPointF(0, 0))
+                painter.drawTiledPixmap(QRectF(self.viewport().rect()), self._grid_tile,
+                                       QPointF(-origin.x() % 64, -origin.y() % 64))
+                painter.restore()
         painter.save()
-        painter.setClipRect(self.extent)
+        painter.setClipRect(self.extent, Qt.IntersectClip)
         level = self._level(levels, rect)
         # 低层提供当前视野的底图，目标块缺失时仍保留同一实例的地形。
         self._draw_level(painter, levels[0], rect)
@@ -310,15 +396,17 @@ class FullMapCanvas(QGraphicsView):
             self._draw_level(painter, level, rect)
         self.last_level, self.last_tiles = level["level"], self.visible_tiles(level, rect)
         painter.restore()
+        self._draw_entities(painter, rect, draw_selection=False)
 
-    def visible_entities(self, rect):
+    def visible_entities(self, rect, *, include_trees=True):
         if not self.index or not self.index["bounds"]:
             return []
         bounds = self.index["bounds"]
+        buckets = self.index["buckets"] if include_trees else self.index["resource_buckets"]
         found = []
         for y in range(max(bounds[1], math.floor(rect.top() / 256)), min(bounds[3], math.floor(rect.bottom() / 256)) + 1):
             for x in range(max(bounds[0], math.floor(rect.left() / 256)), min(bounds[2], math.floor(rect.right() / 256)) + 1):
-                found.extend(p for p in self.index["buckets"].get((x, y), ()) if rect.contains(p["px"], p["py"]))
+                found.extend(p for p in buckets.get((x, y), ()) if rect.contains(p["px"], p["py"]))
         return found
 
     def _tree_picture(self, points, scale):
@@ -385,8 +473,14 @@ class FullMapCanvas(QGraphicsView):
         raster_scale = 2 ** math.ceil(math.log2(effective)) if effective < 1 else None
         left, right = max(bounds[0], math.floor(rect.left() / 256)), min(bounds[2], math.floor(rect.right() / 256))
         top, bottom = max(bounds[1], math.floor(rect.top() / 256)), min(bounds[3], math.floor(rect.bottom() / 256))
+        clip = painter.clipRegion() if painter.hasClipping() else None
+        margin = self.index.get("static_margin", 0) + 2 / scale
         for y in range(top, bottom + 1):
             for x in range(left, right + 1):
+                # 先按Qt实际暴露区域判定，再取缓存；不能为会被clip掉的整框重建树层。
+                if clip is not None and not clip.intersects(QRectF(x * 256 - margin, y * 256 - margin,
+                                                                  256 + 2 * margin, 256 + 2 * margin).toAlignedRect()):
+                    continue
                 points = buckets.get((x, y))
                 if not points:
                     continue
@@ -400,20 +494,32 @@ class FullMapCanvas(QGraphicsView):
                 else:
                     painter.drawPixmap(target, layer, QRectF(layer.rect()))
 
-    def _draw_entities(self, painter, rect):
+    def _draw_entities(self, painter, rect, draw_selection=True):
         if not self.entities_enabled or not self.index:
             return
         scale = max(1e-6, abs(self.transform().m11()))
         unit = self.render.get("pixels_per_source_unit", 12) * scale
-        points = self.visible_entities(rect.adjusted(-80 / scale, -80 / scale, 80 / scale, 80 / scale))
+        margin = max(80 / scale, self.index.get("static_margin", 0) + 2 / scale)
+        expanded = rect.adjusted(-margin, -margin, margin, margin)
+        regions = painter.clipRegion().rects() if painter.hasClipping() else []
+        # 斜向滚动通常只有两条新露出的边缘；保留半径余量后只查询这些区域的非树资源。
+        areas = [QRectF(area).adjusted(-margin, -margin, margin, margin).intersected(expanded)
+                 for area in regions] if 0 < len(regions) <= 8 else [expanded]
+        points, seen = [], set()
+        for area in areas:
+            for point in self.visible_entities(area, include_trees=False):
+                identity = point["entity"]["id"]
+                if identity not in seen:
+                    points.append(point)
+                    seen.add(identity)
         transform, ink = self.viewportTransform(), False
         painter.save()
-        painter.setClipRect(self.extent)
-        self._draw_trees(painter, rect.adjusted(-80 / scale, -80 / scale, 80 / scale, 80 / scale), scale)
+        painter.setClipRect(self.extent, Qt.IntersectClip)
+        self._draw_trees(painter, expanded, scale)
         painter.restore()
         painter.save()
         painter.resetTransform()
-        painter.setClipRect(transform.mapRect(self.extent))
+        painter.setClipRect(transform.mapRect(self.extent), Qt.IntersectClip)
 
         def dot(x, y, radius, color, outline=None, width=.45):
             painter.setPen(QPen(_color(outline), width) if outline else Qt.NoPen)
@@ -460,16 +566,28 @@ class FullMapCanvas(QGraphicsView):
             elif kind in {"animal", "fish"}:
                 dot(x, y, max(1.1, unit * .55), "#776348" if ink else "#91c7c4" if kind == "fish" else "#e5d6ae",
                     "#354034b8" if not ink and kind == "animal" else None, .5)
-        if self.selected:
-            center = transform.map(QPointF(self.selected["px"], self.selected["py"]))
-            painter.setBrush(Qt.NoBrush)
-            painter.setPen(QPen(QColor("#fff2bd"), 2))
-            painter.drawEllipse(center, max(8, unit * 2.5), max(8, unit * 2.5))
+        painter.restore()
+        if draw_selection:
+            self._draw_selection(painter)
+
+    def _draw_selection(self, painter):
+        """动态选择环单独重画，不写入静态地图缓存。"""
+        if not self.selected or not self.render or not self.entities_enabled:
+            return
+        transform = self.viewportTransform()
+        unit = self.render.get("pixels_per_source_unit", 12) * max(1e-6, abs(self.transform().m11()))
+        center = transform.map(QPointF(self.selected["px"], self.selected["py"]))
+        painter.save()
+        painter.resetTransform()
+        painter.setClipRect(transform.mapRect(self.extent), Qt.IntersectClip)
+        painter.setBrush(Qt.NoBrush)
+        painter.setPen(QPen(QColor("#fff2bd"), 2))
+        painter.drawEllipse(center, max(8, unit * 2.5), max(8, unit * 2.5))
         painter.restore()
 
     def drawForeground(self, painter, rect):
         if self.render:
-            self._draw_entities(painter, rect)
+            self._draw_selection(painter)
         else:
             painter.save()
             painter.resetTransform()
@@ -500,8 +618,10 @@ class FullMapCanvas(QGraphicsView):
 
     def resizeEvent(self, event):
         super().resizeEvent(event)
+        self._sync_background_cache_mode()
         if not self.user_camera:
-            self.fit_all()
+            restored = self._restored_camera
+            self.restore_camera(restored) if restored is not None else self._fit_initial()
 
     def mousePressEvent(self, event):
         self._press = event.pos() if event.button() == Qt.LeftButton else None
@@ -537,6 +657,7 @@ class FullMapView(QWidget):
         self.setFont(make_ui_font(12))
         self.entries = {entry["key"]: entry for entry in catalog.entries()}
         self.entry, self._source_dialog, self._pending_camera = None, None, None
+        self._loaded_catalog_root = None
         self.setObjectName("FullMapView")
         self.setMinimumWidth(0)
         layout = QVBoxLayout(self)
@@ -614,6 +735,10 @@ class FullMapView(QWidget):
 
     def set_match_map(self, value):
         """只用已核对别名选择参考实例，不把该实例当作本场随机地图。"""
+        matched = self.catalog.get(value) if value else None
+        if (matched and self.entry and self.canvas.render and matched["key"] == self.entry["key"]
+                and getattr(self.catalog, "root", None) == self._loaded_catalog_root):
+            return True  # 仅APM/账号等报告数据更新时，不重建同一静态参考图。
         return self.select_map(value)
 
     def set_map(self, key):
@@ -639,6 +764,7 @@ class FullMapView(QWidget):
                 entity_error = True
         self.canvas.empty_text = (availability.get("message_zh") or "地图资料包未安装，请先选择资料包。") if not available else "未匹配完整实例，请搜索并选择地图。"
         self.canvas.set_entry(self.entry if available else None, entities)
+        self._loaded_catalog_root = getattr(self.catalog, "root", None)
         if not self.entry:
             self.status_label.setText("未匹配完整实例，请搜索并选择地图。")
         elif not available:
@@ -731,8 +857,11 @@ class FullMapView(QWidget):
                 "representation": "natural", "camera": self._pending_camera or self.canvas.capture_camera(),
                 "selected_entity_id": self.canvas.selected["entity"]["id"] if self.canvas.selected else None}
 
-    def restore_view_state(self, state):
+    def restore_view_state(self, state, *, force=False):
         if not isinstance(state, dict):
+            return
+        if (not force and state == self.capture_view_state()
+                and getattr(self.catalog, "root", None) == self._loaded_catalog_root):
             return
         self.select_map(state.get("map_key"))
         # 旧存档中的手绘状态只迁移为高程地表，镜头和资源点选保持原样。
@@ -759,6 +888,7 @@ class FullMapView(QWidget):
         self.canvas.tile_cache.clear()
         self.canvas.tree_cache.clear()
         self.canvas.tree_geometry_cache.clear()
+        self.canvas.resetCachedContent()
         self.canvas.index = None
         if hasattr(self.catalog, "close"):
             self.catalog.close()
@@ -766,6 +896,6 @@ class FullMapView(QWidget):
     def refresh_tiles(self):
         """宿主切换资料包后刷新当前地图，保留镜头与可重选实体。"""
         state = self.capture_view_state()
-        self.restore_view_state(state)
+        self.restore_view_state(state, force=True)
         self.canvas.viewport().update()
 

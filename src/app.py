@@ -16,7 +16,7 @@ import traceback
 from pathlib import Path
 
 from app_fonts import make_ui_font, register_ui_fonts
-from PyQt5.QtCore import Qt, QTimer, QEvent, QLockFile, QLocale, QTranslator, QSize, QPoint, QPointF, QRectF
+from PyQt5.QtCore import Qt, QTimer, QEvent, QLockFile, QLocale, QTranslator, QSize, QPoint, QPointF, QRectF, QBuffer, QIODevice
 from PyQt5.QtGui import QFont, QFontInfo, QIcon, QKeySequence, QPainter, QPixmap, QColor, QPolygonF, QPen, QLinearGradient, QPainterPath
 from PyQt5.QtWidgets import (
     QApplication, QWidget, QDialog, QLabel, QPushButton, QVBoxLayout, QHBoxLayout,
@@ -39,6 +39,7 @@ from choice_controls import ClickComboBox, ClickSlider, ClickSpinBox
 from editor_actions import StepActions
 from order_actions import time_caption, manual_notes, save_actions
 from analysis_page import AnalysisPage
+from match_analysis import API_SOURCE
 from replay_page import ReplayPage
 from notes_icons import IconNotesEdit
 from overlay_geometry import fit_overlay_widget
@@ -344,18 +345,19 @@ class Editor(FramelessDialog):
         fields.setVerticalSpacing(6)
         fields.setColumnStretch(0, 1)
         fields.setColumnStretch(1, 1)
-        self.time = QLineEdit()
+        # 时间字段直接覆盖左侧当前节点，不在右侧另留一整行或另开对话框。
+        self.time = QLineEdit(self.steps.viewport())
+        self.time.setObjectName("InlineStepTime")
         self.time.setFixedHeight(32)
         self.time.setPlaceholderText("例如 00:10")
         self.time.setAccessibleName("时间（必填）")
-        time_row = QHBoxLayout()
-        time_label = label("时间 *")
-        time_label.setWordWrap(False)
-        time_label.setBuddy(self.time)
-        self.required_labels[self.time] = time_label
-        time_row.addWidget(time_label)
-        time_row.addWidget(self.time, 1)
-        right.addLayout(time_row)
+        self._editing_time = False
+        self._left_time_click = False
+        self.time.hide()
+        self.time.installEventFilter(self)
+        self.steps.viewport().installEventFilter(self)
+        self.steps.itemClicked.connect(self.click_time_node)
+        self.steps.verticalScrollBar().valueChanged.connect(self.position_time_editor)
         self.step_actions = StepActions()
         self.step_actions.set_civilization(self.civ.currentData())
         right.addWidget(self.step_actions)
@@ -392,16 +394,7 @@ class Editor(FramelessDialog):
         body_scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         body_scroll.setWidget(body)
         split.addWidget(body_scroll)
-        # 分隔槽保留完整拖拽命中区，居中的细线只负责视觉边界。
-        handle = split.handle(1)
-        gutter = QVBoxLayout(handle)
-        gutter.setContentsMargins(0, 8, 0, 8)
-        divider = QFrame(handle)
-        divider.setObjectName("OpeningEditorDivider")
-        divider.setFixedWidth(1)
-        divider.setStyleSheet("background:#36363d;border:0;")
-        divider.setAttribute(Qt.WA_TransparentForMouseEvents)
-        gutter.addWidget(divider, 1, Qt.AlignHCenter)
+        # 保留20像素拖拽槽与左右间距，不额外绘制竖线。
         split.setStretchFactor(1, 3)
         split.setSizes([170, 650])
         layout.addWidget(split, 1)
@@ -410,7 +403,7 @@ class Editor(FramelessDialog):
         cancel = button("取消", self.reject)
         cancel.setFixedHeight(36)
         bottom.addWidget(cancel)
-        save = TapestryAction("保存到本地开局库", self.save, "castle")
+        save = TapestryAction("保存", self.save, "castle")
         save.setObjectName("Primary")
         save.setFixedHeight(36)
         compact_font = make_ui_font()
@@ -420,6 +413,7 @@ class Editor(FramelessDialog):
         layout.addLayout(bottom)
         self.steps.currentRowChanged.connect(self.select)
         self.time.textChanged.connect(self.update_time_caption)
+        self.time.textChanged.connect(self.update_required_fields)
         for field in self.required_labels:
             field.textChanged.connect(self.update_required_fields)
         self.civ.currentIndexChanged.connect(lambda: self.step_actions.set_civilization(self.civ.currentData()))
@@ -457,15 +451,81 @@ class Editor(FramelessDialog):
         errors = {self.name: "" if self.name.text().strip() else "请填写开局名称",
                   self.author: "" if self.author.text().strip() else "请填写作者署名",
                   self.time: self.time_error(self.time.text(), self.index)}
-        for field, title in self.required_labels.items():
+        for field, title in list(self.required_labels.items()) + [(self.time, None)]:
             missing = bool(errors[field])
             field.setToolTip(errors[field])
-            for widget in (field, title):
+            for widget in (field, title) if title is not None else (field,):
                 if widget.property("requiredMissing") != missing:
                     widget.setProperty("requiredMissing", missing)
                     widget.style().unpolish(widget)
                     widget.style().polish(widget)
                     widget.update()
+
+    def click_time_node(self, item):
+        """右键仍管理节点；只有左键点击进入就地输入。"""
+        if self._left_time_click:
+            self.edit_time_node(item)
+        self._left_time_click = False
+
+    def edit_time_node(self, item=None):
+        """一次左键点击即编辑原始分:秒；再次点击已选项同样能进入。"""
+        if self.busy:
+            return
+        item = item or self.steps.currentItem()
+        if item is None:
+            return
+        row = self.steps.row(item)
+        if row < 0:
+            return
+        if row != self.index:
+            self.steps.setCurrentItem(item)
+        self.steps.scrollToItem(item)
+        self._editing_time = True
+        self.position_time_editor()
+        self.time.show()
+        self.time.raise_()
+        self.time.setFocus(Qt.MouseFocusReason)
+        self.time.selectAll()
+
+    def position_time_editor(self, *_args):
+        """编辑框属于列表视口，随节点滚动/缩放定位，不保存全局固定坐标。"""
+        if not self._editing_time:
+            return
+        item = self.steps.item(self.index)
+        if item is None:
+            self.hide_time_editor()
+            return
+        rect = self.steps.visualItemRect(item)
+        if not rect.intersects(self.steps.viewport().rect()):
+            self.commit()
+            self.hide_time_editor()
+            return
+        self.time.setGeometry(rect.x()+2, rect.y()+(rect.height()-32)//2, max(1, rect.width()-4), 32)
+
+    def hide_time_editor(self):
+        """先撤编辑状态再隐藏，结构变更时不会把旧草稿提交到新的选择项。"""
+        self._editing_time = False
+        self.time.hide()
+
+    def eventFilter(self, watched, event):
+        if watched is getattr(self, "time", None) and getattr(self, "_editing_time", False):
+            if event.type() == QEvent.FocusOut:
+                # 失焦也保留原始草稿；错误时间仍由既有规则阻止保存，不悄悄丢弃。
+                self.commit()
+                self.hide_time_editor()
+            elif event.type() == QEvent.KeyPress and event.key() in (Qt.Key_Return, Qt.Key_Enter, Qt.Key_Escape):
+                self.commit()
+                self.hide_time_editor()
+                self.steps.setFocus(Qt.OtherFocusReason)
+                event.accept()
+                return True
+        steps = getattr(self, "steps", None)
+        if steps is not None and watched is steps.viewport():
+            if event.type() == QEvent.Resize:
+                self.position_time_editor()
+            elif event.type() == QEvent.MouseButtonPress:
+                self._left_time_click = event.button() == Qt.LeftButton
+        return super().eventFilter(watched, event)
 
     def step_command_specs(self):
         """右键菜单和列表快捷键复用原来的提交、选择和移动行为。"""
@@ -524,12 +584,18 @@ class Editor(FramelessDialog):
         item = self.steps.item(self.index)
         if item is not None:
             item.setText(time_caption(self.time.text()))
+            # 有效节点交还主题绘制，不能拿未应用QSS的系统黑色调色板覆写深色主题。
+            item.setData(Qt.ForegroundRole, QColor("#ef9393") if self.time_error(self.time.text(), self.index)
+                         else None)
 
     def refresh(self):
+        self.hide_time_editor()
         self.busy = True
         self.steps.clear()
-        for step in self.data["build_order"]:
+        for index, step in enumerate(self.data["build_order"]):
             self.steps.addItem(time_caption(step.get('time', '')))
+            self.steps.item(index).setData(Qt.ForegroundRole,
+                QColor("#ef9393") if self.time_error(step.get('time'), index) else None)
         self.steps.setCurrentRow(self.index)
         self.busy = False
         self.update_step_shortcuts()
@@ -546,6 +612,7 @@ class Editor(FramelessDialog):
     def select(self, index):
         if not self.busy and index >= 0:
             self.commit()
+            self.hide_time_editor()
             self.index = index
             self.show_step()
             self.update_step_shortcuts()
@@ -597,7 +664,7 @@ class Editor(FramelessDialog):
                 self.refresh()
                 self.show_step()
                 self.update_required_fields()
-                self.time.setFocus(Qt.OtherFocusReason)
+                self.edit_time_node()
                 return
         selected_civilization = self.civ.currentData()
         if selected_civilization == 'any' and self.original_civilization in ('Any', 'Generic'):
@@ -661,12 +728,15 @@ class Overlay(QWidget):
         self.title.installEventFilter(self)
         row.addWidget(self.title, 1)
         self.clock_label = QLabel("00:00")
-        self.clock_label.setStyleSheet("font-family:'Sen','Source Han Sans SC','Microsoft YaHei UI';font-size:16px;color:#f4f4f5;")
+        self.clock_label.setStyleSheet("font-family:'Smiley Sans';font-size:16px;color:#f4f4f5;")
         self.clock_label.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         row.addWidget(self.clock_label)
-        self.voice_dot = QLabel("●")
+        # 状态圆点是图形，不用得意黑未覆盖的黑圆字符触发系统字体回退。
+        self.voice_dot = QLabel("")
+        self.voice_dot.setFixedSize(6, 6)
+        self.voice_dot.setAccessibleName("中文朗读状态")
         self.voice_dot.setToolTip("中文朗读状态")
-        self.voice_dot.setStyleSheet("color:#22c55e;font-size:8px;")
+        self.voice_dot.setStyleSheet("background:#22c55e;border-radius:3px;")
         row.addWidget(self.voice_dot)
         self.controls = QWidget(self)
         self.controls_layout = QBoxLayout(QBoxLayout.LeftToRight, self.controls)
@@ -682,21 +752,8 @@ class Overlay(QWidget):
         self.start_button.setFocusPolicy(Qt.StrongFocus)
         self.start_button.setAccessibleName("开始计时并自动锁定悬浮窗")
         self.start_button.setToolTip("开始后自动切换并朗读；点击金色小锁可解锁。")
-        play_image = QPixmap(32, 32)
-        play_image.fill(Qt.transparent)
-        play_image.setDevicePixelRatio(2)
-        play_painter = QPainter(play_image)
-        play_painter.setRenderHint(QPainter.Antialiasing)
-        play_path = QPainterPath()
-        play_path.moveTo(5, 3)
-        play_path.lineTo(13, 8)
-        play_path.lineTo(5, 13)
-        play_path.closeSubpath()
-        play_painter.setPen(Qt.NoPen)
-        play_painter.setBrush(QColor("#e5c88e"))
-        play_painter.drawPath(play_path)
-        play_painter.end()
-        self.start_button.setIcon(fixed_color_icon(play_image))
+        # 悬浮控件统一为官方Lucide线稿；仅着金色，不再混用手画实心三角。
+        self.start_button.setIcon(fixed_color_icon(line_icon("play", "#e5c88e").pixmap(36, 36)))
         self.start_button.setIconSize(QSize(18, 18))
         self.start_button.setStyleSheet(
             "QPushButton#OverlayStart{background:#010c1b28;border:1px solid transparent;"
@@ -721,16 +778,7 @@ class Overlay(QWidget):
         self.close_button.setCursor(Qt.PointingHandCursor)
         self.close_button.setAccessibleName("关闭悬浮窗并暂停计时")
         self.close_button.setToolTip("关闭悬浮窗并暂停计时；可从主面板或快捷键恢复。")
-        close_image = QPixmap(32, 32)
-        close_image.fill(Qt.transparent)
-        close_image.setDevicePixelRatio(2)
-        close_painter = QPainter(close_image)
-        close_painter.setRenderHint(QPainter.Antialiasing)
-        close_painter.setPen(QPen(QColor("#e5c88e"), 1.5, Qt.SolidLine, Qt.RoundCap))
-        close_painter.drawLine(QPointF(4, 4), QPointF(12, 12))
-        close_painter.drawLine(QPointF(12, 4), QPointF(4, 12))
-        close_painter.end()
-        self.close_button.setIcon(fixed_color_icon(close_image))
+        self.close_button.setIcon(fixed_color_icon(line_icon("x", "#e5c88e").pixmap(36, 36)))
         self.close_button.setIconSize(QSize(18, 18))
         self.close_button.setStyleSheet(
             "QPushButton#OverlayClose {background:transparent;border:1px solid transparent;"
@@ -961,7 +1009,7 @@ class Overlay(QWidget):
     def apply_text_colors(self):
         """标题和计时不依赖阶段正文，换样式后也保持所选文字颜色。"""
         self.title.setStyleSheet(f"color:{self.text_color('#c6d0c7')};font-size:11px;font-weight:400;background:transparent;")
-        self.clock_label.setStyleSheet(f"font-family:'Sen','Source Han Sans SC','Microsoft YaHei UI';font-size:14px;color:{self.text_color('#e6ebe2')};background:transparent;")
+        self.clock_label.setStyleSheet(f"font-family:'Smiley Sans';font-size:14px;color:{self.text_color('#e6ebe2')};background:transparent;")
 
     def toggle_lock(self):
         """小锁独立接收鼠标；锁定主体时仍可直接解锁。"""
@@ -977,7 +1025,7 @@ class Overlay(QWidget):
         running = self.manager.clock.running
         continuing = self.manager.clock.seconds > 0
         action = "暂停计时" if running else "继续计时并自动锁定悬浮窗" if continuing else "开始计时并自动锁定悬浮窗"
-        self.start_button.setIcon(action_icon("pause" if running else "play", "#e5c88e"))
+        self.start_button.setIcon(fixed_color_icon(line_icon("pause" if running else "play", "#e5c88e").pixmap(36, 36)))
         self.start_button.setAccessibleName(action)
         self.start_button.setToolTip(action)
         self.start_button.setEnabled(running or self.manager.voice_ready())
@@ -1036,9 +1084,7 @@ class Overlay(QWidget):
         sections = []
         for index in indices:
             step = data["build_order"][index]
-            if timed and not (step.get("time") or "").strip():
-                sections.append(f'<p style="margin:3px 0 1px 0;font-size:{previous_size if history_level else detail_size}px;'
-                                f'color:{self.text_color(color if history_level else "#c5c8d2")};">条件提示</p>')
+            # 条件正文留在所属时间组，移除重复的小标题及其段落占位。
             paragraphs = list(step["notes"])
             generated = step.get("_zh_action_notes", [])
             has_generated = bool(generated and paragraphs[-len(generated):] == generated)
@@ -1050,7 +1096,8 @@ class Overlay(QWidget):
                 text_color = self.text_color("#dbe2d7" if history_level else "#f2f4e9")
                 icon_size = max(19, round(main_size * 19 / 14)) if generated_line else max(10, size + 2)
                 sections.append(
-                    f'<p style="margin:0 0 8px 0;line-height:165%;font-size:{size}px;'
+                    # 自动折行按自然字高约1.2倍排布；段落8像素间距和作者显式br保留。
+                    f'<p style="margin:0 0 8px 0;line-height:120%;font-size:{size}px;'
                     f'color:{text_color};">{self.manager.renderer.html(line, size=icon_size)}</p>'
                 )
         content = "".join(sections)
@@ -1062,7 +1109,7 @@ class Overlay(QWidget):
                     f'{short_caption}<br>{stage_time}</p></td><td width="9"></td>'
                     f'<td width="1" bgcolor="{("#bba879" if not history_level else "#687d6b") if self.manager.settings["opacity"] else "transparent"}"></td><td width="12"></td>'
                     f'<td valign="top">{content}</td></tr></table></div>')
-        marker = "● " if self.visual_style == "b" else "— "
+        marker = "· " if self.visual_style == "b" else "— "
         heading = caption + (" · " + stage_time if stage_time else "")
         return (f'<div data-stage="{role}"><p style="margin:0 0 8px 0;font-size:{caption_size}px;'
                 f'font-weight:500;color:{color};">{marker}{heading}</p>{content}</div>')
@@ -1120,7 +1167,7 @@ class Overlay(QWidget):
         self.title.setText(self.title.fontMetrics().elidedText(data["name"], Qt.ElideRight, max(0, self.title.width())))
         self.title.setToolTip(data["name"] + "\n按住标题可移动悬浮窗。")
         self.clock_label.setText(timestamp(manager.clock.seconds))
-        self.voice_dot.setStyleSheet(f"color:{'#4ade80' if manager.settings['speech'] else '#71717a'};font-size:8px;")
+        self.voice_dot.setStyleSheet(f"background:{'#4ade80' if manager.settings['speech'] else '#71717a'};border-radius:3px;")
         self.voice_dot.setToolTip("中文朗读已开启" if manager.settings["speech"] else "中文朗读已关闭，可在主界面开启")
         self.resources.set_step(current)
         self.resources.hide()  # 目标已改为屏幕上方居中的独立提示条。
@@ -1164,6 +1211,15 @@ class Manager(FramelessWindow):
         self.orders_dir.mkdir(parents=True, exist_ok=True)
         self.settings_path = self.data_dir / "设置.json"
         self.settings, warning = load_settings(self.settings_path, logical_dpi=self.logicalDpiY())
+        # 自动保存只接收初始化完成后的真实设置变更；连续编辑合并成一次写盘。
+        self._settings_autosave_ready = False
+        self._settings_pending = set()
+        self._hotkey_edits = set()
+        self._hotkey_ready_edits = set()
+        self._settings_save_timer = QTimer(self)
+        self._settings_save_timer.setSingleShot(True)
+        self._settings_save_timer.setInterval(350)
+        self._settings_save_timer.timeout.connect(self._flush_settings_autosave)
         self.state_file = state_file
         self.clock = Clock()
         self.order = None
@@ -1191,10 +1247,10 @@ class Manager(FramelessWindow):
         self.window_bar = WindowBar(self)
         shell.addWidget(self.window_bar)
         self.navigation = []
-        for index, name in ((0, '开局库'), (3, '玩家查询'), (4, '对局分析'), (1, '设置'), (5, '个人'), (2, '关于')):
+        for index, name in ((0, '开局库'), (3, '玩家查询'), (4, '对局分析'), (1, '设置'), (2, '关于')):
             item = button(name, lambda checked=False, i=index: self.navigate(i))
             item.setObjectName("QuietNav")
-            # 标题栏与品牌采用固定字体尺度，正文调到18像素时六个导航仍完整显示。
+            # 标题栏与品牌采用固定字体尺度，正文调到18像素时导航仍完整显示。
             item.setStyleSheet("font-size:13px;")
             item.setCheckable(True)
             item.setProperty('pageIndex', index)
@@ -1234,10 +1290,12 @@ class Manager(FramelessWindow):
         self.replay_page = ReplayPage(self.data_dir)
         self.replay_layout.addWidget(self.replay_page)
         self.tabs.addTab(replay_container, '对局分析')
-        # 新占位页只追加内部索引，保留既有设置、关于、查询及分析的路由编号。
-        self.personal_page, self.personal_layout = self.make_development_page("个人")
+        # 保留内部路由编号，个人页与入口暂时移除；在线开局库仍沿用索引6。
+        self.tabs.addTab(QWidget(), '')
+        self.tabs.setTabEnabled(5, False)
         self.online_orders_page, self.online_orders_layout = self.make_development_page("在线开局库")
         self.analysis_page.public_match_requested.connect(self.open_match_analysis)
+        self.replay_page.player_query_requested.connect(self.open_player_query)
         # 保留内部状态接口，成功消息不再显示，也不占用主窗口底部空间。
         self.status_bar = label(warning or "", True)
         self.status_bar.setParent(self)
@@ -1270,6 +1328,7 @@ class Manager(FramelessWindow):
         self.apply_ui_font()
         from update_ui import UpdateController
         self.updates = UpdateController(self)
+        self._settings_autosave_ready = True
         if warning:
             self.show_problem(warning, "资料读取提示")
 
@@ -1350,13 +1409,13 @@ class Manager(FramelessWindow):
         self.replay_layout.setContentsMargins(margin, 0, margin, 12)
         self.settings_outer_layout.setContentsMargins(margin, 0, margin, 12)
         self.help_outer_layout.setContentsMargins(margin, 0, margin, 12)
-        self.personal_layout.setContentsMargins(margin, 0, margin, 12)
         self.online_orders_layout.setContentsMargins(margin, 0, margin, 12)
         self.work_layout.setContentsMargins(margin, 16, margin, 12)
         self.work_layout.setSpacing(14 if short else 20)
         self.step_rail.setFixedWidth(220 if compact else 280)
         self.next_step_hint.setVisible(not short and bool(self.order) and self.ids[-1] + 1 < len(self.order['build_order']))
         self.settings_columns.setDirection(QBoxLayout.TopToBottom if compact else QBoxLayout.LeftToRight)
+        self.library_heading_layout.setDirection(QBoxLayout.TopToBottom if compact else QBoxLayout.LeftToRight)
         self.schedule_library_layout()
 
     def resize_command(self):
@@ -1368,9 +1427,11 @@ class Manager(FramelessWindow):
         self.command_scroll.setFixedHeight(min(limit, max(88, desired)))
 
     def navigate(self, index):
+        if index == 5:
+            return
         self.tabs.setCurrentIndex(index)
         names = [("开局库", ""), ("设置", "声音、悬浮显示与操作习惯"),
-                 ("关于", ""), ('玩家查询', ''), ('对局分析', ''), ("个人", ""), ("在线开局库", "")]
+                 ("关于", ""), ('玩家查询', ''), ('对局分析', '知己知彼，百战不殆'), ("个人", ""), ("在线开局库", "")]
         self.page_title.setText(names[index][0])
         self.page_subtitle.setText(names[index][1])
         self.page_heading.setVisible(index not in (0, 3))
@@ -1395,6 +1456,11 @@ class Manager(FramelessWindow):
         self.navigate(4)
         if path:
             self.replay_page.import_path(path)
+
+    def open_player_query(self, profile_id, name):
+        """APM姓名入口沿用唯一编号查询，不用昵称重新搜索同名玩家。"""
+        self.navigate(3)
+        self.analysis_page._query_table_player({"profile_id": profile_id, "name": name})
 
     def open_session(self, item=None):
         """进入当前开局；选择同一卡片时保留已开始的演练进度。"""
@@ -1431,26 +1497,41 @@ class Manager(FramelessWindow):
         self.home_layout.setContentsMargins(32, 22, 32, 12)
         self.home_layout.setSpacing(20)
         self.library_layout = self.home_layout
-        heading = QHBoxLayout()
+        heading = QBoxLayout(QBoxLayout.LeftToRight)
+        self.library_heading_layout = heading
         heading.setSpacing(12)
         titles = QVBoxLayout()
         titles.setSpacing(4)
         titles.addWidget(ui_text("我的开局", "LibraryHeading"))
         titles.addWidget(ui_text("选择一套开局，进入你的节奏。", "Muted"))
         heading.addLayout(titles, 1)
+        self.library_header_actions = QWidget()
+        actions = QHBoxLayout(self.library_header_actions)
+        actions.setContentsMargins(0, 0, 0, 0)
+        actions.setSpacing(8)
+        online_control = TapestryAction("获取开局", self.open_online_orders, "castle")
+        self.online_orders_button = online_control
+        online_control.setIcon(line_icon("online", "#f4f4f5"))
+        online_control.setIconSize(QSize(18, 18))
+        online_control.setFixedHeight(36)
+        online_control.setAccessibleName("获取开局")
+        actions.addWidget(online_control)
         import_control = TapestryAction("本地导入", self.import_dialog, "castle")
+        self.import_orders_button = import_control
         import_control.setIcon(line_icon("import", "#f4f4f5"))
         import_control.setIconSize(QSize(18, 18))
         import_control.setFixedHeight(36)
         import_control.setToolTip("选择本地开局文件导入")
         import_control.setAccessibleName("本地导入")
         new_control = TapestryAction("新建开局", self.new_order, "knight")
+        self.new_order_button = new_control
         new_control.setObjectName("Primary")
         new_control.setIcon(line_icon("new", "#f4f4f5"))
         new_control.setIconSize(QSize(18, 18))
         new_control.setFixedHeight(36)
-        heading.addWidget(import_control)
-        heading.addWidget(new_control)
+        actions.addWidget(import_control)
+        actions.addWidget(new_control)
+        heading.addWidget(self.library_header_actions, 0, Qt.AlignRight)
         self.home_layout.addLayout(heading)
         filters = QHBoxLayout()
         filters.setSpacing(8)
@@ -1497,20 +1578,6 @@ class Manager(FramelessWindow):
         self.library.currentItemChanged.connect(self.choose_order)
         self.library.itemActivated.connect(self.open_session)
         self.home_layout.addWidget(self.library, 1)
-        home_footer = QHBoxLayout()
-        online_control = TapestryAction("获取开局", self.open_online_orders, "castle")
-        self.online_orders_button = online_control
-        online_control.setIcon(line_icon("online"))
-        online_control.setIconSize(QSize(18, 18))
-        online_control.setObjectName("Quiet")
-        home_footer.addWidget(online_control)
-        home_footer.addStretch()
-        self.resume_button = TapestryAction("继续演练", self.open_session, "dragon")
-        self.resume_button.setIcon(line_icon("chevron"))
-        self.resume_button.setIconSize(QSize(18, 18))
-        self.resume_button.setObjectName("Quiet")
-        home_footer.addWidget(self.resume_button)
-        self.home_layout.addLayout(home_footer)
         self.work_views.addWidget(home)
 
         # 演练页是独立的一项任务，操作附属于当前指令，而不是贯穿全屏的播放条。
@@ -1579,7 +1646,7 @@ class Manager(FramelessWindow):
         clock_row.setContentsMargins(0, 0, 0, 0)
         clock_row.setSpacing(12)
         self.console_clock = QLabel("00:00")
-        self.console_clock.setStyleSheet("font-family:'Sen','Source Han Sans SC','Microsoft YaHei UI';font-size:28px;color:#f4f4f5;font-weight:300;")
+        self.console_clock.setStyleSheet("font-family:'Smiley Sans';font-size:28px;color:#f4f4f5;font-weight:300;")
         clock_row.addWidget(self.console_clock)
         self.console_state = ui_text("已暂停", "Muted")
         clock_row.addWidget(self.console_state)
@@ -1615,16 +1682,9 @@ class Manager(FramelessWindow):
         previous.setObjectName("Quiet")
         previous.setFixedSize(38, 40)
         controls.addWidget(previous)
-        # 普通图标按钮保留原始金色；主纹样按钮会自行染色，不适用于播放控件。
+        # 播放与左右步骤按钮共用Quiet（安静按钮）配色，保留相同圆角、内边距及64×40尺寸。
         self.pause_button = icon_button("play", "开始计时", self.toggle_clock)
         self.pause_button.setObjectName("StartButton")
-        self.pause_button.setStyleSheet(
-            "QPushButton#StartButton{background:#242428;border:1px solid #6d6248;border-radius:7px;padding:4px;}"
-            "QPushButton#StartButton:hover{background:#303035;border-color:#bda675;}"
-            "QPushButton#StartButton:pressed{background:#19191C;}"
-            "QPushButton#StartButton:disabled{background:#202023;border-color:#44443F;}"
-            "QPushButton#StartButton:focus{border:2px solid #e5c88e;}"
-        )
         self.pause_button.setFixedSize(64, 40)
         controls.addWidget(self.pause_button)
         following = icon_button("next", "下一步", lambda: self.step(1))
@@ -1701,7 +1761,7 @@ class Manager(FramelessWindow):
         engine_row = QHBoxLayout()
         engine_row.addWidget(ui_text("声音来源", "Muted"))
         self.engine_input = ClickComboBox()
-        self.engine_input.addItem("在线自然语音 · 免登录", "online")
+        self.engine_input.addItem("在线自然语音", "online")
         self.engine_input.addItem("系统中文声音", "system")
         self.engine_input.setCurrentIndex(self.engine_input.findData(self.settings["voice_engine"]))
         self.engine_input.currentIndexChanged.connect(self.change_voice_engine)
@@ -1743,7 +1803,7 @@ class Manager(FramelessWindow):
         self.volume_input.valueChanged.connect(self.change_audio_preferences)
         self.rate_input.currentIndexChanged.connect(self.change_audio_preferences)
         voice_layout.addLayout(voice_parameters)
-        self.voice_status = ui_text("联网生成时发送播报文字；缓存后可断网播放，无需登录。", "Muted")
+        self.voice_status = ui_text("联网生成时发送播报文字；缓存后可断网播放。", "Muted")
         voice_layout.addWidget(self.voice_status)
         layout.addWidget(voice)
         columns = QHBoxLayout()
@@ -1796,6 +1856,9 @@ class Manager(FramelessWindow):
         self.timing_input.setToolTip("例如攻略写00:30建造房屋：按开始时间，会在00:30切到这条提示；"
                                      "按完成时间，会提前显示，到00:30后切到下一条。"
                                      "这里只切换提示，不会检测房屋是否建成。")
+        for field, widget in (("ui_font_size", self.ui_font_input), ("x", self.x_input), ("y", self.y_input)):
+            widget.valueChanged.connect(lambda _value, name=field: self._queue_settings_autosave(name))
+        self.timing_input.currentIndexChanged.connect(lambda _index: self._queue_settings_autosave("timing"))
         for caption, widget in [("悬浮样式", self.overlay_style_input), ("主界面字号", self.ui_font_input), ("悬浮提示字号", self.font_input), ("文字颜色", text_color_row), ("背景颜色", self.overlay_color_input), ("背景不透明度", self.opacity_input),
                              ("文字阴影", self.text_shadow_check), ("阴影强度", self.text_shadow_strength_input),
                              ("横向位置", self.x_input), ("纵向位置", self.y_input), ("攻略时间含义", self.timing_input)]:
@@ -1815,6 +1878,9 @@ class Manager(FramelessWindow):
             widget = QKeySequenceEdit(QKeySequence(self.settings["hotkeys"][action]))
             widget.findChild(QLineEdit).setPlaceholderText("未设置")
             widget.setToolTip("按下组合键；使用退格键清除。只接受单组组合键。")
+            # 完整录入后再提交，按住修饰键或仍在录制的组合键不触发写盘/登记。
+            widget.keySequenceChanged.connect(lambda _sequence, name=action: self._mark_hotkey_edit(name))
+            widget.editingFinished.connect(lambda name=action: self._finish_hotkey_edit(name))
             self.key_inputs[action] = widget
             form.addRow(caption, widget)
         clear_keys = button("清空全部快捷键", self.default_keys)
@@ -1844,13 +1910,8 @@ class Manager(FramelessWindow):
         scroll.setWidget(content)
         outer.addWidget(scroll)
         self.hotkey_status = label("", True)
+        self.hotkey_status.hide()
         outer.addWidget(self.hotkey_status)
-        apply_row = QHBoxLayout()
-        apply_row.addStretch()
-        save = TapestryAction("应用并保存设置", self.apply_settings, "castle")
-        save.setObjectName("Primary")
-        apply_row.addWidget(save)
-        outer.addLayout(apply_row)
         self.tabs.addTab(page, "设置")
 
     def make_help(self):
@@ -1871,7 +1932,7 @@ class Manager(FramelessWindow):
             (f"{APP_NAME} {APP_VERSION} · {APP_CODENAME}", "为《帝国时代 IV》玩家提供开局提示、中文朗读、公开战绩查询与赛后回放分析。"),
             ("使用声明", "本程序不读取或修改游戏运行时数据，不注入游戏，不提供自动操作游戏的脚本功能。公开回放由用户点选后从游戏官网获取，并在本地分析。\n我希望帮助玩家在公平竞技中思考、练习与成长。游戏的意义不止于胜负，更在于探索、进步和乐趣。"),
             ("资料与隐私", "开局、设置、下载的公开回放和分析报告保存在助手数据目录，更新时保留。个人资料不会随安装包或源码包发布。\n在线中文朗读会将播报文字发送给微软语音服务，缓存后可离线播放。"),
-            ("原作与许可", "本项目基于 CraftySalamander 的 RTS_Overlay（即时战略悬浮工具）。\n按 GNU GPL 第三版（通用公共许可证）分发，对应源码在本项目公开仓库提供，许可证与第三方署名随程序保留。游戏名称和图标归原权利人所有；本项目未经游戏官方背书。"),
+            ("原作与许可", "本项目基于 CraftySalamander 的 RTS_Overlay。\n按 GNU GPL 第三版（通用公共许可证）分发，对应源码在本项目公开仓库提供，许可证与第三方署名随程序保留。游戏名称和图标归原权利人所有；本项目未经游戏官方背书。"),
         ]
         for title, paragraph in paragraphs:
             section = QVBoxLayout()
@@ -1880,27 +1941,65 @@ class Manager(FramelessWindow):
             text = QLabel("<p style='margin:0;line-height:160%;'>" + html.escape(paragraph).replace("\n", "<br>") + "</p>")
             text.setWordWrap(True)
             text.setTextFormat(Qt.RichText)
-            text.setTextInteractionFlags(Qt.TextSelectableByMouse | Qt.TextSelectableByKeyboard)
-            text.setStyleSheet("font-family:'Sen','Source Han Sans SC','Microsoft YaHei UI';font-size:12px;color:#b8bac2;background:transparent;border:0;")
+            text.setTextInteractionFlags(Qt.NoTextInteraction)
+            text.setFocusPolicy(Qt.NoFocus)
+            text.setStyleSheet("font-family:'Smiley Sans';font-size:12px;color:#b8bac2;background:transparent;border:0;")
             section.addWidget(text)
             sections.addLayout(section)
+        # 复用已有Lucide上箭头旋转45度；真实图标与文字同色，不使用字符箭头。
+        icon = QPixmap(32, 32)
+        icon.setDevicePixelRatio(2)
+        icon.fill(Qt.transparent)
+        painter = QPainter(icon)
+        painter.setRenderHint(QPainter.Antialiasing)
+        painter.translate(8, 8)
+        painter.rotate(45)
+        painter.translate(-8, -8)
+        line_icon("arrow-up", "#78c99c").paint(painter, 1, 1, 14, 14)
+        painter.end()
+        buffer = QBuffer()
+        buffer.open(QIODevice.WriteOnly)
+        icon.save(buffer, "PNG")
+        icon_data = bytes(buffer.data().toBase64()).decode("ascii")
+
+        def external_link(caption, url):
+            return (f'<a style="color:#78c99c;" href="{html.escape(url, quote=True)}">'
+                    f'{html.escape(caption)}&nbsp;<img src="data:image/png;base64,{icon_data}" '
+                    'width="14" height="14"></a>')
+
         links = QHBoxLayout()
         links.setSpacing(20)
         for caption, url in (("原项目与许可证", "https://github.com/CraftySalamander/RTS_Overlay"),
                              ("GitHub 源码", "https://github.com/miradore-xyz/aoe4-opening-assistant-zh"),
                              ("Gitee 源码", "https://gitee.com/miradore/aoe4-opening-assistant-zh")):
-            source_link = QLabel(f'<a style="color:#78c99c;" href="{url}">{caption}</a>')
+            source_link = QLabel(external_link(caption, url))
+            source_link.setObjectName("AboutExternalLink")
             source_link.setOpenExternalLinks(True)
+            source_link.setTextInteractionFlags(Qt.LinksAccessibleByMouse | Qt.LinksAccessibleByKeyboard)
             links.addWidget(source_link)
         links.addStretch()
         sections.addLayout(links)
+        # 字体链接独立成行；只保留绿色链接，窄窗也不会挤压源码入口。
+        font_links = QLabel(external_link("得意黑", "https://github.com/atelier-anchor/smiley-sans"))
+        font_links.setObjectName("FontSourceLinks")
+        font_links.setTextFormat(Qt.RichText)
+        font_links.setWordWrap(True)
+        font_links.setOpenExternalLinks(True)
+        font_links.setTextInteractionFlags(Qt.TextBrowserInteraction)
+        font_links.setStyleSheet("color:#929299;background:transparent;border:0;")
+        sections.addWidget(font_links)
+        api_link = QLabel(external_link("数据来源与接口说明", API_SOURCE))
+        api_link.setObjectName("DataSourceLink")
+        api_link.setOpenExternalLinks(True)
+        api_link.setTextInteractionFlags(Qt.LinksAccessibleByMouse | Qt.LinksAccessibleByKeyboard)
+        sections.addWidget(api_link)
         sections.addStretch(1)
         self.help_scroll.setWidget(content)
         layout.addWidget(self.help_scroll)
         self.tabs.addTab(page, "关于")
 
     def make_development_page(self, title):
-        """未来入口共用居中的矢量施工图标，不创建账号或网络下载功能。"""
+        """未来入口共用居中的开发中文字，不创建账号或网络下载功能。"""
         page = QWidget()
         layout = QVBoxLayout(page)
         layout.setContentsMargins(32, 0, 32, 12)
@@ -1909,8 +2008,113 @@ class Manager(FramelessWindow):
         return page, layout
 
     def position_fields(self):
-        self.x_input.setValue(self.settings["x"])
-        self.y_input.setValue(self.settings["y"])
+        # 悬浮窗拖动后的程序同步不应被当作一次新的用户编辑。
+        for key, widget in (("x", self.x_input), ("y", self.y_input)):
+            previous = widget.blockSignals(True)
+            widget.setValue(self.settings[key])
+            widget.blockSignals(previous)
+            self._settings_pending.discard(key)
+        if not self._settings_pending:
+            self._settings_save_timer.stop()
+
+    def _queue_settings_autosave(self, field):
+        if not self._settings_autosave_ready:
+            return
+        if field != "hotkeys":
+            widget = {"ui_font_size": self.ui_font_input, "x": self.x_input,
+                      "y": self.y_input, "timing": self.timing_input}[field]
+            value = widget.currentData() if field == "timing" else widget.value()
+            if value == self.settings[field]:
+                self._settings_pending.discard(field)
+                return
+        self._settings_pending.add(field)
+        self._settings_save_timer.start()
+
+    def _mark_hotkey_edit(self, action):
+        if self._settings_autosave_ready:
+            self._hotkey_edits.add(action)
+
+    def _finish_hotkey_edit(self, action):
+        if action in self._hotkey_edits:
+            self._hotkey_ready_edits.add(action)
+            self._queue_settings_autosave("hotkeys")
+
+    def _commit_hotkey_edits(self, actions):
+        # 只读取已经结束录入的字段，不能顺带提交另一个仍在编辑的组合键。
+        values = dict(self.settings["hotkeys"])
+        values.update({key: self.key_inputs[key].keySequence().toString(QKeySequence.PortableText)
+                       for key in actions})
+        self._hotkey_edits.difference_update(actions)
+        try:
+            parsed = [self.hotkeys.parse(value) for value in values.values() if value]
+            if len(parsed) != len(set(parsed)):
+                raise ValueError("不同功能不能使用相同快捷键。")
+        except ValueError as error:
+            self._hotkey_ready_edits.update(actions)
+            message(self, str(error), "快捷键没有保存")
+            return False, False
+        previous = self.settings["hotkeys"]
+        if values == previous:
+            self.hotkey_status.clear()
+            self.hotkey_status.hide()
+            return False, True
+        self.settings["hotkeys"] = values
+        if self.register_hotkeys() is False:
+            # 系统拒绝新绑定时保留上次有效设置，并恢复已登记的旧绑定。
+            self.settings["hotkeys"] = previous
+            self._hotkey_ready_edits.update(actions)
+            try:
+                self.hotkeys.apply(previous)
+            except ValueError:
+                pass
+            return False, False
+        self.sync_overlay_lock_control()
+        return True, True
+
+    def _flush_settings_autosave(self, *, force=False, include_hotkeys=False):
+        self._settings_save_timer.stop()
+        if not self._settings_autosave_ready:
+            return True
+        pending, self._settings_pending = self._settings_pending, set()
+        if force:
+            pending.update(("ui_font_size", "x", "y", "timing"))
+        if include_hotkeys and self._hotkey_edits:
+            self._hotkey_ready_edits.update(self._hotkey_edits)
+            pending.add("hotkeys")
+        key_actions = set()
+        if "hotkeys" in pending:
+            key_actions, self._hotkey_ready_edits = self._hotkey_ready_edits, set()
+        changed = set()
+        for field in pending - {"hotkeys"}:
+            widget = {"ui_font_size": self.ui_font_input, "x": self.x_input,
+                      "y": self.y_input, "timing": self.timing_input}[field]
+            value = widget.currentData() if field == "timing" else widget.value()
+            if value != self.settings[field]:
+                self.settings[field] = value
+                changed.add(field)
+        hotkeys_ok = True
+        if "hotkeys" in pending:
+            focused = QApplication.focusWidget()
+            if include_hotkeys and QApplication.keyboardModifiers() != Qt.NoModifier:
+                key_actions = {action for action in key_actions if not (
+                    focused is self.key_inputs[action] or (focused is not None and
+                    self.key_inputs[action].isAncestorOf(focused)))}
+            if key_actions:
+                keys_changed, hotkeys_ok = self._commit_hotkey_edits(key_actions)
+                if keys_changed:
+                    changed.add("hotkeys")
+        if "ui_font_size" in changed:
+            self.apply_ui_font()
+        if changed & {"x", "y"}:
+            self.overlay.move(self.settings["x"], self.settings["y"])
+            self.overlay.fit_on_screen()
+            self.settings.update(x=self.overlay.x(), y=self.overlay.y())
+            self.position_fields()
+        if "timing" in changed:
+            self.update_display()
+        # 不调用总外观应用、语音准备或演练跳转，保持当前计时与手动步骤。
+        saved = self.save_settings() if changed or (force and hotkeys_ok) else True
+        return saved and hotkeys_ok
 
     def save_settings(self):
         try:
@@ -1949,9 +2153,11 @@ class Manager(FramelessWindow):
             failed = self.hotkeys.apply(self.settings["hotkeys"])
             self.hotkey_status.setText("快捷键占用或登记失败：" + "、".join(HOTKEY_LABELS[k] for k in failed) if failed else "")
             self.hotkey_status.setVisible(bool(failed))
+            return not failed
         except ValueError as error:
             self.hotkey_status.setText(str(error))
             self.hotkey_status.show()
+            return False
 
     def on_hotkey(self, action):
         if QApplication.activeModalWidget():
@@ -1964,13 +2170,18 @@ class Manager(FramelessWindow):
 
     def default_keys(self):
         for key, widget in self.key_inputs.items():
+            previous = widget.blockSignals(True)
             widget.setKeySequence(QKeySequence(DEFAULT_HOTKEYS[key]))
+            widget.blockSignals(previous)
+        self._hotkey_edits.clear()
+        self._hotkey_ready_edits.clear()
+        self._settings_pending.discard("hotkeys")
         self.settings["hotkeys"] = DEFAULT_HOTKEYS.copy()
         self.save_settings()
         self.register_hotkeys()
 
     def change_overlay_style(self, _index=None):
-        """样式单独即时保存；不提交其他尚未应用的设置输入。"""
+        """样式即时保存，其余输入继续由各自的自动保存处理。"""
         self.settings["overlay_style"] = overlay_style(self.overlay_style_input.currentData())
         self.save_settings()
         if hasattr(self, "overlay"):
@@ -1993,7 +2204,7 @@ class Manager(FramelessWindow):
         self.change_overlay_appearance()
 
     def change_overlay_appearance(self, _value=None):
-        """仅即时提交显示字段，不提交尺寸等其他尚未应用的设置。"""
+        """即时提交悬浮外观；不顺带提交其它正在合并编辑的字段。"""
         self.settings.update(font_size=self.font_input.value(), overlay_color=self._overlay_color_value,
                              overlay_text_color=self._overlay_text_color_value,
                              opacity=self.opacity_input.value(), text_shadow=self.text_shadow_check.isChecked(),
@@ -2045,38 +2256,8 @@ class Manager(FramelessWindow):
         self.change_overlay_appearance()
 
     def apply_settings(self):
-        values = {key: widget.keySequence().toString(QKeySequence.PortableText) for key, widget in self.key_inputs.items()}
-        try:
-            parsed = [self.hotkeys.parse(value) for value in values.values() if value]
-            if len(parsed) != len(set(parsed)):
-                raise ValueError("不同功能不能使用相同快捷键。")
-        except ValueError as error:
-            message(self, str(error), "设置没有保存")
-            return
-        for key, widget in [("font_size", self.font_input), ("ui_font_size", self.ui_font_input),
-                            ("opacity", self.opacity_input), ("x", self.x_input), ("y", self.y_input),
-                            ("volume", self.volume_input)]:
-            self.settings[key] = widget.value()
-        self.settings.update(overlay_style=overlay_style(self.overlay_style_input.currentData()),
-                             overlay_color=self._overlay_color_value,
-                             overlay_text_color=self._overlay_text_color_value,
-                             text_shadow=self.text_shadow_check.isChecked(),
-                             text_shadow_strength=self.text_shadow_strength_input.value(),
-                             rate=self.rate_input.currentData(),
-                             timing=self.timing_input.currentData(), speech=self.speech_check.isChecked(),
-                             voice=self.voice_input.currentData() or "", hotkeys=values)
-        if not self.settings["speech"]:
-            self.stop_voice()
-        self.step_alert = ""
-        saved = self.save_settings()
-        self.apply_ui_font()
-        self.register_hotkeys()
-        self.sync_overlay_lock_control()
-        self.overlay.apply_settings()
-        self.update_display()
-        if saved:
-            self.status_bar.clear()
-        self.prepare_voice()
+        """保留内部兼容入口；界面所有设置均自动保存，不再需要应用按钮。"""
+        return self._flush_settings_autosave(force=True, include_hotkeys=True)
 
     def change_auto(self, enabled):
         self._manual_timeline_ids = None
@@ -2329,7 +2510,6 @@ class Manager(FramelessWindow):
             self.library.addItem(item)
         self.library.blockSignals(False)
         self.collection_count.setText(str(self.library.count()))
-        self.resume_button.setEnabled(bool(self.library.count()))
         self.schedule_library_layout()
         wanted = str(select or self.settings["last_order"])
         selected = next((i for i in range(self.library.count()) if self.library.item(i).data(Qt.UserRole) == wanted), 0)
@@ -2492,7 +2672,8 @@ class Manager(FramelessWindow):
         self.console_state.setText("计时进行中" if self.clock.running else "已暂停")
         action = "暂停计时" if self.clock.running else "开始计时"
         self.pause_button.setText("")
-        self.pause_button.setIcon(action_icon("pause" if self.clock.running else "play", "#e5c88e"))
+        # 每次切换播放/暂停仍使用灰白图标，不能被刷新逻辑恢复成旧金色。
+        self.pause_button.setIcon(action_icon("pause" if self.clock.running else "play", "#c6c7cb"))
         self.pause_button.setToolTip(action)
         self.pause_button.setAccessibleName(action)
         self.pause_button.setEnabled(self.clock.running or self.voice_ready())
@@ -2588,9 +2769,10 @@ class Manager(FramelessWindow):
             self.overlay.render()
         if self.state_file:
             value = {"version": APP_VERSION, "codename": APP_CODENAME,
+                     "navigation_labels": [item.text() for item in self.navigation],
                      "interface_font": {"latin_family": QFontInfo(self.application.font()).family(),
                                         "bundled_files": len(register_ui_fonts()),
-                                        "configured_chinese_family": "Source Han Sans SC"},
+                                        "configured_chinese_family": "Smiley Sans"},
                      "step": self.ids, "seconds": current, "running": self.clock.running,
                      "overlay_appearance": {"color": self.settings.get("overlay_color", DEFAULTS["overlay_color"]),
                                             "text_color": self.settings.get("overlay_text_color", ""),
@@ -2611,16 +2793,154 @@ class Manager(FramelessWindow):
             # 仅显式验证模式写入地图状态，确认发行程序实际创建了复盘画布。
             replay_page = self.replay_page
             map_view = replay_page.map_view
+            if (getattr(self, "_qa_analysis", False) and replay_page.report is not None
+                    and not replay_page._context_pending and not getattr(self, "_qa_analysis_opened", False)):
+                # 仅显式离屏验收参数启用，不改变日常启动和真实用户的全屏状态。
+                self._qa_analysis_opened = True
+                # 首次进入先记真实零时刻与原有左右布局，禁止只验跳到后期的非空地图。
+                self._qa_original_ui = {
+                    "workspace_present": getattr(replay_page, "diagnosis_workspace", None) is not None,
+                    "stage_visible": replay_page.stage.isVisible(),
+                    "map_left_of_sidebar": replay_page.map_card.x() < replay_page.sidebar.x(),
+                    "card_gap": replay_page.stage_layout.spacing(),
+                    "initial_time": map_view.current_time,
+                    "initial_players": len(map_view.players),
+                    "initial_legend": len(map_view.canvas.legend),
+                    "initial_events": len(map_view.events),
+                    "first_event_time": min((event["time"] for event in map_view.events), default=None),
+                }
+                map_view.set_advanced_exploration_enabled(True)
+                replay_page._expand_map()
             if replay_page.report is not None and map_view is not None:
+                from replay_placement_markers import building_metadata
+                placed = map_view.placement_layer.events
+                covered = [event for event in placed
+                           if building_metadata(event.get("building_type_id"))["icon"] is not None]
                 value["replay_map"] = {"points": len(map_view.events),
+                                       "building_placements": len(map_view.placement_layer.events),
+                                       "placement_marker_count": len(map_view.placement_layer.events),
+                                       "visible_placement_marker_count": len(map_view.placement_layer.visible_records),
+                                       "placement_markers_visible": map_view.placement_markers_visible,
+                                       "operation_points_visible": map_view.operation_points_visible,
+                                       "map_render_mode": "official_icons",
+                                       "official_icon_placement_records": len(covered),
+                                       "official_icon_blueprint_types": len({event.get("building_type_id") for event in covered}),
                                        "time": map_view.current_time,
                                        "duration": map_view.duration,
-                                       "official_maps": len(map_view.official_map.entries),
-                                       "reference_view": type(map_view.official_map).__name__,
-                                       "map_pack_state": map_view.official_map.catalog.data_status().get("state"),
-                                       "reference_style": map_view.official_map.canvas.style,
+                                       "official_maps": 0,
+                                       "reference_view": type(map_view.canvas).__name__,
+                                       "map_pack_state": "removed",
+                                       "reference_style": "grid",
+                                       # 仅显式验证输出：保留场景坐标框与主/细格步长，不冒称米制。
+                                       "grid_boundary": ([map_view.canvas.battlefield_rect.x(),
+                                                          map_view.canvas.battlefield_rect.y(),
+                                                          map_view.canvas.battlefield_rect.width(),
+                                                          map_view.canvas.battlefield_rect.height()]
+                                                         if map_view.canvas.battlefield_rect is not None else None),
+                                       "grid_boundary_confirmed": map_view.canvas.boundary_confirmed,
+                                       "grid_step": getattr(map_view.canvas, "_grid_step", None),
+                                       "grid_minor_step": getattr(map_view.canvas, "_minor_grid_step", None),
                                        "canvas_size": [map_view.canvas.width(), map_view.canvas.height()],
                                        "visible": map_view.isVisible()}
+            dialog = replay_page._map_dialog
+            dock = dialog.map_view.advanced_analysis if dialog is not None else None
+            if dock is not None:
+                if getattr(self, "_qa_analysis", False) and dock.is_ready() and dock._selected_id is None:
+                    dock.select_analysis("army_utilization")
+                value["advanced_analysis"] = {
+                    "entries": len(dock.buttons), "ready": dock.is_ready(),
+                    "selected": dock._selected_id, "panel_visible": dock.panel.isVisible(),
+                    "unit_observation_chart_created": getattr(dock, "_observation_chart", None) is not None,
+                    "context_game_id": ((dock._context.get("report") or {}).get("source") or {}).get("game_id"),
+                    "coverage": dock._model.get("coverage"),
+                    "source_capabilities": (replay_page.analysis_sources or {}).get("capabilities"),
+                    "position_observation_groups": len((replay_page.analysis_sources or {}).get("entity_observations") or []),
+                    "statuses": {key: result.get("status") for key, result in (dock._model.get("by_id") or {}).items()}}
+                if getattr(self, "_qa_analysis", False) and dock.is_ready():
+                    if (not getattr(self, "_qa_original_fullscreen_checked", False)
+                            and dialog._pending_view_state is None and not dialog._restore_timer.isActive()):
+                        # 在原有点选验收改变播放时刻前，核零时刻全屏与末时刻，再恢复零时刻。
+                        view = dialog.map_view
+                        state = view.capture_view_state()
+                        self._qa_original_ui.update({
+                            "fullscreen_initial_time": view.current_time,
+                            "fullscreen_players": len(view.players),
+                            "fullscreen_legend": len(view.canvas.legend),
+                            "fullscreen_rail_visible": dock.rail.isVisible(),
+                            "fullscreen_entries": len(dock.buttons),
+                            "legend_clear_of_rail": view.canvas.legend_left_inset > dock.rail.geometry().right(),
+                            "apm_separate_from_stage": (replay_page.apm_card is not None
+                                and not replay_page.stage.isAncestorOf(replay_page.apm_card)),
+                        })
+                        view.seek(view.duration, emit=False)
+                        self._qa_original_ui["end_visible_points"] = (len(view.layer.history_events)
+                                                                     + len(view.layer.recent_events))
+                        view.restore_view_state(state)
+                        self._qa_original_ui["restored_initial_time"] = view.current_time
+                        self._qa_original_fullscreen_checked = True
+                    value["original_ui_restored"] = getattr(self, "_qa_original_ui", {})
+                    # 仅显式验收：等同场后台单位索引就绪，每份结果只扫描一次；普通启动不运行。
+                    report = replay_page.report or {}
+                    sources = replay_page.analysis_sources or {}
+                    unit_state = sources.get("unit_state")
+                    qa_key = ((report.get("source") or {}).get("sha256"), id(unit_state), id(dialog))
+                    if isinstance(unit_state, dict) and qa_key != getattr(self, "_qa_replay_evidence_key", None):
+                        rows = report.get("timeline") or []
+                        build = (report.get("metadata") or {}).get("build_number")
+                        types = {observation.get("entity_type") for unit in unit_state.get("units", [])
+                                 for observation in unit.get("observations", []) if observation.get("entity_type")}
+                        resolved = {name for unit in unit_state.get("units", []) for name in unit.get("definitions", {})}
+                        official = sources.get("official_unit_context") or {}
+                        self._qa_replay_evidence = {
+                            "replay_semantics": {
+                                "timeline_commands": len(rows),
+                                "timeline_unknown": sum(row.get("known") is not True for row in rows),
+                                "payload_errors": (report.get("coverage") or {}).get("payload_errors"),
+                                "selected_refs_verified_commands": sum(bool(row.get("selected_refs")) and
+                                    row.get("selected_refs_verified") is True for row in rows),
+                                "kind2_refs": sum(len({ref.get("original_id") for ref in row.get("selected_refs", [])
+                                    if ref.get("kind") == 2 and ref.get("encoding_build") == build})
+                                    for row in rows if row.get("selected_refs_verified") is True),
+                                "reference_encoding_build": ((report.get("coverage") or {}).get("reference_encoding_source") or {}).get("build_number")},
+                            "replay_unit_state": {
+                                "coverage": unit_state.get("coverage"), "capabilities": unit_state.get("capabilities"),
+                                "definition_types_total": len(types), "definition_types_resolved": len(types & resolved),
+                                "official_version_match": official.get("version_match"),
+                                "official_game_build": official.get("game_build"),
+                                "catalog_sha256": (official.get("source") or {}).get("catalog_sha256"),
+                                "source_network_requests": sources.get("network_requests"),
+                                "source_errors": sources.get("errors")},
+                            "analysis_layout": {
+                                "raw_table_widget_count": sum(type(widget).__name__ == "QTableWidget"
+                                    for widget in dock.panel.findChildren(QWidget)),
+                                "has_long_series_text": any("图中序列" in widget.text()
+                                    for widget in dock.panel.findChildren(QLabel))}}
+                        view = dialog.map_view
+                        from replay_placement_markers import building_metadata
+                        event = next((event for event in view.placement_layer.events
+                                      if building_metadata(event.get("building_type_id"))["icon"] is not None), None)
+                        if event is not None:
+                            # 验收用真实放置记录；显式开始播放后点选，核时刻/播放/镜头原值保持。
+                            view.seek(min(view.duration, float(event["time"]) + 1), emit=False)
+                            if not view.timer.isActive():
+                                view.toggle_playback()
+                            before_time, before_playing = view.current_time, view.timer.isActive()
+                            before_transform = view.canvas.viewportTransform()
+                            view.select_event(event, seek=False, emit=False)
+                            card = view.selection_card
+                            self._qa_replay_evidence["selection_card"] = {
+                                "created": True, "visible": card.frame.isVisible(),
+                                "icon_is_official": card.icon_is_official,
+                                "name": card.name.accessibleName(), "player": card.player.accessibleName(),
+                                "time": card.time.text(), "event_time": event["time"],
+                                "time_before": before_time, "time_after": view.current_time,
+                                "playing_before": before_playing, "playing_after": view.timer.isActive(),
+                                "camera_preserved": before_transform == view.canvas.viewportTransform(),
+                                "viewport_sibling": card.frame.parent() is view.canvas.viewport()}
+                            view.pause()
+                        self._qa_replay_evidence_key = qa_key
+                    if qa_key == getattr(self, "_qa_replay_evidence_key", None):
+                        value.update(self._qa_replay_evidence)
             if value != self._last_state:
                 atomic_json(self.state_file, value)
                 self._last_state = value
@@ -2709,6 +3029,7 @@ class Manager(FramelessWindow):
                 message(self, "无法写入所选位置，请换一个可写的文件夹。", "导出失败")
 
     def closeEvent(self, event):
+        self._flush_settings_autosave(include_hotkeys=True)
         if self._problem_dialog is not None:
             self._problem_dialog.close()
         self.clock.pause()
@@ -2736,8 +3057,11 @@ def main():
     parser = argparse.ArgumentParser(description=APP_NAME)
     parser.add_argument("--data-dir", type=Path, help="独立数据目录（默认：便携程序旁的用户数据）")
     parser.add_argument("--qa-state", type=Path, help="仅验证时使用：将当前状态写入指定文件")
+    parser.add_argument("--qa-analysis", action="store_true", help="仅配合qa-state验证全屏高级分析，不用于普通启动")
     parser.add_argument("--replay", type=Path, help="打开手动指定的本地赛后录像，不修改原文件")
     args = parser.parse_args()
+    if args.qa_analysis and not args.qa_state:
+        parser.error("高级分析验证需要指定独立状态输出文件。")
     QApplication.setAttribute(Qt.AA_EnableHighDpiScaling)
     QApplication.setAttribute(Qt.AA_UseHighDpiPixmaps)
     QLocale.setDefault(QLocale(QLocale.Chinese, QLocale.China))
@@ -2764,10 +3088,15 @@ def main():
         message(None, "程序遇到错误，详情已保存在本助手用户数据目录的「错误日志.txt」。", "程序错误")
     sys.excepthook = report_exception
     manager = Manager(application, data_dir, args.qa_state)
+    manager._qa_analysis = args.qa_analysis
     manager.show()
     if args.replay:
         # replay（赛后录像）仅由本次显式参数打开，不扫描或跟随正在进行的对局。
         QTimer.singleShot(0, lambda: manager.open_replay(args.replay))
+    elif args.qa_analysis:
+        # 显式验证可重开独立数据目录中已归档的真实报告，包含同局公开来源身份。
+        manager.navigate(4)
+        QTimer.singleShot(0, manager.replay_page.open_archive)
     result = application.exec_()
     lock.unlock()
     return result

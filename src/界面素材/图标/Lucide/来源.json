@@ -5,7 +5,7 @@
   "license_note_zh": "Lucide采用ISC许可证；源LICENSE保留其中Feather衍生部分的MIT许可证及版权声明。",
   "license_url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/LICENSE",
   "license_sha256": "b495047bd93a9b06913511076f504daba17d5bbeb3e0650f3bb53a4220329c57",
-  "modification_note_zh": "保留官方SVG原文件；运行时将currentColor替换为本软件按钮颜色，以20逻辑像素显示，形状不修改。",
+  "modification_note_zh": "保留官方SVG原文件；运行时仅将currentColor替换为本软件按钮颜色，默认20逻辑像素，控件可等比缩放，形状不修改。",
   "icons": [
     {
       "name": "search",
@@ -132,6 +132,36 @@
       "url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/icons/chevron-down.svg",
       "sha256": "66ea878e72ed3488bb3b464c39dfdccee8d1f78e560dccea40e5e12da0e87e87",
       "bytes": 236
+    },
+    {
+      "name": "maximize",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/icons/maximize.svg",
+      "sha256": "1f790856b0de805ab62e871609f1990b89d227d472022e57a11fde015aad4826",
+      "bytes": 366
+    },
+    {
+      "name": "play",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/icons/play.svg",
+      "sha256": "d7c34786135922a92b6896f6c2384ceeb0346afbf6041dc79982011411409833",
+      "bytes": 306
+    },
+    {
+      "name": "pause",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/icons/pause.svg",
+      "sha256": "f122ec4ea7f5693a0b1baafa9c708b53980dc87b4aacb297c6e6f71c1a4c115c",
+      "bytes": 313
+    },
+    {
+      "name": "lock-keyhole",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/icons/lock-keyhole.svg",
+      "sha256": "fc0b8b7590d1d9e9bb0112c5c2e15a78ade0bfeca6d6f8c79fbbe149236d74be",
+      "bytes": 337
+    },
+    {
+      "name": "lock-keyhole-open",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/1802f33f6c270395fcd981067f22719140e2ffbc/icons/lock-keyhole-open.svg",
+      "sha256": "9dbc41c9cd23e3bad8f3edb885e91d0ed514619ef632a2c5cd8a2e21ec37be35",
+      "bytes": 339
     }
   ]
 }

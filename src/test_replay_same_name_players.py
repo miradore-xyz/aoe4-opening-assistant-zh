@@ -103,7 +103,8 @@ class ReplaySameNamePlayerTests(unittest.TestCase):
         self.assertEqual(view.names, {101: "同名玩家 · 账号880001", 202: "同名玩家 · 账号990002"})
         self.assertEqual([view.player_filter.itemData(index) for index in (1, 2)], [101, 202])
         self.assertEqual([name for name, _color in view.canvas.legend], list(view.names.values()))
-        self.assertIn("账号880001", view.canvas.toolTip())
+        self.assertEqual(view.canvas.toolTip(), "")
+        self.assertIn("账号880001", view.canvas.accessibleDescription())
         self.assertIn("账号990002", view.canvas.accessibleDescription())
         signal = QSignalSpy(view.eventSelected)
         event = next(event for event in view.events if event["player_id"] == 202)
@@ -114,7 +115,8 @@ class ReplaySameNamePlayerTests(unittest.TestCase):
         self.assertEqual({event["player_id"] for event in view.layer.filtered_events}, {101})
         self.assertIsNone(view.layer.selected)
         self.assertEqual([name for name, _color in view.canvas.legend], [view.names[101]])
-        self.assertNotIn("账号990002", view.canvas.toolTip())
+        self.assertEqual(view.canvas.toolTip(), "")
+        self.assertNotIn("账号990002", view.canvas.accessibleDescription())
         self.assertEqual(view.model, before, "筛选和显示不修改原始资料")
 
     def test_long_legend_preserves_full_account_suffix_and_fits_small_window(self):

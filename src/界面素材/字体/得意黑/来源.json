@@ -1,0 +1,21 @@
+{
+  "字体": "得意黑（Smiley Sans）",
+  "版本": "v2.0.1",
+  "官方仓库": "https://github.com/atelier-anchor/smiley-sans",
+  "固定提交": "67e3821f4b06cbd7155fa6fa69daff4b6f311b76",
+  "发布包": "https://github.com/atelier-anchor/smiley-sans/releases/download/v2.0.1/smiley-sans-v2.0.1.zip",
+  "发布包_SHA256": "299c0be6c960ae37361762eca76f7d0cd516615435bb96c0d4b98a1e70178a07",
+  "许可证": "SIL Open Font License 1.1",
+  "许可来源": "https://raw.githubusercontent.com/atelier-anchor/smiley-sans/67e3821f4b06cbd7155fa6fa69daff4b6f311b76/LICENSE",
+  "文件": {
+    "SmileySans-Oblique.ttf": {
+      "字节数": 2629764,
+      "SHA256": "b447d7e781f08bc95c4c9f23ba71ed2b8ebb639aa7184485c71c4ca5afcd25c4"
+    },
+    "OFL.txt": {
+      "字节数": 4422,
+      "SHA256": "9401f4050f1b66c26b6ccdc8b0e14a3c1cc37aac122eda84386f25854a9bec72"
+    }
+  },
+  "说明": "官方唯一字重原文件；只登记当前程序，不安装系统字体。中文、英文、数字共用；不含字形由系统补缺。"
+}

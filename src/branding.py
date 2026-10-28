@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import math
+from pathlib import Path
+import sys
 
 from PyQt5.QtCore import Qt, QRectF
 from PyQt5.QtGui import QColor, QGuiApplication, QPainter, QPainterPath, QPixmap
@@ -9,6 +11,31 @@ from PyQt5.QtGui import QColor, QGuiApplication, QPainter, QPainterPath, QPixmap
 
 # APP_NAME 是产品显示名；数据目录、安装标识和更新地址继续沿用原值。
 APP_NAME = "AoE4 HELP"
+
+
+def brand_wordmark(width: int = 117, height: int = 26) -> QPixmap:
+    """将透明字标图片绘到顶栏；不再依靠用户系统字体显示品牌名。"""
+    root = (Path(sys._MEIPASS) / "assets/design" if getattr(sys, "frozen", False)
+            else Path(__file__).resolve().parent / "界面素材")
+    image = QPixmap(str(root / "brand/aoe4-help-wordmark-v01.png"))
+    if image.isNull():
+        raise RuntimeError("品牌字标图片缺失")
+    active_window = QGuiApplication.focusWindow()
+    screen = active_window.screen() if active_window is not None else QGuiApplication.primaryScreen()
+    ratio = max(2.0, float(screen.devicePixelRatio()) if screen is not None else 2.0)
+    mark = QPixmap(math.ceil(width * ratio), math.ceil(height * ratio))
+    mark.setDevicePixelRatio(ratio)
+    mark.fill(Qt.transparent)
+    # 只取图片正文区域进行显示，保留原文件和透明通道，不拉伸字形。
+    source = QRectF(39, 212, 2001, 307)
+    scale = min(width / source.width(), height / source.height())
+    target = QRectF(0, (height - source.height() * scale) / 2,
+                    source.width() * scale, source.height() * scale)
+    painter = QPainter(mark)
+    painter.setRenderHint(QPainter.SmoothPixmapTransform)
+    painter.drawPixmap(target, image, source)
+    painter.end()
+    return mark
 
 
 def brand_mark(size: int = 26) -> QPixmap:

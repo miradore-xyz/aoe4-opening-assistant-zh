@@ -81,6 +81,7 @@ class MatchViewAlignmentTests(unittest.TestCase):
             self.assertEqual(card.wins_label.text(), f"{card.summary['wins']}胜")
             self.assertEqual(card.losses_label.text(), f"{card.summary['losses']}负")
         self.assertIn("非赛季累计", page.scope_label.toolTip())
+        self.assertEqual(page.scope_label.text(), "近 5 场数据")
 
     def test_fixed_all_modes_ignores_legacy_filter_and_refresh_keeps_every_match(self):
         page = self.page
@@ -157,26 +158,28 @@ class MatchViewAlignmentTests(unittest.TestCase):
             self.assertEqual(option.palette.color(QPalette.HighlightedText), QColor(expected))
             self.assertEqual(option.palette.color(QPalette.Inactive, QPalette.HighlightedText), QColor(expected))
 
-    def test_official_season_total_is_separate_from_recent_mode_samples(self):
-        official = [{"mode": "rm_team", "name": "团队排位", "scope": "第 14 赛季",
-                     "games": 18, "wins": 6, "losses": 12, "win_rate": 100 / 3,
-                     "rating": 580, "rating_label": "排位积分", "season": 14}]
-        with patch("analysis_page.profile_overview", return_value=official):
-            self.page._show_snapshot(snapshot())
+    def test_official_overview_is_removed_without_discarding_profile_or_recent_modes(self):
+        sample = snapshot()
+        sample["profile"]["modes"] = {"rm_team": {"rating": 580, "wins": 6, "losses": 12,
+                                                    "rank_level": "bronze_1", "season": 14}}
+        original = copy.deepcopy(sample)
+        self.page._show_snapshot(sample)
+        QTest.qWait(10)
         page = self.page
         self.assertEqual(page.game_table.rowCount(), 5)
         self.assertEqual(len(page.mode_cards.cards), 2)
-        self.assertEqual(page.overview_table.rowCount(), 1)
-        self.assertEqual(page.overview_table.item(0, 2).text(), "18 场 · 6 胜 12 负")
-        self.assertEqual(page.overview_table.item(0, 3).text(), "33.3%")
-        self.assertIn("赛季", page.overview_table.item(0, 1).text())
-        self.assertGreater(page.detail_layout.indexOf(page.overview_table),
-                           page.detail_layout.indexOf(page.recent_panel))
-        empty = snapshot()
+        self.assertTrue(page.profile_rank_summary.isVisible())
+        self.assertFalse(hasattr(page, "overview_table"))
+        self.assertFalse(any(label.text() == "官方总览" for label in page.body.findChildren(QLabel)))
+        self.assertEqual(page.snapshot["profile"], original["profile"])
+        self.assertEqual(sample, original)
+        empty = copy.deepcopy(sample)
         empty["games"] = []
-        with patch("analysis_page.profile_overview", return_value=official):
-            page._show_snapshot(empty)
-        self.assertEqual(page.overview_table.item(0, 2).text(), "18 场 · 6 胜 12 负")
+        page._show_snapshot(empty)
+        QTest.qWait(10)
+        self.assertFalse(any(label.text() == "官方总览" for label in page.body.findChildren(QLabel)))
+        self.assertEqual(page.snapshot["profile"], original["profile"])
+        self.assertTrue(page.profile_rank_summary.isVisible())
 
     def test_arrow_is_the_only_internal_analysis_action_and_never_opens_browser(self):
         """单一箭头鼠标/键盘均进入软件内分析，不再打开外部对局网页。"""
@@ -202,7 +205,7 @@ class MatchViewAlignmentTests(unittest.TestCase):
             self.assertLessEqual(analyze_origin.x() + analyze.width(), table.viewport().width())
             self.assertLessEqual(table.horizontalHeader().length(), table.viewport().width())
             self.assertEqual([table.horizontalHeaderItem(column).text() for column in (3, 4, 5, 6)],
-                             ["赛后段位", "时长", "结果", "分析"])
+                             ["积分变化", "时长", "结果", "分析"])
             self.assertLessEqual(abs(table.horizontalHeader().action_text_rect().center().x()
                                      - (analyze_origin.x() + analyze.width() / 2)), 1)
             # 实际表头必须有可见文字，不能只有位置正确的空绘制槽。

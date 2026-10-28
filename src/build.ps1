@@ -1,4 +1,4 @@
-# 中文说明：在本目录创建独立构建环境，并将便携程序写入「构建产物」。
+# 中文说明：在本目录创建独立构建环境，并将便携程序写入「dist/启动中文助手」。
 # 参数 PythonPath（运行环境路径）可指定已安装的 Python 3.11。
 param([string]$PythonPath = 'python')
 $ErrorActionPreference = 'Stop'
@@ -11,9 +11,10 @@ try {
     if ($LASTEXITCODE -ne 0) { throw '安装构建依赖失败。' }
     & $BuildPython -c 'from default_openings import validate_default_bundle; validate_default_bundle()'
     if ($LASTEXITCODE -ne 0) { throw '默认开局资料不完整，构建已停止。' }
-    & $BuildPython -m PyInstaller --noconfirm --clean --windowed --onedir --noupx --name '启动中文助手' --paths 'upstream/python' --icon '界面素材/龙序.ico' --add-data 'upstream/docs/assets;assets' --add-data '高清图标;assets/hd' --add-data '界面素材;assets/design' --add-data '文明旗帜;assets/flags' --add-data '文明资料;assets/catalog' --add-data '默认开局;assets/default_openings' --add-data 'update_config.json;assets' --add-data 'qt_zh_CN.qm;.' --hidden-import win32com.client --hidden-import pythoncom --hidden-import pywintypes --collect-all edge_tts --collect-data certifi --exclude-module sherpa_onnx --exclude-module sherpa_onnx_core --exclude-module numpy --distpath '构建产物' --workpath '构建缓存' app.py
+    # 共用正式构建入口，避免重新打入已移除的旧地图或旧字体。
+    & $BuildPython -c 'from pathlib import Path; from release_build import freeze_program; freeze_program(Path.cwd())'
     if ($LASTEXITCODE -ne 0) { throw '便携程序构建失败。' }
-    $ProductRoot = Join-Path $PSScriptRoot '构建产物\启动中文助手'
+    $ProductRoot = Join-Path $PSScriptRoot 'dist\启动中文助手'
     Copy-Item -LiteralPath '..\LICENSE' -Destination $ProductRoot -Force
     Write-Host "已完成：$ProductRoot"
 } finally {

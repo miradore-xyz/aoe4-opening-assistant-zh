@@ -414,41 +414,36 @@ class WindowBar(_TitleBarBehavior, QWidget):
         row.setContentsMargins(24, 0, 12, 0)
         row.setSpacing(0)
 
-        # 品牌区整体穿透鼠标事件，徽记和文字处也能直接拖动窗口。
+        # 品牌区整体穿透鼠标事件，图片字标处也能直接拖动窗口。
         brand = QWidget(self)
         brand.setObjectName("WindowBrand")
         brand.setAttribute(Qt.WA_TransparentForMouseEvents, True)
-        brand.setFixedWidth(152)
+        brand.setFixedWidth(117)
         # 局部导入避免窗口框架单独用于测试时强制载入完整视觉模块。
-        from branding import APP_NAME, brand_mark
+        from branding import APP_NAME, brand_wordmark
         brand.setAccessibleName(APP_NAME)
         brand_row = QHBoxLayout(brand)
         brand_row.setContentsMargins(0, 0, 0, 0)
-        brand_row.setSpacing(9)
+        brand_row.setSpacing(0)
         brand_row.setAlignment(Qt.AlignVCenter)
-        self.crest_label = QLabel(brand)
-        self.crest_label.setFixedSize(26, 26)
-        self.crest_label.setStyleSheet("background:transparent; border:0;")
-        self.crest_label.setPixmap(brand_mark(26))
-        brand_row.addWidget(self.crest_label)
-        self.title = QLabel(APP_NAME, brand)
+        self.title = QLabel(brand)
+        self.title.setPixmap(brand_wordmark())
         self.title.setAccessibleName(APP_NAME)
         self.title.setObjectName("WindowBrandTitle")
         self.title.setStyleSheet(
             "background:transparent; color:#f4f4f5; font-size:15px; "
             "font-weight:600; border:0; padding:0;"
         )
-        self.title.setFixedHeight(26)
+        self.title.setFixedSize(117, 26)
         self.title.setWordWrap(False)
         self.title.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
         brand_row.addWidget(self.title)
-        brand_row.addStretch()
         # 保留属性供旧调用兼容；品牌收为单行，避免副标题挤占标题栏。
         self.subtitle = QLabel("帝国时代4", brand)
         self.subtitle.setObjectName("WindowBrandSubtitle")
         self.subtitle.hide()
         row.addWidget(brand)
-        row.addSpacing(10)
+        row.addSpacing(24)
 
         # 导航按钮由主界面插入，按钮正常接收鼠标；容器空白会冒泡到标题栏。
         self.navigation_container = QWidget(self)

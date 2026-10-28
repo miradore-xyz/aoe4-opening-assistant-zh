@@ -80,14 +80,15 @@ class ReplayMapViewTests(unittest.TestCase):
         self.view.seek(20)
         self.assertEqual(self.view.layer.recent_events, [])
 
-    def test_click_real_marker_emits_event_and_time_with_ids_and_coordinates(self):
+    def test_click_real_marker_updates_detail_without_seeking_playback(self):
         self.view.seek(10)
+        before = (self.view.current_time, self.view.slider.value(), self.view.timer.isActive())
         event_signal, time_signal = QSignalSpy(self.view.eventSelected), QSignalSpy(self.view.timeSelected)
         point = self.view.canvas.mapFromScene(QPointF(40, -20))
         QTest.mouseClick(self.view.canvas.viewport(), Qt.LeftButton, pos=point)
         self.assertEqual(event_signal[-1][0]["id"], 2)
-        self.assertEqual(time_signal[-1][0], 5)
-        self.assertEqual(self.view.current_time, 5)
+        self.assertEqual(len(time_signal), 0)
+        self.assertEqual((self.view.current_time, self.view.slider.value(), self.view.timer.isActive()), before)
         self.assertIn("玩家甲", self.view.detail_heading.text())
         self.assertIn("移动目标", self.view.detail_heading.text())
         self.assertIn("10、11", self.view.detail_coordinates.text())

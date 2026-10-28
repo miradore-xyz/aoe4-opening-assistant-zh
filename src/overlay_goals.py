@@ -130,7 +130,7 @@ class GoalHUD(QWidget):
         for icon, value in self.cells.values():
             icon.setStyleSheet(f"background:transparent;border:0;color:{self._text_color or '#e7d4a2'};")
             value.setStyleSheet(f"background:transparent;border:0;padding:0;"
-                               f"color:{self._text_color or '#f4f0e4'};font-family:'Sen','Source Han Sans SC','Microsoft YaHei UI';font-size:{self._font_size}px;")
+                               f"color:{self._text_color or '#f4f0e4'};font-family:'Smiley Sans';font-size:{self._font_size}px;")
             icon.update()
             value.update()
 

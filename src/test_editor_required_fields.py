@@ -69,12 +69,16 @@ class EditorRequiredFieldTests(unittest.TestCase):
         self.assertEqual(editor.time.text(), "")
         self.assertEqual(editor.time.placeholderText(), "例如 00:10")
         self.assertNotIn("time", editor.data["build_order"][0])
-        for field in (editor.name, editor.author, editor.time):
+        for field in (editor.name, editor.author):
             with self.subTest(field=field.accessibleName()):
                 self.assertTrue(field.property("requiredMissing"))
                 self.assertTrue(editor.required_labels[field].property("requiredMissing"))
                 self.assertIn("*", editor.required_labels[field].text())
                 self.assertTrue(field.toolTip())
+        self.assertTrue(editor.time.property("requiredMissing"))
+        self.assertTrue(editor.time.toolTip())
+        self.assertIs(editor.time.parentWidget(), editor.steps.viewport())
+        self.assertTrue(editor.time.isHidden(), "时间仅在左侧节点进入编辑时显示")
         self.assertIsNone(editor.source.property("requiredMissing"))
 
     def test_population_input_removed_but_imported_values_survive_editing(self):

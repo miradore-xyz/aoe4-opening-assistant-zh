@@ -9,7 +9,7 @@ from __future__ import annotations
 from collections import Counter
 import math
 
-from replay_analysis import SYSTEM_TYPE_IDS, SYSTEM_TYPES, TYPE_LABELS
+from replay_analysis import SYSTEM_TYPE_IDS, SYSTEM_TYPES, TYPE_LABELS, resolve_report_players
 
 
 _ALIASES = {
@@ -100,7 +100,7 @@ def build_spatial_model(report, detail=None):
     else:
         records = report.get("timeline") if isinstance(report.get("timeline"), list) else []
         record_source = "report.timeline"
-    raw_players = report.get("players") if isinstance(report.get("players"), list) else metadata.get("players", [])
+    raw_players = resolve_report_players(report)
     players = {}
     for raw in raw_players if isinstance(raw_players, list) else []:
         if isinstance(raw, dict):
@@ -176,6 +176,10 @@ def build_spatial_model(report, detail=None):
             "x": x, "y": z,
             "target_entity_id": target_entity_id,
             "unit_type_id": _identifier(raw.get("unit_type_id")),
+            "building_type_id": _identifier(raw.get("building_type_id")),
+            "placement_points": [dict(point) for point in raw.get("placement_points", [])
+                                 if isinstance(point, dict)] if isinstance(raw.get("placement_points"), list) else [],
+            "placement_outcome": "unknown" if action == "place_building" else None,
             "producer_entity_id": _identifier(raw.get("producer_entity_id")),
             "queued": raw.get("queued") if isinstance(raw.get("queued"), bool) else None,
             "known": known, "payload_decoded": raw.get("payload_decoded")
@@ -221,6 +225,7 @@ def build_spatial_model(report, detail=None):
         "unknown_commands": counts["unknown_commands"], "unknown_types": dict(unknown_types),
         "plottable_by_action": dict(actions), "beyond_reported_duration": counts["beyond_reported_duration"],
         "births_available": False, "deaths_available": False,
+        "building_placements_available": bool(actions.get("place_building")),
         "unit_positions_available": False, "terrain_available": False,
     }
     return {

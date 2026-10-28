@@ -126,7 +126,7 @@ class ReplayParserTests(unittest.TestCase):
         self.assertEqual(result["events"], [])
         self.assertEqual(result["resources"], [])
 
-    def test_production_target_and_partial_new_parameters(self):
+    def test_production_target_and_verified_current_parameters(self):
         prefix = b"\x10\x00\x04\x34"  # 建筑实体编号 1076。
         queue_payload = prefix + b"\x15\x0a\x01" + _pack("iIB", 134753, 1000, 0)
         new_payload = prefix + b"\x15\x0b\x01" + _pack("iIBB", 134753, 1007, 0, 0)
@@ -139,11 +139,11 @@ class ReplayParserTests(unittest.TestCase):
         self.assertEqual(first["unit_type_id"], 134753)
         self.assertTrue(first["payload_decoded"])
         self.assertTrue(newer["known"])
-        self.assertFalse(newer["payload_decoded"])
-        self.assertEqual(newer["payload_bytes_remaining"], 1)
+        self.assertTrue(newer["payload_decoded"])
+        self.assertEqual(newer["payload_bytes_remaining"], 0)
         self.assertEqual(rally["target_entity_id"], 333)
         self.assertEqual(result["coverage"]["commands_identified"], 3)
-        self.assertEqual(result["coverage"]["commands_decoded"], 2)
+        self.assertEqual(result["coverage"]["commands_decoded"], 3)
 
     def test_multiple_unit_encoding_and_extended_count(self):
         for prefix in (b"\x42", b"\x80\x02"):

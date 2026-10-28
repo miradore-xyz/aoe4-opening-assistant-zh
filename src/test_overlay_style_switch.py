@@ -109,7 +109,7 @@ class OverlayStyleSwitchTests(unittest.TestCase):
             self.assertNotEqual(surfaces["a"][index], surfaces["c"][index], "正文与目标条均须实际切换视觉")
             self.assertNotEqual(surfaces["a"][index], surfaces["b"][index])
 
-    def test_style_switch_does_not_commit_other_unapplied_setting_inputs(self):
+    def test_style_switch_keeps_other_edits_in_their_autosave_delay(self):
         manager = self.manager
         width, font_size, ui_size = manager.settings["width"], manager.settings["font_size"], manager.settings["ui_font_size"]
         manager.ui_font_input.setValue(ui_size + 1)
@@ -119,7 +119,7 @@ class OverlayStyleSwitchTests(unittest.TestCase):
         self.assertEqual(saved["overlay_style"], "c")
         self.assertEqual(saved["width"], width)
         self.assertEqual(saved["font_size"], font_size + 1, "悬浮字号是即时应用项")
-        self.assertEqual(saved["ui_font_size"], ui_size, "尚未应用的主界面字号不随样式切换提交")
+        self.assertEqual(saved["ui_font_size"], ui_size, "主界面字号由自动保存合并提交，不随即时样式提前写入")
 
     def test_unlock_running_exposes_pause_then_continue_locks_again(self):
         manager, overlay = self.manager, self.manager.overlay

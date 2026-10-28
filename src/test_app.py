@@ -290,7 +290,8 @@ class InterfaceTests(unittest.TestCase):
                 self.assertEqual(manager.overlay.width(), 400)
                 self.assertLess(manager.overlay.height(), 220)
                 self.assertEqual(manager.settings["height"], 220)
-                self.assertEqual([item.text() for item in manager.navigation], ["开局库", "玩家查询", "对局分析", "设置", "个人", "关于"])
+                # 个人入口已按用户要求移除；剩余五个入口及其工作流继续验证。
+                self.assertEqual([item.text() for item in manager.navigation], ["开局库", "玩家查询", "对局分析", "设置", "关于"])
                 self.assertEqual(manager.collection_count.text(), "2")
                 self.assertEqual(manager.work_views.currentIndex(), 0)
                 current = manager.library.item(0)

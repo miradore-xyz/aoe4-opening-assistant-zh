@@ -295,12 +295,15 @@ class Clock:
             self.started = time.monotonic()
 
 
+from app_fonts import FONT_FAMILY
+
+
 class NoteRenderer:
     """沿用上游 @图标路径@ 解析；文字转义后显示，兼容中文自动换行。"""
     def __init__(self, assets):
         self.assets = Path(assets)
         self.catalog_root = Path(sys._MEIPASS) / 'assets/catalog' if getattr(sys, 'frozen', False) else SOURCE / '文明资料'
-        self.upstream = MultiQLabelDisplay("Microsoft YaHei UI", 13, 0, 4, [235, 239, 245],
+        self.upstream = MultiQLabelDisplay(FONT_FAMILY, 13, 0, 4, [235, 239, 245],
                                         image_height=24, game_pictures_folder=str(self.assets / "aoe4"),
                                         common_pictures_folder=str(self.assets / "common"))
 

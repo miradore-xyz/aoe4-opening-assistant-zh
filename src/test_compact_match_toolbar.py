@@ -55,7 +55,7 @@ class CompactMatchToolbarTests(unittest.TestCase):
                         self.assertEqual(len({position.y() for position in positions}), 1)
                         gaps = [positions[index + 1].x() - positions[index].x() - ordered[index].width()
                                 for index in range(len(ordered) - 1)]
-                        self.assertEqual(gaps, [8, 12, 8, 8, 8])
+                        self.assertEqual(gaps, [8, 8, 8, 8, 8])
                         self.assertEqual(len({control.height() for control in ordered}), 1)
                         self.assertEqual(page.delete_history.text(), "")
                         self.assertFalse(page.delete_history.icon().isNull())

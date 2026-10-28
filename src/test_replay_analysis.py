@@ -25,7 +25,7 @@ def fixture():
             {"time": 0, "player_id": 1042, "type": "build", "type_id": 65, "offset": 100, "known": True,
              "units": [5, 8], "unit_type_id": 42, "target": {"x": 10.5, "y": 20}, "queued": False},
             {"time": 5, "player_id": 1042, "type": "queue_unit", "type_id": 3, "offset": 150, "known": True},
-            {"time": 65, "player_id": 1042, "type": "cancel", "type_id": 63, "offset": 250, "known": True},
+            {"time": 65, "player_id": 1042, "type": "cancel_production", "type_id": 70, "offset": 250, "known": True},
             {"time": 170, "player_id": 1099, "type": "unknown", "type_id": 250, "offset": 300, "known": False},
             {"time": 15, "player_id": 1042, "type": "periodic", "type_id": 152, "known": True},
             {"time": 16, "player_id": 1007, "type": "control", "type_id": 146, "known": True},

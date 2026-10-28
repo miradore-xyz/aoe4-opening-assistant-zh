@@ -102,8 +102,9 @@ class ProfileSwitchTests(unittest.TestCase):
         self.assertTrue(old_name.isVisible())
         self.page._show_snapshot(self.new)
         # 删除前就退出可见树，不能等下一轮事件循环继续叠画。
-        self.assertTrue(old_name.isHidden())
-        self.assertTrue(old_meta.isHidden())
+        # 新资料头作为整体退出可见树；子项由父控件隐藏，也不能继续叠画。
+        self.assertFalse(old_name.isVisible())
+        self.assertFalse(old_meta.isVisible())
         QCoreApplication.sendPostedEvents(None, QEvent.DeferredDelete)
         self.application.processEvents()
         self.assertTrue(sip.isdeleted(old_name))

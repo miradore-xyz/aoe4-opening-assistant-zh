@@ -20,21 +20,29 @@ CATEGORY_LABELS = {
     "production": "生产排队", "movement": "移动与集结", "combat": "攻击与巡逻",
     "construction": "建造", "cancel": "取消", "ability": "能力与姿态",
     "other": "其他指令", "unknown": "未识别指令",
+    "economy": "采集与经济",
 }
 TYPE_LABELS = {
     "queue_unit": "单位排队指令", "queue": "排队指令", "produce": "生产指令",
     "research": "研究指令", "move": "移动指令", "rally": "集结点指令",
     "attack": "攻击指令", "attack_move": "攻击移动指令", "patrol": "巡逻指令",
-    "build": "建造指令", "cancel": "取消指令", "ability": "能力指令",
+    "build": "建造指令", "place_building": "实体放置记录", "cancel": "取消指令", "ability": "能力指令",
     "stance": "姿态指令", "shelter": "避难指令", "stop": "停止指令",
     "select": "选择指令", "unknown": "未识别指令",
+    "cancel_production": "取消生产指令", "cancel_construction": "取消建造指令",
+    "entity_ability": "实体能力指令", "unload_squads": "建筑卸载指令", "attack_forced": "强制攻击指令",
+    "capture": "占领指令", "load": "装载或驻入指令", "unload": "卸载指令", "gather": "采集指令",
+    "hold_position": "坚守位置指令",
 }
 TYPE_CATEGORIES = {
     "queue_unit": "production", "queue": "production", "produce": "production",
     "research": "production", "move": "movement", "rally": "movement",
     "attack": "combat", "attack_move": "combat", "patrol": "combat",
-    "build": "construction", "cancel": "cancel", "ability": "ability",
+    "build": "construction", "place_building": "construction", "cancel": "cancel", "ability": "ability",
     "stance": "ability", "shelter": "ability", "stop": "other", "select": "other",
+    "cancel_production": "cancel", "cancel_construction": "cancel", "entity_ability": "ability",
+    "unload_squads": "ability", "attack_forced": "combat", "capture": "combat", "load": "ability",
+    "unload": "ability", "gather": "economy", "hold_position": "ability",
 }
 SYSTEM_TYPES = {"control", "periodic", "sync", "heartbeat", "precommand", "postcommand"}
 SYSTEM_TYPE_IDS = {146, 148, 152, 153}
@@ -105,19 +113,76 @@ def _source(parsed):
     return result
 
 
+def _team_evidence(raw):
+    """录像DATA原分队允许零；和外部接口的零/未知约定分别处理。"""
+    evidence = raw.get("team_evidence")
+    if not isinstance(evidence, dict) or evidence.get("source") != "replay_setup":
+        return None
+    value = _integer(evidence.get("value"))
+    version = _integer(evidence.get("setup_version"))
+    offset = _integer(evidence.get("offset"))
+    if value is None or not 0 <= value < 64 or version not in (56, 58, 60) or offset is None or offset < 0:
+        return None
+    return {"value": value, "source": "replay_setup", "setup_version": version, "offset": offset}
+
+
 def _player(raw):
     player_id = _identifier(raw.get("id"))
+    team_evidence = _team_evidence(raw)
     return {
         "id": player_id, "profile_id": _identifier(raw.get("profile_id")),
         "name": _text(raw.get("name")) or f"玩家 {player_id}",
         "civilization": _text(raw.get("civilization"), 100) or None,
-        "team": _team(raw.get("team")), "command_count": 0,
+        "team": team_evidence["value"] if team_evidence else _team(raw.get("team")),
+        "team_evidence": team_evidence, "command_count": 0,
         "counts": {key: 0 for key in CATEGORY_LABELS}, "per_minute": [], "relation": "unknown",
     }
 
 
+def _placeholder_name(player):
+    """只识别缺失昵称或程序旧版的编号占位，不按名字猜账号。"""
+    player_id = _identifier(player.get("id"))
+    name = _text(player.get("name"))
+    return not name or name in {f"玩家 {player_id}", f"玩家{player_id}"}
+
+
+def resolve_report_players(report):
+    """按明确局内编号补回旧报告昵称；两来源账号冲突或元数据编号重复时不合并。"""
+    metadata = report.get("metadata") if isinstance(report.get("metadata"), dict) else {}
+    secondary = metadata.get("players") if isinstance(metadata.get("players"), list) else []
+    primary = report.get("players") if isinstance(report.get("players"), list) else secondary
+    by_id = defaultdict(list)
+    for raw in secondary:
+        if isinstance(raw, dict) and _identifier(raw.get("id")) not in (None, 0):
+            by_id[_identifier(raw["id"])].append(raw)
+    players = {}
+    for raw in primary + secondary:
+        if not isinstance(raw, dict):
+            continue
+        player_id = _identifier(raw.get("id"))
+        if player_id in (None, 0) or player_id in players:
+            continue
+        player = dict(raw)
+        player["id"] = player_id
+        candidates = by_id[player_id]
+        if len(candidates) == 1:
+            candidate = candidates[0]
+            original_profile, candidate_profile = _identifier(player.get("profile_id")), _identifier(candidate.get("profile_id"))
+            compatible = original_profile in (None, 0) or candidate_profile in (None, 0, original_profile)
+            if compatible and _placeholder_name(player) and not _placeholder_name(candidate):
+                player["name"] = _text(candidate.get("name"))
+                if original_profile in (None, 0) and candidate_profile not in (None, 0):
+                    player["profile_id"] = candidate_profile
+        players[player_id] = player
+    return list(players.values())
+
+
 def _command_type(raw):
     value = _text(raw.get("type"), 80).lower().replace("-", "_")
+    # 原ReflectDB已纠正旧报告误名：63是停止，73是装载/驻入，109是坚守位置。
+    corrected = {63: "stop", 73: "load", 109: "hold_position"}
+    if _integer(raw.get("type_id")) in corrected and value in {"cancel", "shelter", "stance"}:
+        return corrected[_integer(raw["type_id"])]
     aliases = {
         "queueunitcommand": "queue_unit", "movecommand": "move", "cancelcommand": "cancel",
         "buildcommand": "build", "attackmovecommand": "attack_move", "unitabilitycommand": "ability",
@@ -175,6 +240,17 @@ def _target(value):
     return result or None
 
 
+def _reference(value):
+    """原引用仅保存四个数值字段，防止把任意附加正文带进报告白名单。"""
+    if not isinstance(value, dict):
+        return None
+    kind, packed = _integer(value.get("kind")), _integer(value.get("packed_raw"))
+    original = _integer(value.get("original_id"))
+    if kind not in (0, 1, 2, 3) or packed is None or packed > 0x3FFFFFFF or packed >> 28 != kind:
+        return None
+    return {"kind": kind, "original_id": original, "packed_raw": packed, "encoding_build": _integer(value.get("encoding_build"))}
+
+
 def _evidence(item):
     return {key: item.get(key) for key in ("time", "player_id", "label", "offset")}
 
@@ -222,9 +298,11 @@ def focus_report(report, player_id=None):
     requested = _identifier(player_id)
     focus = next((player for player in result.get("players", []) if player.get("id") == requested), None)
     result["focus_player_id"] = focus["id"] if focus else None
-    focus_team = _team(focus.get("team")) if focus else None
+    focus_evidence = _team_evidence(focus) if focus else None
+    focus_team = focus_evidence["value"] if focus_evidence else (_team(focus.get("team")) if focus else None)
     for player in result.get("players", []):
-        team = _team(player.get("team"))
+        evidence = _team_evidence(player)
+        team = evidence["value"] if evidence else _team(player.get("team"))
         relation = "unknown"
         if focus and player["id"] == focus["id"]:
             relation = "self"
@@ -281,11 +359,36 @@ def analyze_replay(parsed, focus_player_id=None):
             "type": kind, "type_id": type_id, "known": known,
             "units": [_identifier(value) for value in raw.get("units", []) if _identifier(value) is not None]
                      if isinstance(raw.get("units"), list) else [],
+            "selected_refs": [reference for ref in raw.get("selected_refs", []) if (reference := _reference(ref)) is not None]
+                             if isinstance(raw.get("selected_refs"), list) else [],
+            "selected_refs_verified": raw.get("selected_refs_verified") is True,
+            "producer_ref": _reference(raw.get("producer_ref")),
+            "research_type_id": _identifier(raw.get("research_type_id")),
             "unit_type_id": _identifier(raw.get("unit_type_id")), "target": _target(raw.get("target")),
+            "building_type_id": _identifier(raw.get("building_type_id")),
+            "placement_points": [_target(point) for point in raw.get("placement_points", [])
+                                 if isinstance(point, dict)] if isinstance(raw.get("placement_points"), list) else [],
+            "placement_outcome": "unknown" if kind == "place_building" else None,
             "target_entity_id": _identifier(raw.get("target_entity_id")),
             "producer_entity_id": _identifier(raw.get("producer_entity_id")),
             "queued": raw["queued"] if isinstance(raw.get("queued"), bool) else None,
+            "queued_candidate": raw.get("queued_candidate") if isinstance(raw.get("queued_candidate"), bool) else None,
+            "command_flags_raw": _integer(raw.get("command_flags_raw")),
             "payload_decoded": raw["payload_decoded"] if isinstance(raw.get("payload_decoded"), bool) else None,
+            "payload_structure_decoded": raw["payload_structure_decoded"] if isinstance(raw.get("payload_structure_decoded"), bool) else None,
+            "target_frame_type_id": _integer(raw.get("target_frame_type_id")),
+            "target_frame_prefix_raw": _integer(raw.get("target_frame_prefix_raw")),
+            "target_attribute_type_id": _integer(raw.get("target_attribute_type_id")),
+            "target_frame_tail_raw": _text(raw.get("target_frame_tail_raw"), 64),
+            "argument_frame_type_id": _integer(raw.get("argument_frame_type_id")),
+            "argument_frame_raw": _text(raw.get("argument_frame_raw"), 128),
+            "queue_count_raw": _integer(raw.get("queue_count_raw")),
+            "queue_player_id": _identifier(raw.get("queue_player_id")),
+            "queue_trailing_flags_raw": _text(raw.get("queue_trailing_flags_raw"), 8),
+            "target_extension_values_raw": list(raw["target_extension_values_raw"])
+            if isinstance(raw.get("target_extension_values_raw"), list) and len(raw["target_extension_values_raw"]) == 4
+            and all(isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value)
+                    for value in raw["target_extension_values_raw"]) else [],
             "payload_bytes_remaining": _integer(raw.get("payload_bytes_remaining")),
             "target_bytes_remaining": _integer(raw.get("target_bytes_remaining")),
         })
@@ -308,7 +411,7 @@ def analyze_replay(parsed, focus_player_id=None):
         "map": _text(raw_meta.get("map", raw_meta.get("map_name"))) or None,
         "duration": _number(raw_meta.get("duration")),
         "duration_source": _text(raw_meta.get("duration_source"), 100) or None,
-        "players": [{key: player[key] for key in ("id", "profile_id", "name", "civilization", "team")} for player in players],
+        "players": [{key: player[key] for key in ("id", "profile_id", "name", "civilization", "team", "team_evidence")} for player in players],
     }
     unknown_types = raw_coverage.get("unknown_types")
     if isinstance(unknown_types, dict):
@@ -323,6 +426,10 @@ def analyze_replay(parsed, focus_player_id=None):
         "coverage": {
             "commands_total": _integer(raw_coverage.get("commands_total")) if _integer(raw_coverage.get("commands_total")) is not None else len(commands),
             "commands_decoded": _integer(raw_coverage.get("commands_decoded")),
+            "commands_structurally_decoded": _integer(raw_coverage.get("commands_structurally_decoded")),
+            "unknown_structurally_decoded": _integer(raw_coverage.get("unknown_structurally_decoded")),
+            "command_enum_source": raw_coverage.get("command_enum_source") if isinstance(raw_coverage.get("command_enum_source"), dict) else None,
+            "reference_encoding_source": raw_coverage.get("reference_encoding_source") if isinstance(raw_coverage.get("reference_encoding_source"), dict) else None,
             "commands_identified": _integer(raw_coverage.get("commands_identified")),
             "decoded_definition": _text(raw_coverage.get("decoded_definition"), 500),
             "commands_analyzed": len(timeline), "commands_known": sum(row["known"] for row in timeline),
@@ -363,9 +470,17 @@ def _archive_report(report):
     commands = []
     for row in report.get("timeline", []):
         commands.append({key: row.get(key) for key in ("time", "tick", "player_id", "type", "type_id", "known", "offset", "size",
-                                                       "units", "unit_type_id", "target", "target_entity_id", "producer_entity_id",
-                                                       "queued", "payload_decoded", "payload_bytes_remaining", "target_bytes_remaining")})
-    clean = analyze_replay({"source": report.get("source", {}), "metadata": report.get("metadata", {}),
+                                                       "units", "selected_refs", "selected_refs_verified", "producer_ref", "research_type_id",
+                                                       "unit_type_id", "target", "target_entity_id", "producer_entity_id",
+                                                       "building_type_id", "placement_points", "placement_outcome",
+                                                       "queued", "queued_candidate", "command_flags_raw", "payload_decoded", "payload_structure_decoded", "target_frame_type_id",
+                                                       "target_frame_prefix_raw", "target_extension_values_raw",
+                                                       "target_attribute_type_id", "target_frame_tail_raw", "argument_frame_type_id", "argument_frame_raw",
+                                                       "queue_count_raw", "queue_player_id", "queue_trailing_flags_raw",
+                                                       "payload_bytes_remaining", "target_bytes_remaining")})
+    metadata = dict(report["metadata"]) if isinstance(report.get("metadata"), dict) else {}
+    metadata["players"] = resolve_report_players(report)
+    clean = analyze_replay({"source": report.get("source", {}), "metadata": metadata,
                             "commands": commands, "coverage": report.get("coverage", {})}, report.get("focus_player_id"))
     # detail（详情）重新由数值字段生成，避免任意外部正文混入归档。
     original_coverage = report.get("coverage", {})
@@ -440,9 +555,67 @@ class ReplayLibrary:
             payload = json.loads(self._path(report_id).read_text(encoding="utf-8"))
             if payload.get("id") != report_id:
                 raise ReplayAnalysisError("本地报告编号不匹配。")
-            return _archive_report(payload["report"])
+            return _archive_report(self._recover_cached_player_names(payload["report"]))
         except (OSError, ValueError, KeyError, TypeError) as exc:
             raise ReplayAnalysisError("本地复盘报告无法读取，请重新导入录像。") from exc
+
+    def _recover_cached_player_names(self, report):
+        """旧昵称、放置参数或11308原引用/指令升级只重读同SHA公开缓存；不联网、不改原文件。"""
+        if not isinstance(report, dict):
+            return report
+        players = resolve_report_players(report)
+        needs_team_upgrade = bool(players) and any(_team_evidence(player) is None for player in players)
+        old_placements = False
+        needs_reference_upgrade = False
+        is_reference_build = _integer((report.get("metadata") or {}).get("build_number")) == 11308
+        for row in report.get("timeline", []):
+            if not isinstance(row, dict):
+                continue
+            if (is_reference_build and row.get("units") and row.get("selected_refs_verified") is not True):
+                needs_reference_upgrade = True
+            if _integer(row.get("type_id")) != 123:
+                continue
+            target = _target(row.get("target"))
+            if ((_integer(row.get("building_type_id")) or 0) <= 0
+                    or not isinstance(target, dict) or not all(key in target for key in ("x", "y", "z"))):
+                old_placements = True
+                break
+        if not old_placements and not needs_reference_upgrade and not needs_team_upgrade and not any(_placeholder_name(player) for player in players):
+            return report
+        source = _source(report)
+        if source.get("origin") != "aoe4world-public-replay" or not source.get("sha256"):
+            return report
+        from replay_parser import ReplayError, parse_replay
+        profiles = dict.fromkeys((source.get("download_profile_id"), source.get("profile_id")))
+        for profile in profiles:
+            if not profile:
+                continue
+            path = self.directory.parent / "公开回放" / f"玩家-{profile}-对局-{source['game_id']}.aoe4replay"
+            try:
+                if not path.is_file() or not 0 < path.stat().st_size <= 128 * 1024 * 1024:
+                    continue
+                parsed = parse_replay(path)
+                if parsed.get("source", {}).get("sha256") != source["sha256"]:
+                    continue
+                if old_placements or needs_reference_upgrade or needs_team_upgrade:
+                    # 新参数必须来自同一原录像重新解析，不能从旧unknown记录猜类型或坐标。
+                    parsed["source"] = source
+                    metadata = dict(parsed.get("metadata") or {})
+                    old_metadata = report.get("metadata") if isinstance(report.get("metadata"), dict) else {}
+                    if not metadata.get("map"):
+                        metadata["map"] = old_metadata.get("map")
+                    parsed["metadata"] = metadata
+                    return analyze_replay(parsed, report.get("focus_player_id"))
+                recovered = resolve_report_players({"players": players, "metadata": parsed.get("metadata", {})})
+                result = dict(report)
+                result["players"] = recovered
+                metadata = dict(report["metadata"]) if isinstance(report.get("metadata"), dict) else {}
+                metadata["players"] = recovered
+                result["metadata"] = metadata
+                return result
+            except (OSError, ReplayError, ValueError):
+                continue
+        return report
 
     def list(self):
         items = []

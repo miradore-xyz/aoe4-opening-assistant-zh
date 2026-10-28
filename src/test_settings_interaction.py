@@ -104,7 +104,8 @@ class SettingsInteractionTests(unittest.TestCase):
             self.manager.resize(width, height)
             self.application.processEvents()
             positions = []
-            for index, title in ((0, "我的开局"), (3, "玩家查询"), (4, "对局分析"), (1, "设置"), (5, "个人"), (6, "在线开局库"), (2, "关于")):
+            # 当前五个主导航页共用标题原点；已移除的个人页与独立开发中占位不冒充主导航。
+            for index, title in ((0, "我的开局"), (3, "玩家查询"), (4, "对局分析"), (1, "设置"), (2, "关于")):
                 self.manager.navigate(index)
                 self.application.processEvents()
                 candidates = [item for item in self.manager.findChildren(QLabel)

@@ -21,11 +21,24 @@ from PyQt5.QtCore import QObject, QUrl, pyqtSignal
 from PyQt5.QtMultimedia import QMediaContent, QMediaPlayer
 
 
-# 这三个语音编号已通过在线 list_voices（音色列表）实际核对。
+# 2026-10-27通过list_voices（在线音色列表）核对14个中文编号、地区和性别。
+# 中文名用于界面阅读；不据此宣称支持情绪、真人克隆或服务永久可用。
+# 原三个编号与顺序保留，默认音色及缓存键规则不变。
 CHINESE_VOICES = (
-    ("zh-CN-XiaoxiaoNeural", "晓晓 · 中文女声"),
-    ("zh-CN-YunxiNeural", "云希 · 中文男声"),
-    ("zh-CN-XiaoyiNeural", "晓伊 · 中文女声"),
+    ("zh-CN-XiaoxiaoNeural", "晓晓 · 普通话女声"),
+    ("zh-CN-YunxiNeural", "云希 · 普通话男声"),
+    ("zh-CN-XiaoyiNeural", "晓伊 · 普通话女声"),
+    ("zh-CN-YunjianNeural", "云健 · 普通话男声"),
+    ("zh-CN-YunxiaNeural", "云夏 · 普通话男声"),
+    ("zh-CN-YunyangNeural", "云扬 · 普通话男声"),
+    ("zh-TW-HsiaoChenNeural", "晓臻 · 台湾国语女声"),
+    ("zh-TW-YunJheNeural", "云哲 · 台湾国语男声"),
+    ("zh-TW-HsiaoYuNeural", "晓雨 · 台湾国语女声"),
+    ("zh-HK-HiuGaaiNeural", "晓佳 · 粤语女声"),
+    ("zh-HK-HiuMaanNeural", "晓曼 · 粤语女声"),
+    ("zh-HK-WanLungNeural", "云龙 · 粤语男声"),
+    ("zh-CN-liaoning-XiaobeiNeural", "晓北 · 东北话女声"),
+    ("zh-CN-shaanxi-XiaoniNeural", "晓妮 · 陕西方言女声"),
 )
 DEFAULT_VOICE = "zh-CN-XiaoxiaoNeural"
 CACHE_VERSION = "edge-tts:24khz-48kbit-mono-mp3:1"
@@ -74,7 +87,7 @@ class OnlineSpeech(QObject):
     def _parameters(voice, rate):
         voice, rate = str(voice), int(rate)
         if voice not in dict(CHINESE_VOICES):
-            raise ValueError("请选择晓晓、云希或晓伊中文语音。")
+            raise ValueError("请选择列表中的中文在线音色。")
         if not -10 <= rate <= 10:
             raise ValueError("在线语音的语速应在 -10 至 10 之间。")
         return voice, rate

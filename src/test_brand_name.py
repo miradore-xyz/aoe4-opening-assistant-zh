@@ -72,7 +72,8 @@ class BrandNameTests(unittest.TestCase):
         manager = self.manager
         self.assertEqual(manager.windowTitle(), "AoE4 HELP")
         self.assertEqual(manager.accessibleName(), "AoE4 HELP")
-        self.assertEqual(manager.window_bar.title.text(), "AoE4 HELP")
+        self.assertEqual(manager.window_bar.title.text(), "")
+        self.assertFalse(manager.window_bar.title.pixmap().isNull())
         self.assertEqual(manager.window_bar.title.accessibleName(), "AoE4 HELP")
         self.assertEqual(manager.window_bar.title.parentWidget().accessibleName(), "AoE4 HELP")
         credit = "\n".join(label.text() for label in manager.help_scroll.findChildren(QLabel))
@@ -82,20 +83,25 @@ class BrandNameTests(unittest.TestCase):
         self.assertNotIn("帝国开局助手", credit)
 
     def test_minimum_width_keeps_brand_and_navigation_complete(self):
-        """760 像素最小窗口中，文字宽度、导航和关闭按钮均不互相裁切。"""
+        """760/1100窗口保留字标，实际品牌至导航间距为24，且没有龙头占位。"""
         manager = self.manager
-        manager.resize(760, 520)
-        manager.show()
-        self.application.processEvents()
-        bar = manager.window_bar
-        metrics = QFontMetrics(bar.title.font())
-        self.assertGreaterEqual(bar.title.contentsRect().width(), metrics.horizontalAdvance("AoE4 HELP"))
-        self.assertGreaterEqual(bar.title.contentsRect().height(), metrics.height())
-        self.assertEqual(bar.crest_label.width(), 26)
-        self.assertEqual(bar.crest_label.height(), 26)
-        self.assertLessEqual(bar.title.parentWidget().geometry().right(), bar.navigation_container.geometry().left())
-        self.assertLessEqual(bar.navigation_container.geometry().right(), bar.minimize_button.geometry().left())
-        self.assertLess(bar.close_button.geometry().right(), bar.width())
+        for width in (760, 1100):
+            with self.subTest(width=width):
+                manager.resize(width, 520)
+                manager.show()
+                self.application.processEvents()
+                bar = manager.window_bar
+                pixmap = bar.title.pixmap()
+                self.assertFalse(pixmap.isNull())
+                self.assertLessEqual(pixmap.width() / pixmap.devicePixelRatioF(), bar.title.width())
+                self.assertLessEqual(pixmap.height() / pixmap.devicePixelRatioF(), bar.title.height())
+                self.assertFalse(hasattr(bar, "crest_label"))
+                brand = bar.title.parentWidget()
+                self.assertEqual(brand.width(), 117)
+                self.assertEqual(bar.title.x(), 0)
+                self.assertEqual(bar.navigation_container.x() - brand.x() - brand.width(), 24)
+                self.assertLessEqual(bar.navigation_container.geometry().right(), bar.minimize_button.geometry().left())
+                self.assertLess(bar.close_button.geometry().right(), bar.width())
 
     def test_largest_body_font_keeps_navigation_and_speed_text_complete(self):
         """760窄窗口与18像素正文下，导航和默认语速保留完整字宽。"""
@@ -110,6 +116,10 @@ class BrandNameTests(unittest.TestCase):
         for control in manager.navigation:
             self.assertGreaterEqual(control.width(), control.fontMetrics().horizontalAdvance(control.text()) + 26)
         bar = manager.window_bar
+        brand = bar.title.parentWidget()
+        self.assertFalse(hasattr(bar, "crest_label"))
+        self.assertEqual(brand.width(), 117)
+        self.assertEqual(bar.navigation_container.x() - brand.x() - brand.width(), 24)
         self.assertLess(bar.navigation_container.geometry().right(), bar.minimize_button.geometry().left())
         option = QStyleOptionComboBox()
         manager.rate_input.initStyleOption(option)

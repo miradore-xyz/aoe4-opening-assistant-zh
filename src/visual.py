@@ -21,6 +21,7 @@ from app_fonts import FONT_CSS, make_ui_font
 ACCENT = "#C4C4CB"  # 中性选中态；胜负绿红只在战绩组件表达比赛结果。
 GOLD = "#b8bac2"  # 旧接口名保留兼容；现为中性图标色，不再使用金色。
 MUTED = "#929299"
+CARD_GAP = 16  # 同级卡片横纵间隔共用逻辑像素值，内部文字/按钮间距另计。
 
 # 视觉令牌：base=背景，sidebar=侧栏，surface=面板，raised=浮层，accent=状态强调，ink=正文。
 PALETTE = dict(base="#0F0F11", sidebar="#111113", surface="#161619", raised="#202023",
@@ -50,12 +51,12 @@ QPushButton:hover {background:#2a2a2e;border-color:#44444c;}
 QPushButton:pressed {background:#18181b;}
 QPushButton:focus {border:1px solid $gold;}
 QPushButton:disabled {color:#606068;border-color:#252529;background:#19191c;}
-QPushButton#Primary, QPushButton#StartButton {color:#151517;background:#e4e4e7;border:1px solid transparent;font-weight:600;}
-QPushButton#Primary:hover, QPushButton#StartButton:hover {background:#fafafa;}
-QPushButton#Primary:pressed, QPushButton#StartButton:pressed {background:#c4c4cb;}
-QPushButton#Primary:disabled, QPushButton#StartButton:disabled {color:#606068;background:#252529;border-color:#303035;}
-QPushButton#Quiet {background:transparent;border:1px solid #2D2D32;color:#B2B2BA;}
-QPushButton#Quiet:hover {background:$raised;border-color:#55555e;color:$ink;}
+QPushButton#Primary {color:#151517;background:#e4e4e7;border:1px solid transparent;font-weight:600;}
+QPushButton#Primary:hover {background:#fafafa;}
+QPushButton#Primary:pressed {background:#c4c4cb;}
+QPushButton#Primary:disabled {color:#606068;background:#252529;border-color:#303035;}
+QPushButton#Quiet, QPushButton#StartButton {background:transparent;border:1px solid #2D2D32;color:#B2B2BA;}
+QPushButton#Quiet:hover, QPushButton#StartButton:hover {background:$raised;border-color:#55555e;color:$ink;}
 QPushButton#Tapestry {background:$raised;border:1px solid #38383e;border-radius:8px;color:$ink;padding:7px 10px;}
 QPushButton#Tapestry:focus {border:1px solid $gold;}
 QPushButton#Nav {text-align:left;padding:10px 12px;border:0;border-left:2px solid transparent;border-radius:8px;background:transparent;color:$muted;}
@@ -174,7 +175,7 @@ class TapestryButton(QPushButton):
 
 
 def ui_font(size=14, weight=QFont.Normal, numeric=False):
-    # numeric（数字用途）保留调用兼容；数字与正文共享Sen，列对齐由布局负责。
+    # numeric（数字用途）保留调用兼容；数字与正文共享得意黑，列对齐由布局负责。
     return make_ui_font(size, weight)
 
 def paint_game_surface(painter, rect, patterned=True):
@@ -573,7 +574,8 @@ _LINE_ICONS = {
     "settings": "settings", "help": "circle-question-mark", "history": "clock",
     "filter": "list-filter", "reset": "rotate-cw", "chevron": "chevron-right",
     "online": "globe", "new": "plus", "edit": "pencil", "import": "folder-input",
-    "export": "upload", "x": "x", "close": "x", "chevron-down": "chevron-down",
+    "export": "upload", "x": "x", "close": "x", "chevron-down": "chevron-down", "maximize": "maximize", "play": "play", "pause": "pause",
+    "lock-keyhole": "lock-keyhole", "lock-keyhole-open": "lock-keyhole-open",
 }
 
 

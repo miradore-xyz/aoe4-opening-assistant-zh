@@ -15,7 +15,7 @@ os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 from PyQt5.QtCore import Qt, QPoint, QTimer, QEvent
 from PyQt5.QtGui import QFontDatabase
 from PyQt5.QtTest import QTest
-from PyQt5.QtWidgets import QApplication, QDialog, QSplitter, QFrame, QScrollArea
+from PyQt5.QtWidgets import QApplication, QDialog, QSplitter, QFrame, QScrollArea, QPushButton
 
 from app import Editor, STYLE
 from catalog import catalog_icon, load_catalog, technology_buildings
@@ -271,8 +271,9 @@ class InterfaceRefinementTests(unittest.TestCase):
                 scroll = editor.findChild(QScrollArea, "OpeningStepScroll")
                 divider = editor.findChild(QFrame, "OpeningEditorDivider")
                 self.assertEqual(split.handleWidth(), 20)
-                self.assertEqual(divider.width(), 1)
-                self.assertTrue(divider.testAttribute(Qt.WA_TransparentForMouseEvents))
+                self.assertIsNone(divider, "用户要求去掉额外竖线，保留原有拖拽间距")
+                self.assertTrue(any(button.text() == "保存" for button in editor.findChildren(QPushButton)))
+                self.assertFalse(any(button.text() == "保存到本地开局库" for button in editor.findChildren(QPushButton)))
                 self.assertEqual(editor.steps.mapTo(editor, QPoint(0, 0)).y(), scroll.mapTo(editor, QPoint(0, 0)).y())
                 gap = scroll.mapTo(editor, QPoint(0, 0)).x() - (editor.steps.mapTo(editor, QPoint(0, 0)).x() + editor.steps.width())
                 self.assertEqual(gap, 20)

@@ -317,12 +317,16 @@ class NotesIconPicker(FramelessDialog):
         self.search.setClearButtonEnabled(True)
         self.search.setFixedHeight(32)
         filters.addWidget(self.search, 1)
-        self.kind = ClickComboBox()
+        self.kind = ClickComboBox(body)
         self.kind.setAccessibleName("图标分类")
         self.kind.addItem("全部分类", "")
         for key, name in KIND_NAMES.items():
             self.kind.addItem(name, key)
-        self.kind.setFixedSize(104, 32)
+        self.kind.ensurePolished()
+        # 为完整分类文字、左右内边距及Lucide箭头分别留位，避免固定104宽裁掉末字。
+        kind_text_width = max(self.kind.fontMetrics().horizontalAdvance(self.kind.itemText(index))
+                              for index in range(self.kind.count()))
+        self.kind.setFixedSize(max(136, kind_text_width + 72), 32)
         filters.addWidget(self.kind)
         layout.addLayout(filters)
         self.list = QListWidget()
@@ -425,7 +429,7 @@ class IconNotesEdit(QTextEdit):
         self.renderer = NoteRenderer(ASSETS)
         self.setAcceptRichText(False)
         self.setAccessibleName("补充提示")
-        self.setToolTip("为当前步骤补充操作说明；右键可插入当前文明的图标。每行一条。")
+        self.setAccessibleDescription("为当前步骤补充操作说明；右键可插入当前文明的图标。每行一条。")
         self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
 
